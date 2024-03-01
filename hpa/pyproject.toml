@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "hpa"
+version = "0.1.0"
+description = "A resuable HPA using basic CPU and memory metrics"
+authors = ["Matthew Cane <matthew.cane@citizensadvice.org.uk>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+cdk8s-plus-27 = "^2.7.81"
+constructs = "^10.3.0"
+
+[tool.poetry.group.test.dependencies]
+pytest = "^8.0.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

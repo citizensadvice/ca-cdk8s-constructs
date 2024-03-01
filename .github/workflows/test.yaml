@@ -1,0 +1,23 @@
+name: test
+
+on: pull_request
+
+jobs:
+  test:
+    name: Test ${{ matrix.package }} with Python ${{ matrix.python_version }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        package:
+          - hpa
+        python_version:
+          - 3.12
+          - 3.13
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install dependencies
+        uses: citizensadvice/python-poetry-setup-action@v1
+        with:
+          python_version: ${{ matrix.python_version }}
+          project_root: ${{ matrix.package }}
+      - run: poetry run pytest
