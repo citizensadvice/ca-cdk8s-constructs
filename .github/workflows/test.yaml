@@ -13,8 +13,8 @@ jobs:
         package:
           - hpa
         python_version:
+          - 3.11
           - 3.12
-          - 3.13
     steps:
       - uses: actions/checkout@v4
       - name: Install dependencies
