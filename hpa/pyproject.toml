@@ -13,6 +13,11 @@ constructs = "^10.3.0"
 [tool.poetry.group.test.dependencies]
 pytest = "^8.0.2"
 
+[[tool.poetry.source]]
+name = "code-artifact"
+url = "https://sre-979633842206.d.codeartifact.eu-west-1.amazonaws.com/pypi/ca-cdk8s-constructs/simple"
+priority = "default"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
