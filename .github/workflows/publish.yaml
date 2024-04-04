@@ -1,0 +1,35 @@
+name: test
+
+on: 
+  push: 
+    branches: main
+
+jobs:
+  publish:
+    name: Build and push ${{ matrix.package }}
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./${{ matrix.package }}
+    strategy:
+      matrix:
+        package:
+          - hpa
+          - container_resources
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: "arn:aws:iam::979633842206:role/CaCdk8sConstructsDeployment"
+          aws-region: eu-west-1
+          role-session-name: ca-cdk8s-constructs-deployment
+      - name: Install dependencies
+        uses: citizensadvice/python-poetry-setup-action@v1
+        with:
+          python_version: ${{ matrix.python_version }}
+          project_root: ${{ matrix.package }}
+      - run: poetry build
+      - name: publish
+        run: poetry publish -r code-artifact --skip-existing -u aws -p $(aws codeartifact get-authorization-token --domain sre --domain-owner 979633842206 --region eu-west-1 --query authorizationToken --output text)

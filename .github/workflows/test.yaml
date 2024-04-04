@@ -8,6 +8,10 @@ jobs:
   test:
     name: Test ${{ matrix.package }} with Python ${{ matrix.python_version }}
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./${{ matrix.package }}
     strategy:
       matrix:
         package:
