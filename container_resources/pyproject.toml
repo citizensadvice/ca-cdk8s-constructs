@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "container_resources"
+version = "0.1.2"
+description = "A framework for easy cdk8s container resource object initialization"
+authors = ["Matthew Cane <matthew.cane@citizensadvice.org.uk>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+cdk8s-plus-27 = "^2.7.83"
+cdk8s = "^2.68.44"
+poetry-codeartifact-login = "^0.2.1"
+
+[[tool.poetry.source]]
+name = "code-artifact"
+url = "https://sre-979633842206.d.codeartifact.eu-west-1.amazonaws.com/pypi/ca-cdk8s-constructs/simple"
+priority = "default"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
