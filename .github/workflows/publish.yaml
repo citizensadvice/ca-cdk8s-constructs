@@ -33,6 +33,7 @@ jobs:
         with:
           python_version: ${{ matrix.python_version }}
           project_root: ${{ matrix.package }}
+          codeartifact_login: true
       - run: poetry build
       - name: publish
         run: poetry publish -r code-artifact --skip-existing -u aws -p $(aws codeartifact get-authorization-token --domain sre --domain-owner 979633842206 --region eu-west-1 --query authorizationToken --output text)
