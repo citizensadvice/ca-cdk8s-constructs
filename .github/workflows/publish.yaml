@@ -8,6 +8,9 @@ jobs:
   publish:
     name: Build and push ${{ matrix.package }}
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
     defaults:
       run:
         shell: bash
