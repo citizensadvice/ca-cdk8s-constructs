@@ -29,7 +29,7 @@ jobs:
           aws-region: eu-west-1
           role-session-name: ca-cdk8s-constructs-deployment
       - name: Install dependencies
-        uses: citizensadvice/python-poetry-setup-action@v1
+        uses: citizensadvice/python-poetry-setup-action@main
         with:
           python_version: ${{ matrix.python_version }}
           project_root: ${{ matrix.package }}
