@@ -1,0 +1,17 @@
+[project]
+name = "ca-cdk8s-constructs"
+version = "0.1.0"
+description = "A collection of cdk8s constructs"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.10, <3.14"
+cdk8s = "~2.69.5"
+cdk8s-plus-31 = "^2.1.8"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.5"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
