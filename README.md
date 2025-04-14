@@ -1,3 +1,3 @@
 # CA cdk8s Constructs
 
-A collection of cdk8s and cdk8s_plus libraries to be reused across citizens advice projects.
+This repository contains a collection of opinionated cdk8s constructs that are commonly used in CA applications.
