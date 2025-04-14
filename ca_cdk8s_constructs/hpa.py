@@ -5,6 +5,7 @@ from constructs import Construct
 
 def ca_hpa(
     scope: Construct,
+    id: str,
     target: kplus.IScalable,
     cpu_utilization_target: Number = 75,
     memory_utilization_target: Number = 75,
@@ -36,7 +37,7 @@ def ca_hpa(
 
     return kplus.HorizontalPodAutoscaler(
         scope,
-        "hpa",
+        id,
         max_replicas=max_replicas,
         min_replicas=min_replicas,
         target=target,
