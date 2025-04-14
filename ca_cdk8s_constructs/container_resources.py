@@ -17,9 +17,7 @@ def ca_container_resources(cpu: Number, memory: Number):
     if cpu < 100:
         raise ValueError("CPU requests must be greater than or equal to 100 millicores")
     if memory < 256:
-        raise ValueError(
-            "Memory requests must be greater than or equal to 256 mebibytes"
-        )
+        raise ValueError("Memory requests must be greater than or equal to 256 mebibytes")
 
     return ContainerResources(
         cpu=CpuResources(

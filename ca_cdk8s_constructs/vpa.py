@@ -56,9 +56,7 @@ def ca_vpa(
                 kind=target.kind,
                 name=target.name,
             ),
-            update_policy=VerticalPodAutoscalerSpecUpdatePolicy(
-                update_mode=update_mode
-            ),
+            update_policy=VerticalPodAutoscalerSpecUpdatePolicy(update_mode=update_mode),
             resource_policy=VerticalPodAutoscalerSpecResourcePolicy(
                 container_policies=[
                     VerticalPodAutoscalerSpecResourcePolicyContainerPolicies(
