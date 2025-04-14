@@ -1,0 +1,44 @@
+name: Update CRDs
+
+on:
+  schedule:
+    - cron: "0 0 * * 1"
+  workflow_dispatch:
+
+jobs:
+  update-crds:
+    runs-on: runs-on
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20
+
+      - name: Install cdk8s
+        run: npm install -g cdk8s-cli
+
+      - name: Update CRDs
+        run: cdk8s import --output ca_cdk8s_constructs/imports
+
+      - name: Check for changes
+        id: check-for-changes
+        run: |
+          CHANGES=$(git status --porcelain=v1 ca_cdk8s_constructs/imports)
+          if [ -z "$CHANGES" ]; then
+            echo "No changes to CRDs detected"
+          else
+            echo "Changes to CRDs detected"
+            echo "changes=$CHANGES" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v7
+        if: ${{ steps.check-for-changes.outputs.changes != '' }}
+        with:
+          branch: updates/crds
+          commit-message: Update CRDs
+          title: Update CRDs
+          body: |
+            Automated PR to update CRDs to latest version.
