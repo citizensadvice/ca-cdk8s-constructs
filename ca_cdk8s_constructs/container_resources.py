@@ -1,4 +1,4 @@
-from cdk8s_plus_31 import ContainerResources, CpuResources, Cpu, MemoryResources
+from cdk8s_plus_32 import ContainerResources, CpuResources, Cpu, MemoryResources
 from cdk8s import Size
 from numbers import Number
 

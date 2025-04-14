@@ -1,6 +1,6 @@
 from ca_cdk8s_constructs.vpa import ca_vpa
 from ca_cdk8s_constructs.imports.io.k8s.autoscaling import VerticalPodAutoscaler
-from cdk8s_plus_31 import Deployment
+from cdk8s_plus_32 import Deployment
 from cdk8s import Chart
 
 

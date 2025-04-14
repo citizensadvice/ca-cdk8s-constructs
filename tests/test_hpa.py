@@ -1,8 +1,8 @@
 import pytest
 from ca_cdk8s_constructs.hpa import ca_hpa
-from cdk8s_plus_31 import Deployment
+from cdk8s_plus_32 import Deployment
 from cdk8s import Chart
-from cdk8s_plus_31 import HorizontalPodAutoscaler
+from cdk8s_plus_32 import HorizontalPodAutoscaler
 
 
 def test_hpa_default(chart_fixture: Chart):

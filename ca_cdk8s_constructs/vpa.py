@@ -1,5 +1,5 @@
 from typing import Literal
-import cdk8s_plus_31 as kplus
+import cdk8s_plus_32 as kplus
 from constructs import Construct
 from ca_cdk8s_constructs.imports.io.k8s.autoscaling import (
     VerticalPodAutoscaler,

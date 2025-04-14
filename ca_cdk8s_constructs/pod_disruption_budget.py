@@ -1,10 +1,10 @@
-from cdk8s_plus_31.k8s import (
+from cdk8s_plus_32.k8s import (
     KubePodDisruptionBudget,
     PodDisruptionBudgetSpec,
     LabelSelector,
     IntOrString,
 )
-from cdk8s_plus_31 import IScalable
+from cdk8s_plus_32 import IScalable
 from constructs import Construct
 
 

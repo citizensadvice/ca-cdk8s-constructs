@@ -1,5 +1,5 @@
 from numbers import Number
-import cdk8s_plus_31 as kplus
+import cdk8s_plus_32 as kplus
 from constructs import Construct
 
 

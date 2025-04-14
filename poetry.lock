@@ -66,21 +66,21 @@ publication = ">=0.0.3"
 typeguard = ">=2.13.3,<4.3.0"
 
 [[package]]
-name = "cdk8s-plus-31"
-version = "2.1.8"
-description = "cdk8s+ is a software development framework that provides high level abstractions for authoring Kubernetes applications. cdk8s-plus-31 synthesizes Kubernetes manifests for Kubernetes 1.31.0"
+name = "cdk8s-plus-32"
+version = "2.0.11"
+description = "cdk8s+ is a software development framework that provides high level abstractions for authoring Kubernetes applications. cdk8s-plus-32 synthesizes Kubernetes manifests for Kubernetes 1.32.0"
 optional = false
 python-versions = "~=3.9"
 groups = ["main"]
 files = [
-    {file = "cdk8s_plus_31-2.1.8-py3-none-any.whl", hash = "sha256:19b0f5be6a96389f4eb97cdc416d191a253f8648ade2ace12d37fe0563e813f9"},
-    {file = "cdk8s_plus_31-2.1.8.tar.gz", hash = "sha256:63c1300dc2253f46543e7fea74bb4c3bb8d81fec3571cf38e93c189dc498421a"},
+    {file = "cdk8s_plus_32-2.0.11-py3-none-any.whl", hash = "sha256:1db2f0499b6a32fe764a64bdeaccdea9ac64b1f920efe7a505c2d83888c0f053"},
+    {file = "cdk8s_plus_32-2.0.11.tar.gz", hash = "sha256:ae44c9154a4f45d8f5c73c410061db907a0fc80a1e77104eba22c39aa2abcf2a"},
 ]
 
 [package.dependencies]
 cdk8s = ">=2.68.11,<3.0.0"
 constructs = ">=10.3.0,<11.0.0"
-jsii = ">=1.110.0,<2.0.0"
+jsii = ">=1.111.0,<2.0.0"
 publication = ">=0.0.3"
 typeguard = ">=2.13.3,<4.3.0"
 
@@ -164,14 +164,14 @@ files = [
 
 [[package]]
 name = "jsii"
-version = "1.110.0"
+version = "1.111.0"
 description = "Python client for jsii runtime"
 optional = false
 python-versions = "~=3.9"
 groups = ["main"]
 files = [
-    {file = "jsii-1.110.0-py3-none-any.whl", hash = "sha256:b46fcc9f6c80e4a3d92c883138194b7311da43b9f954f8473fba8829bb3efaa1"},
-    {file = "jsii-1.110.0.tar.gz", hash = "sha256:d7b323ca66ea9260d210d96b1406671fe399ea62d075ade6374d6bf2b7a5ad33"},
+    {file = "jsii-1.111.0-py3-none-any.whl", hash = "sha256:3084e31173e73d2eefee678c8ee31aa49428830509043057a421a4c0dde94434"},
+    {file = "jsii-1.111.0.tar.gz", hash = "sha256:db523ab9b6575c84d6ed8779cdbdc739abd48a7cb0723b66beb84c1a9dc31c7c"},
 ]
 
 [package.dependencies]
@@ -375,4 +375,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10, <3.14"
-content-hash = "449a50facac8711e316f1defb8102ccc102996be50471040a43b052da5d0ae6c"
+content-hash = "83fcbc1902360134be4b4ddd2a65eda5c1de4700d6a7902e80de017322dc944f"
