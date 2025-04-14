@@ -1,0 +1,32 @@
+name: Pytest
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  pytest:
+    name: Run Tests
+    runs-on: 
+      - runs-on=${{ github.run_id }}
+      - job=pytest
+      - extras=s3-cache
+    steps:
+      - uses: runs-on/action@v1
+      - uses: actions/checkout@v4
+      
+      - name: Setup Python
+        uses: citizensadvice/python-poetry-setup-action@v1
+
+      - name: Install Dependencies
+        run: poetry install --with dev
+
+      - name: Ruff Check
+        run: poetry run ruff check
+      
+      - name: Ruff Format
+        run: poetry run ruff format --check
+
+      - name: Pytest
+        run: poetry run pytest
