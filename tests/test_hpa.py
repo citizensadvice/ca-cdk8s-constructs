@@ -7,7 +7,7 @@ from cdk8s_plus_31 import HorizontalPodAutoscaler
 
 def test_hpa_default(chart_fixture: Chart):
     deployment = Deployment(chart_fixture, "test")
-    hpa = ca_hpa(chart_fixture, target=deployment)
+    hpa = ca_hpa(chart_fixture, "hpa", target=deployment)
     assert isinstance(hpa, HorizontalPodAutoscaler)
     assert hpa.min_replicas == 1
     assert hpa.max_replicas == 3
@@ -17,6 +17,7 @@ def test_hpa_custom_values(chart_fixture: Chart):
     deployment = Deployment(chart_fixture, "test")
     hpa = ca_hpa(
         chart_fixture,
+        "hpa",
         max_replicas=5,
         min_replicas=2,
         cpu_utilization_target=80,
@@ -30,6 +31,6 @@ def test_hpa_custom_values(chart_fixture: Chart):
 def test_hpa_invalid_values(chart_fixture: Chart):
     deployment = Deployment(chart_fixture, "test")
     with pytest.raises(ValueError):
-        ca_hpa(chart_fixture, target=deployment, cpu_utilization_target=100)
+        ca_hpa(chart_fixture, "hpa", target=deployment, cpu_utilization_target=100)
     with pytest.raises(ValueError):
-        ca_hpa(chart_fixture, target=deployment, cpu_utilization_target=20)
+        ca_hpa(chart_fixture, "hpa", target=deployment, cpu_utilization_target=20)
