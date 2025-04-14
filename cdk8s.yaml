@@ -1,0 +1,6 @@
+# Defines the imports for CRDs
+language: python
+output: ca_cdk8s_constructs/imports
+imports:
+  - https://raw.githubusercontent.com/kubernetes/autoscaler/refs/heads/master/vertical-pod-autoscaler/deploy/vpa-crd.yaml
+  - https://raw.githubusercontent.com/external-secrets/external-secrets/refs/heads/main/deploy/crds/bundle.yaml
