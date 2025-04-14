@@ -11,16 +11,16 @@ def ca_hpa(
     max_replicas: int = 3,
     min_replicas: int = 1,
 ) -> kplus.HorizontalPodAutoscaler:
-    """Create a HorizontalPodAutoscaler for a target.
+    """Returns a HorizontalPodAutoscaler for a target.
 
-    This applies the same scaling logic to all containers in the target.
+    The utilization targets are applied to the aggregate CPU and memory usage of all containers in the target workload.
 
     Args:
         scope: The scope of the construct.
-        max_replicas: The maximum number of replicas.
         target: The target to autoscale.
         cpu_utilization_target: The CPU utilization to target. Must be between 50 and 90. Defaults to 75.
         memory_utilization_target: The memory utilization to target. Must be between 50 and 90. Defaults to 75.
+        max_replicas: The maximum number of replicas. Defaults to 3.
         min_replicas: The minimum number of replicas. Defaults to 1.
 
     Returns:
