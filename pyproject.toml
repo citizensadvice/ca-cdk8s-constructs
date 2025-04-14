@@ -11,6 +11,7 @@ cdk8s-plus-31 = "^2.1.8"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.5"
+ruff = "^0.11.5"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
