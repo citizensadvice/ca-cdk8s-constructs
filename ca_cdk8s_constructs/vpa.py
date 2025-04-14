@@ -62,14 +62,14 @@ def ca_vpa(
             resource_policy=VerticalPodAutoscalerSpecResourcePolicy(
                 container_policies=[
                     VerticalPodAutoscalerSpecResourcePolicyContainerPolicies(
-                        container_name=name,
+                        container_name=container.name,
                         min_allowed={
                             "cpu": VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesMinAllowed.from_number(
                                 min_allowed_cpu
                             )
                         },
                     )
-                    for name in target.containers
+                    for container in target.containers
                 ]
             ),
         ),
