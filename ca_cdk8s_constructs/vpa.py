@@ -28,6 +28,8 @@ def ca_vpa(
     - Recreate: VPA assigns resource requests on pod creation time and updates them on existing pods by evicting and recreating them.
     - Auto: It recreates the pod based on the recommendation.
 
+    The minimum allowed CPU is the minimum CPU that the VPA will assign to the pod. This is applied to all containers in the pod.
+
     Args:
         scope: The scope of the construct.
         target: The target to autoscale.
