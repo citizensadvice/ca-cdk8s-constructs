@@ -1,4 +1,3 @@
-from numbers import Number
 from typing import Literal
 import cdk8s_plus_31 as kplus
 from constructs import Construct
