@@ -1,4 +1,3 @@
-import pytest
 from ca_cdk8s_constructs.container_resources import ca_container_resources
 from cdk8s_plus_32 import Deployment, Cpu
 from cdk8s import Chart, Size
