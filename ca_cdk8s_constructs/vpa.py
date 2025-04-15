@@ -1,6 +1,6 @@
-from typing import Literal
-import cdk8s_plus_32 as kplus
+from cdk8s_plus_32 import Cpu, IScalable
 from constructs import Construct
+import enum
 from ca_cdk8s_constructs.imports.io.k8s.autoscaling import (
     VerticalPodAutoscaler,
     VerticalPodAutoscalerSpec,
@@ -13,20 +13,40 @@ from ca_cdk8s_constructs.imports.io.k8s.autoscaling import (
 )
 
 
+class VpaUpdateMode(enum.Enum):
+    """Update modes for Vertical Pod Autoscaler.
+
+    The different modes are:
+    - OFF: VPA will only provide the recommendations, and it will not automatically change resource requirements.
+    - INITIAL: VPA only assigns resource requests on pod creation and never changes them later.
+    - RECREATE: VPA assigns resource requests on pod creation time and updates them on existing pods by evicting and recreating them.
+    - AUTO: It recreates the pod based on the recommendation.
+    """
+
+    OFF = "off"
+    INITIAL = "initial"
+    RECREATE = "recreate"
+    AUTO = "auto"
+
+    def to_vpa_mode(self) -> VerticalPodAutoscalerSpecUpdatePolicyUpdateMode:
+        """Convert to the underlying VPA update mode enum."""
+        mode_map = {
+            VpaUpdateMode.OFF: VerticalPodAutoscalerSpecUpdatePolicyUpdateMode.OFF,
+            VpaUpdateMode.INITIAL: VerticalPodAutoscalerSpecUpdatePolicyUpdateMode.INITIAL,
+            VpaUpdateMode.RECREATE: VerticalPodAutoscalerSpecUpdatePolicyUpdateMode.RECREATE,
+            VpaUpdateMode.AUTO: VerticalPodAutoscalerSpecUpdatePolicyUpdateMode.AUTO,
+        }
+        return mode_map[self]
+
+
 def ca_vpa(
     scope: Construct,
     id: str,
-    target: kplus.IScalable,
-    min_allowed_cpu: int = 100,
-    update_mode: Literal["auto", "off", "initial", "recreate"] = "auto",
+    target: IScalable,
+    min_allowed_cpu: Cpu = Cpu.millis(100),
+    update_mode: VpaUpdateMode = VpaUpdateMode.AUTO,
 ) -> VerticalPodAutoscaler:
     """Returns a VerticalPodAutoscaler for a target.
-
-    The different modes are:
-    - Off: VPA will only provide the recommendations, and it will not automatically change resource requirements.
-    - Initial: VPA only assigns resource requests on pod creation and never changes them later.
-    - Recreate: VPA assigns resource requests on pod creation time and updates them on existing pods by evicting and recreating them.
-    - Auto: It recreates the pod based on the recommendation.
 
     The minimum allowed CPU is the minimum CPU that the VPA will assign to the pod. This is applied to all containers in the pod.
 
@@ -34,20 +54,11 @@ def ca_vpa(
         scope: The scope of the construct.
         target: The target to autoscale.
         min_allowed_cpu: The minimum allowed CPU in millicores. Defaults to 100.
-        update_mode: The update mode to use. Defaults to "auto".
+        update_mode: The update mode to use. Defaults to VpaUpdateMode.AUTO.
 
     Returns:
         A VerticalPodAutoscaler.
     """
-
-    if update_mode == "off":
-        update_mode = VerticalPodAutoscalerSpecUpdatePolicyUpdateMode.OFF
-    elif update_mode == "initial":
-        update_mode = VerticalPodAutoscalerSpecUpdatePolicyUpdateMode.INITIAL
-    elif update_mode == "recreate":
-        update_mode = VerticalPodAutoscalerSpecUpdatePolicyUpdateMode.RECREATE
-    else:
-        update_mode = VerticalPodAutoscalerSpecUpdatePolicyUpdateMode.AUTO
 
     return VerticalPodAutoscaler(
         scope,
@@ -58,14 +69,16 @@ def ca_vpa(
                 kind=target.kind,
                 name=target.name,
             ),
-            update_policy=VerticalPodAutoscalerSpecUpdatePolicy(update_mode=update_mode),
+            update_policy=VerticalPodAutoscalerSpecUpdatePolicy(
+                update_mode=update_mode.to_vpa_mode()
+            ),
             resource_policy=VerticalPodAutoscalerSpecResourcePolicy(
                 container_policies=[
                     VerticalPodAutoscalerSpecResourcePolicyContainerPolicies(
                         container_name=container.name,
                         min_allowed={
-                            "cpu": VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesMinAllowed.from_number(
-                                min_allowed_cpu
+                            "cpu": VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesMinAllowed.from_string(
+                                min_allowed_cpu.amount
                             )
                         },
                     )

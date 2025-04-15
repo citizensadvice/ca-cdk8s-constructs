@@ -1,17 +1,17 @@
 from numbers import Number
-import cdk8s_plus_32 as kplus
+from cdk8s_plus_32 import IScalable, HorizontalPodAutoscaler, Metric, MetricTarget
 from constructs import Construct
 
 
 def ca_hpa(
     scope: Construct,
     id: str,
-    target: kplus.IScalable,
+    target: IScalable,
     cpu_utilization_target: Number = 75,
     memory_utilization_target: Number = 75,
     max_replicas: int = 3,
     min_replicas: int = 1,
-) -> kplus.HorizontalPodAutoscaler:
+) -> HorizontalPodAutoscaler:
     """Returns a HorizontalPodAutoscaler for a target.
 
     The utilization targets are applied to the aggregate CPU and memory usage of all containers in the target workload.
@@ -35,18 +35,18 @@ def ca_hpa(
     ):
         raise ValueError("Utilization values must be between 1 and 100")
 
-    return kplus.HorizontalPodAutoscaler(
+    return HorizontalPodAutoscaler(
         scope,
         id,
         max_replicas=max_replicas,
         min_replicas=min_replicas,
         target=target,
         metrics=[
-            kplus.Metric.resource_cpu(
-                target=kplus.MetricTarget.average_utilization(cpu_utilization_target)
+            Metric.resource_cpu(
+                target=MetricTarget.average_utilization(cpu_utilization_target)
             ),
-            kplus.Metric.resource_memory(
-                target=kplus.MetricTarget.average_utilization(memory_utilization_target)
+            Metric.resource_memory(
+                target=MetricTarget.average_utilization(memory_utilization_target)
             ),
         ],
     )

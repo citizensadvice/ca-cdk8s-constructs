@@ -4,7 +4,6 @@ from cdk8s import Chart
 from cdk8s_plus_32.k8s import (
     KubePodDisruptionBudget,
 )
-from json import dumps
 
 
 def test_pdb_default(chart_fixture: Chart):
