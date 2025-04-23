@@ -9,6 +9,9 @@ from constructs import Construct
 import yaml
 from tempfile import TemporaryDirectory
 from pathlib import Path
+from cdk8s_plus_32 import Job
+from enum import Enum
+from typing import Sequence
 
 
 class HelmChartAsset(Construct):
@@ -121,3 +124,70 @@ class Cdk8sHelmChart(HelmChart):
             values={"resources": cdk8s_chart.to_json()},
             wait=wait,
         )
+
+
+class HelmHookType(Enum):
+    """The type of hook to apply.
+
+    pre-install: Executes after templates are rendered, but before any resources are created in Kubernetes
+    post-install: Executes after all resources are loaded into Kubernetes
+    pre-delete: Executes on a deletion request before any resources are deleted from Kubernetes
+    post-delete: Executes on a deletion request after all of the release's resources have been deleted
+    pre-upgrade: Executes on an upgrade request after templates are rendered, but before any resources are updated
+    post-upgrade: Executes on an upgrade request after all resources have been upgraded
+    pre-rollback: Executes on a rollback request after templates are rendered, but before any resources are rolled back
+    post-rollback: Executes on a rollback request after all resources have been modified
+    test: Executes when the Helm test subcommand is invoked
+    """
+
+    PRE_INSTALL = "pre-install"
+    POST_INSTALL = "post-install"
+    PRE_DELETE = "pre-delete"
+    POST_DELETE = "post-delete"
+    PRE_UPGRADE = "pre-upgrade"
+    POST_UPGRADE = "post-upgrade"
+    PRE_ROLLBACK = "pre-rollback"
+    POST_ROLLBACK = "post-rollback"
+    TEST = "test"
+
+
+class HelmHookDeletePolicy(Enum):
+    """The policy for deleting the hook resource after the hook has been executed.
+
+    before-hook-creation: Delete the previous resource before a new hook is launched
+    hook-succeeded: Delete the resource after the hook is successfully executed
+    hook-failed: Delete the resource if the hook failed during execution
+    """
+
+    HOOK_SUCCEEDED = "hook-succeeded"
+    BEFORE_HOOK_CREATION = "before-hook-creation"
+    HOOK_FAILED = "hook-failed"
+
+
+def apply_helm_hook(
+    job: Job,
+    hook_types: Sequence[HelmHookType],
+    hook_delete_policy: Sequence[HelmHookDeletePolicy] = [
+        HelmHookDeletePolicy.BEFORE_HOOK_CREATION
+    ],
+    weight: int = None,
+) -> None:
+    """Apply helm hook annotations to a job.
+
+    This applies the correct annotations to the job to ensure that the job is executed as
+    a helm hook if the resource is deployed as a helm chart.
+
+    Args:
+        job: The job to apply the helm hook to.
+        hook_types: The types of hook to apply.
+        hook_delete_policy: The policy for deleting the hook resource after the hook has been executed.
+        weight: The weight of the hook.
+    """
+    job.metadata.add_annotation(
+        "helm.sh/hook-delete-policy", ",".join([policy.value for policy in hook_delete_policy])
+    )
+
+    job.metadata.add_annotation("helm.sh/hook", ",".join([hook.value for hook in hook_types]))
+
+    if weight:
+        job.metadata.add_annotation("helm.sh/hook-weight", str(weight))
