@@ -16,7 +16,8 @@ from typing import Sequence
 
 class HelmChartAsset(Construct):
     """
-    Asset for a Helm chart that renders anything passed to `Values.resources` as a helm template
+    Asset for a Helm chart that renders anything passed to `Values.resources` as a helm template.
+    Not to be used directly, instead use `Cdk8sHelmChart` to deploy a cdk8s chart as a helm chart.
     """
 
     def __init__(
@@ -77,19 +78,33 @@ class HelmChartAsset(Construct):
 
 
 class Cdk8sHelmChart(HelmChart):
-    """
-    Bundles a cdk8s chart as a Helm chart by rendering all chart resources into a single values item.
+    """Bundles a cdk8s chart as a Helm chart and deploys the resources it contains.
 
     Is used in the same way as the `aws-cdk.aws_eks.HelmChart` resource, but instead of `chart` or
-    `chart_asset`, pass an instance of `cdk8s.Chart` to `cdk8s_chart`. This can then be deployed using
-    the `aws-cdk.aws_eks.Cluster.add_helm_chart()` method and retains the usual Helm functionality.
+    `chart_asset`, pass an instance of `cdk8s.Chart` to `cdk8s_chart`.\
+
+    The cdk8s chart MUST have a namespace specified in the namespace field of the chart.
+
+    Args:
+        scope: The scope in which to define this construct.
+        id: The scoped construct ID.
+        chart_name: The name of the chart.
+        app_version: The version of the app to be applied to the chart.
+        cluster: The EKS cluster to apply this configuration to.
+        cdk8s_chart: The cdk8s chart.
+        atomic: Whether or not Helm should treat this operation as atomic; if set, upgrade process rolls back changes made in case of failed upgrade. The --wait flag will be set automatically if --atomic is used. Defaults to False.
+        create_namespace: Create namespace if not exist. Defaults to True.
+        release: The name of the release. If no release name is given, it will use the last 53 characters of the node's unique id.
+        skip_crds: If set, no CRDs will be installed. By default, CRDs are installed if not already present.
+        timeout: Amount of time to wait for any individual Kubernetes operation. Maximum 15 minutes. Defaults to Duration.minutes(5).
+        version: The chart version to install. If not specified, 1.0 will be used.
+        wait: Whether or not Helm should wait until all Pods, PVCs, Services, and minimum number of Pods of a Deployment, StatefulSet, or ReplicaSet are in a ready state before marking the release as successful. By default, Helm will not wait before marking release as successful.
     """
 
     def __init__(
         self,
         scope: Construct,
         id: str,
-        *,
         chart_name: str,
         app_version: str,
         cluster: ICluster,

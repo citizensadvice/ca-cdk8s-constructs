@@ -17,8 +17,9 @@ There are currently constructs available for:
 - Vertical Pod Autoscaler
 - Pod Disruption Budget
 - Container Resources
+- cdk8s Helm Chart
 
-Please see their docstrings for usage information.
+Please see the resource docstrings or the [Github Wiki](https://github.com/citizensadvice/ca-cdk8s-constructs/wiki) for usage information.
 
 To request new constructs, please raise an issue in the [GitHub repository](https://github.com/citizensadvice/ca-cdk8s-constructs/issues).
 
