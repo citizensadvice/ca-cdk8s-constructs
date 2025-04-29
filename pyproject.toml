@@ -1,6 +1,6 @@
 [project]
 name = "ca-cdk8s-constructs"
-version = "2.3.0"
+version = "2.3.1"
 description = "A collection of cdk8s constructs"
 readme = "README.md"
 
