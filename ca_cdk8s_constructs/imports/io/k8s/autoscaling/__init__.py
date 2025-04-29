@@ -98,6 +98,394 @@ class VerticalPodAutoscaler(
         return typing.cast(_cdk8s_d3d9af27.GroupVersionKind, jsii.sget(cls, "GVK"))
 
 
+class VerticalPodAutoscalerCheckpoint(
+    _cdk8s_d3d9af27.ApiObject,
+    metaclass=jsii.JSIIMeta,
+    jsii_type="iok8sautoscaling.VerticalPodAutoscalerCheckpoint",
+):
+    '''VerticalPodAutoscalerCheckpoint is the checkpoint of the internal state of VPA that is used for recovery after recommender's restart.
+
+    :schema: VerticalPodAutoscalerCheckpoint
+    '''
+
+    def __init__(
+        self,
+        scope: _constructs_77d1e7e8.Construct,
+        id: builtins.str,
+        *,
+        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        spec: typing.Optional[typing.Union["VerticalPodAutoscalerCheckpointSpec", typing.Dict[builtins.str, typing.Any]]] = None,
+    ) -> None:
+        '''Defines a "VerticalPodAutoscalerCheckpoint" API object.
+
+        :param scope: the scope in which to define this object.
+        :param id: a scope-local name for the object.
+        :param metadata: 
+        :param spec: Specification of the checkpoint. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__417daf29a0414735a3caff5a1262960997e0629f4d3672d94cc5030c1035a633)
+            check_type(argname="argument scope", value=scope, expected_type=type_hints["scope"])
+            check_type(argname="argument id", value=id, expected_type=type_hints["id"])
+        props = VerticalPodAutoscalerCheckpointProps(metadata=metadata, spec=spec)
+
+        jsii.create(self.__class__, self, [scope, id, props])
+
+    @jsii.member(jsii_name="manifest")
+    @builtins.classmethod
+    def manifest(
+        cls,
+        *,
+        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        spec: typing.Optional[typing.Union["VerticalPodAutoscalerCheckpointSpec", typing.Dict[builtins.str, typing.Any]]] = None,
+    ) -> typing.Any:
+        '''Renders a Kubernetes manifest for "VerticalPodAutoscalerCheckpoint".
+
+        This can be used to inline resource manifests inside other objects (e.g. as templates).
+
+        :param metadata: 
+        :param spec: Specification of the checkpoint. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+        '''
+        props = VerticalPodAutoscalerCheckpointProps(metadata=metadata, spec=spec)
+
+        return typing.cast(typing.Any, jsii.sinvoke(cls, "manifest", [props]))
+
+    @jsii.member(jsii_name="toJson")
+    def to_json(self) -> typing.Any:
+        '''Renders the object to Kubernetes JSON.'''
+        return typing.cast(typing.Any, jsii.invoke(self, "toJson", []))
+
+    @jsii.python.classproperty
+    @jsii.member(jsii_name="GVK")
+    def GVK(cls) -> _cdk8s_d3d9af27.GroupVersionKind:
+        '''Returns the apiVersion and kind for "VerticalPodAutoscalerCheckpoint".'''
+        return typing.cast(_cdk8s_d3d9af27.GroupVersionKind, jsii.sget(cls, "GVK"))
+
+
+@jsii.data_type(
+    jsii_type="iok8sautoscaling.VerticalPodAutoscalerCheckpointProps",
+    jsii_struct_bases=[],
+    name_mapping={"metadata": "metadata", "spec": "spec"},
+)
+class VerticalPodAutoscalerCheckpointProps:
+    def __init__(
+        self,
+        *,
+        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        spec: typing.Optional[typing.Union["VerticalPodAutoscalerCheckpointSpec", typing.Dict[builtins.str, typing.Any]]] = None,
+    ) -> None:
+        '''VerticalPodAutoscalerCheckpoint is the checkpoint of the internal state of VPA that is used for recovery after recommender's restart.
+
+        :param metadata: 
+        :param spec: Specification of the checkpoint. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+
+        :schema: VerticalPodAutoscalerCheckpoint
+        '''
+        if isinstance(metadata, dict):
+            metadata = _cdk8s_d3d9af27.ApiObjectMetadata(**metadata)
+        if isinstance(spec, dict):
+            spec = VerticalPodAutoscalerCheckpointSpec(**spec)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__6c09821f0bd7acf378fc14e7d8baaad633b256459ef04fbf16edbaba8dbc367c)
+            check_type(argname="argument metadata", value=metadata, expected_type=type_hints["metadata"])
+            check_type(argname="argument spec", value=spec, expected_type=type_hints["spec"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if metadata is not None:
+            self._values["metadata"] = metadata
+        if spec is not None:
+            self._values["spec"] = spec
+
+    @builtins.property
+    def metadata(self) -> typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata]:
+        '''
+        :schema: VerticalPodAutoscalerCheckpoint#metadata
+        '''
+        result = self._values.get("metadata")
+        return typing.cast(typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata], result)
+
+    @builtins.property
+    def spec(self) -> typing.Optional["VerticalPodAutoscalerCheckpointSpec"]:
+        '''Specification of the checkpoint.
+
+        More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+
+        :schema: VerticalPodAutoscalerCheckpoint#spec
+        '''
+        result = self._values.get("spec")
+        return typing.cast(typing.Optional["VerticalPodAutoscalerCheckpointSpec"], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "VerticalPodAutoscalerCheckpointProps(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="iok8sautoscaling.VerticalPodAutoscalerCheckpointSpec",
+    jsii_struct_bases=[],
+    name_mapping={
+        "container_name": "containerName",
+        "vpa_object_name": "vpaObjectName",
+    },
+)
+class VerticalPodAutoscalerCheckpointSpec:
+    def __init__(
+        self,
+        *,
+        container_name: typing.Optional[builtins.str] = None,
+        vpa_object_name: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''Specification of the checkpoint.
+
+        More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+
+        :param container_name: Name of the checkpointed container.
+        :param vpa_object_name: Name of the VPA object that stored VerticalPodAutoscalerCheckpoint object.
+
+        :schema: VerticalPodAutoscalerCheckpointSpec
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__4926d22a30287a53595e4c60d286da97757a94e8c82011a5a7eac45f0d5471eb)
+            check_type(argname="argument container_name", value=container_name, expected_type=type_hints["container_name"])
+            check_type(argname="argument vpa_object_name", value=vpa_object_name, expected_type=type_hints["vpa_object_name"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if container_name is not None:
+            self._values["container_name"] = container_name
+        if vpa_object_name is not None:
+            self._values["vpa_object_name"] = vpa_object_name
+
+    @builtins.property
+    def container_name(self) -> typing.Optional[builtins.str]:
+        '''Name of the checkpointed container.
+
+        :schema: VerticalPodAutoscalerCheckpointSpec#containerName
+        '''
+        result = self._values.get("container_name")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def vpa_object_name(self) -> typing.Optional[builtins.str]:
+        '''Name of the VPA object that stored VerticalPodAutoscalerCheckpoint object.
+
+        :schema: VerticalPodAutoscalerCheckpointSpec#vpaObjectName
+        '''
+        result = self._values.get("vpa_object_name")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "VerticalPodAutoscalerCheckpointSpec(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+class VerticalPodAutoscalerCheckpointV1Beta2(
+    _cdk8s_d3d9af27.ApiObject,
+    metaclass=jsii.JSIIMeta,
+    jsii_type="iok8sautoscaling.VerticalPodAutoscalerCheckpointV1Beta2",
+):
+    '''VerticalPodAutoscalerCheckpoint is the checkpoint of the internal state of VPA that is used for recovery after recommender's restart.
+
+    :schema: VerticalPodAutoscalerCheckpointV1Beta2
+    '''
+
+    def __init__(
+        self,
+        scope: _constructs_77d1e7e8.Construct,
+        id: builtins.str,
+        *,
+        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        spec: typing.Optional[typing.Union["VerticalPodAutoscalerCheckpointV1Beta2Spec", typing.Dict[builtins.str, typing.Any]]] = None,
+    ) -> None:
+        '''Defines a "VerticalPodAutoscalerCheckpointV1Beta2" API object.
+
+        :param scope: the scope in which to define this object.
+        :param id: a scope-local name for the object.
+        :param metadata: 
+        :param spec: Specification of the checkpoint. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__e965f8c6b458dc1cd77321285fce0a2d2bc53ac846b7debafdd4e084ab9d0966)
+            check_type(argname="argument scope", value=scope, expected_type=type_hints["scope"])
+            check_type(argname="argument id", value=id, expected_type=type_hints["id"])
+        props = VerticalPodAutoscalerCheckpointV1Beta2Props(
+            metadata=metadata, spec=spec
+        )
+
+        jsii.create(self.__class__, self, [scope, id, props])
+
+    @jsii.member(jsii_name="manifest")
+    @builtins.classmethod
+    def manifest(
+        cls,
+        *,
+        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        spec: typing.Optional[typing.Union["VerticalPodAutoscalerCheckpointV1Beta2Spec", typing.Dict[builtins.str, typing.Any]]] = None,
+    ) -> typing.Any:
+        '''Renders a Kubernetes manifest for "VerticalPodAutoscalerCheckpointV1Beta2".
+
+        This can be used to inline resource manifests inside other objects (e.g. as templates).
+
+        :param metadata: 
+        :param spec: Specification of the checkpoint. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+        '''
+        props = VerticalPodAutoscalerCheckpointV1Beta2Props(
+            metadata=metadata, spec=spec
+        )
+
+        return typing.cast(typing.Any, jsii.sinvoke(cls, "manifest", [props]))
+
+    @jsii.member(jsii_name="toJson")
+    def to_json(self) -> typing.Any:
+        '''Renders the object to Kubernetes JSON.'''
+        return typing.cast(typing.Any, jsii.invoke(self, "toJson", []))
+
+    @jsii.python.classproperty
+    @jsii.member(jsii_name="GVK")
+    def GVK(cls) -> _cdk8s_d3d9af27.GroupVersionKind:
+        '''Returns the apiVersion and kind for "VerticalPodAutoscalerCheckpointV1Beta2".'''
+        return typing.cast(_cdk8s_d3d9af27.GroupVersionKind, jsii.sget(cls, "GVK"))
+
+
+@jsii.data_type(
+    jsii_type="iok8sautoscaling.VerticalPodAutoscalerCheckpointV1Beta2Props",
+    jsii_struct_bases=[],
+    name_mapping={"metadata": "metadata", "spec": "spec"},
+)
+class VerticalPodAutoscalerCheckpointV1Beta2Props:
+    def __init__(
+        self,
+        *,
+        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        spec: typing.Optional[typing.Union["VerticalPodAutoscalerCheckpointV1Beta2Spec", typing.Dict[builtins.str, typing.Any]]] = None,
+    ) -> None:
+        '''VerticalPodAutoscalerCheckpoint is the checkpoint of the internal state of VPA that is used for recovery after recommender's restart.
+
+        :param metadata: 
+        :param spec: Specification of the checkpoint. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+
+        :schema: VerticalPodAutoscalerCheckpointV1Beta2
+        '''
+        if isinstance(metadata, dict):
+            metadata = _cdk8s_d3d9af27.ApiObjectMetadata(**metadata)
+        if isinstance(spec, dict):
+            spec = VerticalPodAutoscalerCheckpointV1Beta2Spec(**spec)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__a3056128a13898c38734cd5a9c41636e80201bd29082acb7843438509646ab48)
+            check_type(argname="argument metadata", value=metadata, expected_type=type_hints["metadata"])
+            check_type(argname="argument spec", value=spec, expected_type=type_hints["spec"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if metadata is not None:
+            self._values["metadata"] = metadata
+        if spec is not None:
+            self._values["spec"] = spec
+
+    @builtins.property
+    def metadata(self) -> typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata]:
+        '''
+        :schema: VerticalPodAutoscalerCheckpointV1Beta2#metadata
+        '''
+        result = self._values.get("metadata")
+        return typing.cast(typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata], result)
+
+    @builtins.property
+    def spec(self) -> typing.Optional["VerticalPodAutoscalerCheckpointV1Beta2Spec"]:
+        '''Specification of the checkpoint.
+
+        More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+
+        :schema: VerticalPodAutoscalerCheckpointV1Beta2#spec
+        '''
+        result = self._values.get("spec")
+        return typing.cast(typing.Optional["VerticalPodAutoscalerCheckpointV1Beta2Spec"], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "VerticalPodAutoscalerCheckpointV1Beta2Props(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="iok8sautoscaling.VerticalPodAutoscalerCheckpointV1Beta2Spec",
+    jsii_struct_bases=[],
+    name_mapping={
+        "container_name": "containerName",
+        "vpa_object_name": "vpaObjectName",
+    },
+)
+class VerticalPodAutoscalerCheckpointV1Beta2Spec:
+    def __init__(
+        self,
+        *,
+        container_name: typing.Optional[builtins.str] = None,
+        vpa_object_name: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''Specification of the checkpoint.
+
+        More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#spec-and-status.
+
+        :param container_name: Name of the checkpointed container.
+        :param vpa_object_name: Name of the VPA object that stored VerticalPodAutoscalerCheckpoint object.
+
+        :schema: VerticalPodAutoscalerCheckpointV1Beta2Spec
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__8b3f23f9542562f2c369c0a5d837e33dbbb7622ce2bcd688da1c58b93ed20a62)
+            check_type(argname="argument container_name", value=container_name, expected_type=type_hints["container_name"])
+            check_type(argname="argument vpa_object_name", value=vpa_object_name, expected_type=type_hints["vpa_object_name"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if container_name is not None:
+            self._values["container_name"] = container_name
+        if vpa_object_name is not None:
+            self._values["vpa_object_name"] = vpa_object_name
+
+    @builtins.property
+    def container_name(self) -> typing.Optional[builtins.str]:
+        '''Name of the checkpointed container.
+
+        :schema: VerticalPodAutoscalerCheckpointV1Beta2Spec#containerName
+        '''
+        result = self._values.get("container_name")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def vpa_object_name(self) -> typing.Optional[builtins.str]:
+        '''Name of the VPA object that stored VerticalPodAutoscalerCheckpoint object.
+
+        :schema: VerticalPodAutoscalerCheckpointV1Beta2Spec#vpaObjectName
+        '''
+        result = self._values.get("vpa_object_name")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "VerticalPodAutoscalerCheckpointV1Beta2Spec(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
 @jsii.data_type(
     jsii_type="iok8sautoscaling.VerticalPodAutoscalerProps",
     jsii_struct_bases=[],
@@ -1547,6 +1935,12 @@ class VerticalPodAutoscalerV1Beta2SpecUpdatePolicyUpdateMode(enum.Enum):
 
 __all__ = [
     "VerticalPodAutoscaler",
+    "VerticalPodAutoscalerCheckpoint",
+    "VerticalPodAutoscalerCheckpointProps",
+    "VerticalPodAutoscalerCheckpointSpec",
+    "VerticalPodAutoscalerCheckpointV1Beta2",
+    "VerticalPodAutoscalerCheckpointV1Beta2Props",
+    "VerticalPodAutoscalerCheckpointV1Beta2Spec",
     "VerticalPodAutoscalerProps",
     "VerticalPodAutoscalerSpec",
     "VerticalPodAutoscalerSpecRecommenders",
@@ -1582,6 +1976,58 @@ def _typecheckingstub__caf59d86d285ee6685b1508c4068ea959df4364adaf893cf0bdee63cd
     *,
     spec: typing.Union[VerticalPodAutoscalerSpec, typing.Dict[builtins.str, typing.Any]],
     metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__417daf29a0414735a3caff5a1262960997e0629f4d3672d94cc5030c1035a633(
+    scope: _constructs_77d1e7e8.Construct,
+    id: builtins.str,
+    *,
+    metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+    spec: typing.Optional[typing.Union[VerticalPodAutoscalerCheckpointSpec, typing.Dict[builtins.str, typing.Any]]] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__6c09821f0bd7acf378fc14e7d8baaad633b256459ef04fbf16edbaba8dbc367c(
+    *,
+    metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+    spec: typing.Optional[typing.Union[VerticalPodAutoscalerCheckpointSpec, typing.Dict[builtins.str, typing.Any]]] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__4926d22a30287a53595e4c60d286da97757a94e8c82011a5a7eac45f0d5471eb(
+    *,
+    container_name: typing.Optional[builtins.str] = None,
+    vpa_object_name: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__e965f8c6b458dc1cd77321285fce0a2d2bc53ac846b7debafdd4e084ab9d0966(
+    scope: _constructs_77d1e7e8.Construct,
+    id: builtins.str,
+    *,
+    metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+    spec: typing.Optional[typing.Union[VerticalPodAutoscalerCheckpointV1Beta2Spec, typing.Dict[builtins.str, typing.Any]]] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__a3056128a13898c38734cd5a9c41636e80201bd29082acb7843438509646ab48(
+    *,
+    metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+    spec: typing.Optional[typing.Union[VerticalPodAutoscalerCheckpointV1Beta2Spec, typing.Dict[builtins.str, typing.Any]]] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__8b3f23f9542562f2c369c0a5d837e33dbbb7622ce2bcd688da1c58b93ed20a62(
+    *,
+    container_name: typing.Optional[builtins.str] = None,
+    vpa_object_name: typing.Optional[builtins.str] = None,
 ) -> None:
     """Type checking stubs"""
     pass

@@ -2,5 +2,5 @@
 language: python
 output: ca_cdk8s_constructs/imports
 imports:
-  - https://raw.githubusercontent.com/kubernetes/autoscaler/refs/heads/master/vertical-pod-autoscaler/deploy/vpa-crd.yaml
+  - https://github.com/kubernetes/autoscaler/raw/refs/heads/master/vertical-pod-autoscaler/deploy/vpa-v1-crd-gen.yaml
   - https://raw.githubusercontent.com/external-secrets/external-secrets/refs/heads/main/deploy/crds/bundle.yaml
