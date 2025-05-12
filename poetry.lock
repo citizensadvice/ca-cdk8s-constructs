@@ -139,20 +139,20 @@ typeguard = ">=2.13.3,<4.3.0"
 
 [[package]]
 name = "cdk8s-plus-32"
-version = "2.0.14"
+version = "2.1.1"
 description = "cdk8s+ is a software development framework that provides high level abstractions for authoring Kubernetes applications. cdk8s-plus-32 synthesizes Kubernetes manifests for Kubernetes 1.32.0"
 optional = false
 python-versions = "~=3.9"
 groups = ["main"]
 files = [
-    {file = "cdk8s_plus_32-2.0.14-py3-none-any.whl", hash = "sha256:f0766c78bcad7d4c5021200bc16a5e473a07f192ca90562b4a91ded48f119e01"},
-    {file = "cdk8s_plus_32-2.0.14.tar.gz", hash = "sha256:25b646bd84b5edb7248c3d1c4072beb922d699eec24060cb6a9e69836a8ef1d5"},
+    {file = "cdk8s_plus_32-2.1.1-py3-none-any.whl", hash = "sha256:bdf0e650121923a95a01eb7be98f0859688af433e9dc26057ec81b604cff8f48"},
+    {file = "cdk8s_plus_32-2.1.1.tar.gz", hash = "sha256:129900f7c6a3297b9d59e3f0428f6d24511306e490662d362a4d661349d5f65a"},
 ]
 
 [package.dependencies]
 cdk8s = ">=2.68.11,<3.0.0"
 constructs = ">=10.3.0,<11.0.0"
-jsii = ">=1.111.0,<2.0.0"
+jsii = ">=1.112.0,<2.0.0"
 publication = ">=0.0.3"
 typeguard = ">=2.13.3,<4.3.0"
 
@@ -236,24 +236,24 @@ files = [
 
 [[package]]
 name = "jsii"
-version = "1.111.0"
+version = "1.112.0"
 description = "Python client for jsii runtime"
 optional = false
 python-versions = "~=3.9"
 groups = ["main"]
 files = [
-    {file = "jsii-1.111.0-py3-none-any.whl", hash = "sha256:3084e31173e73d2eefee678c8ee31aa49428830509043057a421a4c0dde94434"},
-    {file = "jsii-1.111.0.tar.gz", hash = "sha256:db523ab9b6575c84d6ed8779cdbdc739abd48a7cb0723b66beb84c1a9dc31c7c"},
+    {file = "jsii-1.112.0-py3-none-any.whl", hash = "sha256:6510c223074d9b206fd0570849a791e4d9ecfff7ffe68428de73870cea9f55a1"},
+    {file = "jsii-1.112.0.tar.gz", hash = "sha256:6b7d19f361c2565b76828ecbe8cbed8b8d6028a82aa98a46b206a4ee5083157e"},
 ]
 
 [package.dependencies]
 attrs = ">=21.2,<26.0"
 cattrs = ">=1.8,<24.2"
-importlib-resources = ">=5.2.0"
+importlib_resources = ">=5.2.0"
 publication = ">=0.0.3"
 python-dateutil = "*"
 typeguard = ">=2.13.3,<4.5.0"
-typing-extensions = ">=3.8,<5.0"
+typing_extensions = ">=3.8,<5.0"
 
 [[package]]
 name = "packaging"
@@ -510,4 +510,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10, <3.14"
-content-hash = "a6dafdd8a4fb16ba7c64244969e537d3bdfbd5b9bd9c500b995c6f8f54862b82"
+content-hash = "2af157b9e49dcbd27dea6b0989c07b8e1f445d68df68ab8c3d046035cdbb5be3"
