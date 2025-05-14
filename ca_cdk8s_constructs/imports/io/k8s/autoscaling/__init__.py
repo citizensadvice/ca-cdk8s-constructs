@@ -1296,6 +1296,8 @@ class VerticalPodAutoscalerSpecUpdatePolicyUpdateMode(enum.Enum):
     '''Initial.'''
     RECREATE = "RECREATE"
     '''Recreate.'''
+    IN_PLACE_OR_RECREATE = "IN_PLACE_OR_RECREATE"
+    '''InPlaceOrRecreate.'''
     AUTO = "AUTO"
     '''Auto.'''
 

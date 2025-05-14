@@ -7904,6 +7904,7 @@ class ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecRetrySettings:
     name_mapping={
         "result": "result",
         "url": "url",
+        "auth": "auth",
         "body": "body",
         "ca_bundle": "caBundle",
         "ca_provider": "caProvider",
@@ -7919,6 +7920,7 @@ class ClusterGeneratorSpecGeneratorWebhookSpec:
         *,
         result: typing.Union["ClusterGeneratorSpecGeneratorWebhookSpecResult", typing.Dict[builtins.str, typing.Any]],
         url: builtins.str,
+        auth: typing.Optional[typing.Union["ClusterGeneratorSpecGeneratorWebhookSpecAuth", typing.Dict[builtins.str, typing.Any]]] = None,
         body: typing.Optional[builtins.str] = None,
         ca_bundle: typing.Optional[builtins.str] = None,
         ca_provider: typing.Optional[typing.Union["ClusterGeneratorSpecGeneratorWebhookSpecCaProvider", typing.Dict[builtins.str, typing.Any]]] = None,
@@ -7933,6 +7935,7 @@ class ClusterGeneratorSpecGeneratorWebhookSpec:
 
         :param result: Result formatting.
         :param url: Webhook url to call.
+        :param auth: Auth specifies a authorization protocol. Only one protocol may be set.
         :param body: Body.
         :param ca_bundle: PEM encoded CA bundle used to validate webhook server certificate. Only used if the Server URL is using HTTPS protocol. This parameter is ignored for plain HTTP protocol connection. If not set the system root certificates are used to validate the TLS connection.
         :param ca_provider: The provider for the CA bundle to use to validate webhook server certificate.
@@ -7945,12 +7948,15 @@ class ClusterGeneratorSpecGeneratorWebhookSpec:
         '''
         if isinstance(result, dict):
             result = ClusterGeneratorSpecGeneratorWebhookSpecResult(**result)
+        if isinstance(auth, dict):
+            auth = ClusterGeneratorSpecGeneratorWebhookSpecAuth(**auth)
         if isinstance(ca_provider, dict):
             ca_provider = ClusterGeneratorSpecGeneratorWebhookSpecCaProvider(**ca_provider)
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__d6461244ada6ac27bc8b5825bc53378b49b97c43164c4e5d508c69ab37ef4761)
             check_type(argname="argument result", value=result, expected_type=type_hints["result"])
             check_type(argname="argument url", value=url, expected_type=type_hints["url"])
+            check_type(argname="argument auth", value=auth, expected_type=type_hints["auth"])
             check_type(argname="argument body", value=body, expected_type=type_hints["body"])
             check_type(argname="argument ca_bundle", value=ca_bundle, expected_type=type_hints["ca_bundle"])
             check_type(argname="argument ca_provider", value=ca_provider, expected_type=type_hints["ca_provider"])
@@ -7962,6 +7968,8 @@ class ClusterGeneratorSpecGeneratorWebhookSpec:
             "result": result,
             "url": url,
         }
+        if auth is not None:
+            self._values["auth"] = auth
         if body is not None:
             self._values["body"] = body
         if ca_bundle is not None:
@@ -7996,6 +8004,17 @@ class ClusterGeneratorSpecGeneratorWebhookSpec:
         result = self._values.get("url")
         assert result is not None, "Required property 'url' is missing"
         return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def auth(self) -> typing.Optional["ClusterGeneratorSpecGeneratorWebhookSpecAuth"]:
+        '''Auth specifies a authorization protocol.
+
+        Only one protocol may be set.
+
+        :schema: ClusterGeneratorSpecGeneratorWebhookSpec#auth
+        '''
+        result = self._values.get("auth")
+        return typing.cast(typing.Optional["ClusterGeneratorSpecGeneratorWebhookSpecAuth"], result)
 
     @builtins.property
     def body(self) -> typing.Optional[builtins.str]:
@@ -8077,6 +8096,290 @@ class ClusterGeneratorSpecGeneratorWebhookSpec:
 
     def __repr__(self) -> str:
         return "ClusterGeneratorSpecGeneratorWebhookSpec(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secretsgenerators.ClusterGeneratorSpecGeneratorWebhookSpecAuth",
+    jsii_struct_bases=[],
+    name_mapping={"ntlm": "ntlm"},
+)
+class ClusterGeneratorSpecGeneratorWebhookSpecAuth:
+    def __init__(
+        self,
+        *,
+        ntlm: typing.Optional[typing.Union["ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlm", typing.Dict[builtins.str, typing.Any]]] = None,
+    ) -> None:
+        '''Auth specifies a authorization protocol.
+
+        Only one protocol may be set.
+
+        :param ntlm: NTLMProtocol configures the store to use NTLM for auth.
+
+        :schema: ClusterGeneratorSpecGeneratorWebhookSpecAuth
+        '''
+        if isinstance(ntlm, dict):
+            ntlm = ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlm(**ntlm)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__5dcfc882e004f94cf73db65a2a920c62c718b548501cfa608829f09e91423b6d)
+            check_type(argname="argument ntlm", value=ntlm, expected_type=type_hints["ntlm"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if ntlm is not None:
+            self._values["ntlm"] = ntlm
+
+    @builtins.property
+    def ntlm(
+        self,
+    ) -> typing.Optional["ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlm"]:
+        '''NTLMProtocol configures the store to use NTLM for auth.
+
+        :schema: ClusterGeneratorSpecGeneratorWebhookSpecAuth#ntlm
+        '''
+        result = self._values.get("ntlm")
+        return typing.cast(typing.Optional["ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlm"], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterGeneratorSpecGeneratorWebhookSpecAuth(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secretsgenerators.ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlm",
+    jsii_struct_bases=[],
+    name_mapping={
+        "password_secret": "passwordSecret",
+        "username_secret": "usernameSecret",
+    },
+)
+class ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlm:
+    def __init__(
+        self,
+        *,
+        password_secret: typing.Union["ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlmPasswordSecret", typing.Dict[builtins.str, typing.Any]],
+        username_secret: typing.Union["ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlmUsernameSecret", typing.Dict[builtins.str, typing.Any]],
+    ) -> None:
+        '''NTLMProtocol configures the store to use NTLM for auth.
+
+        :param password_secret: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param username_secret: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+
+        :schema: ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlm
+        '''
+        if isinstance(password_secret, dict):
+            password_secret = ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlmPasswordSecret(**password_secret)
+        if isinstance(username_secret, dict):
+            username_secret = ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlmUsernameSecret(**username_secret)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__1c7b235434f71cb2dedf89df634e92c9be7c19319bdbabf850fb2ef0f7f26a81)
+            check_type(argname="argument password_secret", value=password_secret, expected_type=type_hints["password_secret"])
+            check_type(argname="argument username_secret", value=username_secret, expected_type=type_hints["username_secret"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "password_secret": password_secret,
+            "username_secret": username_secret,
+        }
+
+    @builtins.property
+    def password_secret(
+        self,
+    ) -> "ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlmPasswordSecret":
+        '''A reference to a specific 'key' within a Secret resource.
+
+        In some instances, ``key`` is a required field.
+
+        :schema: ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlm#passwordSecret
+        '''
+        result = self._values.get("password_secret")
+        assert result is not None, "Required property 'password_secret' is missing"
+        return typing.cast("ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlmPasswordSecret", result)
+
+    @builtins.property
+    def username_secret(
+        self,
+    ) -> "ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlmUsernameSecret":
+        '''A reference to a specific 'key' within a Secret resource.
+
+        In some instances, ``key`` is a required field.
+
+        :schema: ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlm#usernameSecret
+        '''
+        result = self._values.get("username_secret")
+        assert result is not None, "Required property 'username_secret' is missing"
+        return typing.cast("ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlmUsernameSecret", result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlm(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secretsgenerators.ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlmPasswordSecret",
+    jsii_struct_bases=[],
+    name_mapping={"key": "key", "name": "name", "namespace": "namespace"},
+)
+class ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlmPasswordSecret:
+    def __init__(
+        self,
+        *,
+        key: typing.Optional[builtins.str] = None,
+        name: typing.Optional[builtins.str] = None,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''A reference to a specific 'key' within a Secret resource.
+
+        In some instances, ``key`` is a required field.
+
+        :param key: A key in the referenced Secret. Some instances of this field may be defaulted, in others it may be required.
+        :param name: The name of the Secret resource being referred to.
+        :param namespace: The namespace of the Secret resource being referred to. Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlmPasswordSecret
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__89e3c64096d7ab15ba070babc315844393aa774d5e6d59f8d8af1081809d3a33)
+            check_type(argname="argument key", value=key, expected_type=type_hints["key"])
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if key is not None:
+            self._values["key"] = key
+        if name is not None:
+            self._values["name"] = name
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def key(self) -> typing.Optional[builtins.str]:
+        '''A key in the referenced Secret.
+
+        Some instances of this field may be defaulted, in others it may be required.
+
+        :schema: ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlmPasswordSecret#key
+        '''
+        result = self._values.get("key")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def name(self) -> typing.Optional[builtins.str]:
+        '''The name of the Secret resource being referred to.
+
+        :schema: ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlmPasswordSecret#name
+        '''
+        result = self._values.get("name")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''The namespace of the Secret resource being referred to.
+
+        Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlmPasswordSecret#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlmPasswordSecret(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secretsgenerators.ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlmUsernameSecret",
+    jsii_struct_bases=[],
+    name_mapping={"key": "key", "name": "name", "namespace": "namespace"},
+)
+class ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlmUsernameSecret:
+    def __init__(
+        self,
+        *,
+        key: typing.Optional[builtins.str] = None,
+        name: typing.Optional[builtins.str] = None,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''A reference to a specific 'key' within a Secret resource.
+
+        In some instances, ``key`` is a required field.
+
+        :param key: A key in the referenced Secret. Some instances of this field may be defaulted, in others it may be required.
+        :param name: The name of the Secret resource being referred to.
+        :param namespace: The namespace of the Secret resource being referred to. Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlmUsernameSecret
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__debabacb7a72e2aa4ed6e808a4b80893eb1122c2c840d54555a48ec65fe99f40)
+            check_type(argname="argument key", value=key, expected_type=type_hints["key"])
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if key is not None:
+            self._values["key"] = key
+        if name is not None:
+            self._values["name"] = name
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def key(self) -> typing.Optional[builtins.str]:
+        '''A key in the referenced Secret.
+
+        Some instances of this field may be defaulted, in others it may be required.
+
+        :schema: ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlmUsernameSecret#key
+        '''
+        result = self._values.get("key")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def name(self) -> typing.Optional[builtins.str]:
+        '''The name of the Secret resource being referred to.
+
+        :schema: ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlmUsernameSecret#name
+        '''
+        result = self._values.get("name")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''The namespace of the Secret resource being referred to.
+
+        Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlmUsernameSecret#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlmUsernameSecret(%s)" % ", ".join(
             k + "=" + repr(v) for k, v in self._values.items()
         )
 
@@ -15904,6 +16207,7 @@ class WebhookProps:
     name_mapping={
         "result": "result",
         "url": "url",
+        "auth": "auth",
         "body": "body",
         "ca_bundle": "caBundle",
         "ca_provider": "caProvider",
@@ -15919,6 +16223,7 @@ class WebhookSpec:
         *,
         result: typing.Union["WebhookSpecResult", typing.Dict[builtins.str, typing.Any]],
         url: builtins.str,
+        auth: typing.Optional[typing.Union["WebhookSpecAuth", typing.Dict[builtins.str, typing.Any]]] = None,
         body: typing.Optional[builtins.str] = None,
         ca_bundle: typing.Optional[builtins.str] = None,
         ca_provider: typing.Optional[typing.Union["WebhookSpecCaProvider", typing.Dict[builtins.str, typing.Any]]] = None,
@@ -15933,6 +16238,7 @@ class WebhookSpec:
 
         :param result: Result formatting.
         :param url: Webhook url to call.
+        :param auth: Auth specifies a authorization protocol. Only one protocol may be set.
         :param body: Body.
         :param ca_bundle: PEM encoded CA bundle used to validate webhook server certificate. Only used if the Server URL is using HTTPS protocol. This parameter is ignored for plain HTTP protocol connection. If not set the system root certificates are used to validate the TLS connection.
         :param ca_provider: The provider for the CA bundle to use to validate webhook server certificate.
@@ -15945,12 +16251,15 @@ class WebhookSpec:
         '''
         if isinstance(result, dict):
             result = WebhookSpecResult(**result)
+        if isinstance(auth, dict):
+            auth = WebhookSpecAuth(**auth)
         if isinstance(ca_provider, dict):
             ca_provider = WebhookSpecCaProvider(**ca_provider)
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__6ef020d87c0708a88abf8b30977911e976ff092427549278c6ce74edd91575ec)
             check_type(argname="argument result", value=result, expected_type=type_hints["result"])
             check_type(argname="argument url", value=url, expected_type=type_hints["url"])
+            check_type(argname="argument auth", value=auth, expected_type=type_hints["auth"])
             check_type(argname="argument body", value=body, expected_type=type_hints["body"])
             check_type(argname="argument ca_bundle", value=ca_bundle, expected_type=type_hints["ca_bundle"])
             check_type(argname="argument ca_provider", value=ca_provider, expected_type=type_hints["ca_provider"])
@@ -15962,6 +16271,8 @@ class WebhookSpec:
             "result": result,
             "url": url,
         }
+        if auth is not None:
+            self._values["auth"] = auth
         if body is not None:
             self._values["body"] = body
         if ca_bundle is not None:
@@ -15996,6 +16307,17 @@ class WebhookSpec:
         result = self._values.get("url")
         assert result is not None, "Required property 'url' is missing"
         return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def auth(self) -> typing.Optional["WebhookSpecAuth"]:
+        '''Auth specifies a authorization protocol.
+
+        Only one protocol may be set.
+
+        :schema: WebhookSpec#auth
+        '''
+        result = self._values.get("auth")
+        return typing.cast(typing.Optional["WebhookSpecAuth"], result)
 
     @builtins.property
     def body(self) -> typing.Optional[builtins.str]:
@@ -16073,6 +16395,284 @@ class WebhookSpec:
 
     def __repr__(self) -> str:
         return "WebhookSpec(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secretsgenerators.WebhookSpecAuth",
+    jsii_struct_bases=[],
+    name_mapping={"ntlm": "ntlm"},
+)
+class WebhookSpecAuth:
+    def __init__(
+        self,
+        *,
+        ntlm: typing.Optional[typing.Union["WebhookSpecAuthNtlm", typing.Dict[builtins.str, typing.Any]]] = None,
+    ) -> None:
+        '''Auth specifies a authorization protocol.
+
+        Only one protocol may be set.
+
+        :param ntlm: NTLMProtocol configures the store to use NTLM for auth.
+
+        :schema: WebhookSpecAuth
+        '''
+        if isinstance(ntlm, dict):
+            ntlm = WebhookSpecAuthNtlm(**ntlm)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__78defe8d10b15821216ddfd3f988c664963f350cdd10aa5c48a1c5a5734905a6)
+            check_type(argname="argument ntlm", value=ntlm, expected_type=type_hints["ntlm"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if ntlm is not None:
+            self._values["ntlm"] = ntlm
+
+    @builtins.property
+    def ntlm(self) -> typing.Optional["WebhookSpecAuthNtlm"]:
+        '''NTLMProtocol configures the store to use NTLM for auth.
+
+        :schema: WebhookSpecAuth#ntlm
+        '''
+        result = self._values.get("ntlm")
+        return typing.cast(typing.Optional["WebhookSpecAuthNtlm"], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "WebhookSpecAuth(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secretsgenerators.WebhookSpecAuthNtlm",
+    jsii_struct_bases=[],
+    name_mapping={
+        "password_secret": "passwordSecret",
+        "username_secret": "usernameSecret",
+    },
+)
+class WebhookSpecAuthNtlm:
+    def __init__(
+        self,
+        *,
+        password_secret: typing.Union["WebhookSpecAuthNtlmPasswordSecret", typing.Dict[builtins.str, typing.Any]],
+        username_secret: typing.Union["WebhookSpecAuthNtlmUsernameSecret", typing.Dict[builtins.str, typing.Any]],
+    ) -> None:
+        '''NTLMProtocol configures the store to use NTLM for auth.
+
+        :param password_secret: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param username_secret: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+
+        :schema: WebhookSpecAuthNtlm
+        '''
+        if isinstance(password_secret, dict):
+            password_secret = WebhookSpecAuthNtlmPasswordSecret(**password_secret)
+        if isinstance(username_secret, dict):
+            username_secret = WebhookSpecAuthNtlmUsernameSecret(**username_secret)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__54f272261eb357770cbc8bfec20f2a259f0d7047b325a6c635ab4acecc21d863)
+            check_type(argname="argument password_secret", value=password_secret, expected_type=type_hints["password_secret"])
+            check_type(argname="argument username_secret", value=username_secret, expected_type=type_hints["username_secret"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "password_secret": password_secret,
+            "username_secret": username_secret,
+        }
+
+    @builtins.property
+    def password_secret(self) -> "WebhookSpecAuthNtlmPasswordSecret":
+        '''A reference to a specific 'key' within a Secret resource.
+
+        In some instances, ``key`` is a required field.
+
+        :schema: WebhookSpecAuthNtlm#passwordSecret
+        '''
+        result = self._values.get("password_secret")
+        assert result is not None, "Required property 'password_secret' is missing"
+        return typing.cast("WebhookSpecAuthNtlmPasswordSecret", result)
+
+    @builtins.property
+    def username_secret(self) -> "WebhookSpecAuthNtlmUsernameSecret":
+        '''A reference to a specific 'key' within a Secret resource.
+
+        In some instances, ``key`` is a required field.
+
+        :schema: WebhookSpecAuthNtlm#usernameSecret
+        '''
+        result = self._values.get("username_secret")
+        assert result is not None, "Required property 'username_secret' is missing"
+        return typing.cast("WebhookSpecAuthNtlmUsernameSecret", result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "WebhookSpecAuthNtlm(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secretsgenerators.WebhookSpecAuthNtlmPasswordSecret",
+    jsii_struct_bases=[],
+    name_mapping={"key": "key", "name": "name", "namespace": "namespace"},
+)
+class WebhookSpecAuthNtlmPasswordSecret:
+    def __init__(
+        self,
+        *,
+        key: typing.Optional[builtins.str] = None,
+        name: typing.Optional[builtins.str] = None,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''A reference to a specific 'key' within a Secret resource.
+
+        In some instances, ``key`` is a required field.
+
+        :param key: A key in the referenced Secret. Some instances of this field may be defaulted, in others it may be required.
+        :param name: The name of the Secret resource being referred to.
+        :param namespace: The namespace of the Secret resource being referred to. Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: WebhookSpecAuthNtlmPasswordSecret
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__2deaaac4bc9b8850bb1260ca7fc7e46f31d6a7fd0b83be30603d96939c1a744c)
+            check_type(argname="argument key", value=key, expected_type=type_hints["key"])
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if key is not None:
+            self._values["key"] = key
+        if name is not None:
+            self._values["name"] = name
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def key(self) -> typing.Optional[builtins.str]:
+        '''A key in the referenced Secret.
+
+        Some instances of this field may be defaulted, in others it may be required.
+
+        :schema: WebhookSpecAuthNtlmPasswordSecret#key
+        '''
+        result = self._values.get("key")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def name(self) -> typing.Optional[builtins.str]:
+        '''The name of the Secret resource being referred to.
+
+        :schema: WebhookSpecAuthNtlmPasswordSecret#name
+        '''
+        result = self._values.get("name")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''The namespace of the Secret resource being referred to.
+
+        Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: WebhookSpecAuthNtlmPasswordSecret#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "WebhookSpecAuthNtlmPasswordSecret(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secretsgenerators.WebhookSpecAuthNtlmUsernameSecret",
+    jsii_struct_bases=[],
+    name_mapping={"key": "key", "name": "name", "namespace": "namespace"},
+)
+class WebhookSpecAuthNtlmUsernameSecret:
+    def __init__(
+        self,
+        *,
+        key: typing.Optional[builtins.str] = None,
+        name: typing.Optional[builtins.str] = None,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''A reference to a specific 'key' within a Secret resource.
+
+        In some instances, ``key`` is a required field.
+
+        :param key: A key in the referenced Secret. Some instances of this field may be defaulted, in others it may be required.
+        :param name: The name of the Secret resource being referred to.
+        :param namespace: The namespace of the Secret resource being referred to. Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: WebhookSpecAuthNtlmUsernameSecret
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__c7a59ddd5e3704e4ca2730280bf8bd48570c20f65dafe99041e6a266f16c3e1a)
+            check_type(argname="argument key", value=key, expected_type=type_hints["key"])
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if key is not None:
+            self._values["key"] = key
+        if name is not None:
+            self._values["name"] = name
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def key(self) -> typing.Optional[builtins.str]:
+        '''A key in the referenced Secret.
+
+        Some instances of this field may be defaulted, in others it may be required.
+
+        :schema: WebhookSpecAuthNtlmUsernameSecret#key
+        '''
+        result = self._values.get("key")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def name(self) -> typing.Optional[builtins.str]:
+        '''The name of the Secret resource being referred to.
+
+        :schema: WebhookSpecAuthNtlmUsernameSecret#name
+        '''
+        result = self._values.get("name")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''The namespace of the Secret resource being referred to.
+
+        Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: WebhookSpecAuthNtlmUsernameSecret#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "WebhookSpecAuthNtlmUsernameSecret(%s)" % ", ".join(
             k + "=" + repr(v) for k, v in self._values.items()
         )
 
@@ -16445,6 +17045,10 @@ __all__ = [
     "ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecResultType",
     "ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecRetrySettings",
     "ClusterGeneratorSpecGeneratorWebhookSpec",
+    "ClusterGeneratorSpecGeneratorWebhookSpecAuth",
+    "ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlm",
+    "ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlmPasswordSecret",
+    "ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlmUsernameSecret",
     "ClusterGeneratorSpecGeneratorWebhookSpecCaProvider",
     "ClusterGeneratorSpecGeneratorWebhookSpecCaProviderType",
     "ClusterGeneratorSpecGeneratorWebhookSpecResult",
@@ -16550,6 +17154,10 @@ __all__ = [
     "Webhook",
     "WebhookProps",
     "WebhookSpec",
+    "WebhookSpecAuth",
+    "WebhookSpecAuthNtlm",
+    "WebhookSpecAuthNtlmPasswordSecret",
+    "WebhookSpecAuthNtlmUsernameSecret",
     "WebhookSpecCaProvider",
     "WebhookSpecCaProviderType",
     "WebhookSpecResult",
@@ -17419,6 +18027,7 @@ def _typecheckingstub__d6461244ada6ac27bc8b5825bc53378b49b97c43164c4e5d508c69ab3
     *,
     result: typing.Union[ClusterGeneratorSpecGeneratorWebhookSpecResult, typing.Dict[builtins.str, typing.Any]],
     url: builtins.str,
+    auth: typing.Optional[typing.Union[ClusterGeneratorSpecGeneratorWebhookSpecAuth, typing.Dict[builtins.str, typing.Any]]] = None,
     body: typing.Optional[builtins.str] = None,
     ca_bundle: typing.Optional[builtins.str] = None,
     ca_provider: typing.Optional[typing.Union[ClusterGeneratorSpecGeneratorWebhookSpecCaProvider, typing.Dict[builtins.str, typing.Any]]] = None,
@@ -17426,6 +18035,39 @@ def _typecheckingstub__d6461244ada6ac27bc8b5825bc53378b49b97c43164c4e5d508c69ab3
     method: typing.Optional[builtins.str] = None,
     secrets: typing.Optional[typing.Sequence[typing.Union[ClusterGeneratorSpecGeneratorWebhookSpecSecrets, typing.Dict[builtins.str, typing.Any]]]] = None,
     timeout: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__5dcfc882e004f94cf73db65a2a920c62c718b548501cfa608829f09e91423b6d(
+    *,
+    ntlm: typing.Optional[typing.Union[ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlm, typing.Dict[builtins.str, typing.Any]]] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__1c7b235434f71cb2dedf89df634e92c9be7c19319bdbabf850fb2ef0f7f26a81(
+    *,
+    password_secret: typing.Union[ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlmPasswordSecret, typing.Dict[builtins.str, typing.Any]],
+    username_secret: typing.Union[ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlmUsernameSecret, typing.Dict[builtins.str, typing.Any]],
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__89e3c64096d7ab15ba070babc315844393aa774d5e6d59f8d8af1081809d3a33(
+    *,
+    key: typing.Optional[builtins.str] = None,
+    name: typing.Optional[builtins.str] = None,
+    namespace: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__debabacb7a72e2aa4ed6e808a4b80893eb1122c2c840d54555a48ec65fe99f40(
+    *,
+    key: typing.Optional[builtins.str] = None,
+    name: typing.Optional[builtins.str] = None,
+    namespace: typing.Optional[builtins.str] = None,
 ) -> None:
     """Type checking stubs"""
     pass
@@ -18334,6 +18976,7 @@ def _typecheckingstub__6ef020d87c0708a88abf8b30977911e976ff092427549278c6ce74edd
     *,
     result: typing.Union[WebhookSpecResult, typing.Dict[builtins.str, typing.Any]],
     url: builtins.str,
+    auth: typing.Optional[typing.Union[WebhookSpecAuth, typing.Dict[builtins.str, typing.Any]]] = None,
     body: typing.Optional[builtins.str] = None,
     ca_bundle: typing.Optional[builtins.str] = None,
     ca_provider: typing.Optional[typing.Union[WebhookSpecCaProvider, typing.Dict[builtins.str, typing.Any]]] = None,
@@ -18341,6 +18984,39 @@ def _typecheckingstub__6ef020d87c0708a88abf8b30977911e976ff092427549278c6ce74edd
     method: typing.Optional[builtins.str] = None,
     secrets: typing.Optional[typing.Sequence[typing.Union[WebhookSpecSecrets, typing.Dict[builtins.str, typing.Any]]]] = None,
     timeout: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__78defe8d10b15821216ddfd3f988c664963f350cdd10aa5c48a1c5a5734905a6(
+    *,
+    ntlm: typing.Optional[typing.Union[WebhookSpecAuthNtlm, typing.Dict[builtins.str, typing.Any]]] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__54f272261eb357770cbc8bfec20f2a259f0d7047b325a6c635ab4acecc21d863(
+    *,
+    password_secret: typing.Union[WebhookSpecAuthNtlmPasswordSecret, typing.Dict[builtins.str, typing.Any]],
+    username_secret: typing.Union[WebhookSpecAuthNtlmUsernameSecret, typing.Dict[builtins.str, typing.Any]],
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__2deaaac4bc9b8850bb1260ca7fc7e46f31d6a7fd0b83be30603d96939c1a744c(
+    *,
+    key: typing.Optional[builtins.str] = None,
+    name: typing.Optional[builtins.str] = None,
+    namespace: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__c7a59ddd5e3704e4ca2730280bf8bd48570c20f65dafe99041e6a266f16c3e1a(
+    *,
+    key: typing.Optional[builtins.str] = None,
+    name: typing.Optional[builtins.str] = None,
+    namespace: typing.Optional[builtins.str] = None,
 ) -> None:
     """Type checking stubs"""
     pass
