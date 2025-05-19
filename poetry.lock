@@ -22,14 +22,14 @@ tests-mypy = ["mypy (>=1.11.1) ; platform_python_implementation == \"CPython\" a
 
 [[package]]
 name = "aws-cdk-asset-awscli-v1"
-version = "2.2.232"
+version = "2.2.236"
 description = "A library that contains the AWS CLI for use in Lambda Layers"
 optional = false
 python-versions = "~=3.9"
 groups = ["main"]
 files = [
-    {file = "aws_cdk_asset_awscli_v1-2.2.232-py3-none-any.whl", hash = "sha256:0099d39dd74b466acbccf6a1bae4bf8081de05732727057b10a80b8a9b091908"},
-    {file = "aws_cdk_asset_awscli_v1-2.2.232.tar.gz", hash = "sha256:a5bd7d4c265ada09f9b95c392bcac7c95500e5d7ce192d1341ea9585d1b182b5"},
+    {file = "aws_cdk_asset_awscli_v1-2.2.236-py3-none-any.whl", hash = "sha256:c14e64538af61d99cf37e01e65f8ba549949536052fe5a5fc8b56eaf1a0c714e"},
+    {file = "aws_cdk_asset_awscli_v1-2.2.236.tar.gz", hash = "sha256:5e1c907cfc81f09c2af229ac2af3e9cbbbe8c476a50481b4097d6aa7d3e5330d"},
 ]
 
 [package.dependencies]
@@ -73,22 +73,22 @@ typeguard = ">=2.13.3,<4.3.0"
 
 [[package]]
 name = "aws-cdk-lib"
-version = "2.195.0"
+version = "2.196.0"
 description = "Version 2 of the AWS Cloud Development Kit library"
 optional = false
 python-versions = "~=3.9"
 groups = ["main"]
 files = [
-    {file = "aws_cdk_lib-2.195.0-py3-none-any.whl", hash = "sha256:9087fca8dbe5cf256cdcbf00f0c6e452ceeb66452aea5878728633a379e7aa56"},
-    {file = "aws_cdk_lib-2.195.0.tar.gz", hash = "sha256:6617bc60dc1e37826f16d8932df73e6a062922cef12bf11e9f12becbdda73f33"},
+    {file = "aws_cdk_lib-2.196.0-py3-none-any.whl", hash = "sha256:8327a594cd5f29a4ee161f44d24ad7a13aaa325f662c837c6c8b4749de0a670d"},
+    {file = "aws_cdk_lib-2.196.0.tar.gz", hash = "sha256:9e950946c7d55d387850eb5858e35b7735c376151431fcb9c6042481ec16882d"},
 ]
 
 [package.dependencies]
-"aws-cdk.asset-awscli-v1" = ">=2.2.229,<3.0.0"
+"aws-cdk.asset-awscli-v1" = "2.2.236"
 "aws-cdk.asset-node-proxy-agent-v6" = ">=2.1.0,<3.0.0"
 "aws-cdk.cloud-assembly-schema" = ">=41.2.0,<42.0.0"
 constructs = ">=10.0.0,<11.0.0"
-jsii = ">=1.110.0,<2.0.0"
+jsii = ">=1.112.0,<2.0.0"
 publication = ">=0.0.3"
 typeguard = ">=2.13.3,<4.3.0"
 
@@ -510,4 +510,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10, <3.14"
-content-hash = "1fdea2fd5e8ad6b18d5ed2d2f4142836e0c4fc660c77fa1da64e79e56d456dd9"
+content-hash = "413cd4f6a146fa294c058aebbe8ea07e8faec695ca34c8db5c8a03b2cb7ae9a7"
