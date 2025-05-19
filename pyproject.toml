@@ -9,7 +9,7 @@ python = ">=3.10, <3.14"
 cdk8s = "~2.69.67"
 cdk8s-plus-32 = "^2.1.1"
 pyyaml = "^6.0.2"
-aws-cdk-lib = "^2.195.0"
+aws-cdk-lib = "^2.196.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.5"
