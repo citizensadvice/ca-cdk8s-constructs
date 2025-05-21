@@ -17,6 +17,7 @@ class WhenUnsatisfiable(Enum):
 
 def add_topology_spread(
     target: Deployment | StatefulSet,
+    topology_keys: list[Topology] = [Topology.ZONE, Topology.HOSTNAME],
     when_unsatisfiable: WhenUnsatisfiable = WhenUnsatisfiable.SCHEDULE_ANYWAY,
 ):
     """Add topology spread constraints to a Deployment or StatefulSet.
@@ -29,18 +30,19 @@ def add_topology_spread(
     and setting maxSkew to 1 ensures an even distribution.
     """
     target._api_object.add_json_patch(
-        JsonPatch.add(
+        JsonPatch.replace(
             path="/spec/template/spec/topologySpreadConstraints",
             value=[
                 {
                     "maxSkew": 1,
                     "minDomains": 3,
-                    "topologyKey": Topology.ZONE,
+                    "topologyKey": topology_key,
                     "whenUnsatisfiable": when_unsatisfiable.value,
                     "labelSelector": {
                         "matchLabels": target.match_labels,
                     },
                 }
+                for topology_key in topology_keys
             ],
         )
     )
