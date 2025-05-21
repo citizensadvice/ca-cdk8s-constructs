@@ -15,27 +15,37 @@ class WhenUnsatisfiable(Enum):
     SCHEDULE_ANYWAY = "ScheduleAnyway"
 
 
-def add_topology_spread(
+def set_topology_spread(
     target: Deployment | StatefulSet,
     topology_keys: list[Topology] = [Topology.ZONE, Topology.HOSTNAME],
     when_unsatisfiable: WhenUnsatisfiable = WhenUnsatisfiable.SCHEDULE_ANYWAY,
+    max_skew: int = 1,
+    min_domains: int = 3,
 ):
-    """Add topology spread constraints to a Deployment or StatefulSet.
+    """Set topology spread constraints on a Deployment or StatefulSet.
 
     This function applies a topology spread constraint to a Deployment or
     StatefulSet to ensure pods are distributed across different Availability
-    Zones to improve high availability and fault tolerance.
+    Zones and Nodes to improve high availability and fault tolerance.
 
-    Because we always have at least one node per zone, we set the minDomains to 3
-    and setting maxSkew to 1 ensures an even distribution.
+    This function will replace any existing topology spread constraints on the
+    Deployment or StatefulSet.
+
+    It will set the maxSkew and minDomains to the provided values for all
+    topology keys.
+
+    Args:
+        target: The Deployment or StatefulSet to apply the topology spread constraint to.
+        topology_keys: The topology keys to spread the pods across.
+        when_unsatisfiable: What to do if the pod doesn't satisfy the spread constraint.
     """
     target._api_object.add_json_patch(
         JsonPatch.replace(
             path="/spec/template/spec/topologySpreadConstraints",
             value=[
                 {
-                    "maxSkew": 1,
-                    "minDomains": 3,
+                    "maxSkew": max_skew,
+                    "minDomains": min_domains,
                     "topologyKey": topology_key,
                     "whenUnsatisfiable": when_unsatisfiable.value,
                     "labelSelector": {
