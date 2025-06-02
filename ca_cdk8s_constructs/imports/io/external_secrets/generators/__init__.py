@@ -1035,6 +1035,7 @@ class ClusterGeneratorSpec:
         "gcr_access_token_spec": "gcrAccessTokenSpec",
         "github_access_token_spec": "githubAccessTokenSpec",
         "grafana_spec": "grafanaSpec",
+        "mfa_spec": "mfaSpec",
         "password_spec": "passwordSpec",
         "quay_access_token_spec": "quayAccessTokenSpec",
         "sts_session_token_spec": "stsSessionTokenSpec",
@@ -1053,6 +1054,7 @@ class ClusterGeneratorSpecGenerator:
         gcr_access_token_spec: typing.Optional[typing.Union["ClusterGeneratorSpecGeneratorGcrAccessTokenSpec", typing.Dict[builtins.str, typing.Any]]] = None,
         github_access_token_spec: typing.Optional[typing.Union["ClusterGeneratorSpecGeneratorGithubAccessTokenSpec", typing.Dict[builtins.str, typing.Any]]] = None,
         grafana_spec: typing.Optional[typing.Union["ClusterGeneratorSpecGeneratorGrafanaSpec", typing.Dict[builtins.str, typing.Any]]] = None,
+        mfa_spec: typing.Optional[typing.Union["ClusterGeneratorSpecGeneratorMfaSpec", typing.Dict[builtins.str, typing.Any]]] = None,
         password_spec: typing.Optional[typing.Union["ClusterGeneratorSpecGeneratorPasswordSpec", typing.Dict[builtins.str, typing.Any]]] = None,
         quay_access_token_spec: typing.Optional[typing.Union["ClusterGeneratorSpecGeneratorQuayAccessTokenSpec", typing.Dict[builtins.str, typing.Any]]] = None,
         sts_session_token_spec: typing.Optional[typing.Union["ClusterGeneratorSpecGeneratorStsSessionTokenSpec", typing.Dict[builtins.str, typing.Any]]] = None,
@@ -1068,6 +1070,7 @@ class ClusterGeneratorSpecGenerator:
         :param gcr_access_token_spec: 
         :param github_access_token_spec: 
         :param grafana_spec: GrafanaSpec controls the behavior of the grafana generator.
+        :param mfa_spec: MFASpec controls the behavior of the mfa generator.
         :param password_spec: PasswordSpec controls the behavior of the password generator.
         :param quay_access_token_spec: 
         :param sts_session_token_spec: 
@@ -1089,6 +1092,8 @@ class ClusterGeneratorSpecGenerator:
             github_access_token_spec = ClusterGeneratorSpecGeneratorGithubAccessTokenSpec(**github_access_token_spec)
         if isinstance(grafana_spec, dict):
             grafana_spec = ClusterGeneratorSpecGeneratorGrafanaSpec(**grafana_spec)
+        if isinstance(mfa_spec, dict):
+            mfa_spec = ClusterGeneratorSpecGeneratorMfaSpec(**mfa_spec)
         if isinstance(password_spec, dict):
             password_spec = ClusterGeneratorSpecGeneratorPasswordSpec(**password_spec)
         if isinstance(quay_access_token_spec, dict):
@@ -1107,6 +1112,7 @@ class ClusterGeneratorSpecGenerator:
             check_type(argname="argument gcr_access_token_spec", value=gcr_access_token_spec, expected_type=type_hints["gcr_access_token_spec"])
             check_type(argname="argument github_access_token_spec", value=github_access_token_spec, expected_type=type_hints["github_access_token_spec"])
             check_type(argname="argument grafana_spec", value=grafana_spec, expected_type=type_hints["grafana_spec"])
+            check_type(argname="argument mfa_spec", value=mfa_spec, expected_type=type_hints["mfa_spec"])
             check_type(argname="argument password_spec", value=password_spec, expected_type=type_hints["password_spec"])
             check_type(argname="argument quay_access_token_spec", value=quay_access_token_spec, expected_type=type_hints["quay_access_token_spec"])
             check_type(argname="argument sts_session_token_spec", value=sts_session_token_spec, expected_type=type_hints["sts_session_token_spec"])
@@ -1126,6 +1132,8 @@ class ClusterGeneratorSpecGenerator:
             self._values["github_access_token_spec"] = github_access_token_spec
         if grafana_spec is not None:
             self._values["grafana_spec"] = grafana_spec
+        if mfa_spec is not None:
+            self._values["mfa_spec"] = mfa_spec
         if password_spec is not None:
             self._values["password_spec"] = password_spec
         if quay_access_token_spec is not None:
@@ -1199,6 +1207,15 @@ class ClusterGeneratorSpecGenerator:
         '''
         result = self._values.get("grafana_spec")
         return typing.cast(typing.Optional["ClusterGeneratorSpecGeneratorGrafanaSpec"], result)
+
+    @builtins.property
+    def mfa_spec(self) -> typing.Optional["ClusterGeneratorSpecGeneratorMfaSpec"]:
+        '''MFASpec controls the behavior of the mfa generator.
+
+        :schema: ClusterGeneratorSpecGenerator#mfaSpec
+        '''
+        result = self._values.get("mfa_spec")
+        return typing.cast(typing.Optional["ClusterGeneratorSpecGeneratorMfaSpec"], result)
 
     @builtins.property
     def password_spec(
@@ -3749,6 +3766,205 @@ class ClusterGeneratorSpecGeneratorGrafanaSpecServiceAccount:
 
 
 @jsii.data_type(
+    jsii_type="ioexternal-secretsgenerators.ClusterGeneratorSpecGeneratorMfaSpec",
+    jsii_struct_bases=[],
+    name_mapping={
+        "secret": "secret",
+        "algorithm": "algorithm",
+        "length": "length",
+        "time_period": "timePeriod",
+        "when": "when",
+    },
+)
+class ClusterGeneratorSpecGeneratorMfaSpec:
+    def __init__(
+        self,
+        *,
+        secret: typing.Union["ClusterGeneratorSpecGeneratorMfaSpecSecret", typing.Dict[builtins.str, typing.Any]],
+        algorithm: typing.Optional[builtins.str] = None,
+        length: typing.Optional[jsii.Number] = None,
+        time_period: typing.Optional[jsii.Number] = None,
+        when: typing.Optional[datetime.datetime] = None,
+    ) -> None:
+        '''MFASpec controls the behavior of the mfa generator.
+
+        :param secret: Secret is a secret selector to a secret containing the seed secret to generate the TOTP value from.
+        :param algorithm: Algorithm to use for encoding. Defaults to SHA1 as per the RFC. Default: SHA1 as per the RFC.
+        :param length: Length defines the token length. Defaults to 6 characters. Default: 6 characters.
+        :param time_period: TimePeriod defines how long the token can be active. Defaults to 30 seconds. Default: 30 seconds.
+        :param when: When defines a time parameter that can be used to pin the origin time of the generated token.
+
+        :schema: ClusterGeneratorSpecGeneratorMfaSpec
+        '''
+        if isinstance(secret, dict):
+            secret = ClusterGeneratorSpecGeneratorMfaSpecSecret(**secret)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__850c786f2600603dfc3853a853ecd740c64aea10c974afc659d888847dffb1fd)
+            check_type(argname="argument secret", value=secret, expected_type=type_hints["secret"])
+            check_type(argname="argument algorithm", value=algorithm, expected_type=type_hints["algorithm"])
+            check_type(argname="argument length", value=length, expected_type=type_hints["length"])
+            check_type(argname="argument time_period", value=time_period, expected_type=type_hints["time_period"])
+            check_type(argname="argument when", value=when, expected_type=type_hints["when"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "secret": secret,
+        }
+        if algorithm is not None:
+            self._values["algorithm"] = algorithm
+        if length is not None:
+            self._values["length"] = length
+        if time_period is not None:
+            self._values["time_period"] = time_period
+        if when is not None:
+            self._values["when"] = when
+
+    @builtins.property
+    def secret(self) -> "ClusterGeneratorSpecGeneratorMfaSpecSecret":
+        '''Secret is a secret selector to a secret containing the seed secret to generate the TOTP value from.
+
+        :schema: ClusterGeneratorSpecGeneratorMfaSpec#secret
+        '''
+        result = self._values.get("secret")
+        assert result is not None, "Required property 'secret' is missing"
+        return typing.cast("ClusterGeneratorSpecGeneratorMfaSpecSecret", result)
+
+    @builtins.property
+    def algorithm(self) -> typing.Optional[builtins.str]:
+        '''Algorithm to use for encoding.
+
+        Defaults to SHA1 as per the RFC.
+
+        :default: SHA1 as per the RFC.
+
+        :schema: ClusterGeneratorSpecGeneratorMfaSpec#algorithm
+        '''
+        result = self._values.get("algorithm")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def length(self) -> typing.Optional[jsii.Number]:
+        '''Length defines the token length.
+
+        Defaults to 6 characters.
+
+        :default: 6 characters.
+
+        :schema: ClusterGeneratorSpecGeneratorMfaSpec#length
+        '''
+        result = self._values.get("length")
+        return typing.cast(typing.Optional[jsii.Number], result)
+
+    @builtins.property
+    def time_period(self) -> typing.Optional[jsii.Number]:
+        '''TimePeriod defines how long the token can be active.
+
+        Defaults to 30 seconds.
+
+        :default: 30 seconds.
+
+        :schema: ClusterGeneratorSpecGeneratorMfaSpec#timePeriod
+        '''
+        result = self._values.get("time_period")
+        return typing.cast(typing.Optional[jsii.Number], result)
+
+    @builtins.property
+    def when(self) -> typing.Optional[datetime.datetime]:
+        '''When defines a time parameter that can be used to pin the origin time of the generated token.
+
+        :schema: ClusterGeneratorSpecGeneratorMfaSpec#when
+        '''
+        result = self._values.get("when")
+        return typing.cast(typing.Optional[datetime.datetime], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterGeneratorSpecGeneratorMfaSpec(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secretsgenerators.ClusterGeneratorSpecGeneratorMfaSpecSecret",
+    jsii_struct_bases=[],
+    name_mapping={"key": "key", "name": "name", "namespace": "namespace"},
+)
+class ClusterGeneratorSpecGeneratorMfaSpecSecret:
+    def __init__(
+        self,
+        *,
+        key: typing.Optional[builtins.str] = None,
+        name: typing.Optional[builtins.str] = None,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''Secret is a secret selector to a secret containing the seed secret to generate the TOTP value from.
+
+        :param key: A key in the referenced Secret. Some instances of this field may be defaulted, in others it may be required.
+        :param name: The name of the Secret resource being referred to.
+        :param namespace: The namespace of the Secret resource being referred to. Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: ClusterGeneratorSpecGeneratorMfaSpecSecret
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__0399b4955bbbb906afa17543915ccda1a46a0ca0db7d0fd7a20bd0fcaac258ca)
+            check_type(argname="argument key", value=key, expected_type=type_hints["key"])
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if key is not None:
+            self._values["key"] = key
+        if name is not None:
+            self._values["name"] = name
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def key(self) -> typing.Optional[builtins.str]:
+        '''A key in the referenced Secret.
+
+        Some instances of this field may be defaulted, in others it may be required.
+
+        :schema: ClusterGeneratorSpecGeneratorMfaSpecSecret#key
+        '''
+        result = self._values.get("key")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def name(self) -> typing.Optional[builtins.str]:
+        '''The name of the Secret resource being referred to.
+
+        :schema: ClusterGeneratorSpecGeneratorMfaSpecSecret#name
+        '''
+        result = self._values.get("name")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''The namespace of the Secret resource being referred to.
+
+        Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: ClusterGeneratorSpecGeneratorMfaSpecSecret#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterGeneratorSpecGeneratorMfaSpecSecret(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
     jsii_type="ioexternal-secretsgenerators.ClusterGeneratorSpecGeneratorPasswordSpec",
     jsii_struct_bases=[],
     name_mapping={
@@ -4672,7 +4888,7 @@ class ClusterGeneratorSpecGeneratorStsSessionTokenSpecRequestParameters:
         '''RequestParameters contains parameters that can be passed to the STS service.
 
         :param serial_number: SerialNumber is the identification number of the MFA device that is associated with the IAM user who is making the GetSessionToken call. Possible values: hardware device (such as GAHT12345678) or an Amazon Resource Name (ARN) for a virtual device (such as arn:aws:iam::123456789012:mfa/user)
-        :param session_duration: SessionDuration The duration, in seconds, that the credentials should remain valid. Acceptable durations for IAM user sessions range from 900 seconds (15 minutes) to 129,600 seconds (36 hours), with 43,200 seconds (12 hours) as the default.
+        :param session_duration: 
         :param token_code: TokenCode is the value provided by the MFA device, if MFA is required.
 
         :schema: ClusterGeneratorSpecGeneratorStsSessionTokenSpecRequestParameters
@@ -4704,12 +4920,7 @@ class ClusterGeneratorSpecGeneratorStsSessionTokenSpecRequestParameters:
 
     @builtins.property
     def session_duration(self) -> typing.Optional[jsii.Number]:
-        '''SessionDuration The duration, in seconds, that the credentials should remain valid.
-
-        Acceptable durations for
-        IAM user sessions range from 900 seconds (15 minutes) to 129,600 seconds (36 hours), with 43,200 seconds
-        (12 hours) as the default.
-
+        '''
         :schema: ClusterGeneratorSpecGeneratorStsSessionTokenSpecRequestParameters#sessionDuration
         '''
         result = self._values.get("session_duration")
@@ -11320,6 +11531,331 @@ class GrafanaSpecServiceAccount:
         )
 
 
+class Mfa(
+    _cdk8s_d3d9af27.ApiObject,
+    metaclass=jsii.JSIIMeta,
+    jsii_type="ioexternal-secretsgenerators.Mfa",
+):
+    '''MFA generates a new TOTP token that is compliant with RFC 6238.
+
+    :schema: MFA
+    '''
+
+    def __init__(
+        self,
+        scope: _constructs_77d1e7e8.Construct,
+        id: builtins.str,
+        *,
+        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        spec: typing.Optional[typing.Union["MfaSpec", typing.Dict[builtins.str, typing.Any]]] = None,
+    ) -> None:
+        '''Defines a "MFA" API object.
+
+        :param scope: the scope in which to define this object.
+        :param id: a scope-local name for the object.
+        :param metadata: 
+        :param spec: MFASpec controls the behavior of the mfa generator.
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__ac5134c48fef1781b67c287be4fc523c26ed311f6e877a767e34de1cc27f12cc)
+            check_type(argname="argument scope", value=scope, expected_type=type_hints["scope"])
+            check_type(argname="argument id", value=id, expected_type=type_hints["id"])
+        props = MfaProps(metadata=metadata, spec=spec)
+
+        jsii.create(self.__class__, self, [scope, id, props])
+
+    @jsii.member(jsii_name="manifest")
+    @builtins.classmethod
+    def manifest(
+        cls,
+        *,
+        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        spec: typing.Optional[typing.Union["MfaSpec", typing.Dict[builtins.str, typing.Any]]] = None,
+    ) -> typing.Any:
+        '''Renders a Kubernetes manifest for "MFA".
+
+        This can be used to inline resource manifests inside other objects (e.g. as templates).
+
+        :param metadata: 
+        :param spec: MFASpec controls the behavior of the mfa generator.
+        '''
+        props = MfaProps(metadata=metadata, spec=spec)
+
+        return typing.cast(typing.Any, jsii.sinvoke(cls, "manifest", [props]))
+
+    @jsii.member(jsii_name="toJson")
+    def to_json(self) -> typing.Any:
+        '''Renders the object to Kubernetes JSON.'''
+        return typing.cast(typing.Any, jsii.invoke(self, "toJson", []))
+
+    @jsii.python.classproperty
+    @jsii.member(jsii_name="GVK")
+    def GVK(cls) -> _cdk8s_d3d9af27.GroupVersionKind:
+        '''Returns the apiVersion and kind for "MFA".'''
+        return typing.cast(_cdk8s_d3d9af27.GroupVersionKind, jsii.sget(cls, "GVK"))
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secretsgenerators.MfaProps",
+    jsii_struct_bases=[],
+    name_mapping={"metadata": "metadata", "spec": "spec"},
+)
+class MfaProps:
+    def __init__(
+        self,
+        *,
+        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        spec: typing.Optional[typing.Union["MfaSpec", typing.Dict[builtins.str, typing.Any]]] = None,
+    ) -> None:
+        '''MFA generates a new TOTP token that is compliant with RFC 6238.
+
+        :param metadata: 
+        :param spec: MFASpec controls the behavior of the mfa generator.
+
+        :schema: MFA
+        '''
+        if isinstance(metadata, dict):
+            metadata = _cdk8s_d3d9af27.ApiObjectMetadata(**metadata)
+        if isinstance(spec, dict):
+            spec = MfaSpec(**spec)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__fc44d2d03e646eb519317546307118ed42af2e77f72f8d0ebcdd9dfeb76ae1d8)
+            check_type(argname="argument metadata", value=metadata, expected_type=type_hints["metadata"])
+            check_type(argname="argument spec", value=spec, expected_type=type_hints["spec"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if metadata is not None:
+            self._values["metadata"] = metadata
+        if spec is not None:
+            self._values["spec"] = spec
+
+    @builtins.property
+    def metadata(self) -> typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata]:
+        '''
+        :schema: MFA#metadata
+        '''
+        result = self._values.get("metadata")
+        return typing.cast(typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata], result)
+
+    @builtins.property
+    def spec(self) -> typing.Optional["MfaSpec"]:
+        '''MFASpec controls the behavior of the mfa generator.
+
+        :schema: MFA#spec
+        '''
+        result = self._values.get("spec")
+        return typing.cast(typing.Optional["MfaSpec"], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "MfaProps(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secretsgenerators.MfaSpec",
+    jsii_struct_bases=[],
+    name_mapping={
+        "secret": "secret",
+        "algorithm": "algorithm",
+        "length": "length",
+        "time_period": "timePeriod",
+        "when": "when",
+    },
+)
+class MfaSpec:
+    def __init__(
+        self,
+        *,
+        secret: typing.Union["MfaSpecSecret", typing.Dict[builtins.str, typing.Any]],
+        algorithm: typing.Optional[builtins.str] = None,
+        length: typing.Optional[jsii.Number] = None,
+        time_period: typing.Optional[jsii.Number] = None,
+        when: typing.Optional[datetime.datetime] = None,
+    ) -> None:
+        '''MFASpec controls the behavior of the mfa generator.
+
+        :param secret: Secret is a secret selector to a secret containing the seed secret to generate the TOTP value from.
+        :param algorithm: Algorithm to use for encoding. Defaults to SHA1 as per the RFC. Default: SHA1 as per the RFC.
+        :param length: Length defines the token length. Defaults to 6 characters. Default: 6 characters.
+        :param time_period: TimePeriod defines how long the token can be active. Defaults to 30 seconds. Default: 30 seconds.
+        :param when: When defines a time parameter that can be used to pin the origin time of the generated token.
+
+        :schema: MfaSpec
+        '''
+        if isinstance(secret, dict):
+            secret = MfaSpecSecret(**secret)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__d891d8c274e0ecf9023a17856b8531ea6bd516f877bc824a4252fa4bd20eb663)
+            check_type(argname="argument secret", value=secret, expected_type=type_hints["secret"])
+            check_type(argname="argument algorithm", value=algorithm, expected_type=type_hints["algorithm"])
+            check_type(argname="argument length", value=length, expected_type=type_hints["length"])
+            check_type(argname="argument time_period", value=time_period, expected_type=type_hints["time_period"])
+            check_type(argname="argument when", value=when, expected_type=type_hints["when"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "secret": secret,
+        }
+        if algorithm is not None:
+            self._values["algorithm"] = algorithm
+        if length is not None:
+            self._values["length"] = length
+        if time_period is not None:
+            self._values["time_period"] = time_period
+        if when is not None:
+            self._values["when"] = when
+
+    @builtins.property
+    def secret(self) -> "MfaSpecSecret":
+        '''Secret is a secret selector to a secret containing the seed secret to generate the TOTP value from.
+
+        :schema: MfaSpec#secret
+        '''
+        result = self._values.get("secret")
+        assert result is not None, "Required property 'secret' is missing"
+        return typing.cast("MfaSpecSecret", result)
+
+    @builtins.property
+    def algorithm(self) -> typing.Optional[builtins.str]:
+        '''Algorithm to use for encoding.
+
+        Defaults to SHA1 as per the RFC.
+
+        :default: SHA1 as per the RFC.
+
+        :schema: MfaSpec#algorithm
+        '''
+        result = self._values.get("algorithm")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def length(self) -> typing.Optional[jsii.Number]:
+        '''Length defines the token length.
+
+        Defaults to 6 characters.
+
+        :default: 6 characters.
+
+        :schema: MfaSpec#length
+        '''
+        result = self._values.get("length")
+        return typing.cast(typing.Optional[jsii.Number], result)
+
+    @builtins.property
+    def time_period(self) -> typing.Optional[jsii.Number]:
+        '''TimePeriod defines how long the token can be active.
+
+        Defaults to 30 seconds.
+
+        :default: 30 seconds.
+
+        :schema: MfaSpec#timePeriod
+        '''
+        result = self._values.get("time_period")
+        return typing.cast(typing.Optional[jsii.Number], result)
+
+    @builtins.property
+    def when(self) -> typing.Optional[datetime.datetime]:
+        '''When defines a time parameter that can be used to pin the origin time of the generated token.
+
+        :schema: MfaSpec#when
+        '''
+        result = self._values.get("when")
+        return typing.cast(typing.Optional[datetime.datetime], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "MfaSpec(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secretsgenerators.MfaSpecSecret",
+    jsii_struct_bases=[],
+    name_mapping={"key": "key", "name": "name", "namespace": "namespace"},
+)
+class MfaSpecSecret:
+    def __init__(
+        self,
+        *,
+        key: typing.Optional[builtins.str] = None,
+        name: typing.Optional[builtins.str] = None,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''Secret is a secret selector to a secret containing the seed secret to generate the TOTP value from.
+
+        :param key: A key in the referenced Secret. Some instances of this field may be defaulted, in others it may be required.
+        :param name: The name of the Secret resource being referred to.
+        :param namespace: The namespace of the Secret resource being referred to. Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: MfaSpecSecret
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__41dc60589fac583a07b76803d0abcd285e9aab537ccbdccf666f627233dfaabf)
+            check_type(argname="argument key", value=key, expected_type=type_hints["key"])
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if key is not None:
+            self._values["key"] = key
+        if name is not None:
+            self._values["name"] = name
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def key(self) -> typing.Optional[builtins.str]:
+        '''A key in the referenced Secret.
+
+        Some instances of this field may be defaulted, in others it may be required.
+
+        :schema: MfaSpecSecret#key
+        '''
+        result = self._values.get("key")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def name(self) -> typing.Optional[builtins.str]:
+        '''The name of the Secret resource being referred to.
+
+        :schema: MfaSpecSecret#name
+        '''
+        result = self._values.get("name")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''The namespace of the Secret resource being referred to.
+
+        Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: MfaSpecSecret#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "MfaSpecSecret(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
 class Password(
     _cdk8s_d3d9af27.ApiObject,
     metaclass=jsii.JSIIMeta,
@@ -12624,7 +13160,7 @@ class StsSessionTokenSpecRequestParameters:
         '''RequestParameters contains parameters that can be passed to the STS service.
 
         :param serial_number: SerialNumber is the identification number of the MFA device that is associated with the IAM user who is making the GetSessionToken call. Possible values: hardware device (such as GAHT12345678) or an Amazon Resource Name (ARN) for a virtual device (such as arn:aws:iam::123456789012:mfa/user)
-        :param session_duration: SessionDuration The duration, in seconds, that the credentials should remain valid. Acceptable durations for IAM user sessions range from 900 seconds (15 minutes) to 129,600 seconds (36 hours), with 43,200 seconds (12 hours) as the default.
+        :param session_duration: 
         :param token_code: TokenCode is the value provided by the MFA device, if MFA is required.
 
         :schema: StsSessionTokenSpecRequestParameters
@@ -12656,12 +13192,7 @@ class StsSessionTokenSpecRequestParameters:
 
     @builtins.property
     def session_duration(self) -> typing.Optional[jsii.Number]:
-        '''SessionDuration The duration, in seconds, that the credentials should remain valid.
-
-        Acceptable durations for
-        IAM user sessions range from 900 seconds (15 minutes) to 129,600 seconds (36 hours), with 43,200 seconds
-        (12 hours) as the default.
-
+        '''
         :schema: StsSessionTokenSpecRequestParameters#sessionDuration
         '''
         result = self._values.get("session_duration")
@@ -16996,6 +17527,8 @@ __all__ = [
     "ClusterGeneratorSpecGeneratorGrafanaSpecAuthBasicPassword",
     "ClusterGeneratorSpecGeneratorGrafanaSpecAuthToken",
     "ClusterGeneratorSpecGeneratorGrafanaSpecServiceAccount",
+    "ClusterGeneratorSpecGeneratorMfaSpec",
+    "ClusterGeneratorSpecGeneratorMfaSpecSecret",
     "ClusterGeneratorSpecGeneratorPasswordSpec",
     "ClusterGeneratorSpecGeneratorQuayAccessTokenSpec",
     "ClusterGeneratorSpecGeneratorQuayAccessTokenSpecServiceAccountRef",
@@ -17093,6 +17626,10 @@ __all__ = [
     "GrafanaSpecAuthBasicPassword",
     "GrafanaSpecAuthToken",
     "GrafanaSpecServiceAccount",
+    "Mfa",
+    "MfaProps",
+    "MfaSpec",
+    "MfaSpecSecret",
     "Password",
     "PasswordProps",
     "PasswordSpec",
@@ -17295,6 +17832,7 @@ def _typecheckingstub__75697d100ce0404120222110ca16af3984f4ab31958e84b7756b37400
     gcr_access_token_spec: typing.Optional[typing.Union[ClusterGeneratorSpecGeneratorGcrAccessTokenSpec, typing.Dict[builtins.str, typing.Any]]] = None,
     github_access_token_spec: typing.Optional[typing.Union[ClusterGeneratorSpecGeneratorGithubAccessTokenSpec, typing.Dict[builtins.str, typing.Any]]] = None,
     grafana_spec: typing.Optional[typing.Union[ClusterGeneratorSpecGeneratorGrafanaSpec, typing.Dict[builtins.str, typing.Any]]] = None,
+    mfa_spec: typing.Optional[typing.Union[ClusterGeneratorSpecGeneratorMfaSpec, typing.Dict[builtins.str, typing.Any]]] = None,
     password_spec: typing.Optional[typing.Union[ClusterGeneratorSpecGeneratorPasswordSpec, typing.Dict[builtins.str, typing.Any]]] = None,
     quay_access_token_spec: typing.Optional[typing.Union[ClusterGeneratorSpecGeneratorQuayAccessTokenSpec, typing.Dict[builtins.str, typing.Any]]] = None,
     sts_session_token_spec: typing.Optional[typing.Union[ClusterGeneratorSpecGeneratorStsSessionTokenSpec, typing.Dict[builtins.str, typing.Any]]] = None,
@@ -17590,6 +18128,26 @@ def _typecheckingstub__c952f78a75a5bbd20df3105965c9af2c7aabb17469a906f4db76fe7c9
     *,
     name: builtins.str,
     role: builtins.str,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__850c786f2600603dfc3853a853ecd740c64aea10c974afc659d888847dffb1fd(
+    *,
+    secret: typing.Union[ClusterGeneratorSpecGeneratorMfaSpecSecret, typing.Dict[builtins.str, typing.Any]],
+    algorithm: typing.Optional[builtins.str] = None,
+    length: typing.Optional[jsii.Number] = None,
+    time_period: typing.Optional[jsii.Number] = None,
+    when: typing.Optional[datetime.datetime] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__0399b4955bbbb906afa17543915ccda1a46a0ca0db7d0fd7a20bd0fcaac258ca(
+    *,
+    key: typing.Optional[builtins.str] = None,
+    name: typing.Optional[builtins.str] = None,
+    namespace: typing.Optional[builtins.str] = None,
 ) -> None:
     """Type checking stubs"""
     pass
@@ -18431,6 +18989,44 @@ def _typecheckingstub__0b90062b32e8b1dfb708e1e449e63bfe0aa427c431738c846dd6d1124
     *,
     name: builtins.str,
     role: builtins.str,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__ac5134c48fef1781b67c287be4fc523c26ed311f6e877a767e34de1cc27f12cc(
+    scope: _constructs_77d1e7e8.Construct,
+    id: builtins.str,
+    *,
+    metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+    spec: typing.Optional[typing.Union[MfaSpec, typing.Dict[builtins.str, typing.Any]]] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__fc44d2d03e646eb519317546307118ed42af2e77f72f8d0ebcdd9dfeb76ae1d8(
+    *,
+    metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+    spec: typing.Optional[typing.Union[MfaSpec, typing.Dict[builtins.str, typing.Any]]] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__d891d8c274e0ecf9023a17856b8531ea6bd516f877bc824a4252fa4bd20eb663(
+    *,
+    secret: typing.Union[MfaSpecSecret, typing.Dict[builtins.str, typing.Any]],
+    algorithm: typing.Optional[builtins.str] = None,
+    length: typing.Optional[jsii.Number] = None,
+    time_period: typing.Optional[jsii.Number] = None,
+    when: typing.Optional[datetime.datetime] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__41dc60589fac583a07b76803d0abcd285e9aab537ccbdccf666f627233dfaabf(
+    *,
+    key: typing.Optional[builtins.str] = None,
+    name: typing.Optional[builtins.str] = None,
+    namespace: typing.Optional[builtins.str] = None,
 ) -> None:
     """Type checking stubs"""
     pass
