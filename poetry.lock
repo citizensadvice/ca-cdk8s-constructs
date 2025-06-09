@@ -56,37 +56,37 @@ typeguard = ">=2.13.3,<5.0.0"
 
 [[package]]
 name = "aws-cdk-cloud-assembly-schema"
-version = "41.2.0"
+version = "44.2.0"
 description = "Schema for the protocol between CDK framework and CDK CLI"
 optional = false
-python-versions = "~=3.8"
+python-versions = "~=3.9"
 groups = ["main"]
 files = [
-    {file = "aws_cdk.cloud_assembly_schema-41.2.0-py3-none-any.whl", hash = "sha256:779ca7e3edb02695e0a94a1f38e322b04fbe192cd7944553f80b681a21edd670"},
-    {file = "aws_cdk_cloud_assembly_schema-41.2.0.tar.gz", hash = "sha256:7064ac13f6944fd53f8d8eace611d3c5d8db7014049d629f5c47ede8dc5f2e3b"},
+    {file = "aws_cdk_cloud_assembly_schema-44.2.0-py3-none-any.whl", hash = "sha256:89d1aea12a15475f5240ee8eb73c304678e8ef51d90990978f0e58f5295bcf3f"},
+    {file = "aws_cdk_cloud_assembly_schema-44.2.0.tar.gz", hash = "sha256:38a309a38a111d62ac32683f9f79b3d2e7cf4d78076ed9f3ec9788b273cd9b41"},
 ]
 
 [package.dependencies]
-jsii = ">=1.108.0,<2.0.0"
+jsii = ">=1.112.0,<2.0.0"
 publication = ">=0.0.3"
 typeguard = ">=2.13.3,<4.3.0"
 
 [[package]]
 name = "aws-cdk-lib"
-version = "2.199.0"
+version = "2.200.1"
 description = "Version 2 of the AWS Cloud Development Kit library"
 optional = false
 python-versions = "~=3.9"
 groups = ["main"]
 files = [
-    {file = "aws_cdk_lib-2.199.0-py3-none-any.whl", hash = "sha256:0c0476db7d4c7800839508259502293fc126e1d3d55aa3dc156d8e0348a36e11"},
-    {file = "aws_cdk_lib-2.199.0.tar.gz", hash = "sha256:3a9e2d12393ce459940a972d64a48bb6a684d70958bbc7ac28928eb2f2608b71"},
+    {file = "aws_cdk_lib-2.200.1-py3-none-any.whl", hash = "sha256:ac7f4f5b80b9183615698925746a2ae937498bfb5ae899746f19c76ed1688e62"},
+    {file = "aws_cdk_lib-2.200.1.tar.gz", hash = "sha256:3f64251327d2f64b2bc86e8e3fc5ab2c7381f135ad781c447f7dc64298397d33"},
 ]
 
 [package.dependencies]
 "aws-cdk.asset-awscli-v1" = "2.2.237"
 "aws-cdk.asset-node-proxy-agent-v6" = ">=2.1.0,<3.0.0"
-"aws-cdk.cloud-assembly-schema" = ">=41.2.0,<42.0.0"
+"aws-cdk.cloud-assembly-schema" = ">=44.1.0,<45.0.0"
 constructs = ">=10.0.0,<11.0.0"
 jsii = ">=1.112.0,<2.0.0"
 publication = ">=0.0.3"
@@ -526,4 +526,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10, <3.14"
-content-hash = "160eba96f5c49de92bc3ff383f9993864ec7a1fa16c54ea72d65f90f362d8745"
+content-hash = "929915292beed5a36c228580fbc7b71293eee21797a2896d43a88b9782d32268"
