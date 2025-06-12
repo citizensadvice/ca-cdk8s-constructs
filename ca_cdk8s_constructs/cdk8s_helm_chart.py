@@ -1,17 +1,18 @@
 import builtins
-from textwrap import dedent
 import typing
+from enum import Enum
+from pathlib import Path
+from tempfile import TemporaryDirectory
+from textwrap import dedent
+from typing import Sequence
+
+import cdk8s
+import yaml
 from aws_cdk import Duration
 from aws_cdk.aws_eks import HelmChart, ICluster
 from aws_cdk.aws_s3_assets import Asset
-import cdk8s
-from constructs import Construct
-import yaml
-from tempfile import TemporaryDirectory
-from pathlib import Path
 from cdk8s_plus_32 import Job
-from enum import Enum
-from typing import Sequence
+from constructs import Construct
 
 
 class HelmChartAsset(Construct):
