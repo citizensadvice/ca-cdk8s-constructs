@@ -1,0 +1,120 @@
+# serializer version: 1
+# name: test_topology_spread_defaults
+  list([
+    dict({
+      'labelSelector': dict({
+        'matchLabels': dict({
+          'cdk8s.io/metadata.addr': 'test-Deployment-c83f5e59',
+        }),
+      }),
+      'maxSkew': 1,
+      'minDomains': 3,
+      'topologyKey': 'topology.kubernetes.io/zone',
+      'whenUnsatisfiable': 'ScheduleAnyway',
+    }),
+    dict({
+      'labelSelector': dict({
+        'matchLabels': dict({
+          'cdk8s.io/metadata.addr': 'test-Deployment-c83f5e59',
+        }),
+      }),
+      'maxSkew': 1,
+      'minDomains': 3,
+      'topologyKey': 'kubernetes.io/hostname',
+      'whenUnsatisfiable': 'ScheduleAnyway',
+    }),
+  ])
+# ---
+# name: test_topology_spread_max_skew
+  list([
+    dict({
+      'labelSelector': dict({
+        'matchLabels': dict({
+          'cdk8s.io/metadata.addr': 'test-Deployment-c83f5e59',
+        }),
+      }),
+      'maxSkew': 2,
+      'minDomains': 3,
+      'topologyKey': 'topology.kubernetes.io/zone',
+      'whenUnsatisfiable': 'ScheduleAnyway',
+    }),
+    dict({
+      'labelSelector': dict({
+        'matchLabels': dict({
+          'cdk8s.io/metadata.addr': 'test-Deployment-c83f5e59',
+        }),
+      }),
+      'maxSkew': 2,
+      'minDomains': 3,
+      'topologyKey': 'kubernetes.io/hostname',
+      'whenUnsatisfiable': 'ScheduleAnyway',
+    }),
+  ])
+# ---
+# name: test_topology_spread_min_domains
+  list([
+    dict({
+      'labelSelector': dict({
+        'matchLabels': dict({
+          'cdk8s.io/metadata.addr': 'test-Deployment-c83f5e59',
+        }),
+      }),
+      'maxSkew': 1,
+      'minDomains': 2,
+      'topologyKey': 'topology.kubernetes.io/zone',
+      'whenUnsatisfiable': 'ScheduleAnyway',
+    }),
+    dict({
+      'labelSelector': dict({
+        'matchLabels': dict({
+          'cdk8s.io/metadata.addr': 'test-Deployment-c83f5e59',
+        }),
+      }),
+      'maxSkew': 1,
+      'minDomains': 2,
+      'topologyKey': 'kubernetes.io/hostname',
+      'whenUnsatisfiable': 'ScheduleAnyway',
+    }),
+  ])
+# ---
+# name: test_topology_spread_topology_keys
+  list([
+    dict({
+      'labelSelector': dict({
+        'matchLabels': dict({
+          'cdk8s.io/metadata.addr': 'test-Deployment-c83f5e59',
+        }),
+      }),
+      'maxSkew': 1,
+      'minDomains': 3,
+      'topologyKey': 'topology.kubernetes.io/zone',
+      'whenUnsatisfiable': 'ScheduleAnyway',
+    }),
+  ])
+# ---
+# name: test_topology_spread_when_unsatisfiable
+  list([
+    dict({
+      'labelSelector': dict({
+        'matchLabels': dict({
+          'cdk8s.io/metadata.addr': 'test-Deployment-c83f5e59',
+        }),
+      }),
+      'maxSkew': 1,
+      'minDomains': 3,
+      'topologyKey': 'topology.kubernetes.io/zone',
+      'whenUnsatisfiable': 'DoNotSchedule',
+    }),
+    dict({
+      'labelSelector': dict({
+        'matchLabels': dict({
+          'cdk8s.io/metadata.addr': 'test-Deployment-c83f5e59',
+        }),
+      }),
+      'maxSkew': 1,
+      'minDomains': 3,
+      'topologyKey': 'kubernetes.io/hostname',
+      'whenUnsatisfiable': 'DoNotSchedule',
+    }),
+  ])
+# ---

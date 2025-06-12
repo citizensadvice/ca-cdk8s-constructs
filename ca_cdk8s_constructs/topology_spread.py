@@ -1,4 +1,5 @@
 from enum import Enum
+from typing import Sequence
 
 from cdk8s import JsonPatch
 from cdk8s_plus_32 import Deployment, StatefulSet, Topology
@@ -17,7 +18,7 @@ class WhenUnsatisfiable(Enum):
 
 def set_topology_spread(
     target: Deployment | StatefulSet,
-    topology_keys: list[Topology] = [Topology.ZONE, Topology.HOSTNAME],
+    topology_keys: Sequence[Topology] = (Topology.ZONE, Topology.HOSTNAME),
     when_unsatisfiable: WhenUnsatisfiable = WhenUnsatisfiable.SCHEDULE_ANYWAY,
     max_skew: int = 1,
     min_domains: int = 3,
@@ -38,7 +39,10 @@ def set_topology_spread(
         target: The Deployment or StatefulSet to apply the topology spread constraint to.
         topology_keys: The topology keys to spread the pods across.
         when_unsatisfiable: What to do if the pod doesn't satisfy the spread constraint.
+        max_skew: The max difference between the number of pods in the most populated domain and the least populated domain.
+        min_domains: The minimum number of domains to spread the pods across.
     """
+
     target._api_object.add_json_patch(
         JsonPatch.replace(
             path="/spec/template/spec/topologySpreadConstraints",
@@ -46,7 +50,7 @@ def set_topology_spread(
                 {
                     "maxSkew": max_skew,
                     "minDomains": min_domains,
-                    "topologyKey": topology_key,
+                    "topologyKey": topology_key.key,
                     "whenUnsatisfiable": when_unsatisfiable.value,
                     "labelSelector": {
                         "matchLabels": target.match_labels,
