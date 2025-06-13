@@ -1,0 +1,6 @@
+
+[src]
+root = "./ca_cdk8s_constructs"
+
+[environment]
+python = "./.venv"
