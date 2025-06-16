@@ -1466,6 +1466,8 @@ class ClusterExternalSecretSpecExternalSecretSpecDataFromSourceRefGeneratorRefKi
     '''Webhook.'''
     GRAFANA = "GRAFANA"
     '''Grafana.'''
+    MFA = "MFA"
+    '''MFA.'''
 
 
 @jsii.data_type(
@@ -1926,6 +1928,8 @@ class ClusterExternalSecretSpecExternalSecretSpecDataSourceRefGeneratorRefKind(
     '''Webhook.'''
     GRAFANA = "GRAFANA"
     '''Grafana.'''
+    MFA = "MFA"
+    '''MFA.'''
 
 
 @jsii.data_type(
@@ -3352,7 +3356,7 @@ class ClusterExternalSecretV1Beta1Spec:
         :param external_secret_metadata: The metadata of the external secrets to be created.
         :param external_secret_name: The name of the external secrets to be created. Defaults to the name of the ClusterExternalSecret Default: the name of the ClusterExternalSecret
         :param namespaces: Choose namespaces by name. This field is ORed with anything that NamespaceSelectors ends up choosing. Deprecated: Use NamespaceSelectors instead.
-        :param namespace_selector: The labels to select by to find the Namespaces to create the ExternalSecrets in. Deprecated: Use NamespaceSelectors instead.
+        :param namespace_selector: The labels to select by to find the Namespaces to create the ExternalSecrets in.
         :param namespace_selectors: A list of labels to select by to find the Namespaces to create the ExternalSecrets in. The selectors are ORed.
         :param refresh_time: The time in which the controller should reconcile its objects and recheck namespaces for labels.
 
@@ -3442,8 +3446,6 @@ class ClusterExternalSecretV1Beta1Spec:
         self,
     ) -> typing.Optional["ClusterExternalSecretV1Beta1SpecNamespaceSelector"]:
         '''The labels to select by to find the Namespaces to create the ExternalSecrets in.
-
-        Deprecated: Use NamespaceSelectors instead.
 
         :schema: ClusterExternalSecretV1Beta1Spec#namespaceSelector
         '''
@@ -6073,8 +6075,6 @@ class ClusterExternalSecretV1Beta1SpecNamespaceSelector:
     ) -> None:
         '''The labels to select by to find the Namespaces to create the ExternalSecrets in.
 
-        Deprecated: Use NamespaceSelectors instead.
-
         :param match_expressions: matchExpressions is a list of label selector requirements. The requirements are ANDed.
         :param match_labels: matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
 
@@ -7636,6 +7636,8 @@ class ClusterPushSecretSpecPushSecretSpecSelectorGeneratorRefKind(enum.Enum):
     '''Webhook.'''
     GRAFANA = "GRAFANA"
     '''Grafana.'''
+    MFA = "MFA"
+    '''MFA.'''
 
 
 @jsii.data_type(
@@ -20069,7 +20071,7 @@ class ClusterSecretStoreSpecProviderOnepasswordSdk:
         '''OnePasswordSDK configures this store to use 1Password's new Go SDK to sync secrets.
 
         :param auth: Auth defines the information necessary to authenticate against OnePassword API.
-        :param vault: Vault defines the vault's name to access. Do NOT add op:// prefix. This will be done automatically.
+        :param vault: Vault defines the vault's name or uuid to access. Do NOT add op:// prefix. This will be done automatically.
         :param integration_info: IntegrationInfo specifies the name and version of the integration built using the 1Password Go SDK. If you don't know which name and version to use, use ``DefaultIntegrationName`` and ``DefaultIntegrationVersion``, respectively.
 
         :schema: ClusterSecretStoreSpecProviderOnepasswordSdk
@@ -20102,7 +20104,7 @@ class ClusterSecretStoreSpecProviderOnepasswordSdk:
 
     @builtins.property
     def vault(self) -> builtins.str:
-        '''Vault defines the vault's name to access.
+        '''Vault defines the vault's name or uuid to access.
 
         Do NOT add op:// prefix. This will be done automatically.
 
@@ -47089,6 +47091,8 @@ class ExternalSecretSpecDataFromSourceRefGeneratorRefKind(enum.Enum):
     '''Webhook.'''
     GRAFANA = "GRAFANA"
     '''Grafana.'''
+    MFA = "MFA"
+    '''MFA.'''
 
 
 @jsii.data_type(
@@ -47537,6 +47541,8 @@ class ExternalSecretSpecDataSourceRefGeneratorRefKind(enum.Enum):
     '''Webhook.'''
     GRAFANA = "GRAFANA"
     '''Grafana.'''
+    MFA = "MFA"
+    '''MFA.'''
 
 
 @jsii.data_type(
@@ -51959,6 +51965,8 @@ class PushSecretSpecSelectorGeneratorRefKind(enum.Enum):
     '''Webhook.'''
     GRAFANA = "GRAFANA"
     '''Grafana.'''
+    MFA = "MFA"
+    '''MFA.'''
 
 
 @jsii.data_type(
@@ -64320,7 +64328,7 @@ class SecretStoreSpecProviderOnepasswordSdk:
         '''OnePasswordSDK configures this store to use 1Password's new Go SDK to sync secrets.
 
         :param auth: Auth defines the information necessary to authenticate against OnePassword API.
-        :param vault: Vault defines the vault's name to access. Do NOT add op:// prefix. This will be done automatically.
+        :param vault: Vault defines the vault's name or uuid to access. Do NOT add op:// prefix. This will be done automatically.
         :param integration_info: IntegrationInfo specifies the name and version of the integration built using the 1Password Go SDK. If you don't know which name and version to use, use ``DefaultIntegrationName`` and ``DefaultIntegrationVersion``, respectively.
 
         :schema: SecretStoreSpecProviderOnepasswordSdk
@@ -64353,7 +64361,7 @@ class SecretStoreSpecProviderOnepasswordSdk:
 
     @builtins.property
     def vault(self) -> builtins.str:
-        '''Vault defines the vault's name to access.
+        '''Vault defines the vault's name or uuid to access.
 
         Do NOT add op:// prefix. This will be done automatically.
 

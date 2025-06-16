@@ -1,15 +1,17 @@
+import enum
+
 from cdk8s_plus_32 import Cpu, IScalable
 from constructs import Construct
-import enum
+
 from ca_cdk8s_constructs.imports.io.k8s.autoscaling import (
     VerticalPodAutoscaler,
     VerticalPodAutoscalerSpec,
-    VerticalPodAutoscalerSpecTargetRef,
-    VerticalPodAutoscalerSpecUpdatePolicy,
-    VerticalPodAutoscalerSpecUpdatePolicyUpdateMode,
     VerticalPodAutoscalerSpecResourcePolicy,
     VerticalPodAutoscalerSpecResourcePolicyContainerPolicies,
     VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesMinAllowed,
+    VerticalPodAutoscalerSpecTargetRef,
+    VerticalPodAutoscalerSpecUpdatePolicy,
+    VerticalPodAutoscalerSpecUpdatePolicyUpdateMode,
 )
 
 
@@ -52,6 +54,7 @@ def ca_vpa(
 
     Args:
         scope: The scope of the construct.
+        id: The id of the construct.
         target: The target to autoscale.
         min_allowed_cpu: The minimum allowed CPU in millicores. Defaults to 100.
         update_mode: The update mode to use. Defaults to VpaUpdateMode.AUTO.
