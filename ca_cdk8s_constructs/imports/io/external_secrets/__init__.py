@@ -1111,34 +1111,52 @@ class ClusterExternalSecretSpecExternalSecretSpecDataFromFindName:
 @jsii.data_type(
     jsii_type="ioexternal-secrets.ClusterExternalSecretSpecExternalSecretSpecDataFromRewrite",
     jsii_struct_bases=[],
-    name_mapping={"regexp": "regexp", "transform": "transform"},
+    name_mapping={"merge": "merge", "regexp": "regexp", "transform": "transform"},
 )
 class ClusterExternalSecretSpecExternalSecretSpecDataFromRewrite:
     def __init__(
         self,
         *,
+        merge: typing.Optional[typing.Union["ClusterExternalSecretSpecExternalSecretSpecDataFromRewriteMerge", typing.Dict[builtins.str, typing.Any]]] = None,
         regexp: typing.Optional[typing.Union["ClusterExternalSecretSpecExternalSecretSpecDataFromRewriteRegexp", typing.Dict[builtins.str, typing.Any]]] = None,
         transform: typing.Optional[typing.Union["ClusterExternalSecretSpecExternalSecretSpecDataFromRewriteTransform", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''
+        :param merge: Used to merge key/values in one single Secret The resulting key will contain all values from the specified secrets.
         :param regexp: Used to rewrite with regular expressions. The resulting key will be the output of a regexp.ReplaceAll operation.
         :param transform: Used to apply string transformation on the secrets. The resulting key will be the output of the template applied by the operation.
 
         :schema: ClusterExternalSecretSpecExternalSecretSpecDataFromRewrite
         '''
+        if isinstance(merge, dict):
+            merge = ClusterExternalSecretSpecExternalSecretSpecDataFromRewriteMerge(**merge)
         if isinstance(regexp, dict):
             regexp = ClusterExternalSecretSpecExternalSecretSpecDataFromRewriteRegexp(**regexp)
         if isinstance(transform, dict):
             transform = ClusterExternalSecretSpecExternalSecretSpecDataFromRewriteTransform(**transform)
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__f601bc7c910f4395527a2edbe9ff719509d7d8808af893ad08740c049a2c5b76)
+            check_type(argname="argument merge", value=merge, expected_type=type_hints["merge"])
             check_type(argname="argument regexp", value=regexp, expected_type=type_hints["regexp"])
             check_type(argname="argument transform", value=transform, expected_type=type_hints["transform"])
         self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if merge is not None:
+            self._values["merge"] = merge
         if regexp is not None:
             self._values["regexp"] = regexp
         if transform is not None:
             self._values["transform"] = transform
+
+    @builtins.property
+    def merge(
+        self,
+    ) -> typing.Optional["ClusterExternalSecretSpecExternalSecretSpecDataFromRewriteMerge"]:
+        '''Used to merge key/values in one single Secret The resulting key will contain all values from the specified secrets.
+
+        :schema: ClusterExternalSecretSpecExternalSecretSpecDataFromRewrite#merge
+        '''
+        result = self._values.get("merge")
+        return typing.cast(typing.Optional["ClusterExternalSecretSpecExternalSecretSpecDataFromRewriteMerge"], result)
 
     @builtins.property
     def regexp(
@@ -1174,6 +1192,100 @@ class ClusterExternalSecretSpecExternalSecretSpecDataFromRewrite:
 
     def __repr__(self) -> str:
         return "ClusterExternalSecretSpecExternalSecretSpecDataFromRewrite(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.ClusterExternalSecretSpecExternalSecretSpecDataFromRewriteMerge",
+    jsii_struct_bases=[],
+    name_mapping={
+        "conflict_policy": "conflictPolicy",
+        "into": "into",
+        "priority": "priority",
+        "strategy": "strategy",
+    },
+)
+class ClusterExternalSecretSpecExternalSecretSpecDataFromRewriteMerge:
+    def __init__(
+        self,
+        *,
+        conflict_policy: typing.Optional[builtins.str] = None,
+        into: typing.Optional[builtins.str] = None,
+        priority: typing.Optional[typing.Sequence[builtins.str]] = None,
+        strategy: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''Used to merge key/values in one single Secret The resulting key will contain all values from the specified secrets.
+
+        :param conflict_policy: Used to define the policy to use in conflict resolution.
+        :param into: Used to define the target key of the merge operation. Required if strategy is JSON. Ignored otherwise.
+        :param priority: Used to define key priority in conflict resolution.
+        :param strategy: Used to define the strategy to use in the merge operation.
+
+        :schema: ClusterExternalSecretSpecExternalSecretSpecDataFromRewriteMerge
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__2b350ae1d764952aa1647501bd4693e82eb2caa28988780c400b948cfe584d0a)
+            check_type(argname="argument conflict_policy", value=conflict_policy, expected_type=type_hints["conflict_policy"])
+            check_type(argname="argument into", value=into, expected_type=type_hints["into"])
+            check_type(argname="argument priority", value=priority, expected_type=type_hints["priority"])
+            check_type(argname="argument strategy", value=strategy, expected_type=type_hints["strategy"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if conflict_policy is not None:
+            self._values["conflict_policy"] = conflict_policy
+        if into is not None:
+            self._values["into"] = into
+        if priority is not None:
+            self._values["priority"] = priority
+        if strategy is not None:
+            self._values["strategy"] = strategy
+
+    @builtins.property
+    def conflict_policy(self) -> typing.Optional[builtins.str]:
+        '''Used to define the policy to use in conflict resolution.
+
+        :schema: ClusterExternalSecretSpecExternalSecretSpecDataFromRewriteMerge#conflictPolicy
+        '''
+        result = self._values.get("conflict_policy")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def into(self) -> typing.Optional[builtins.str]:
+        '''Used to define the target key of the merge operation.
+
+        Required if strategy is JSON. Ignored otherwise.
+
+        :schema: ClusterExternalSecretSpecExternalSecretSpecDataFromRewriteMerge#into
+        '''
+        result = self._values.get("into")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def priority(self) -> typing.Optional[typing.List[builtins.str]]:
+        '''Used to define key priority in conflict resolution.
+
+        :schema: ClusterExternalSecretSpecExternalSecretSpecDataFromRewriteMerge#priority
+        '''
+        result = self._values.get("priority")
+        return typing.cast(typing.Optional[typing.List[builtins.str]], result)
+
+    @builtins.property
+    def strategy(self) -> typing.Optional[builtins.str]:
+        '''Used to define the strategy to use in the merge operation.
+
+        :schema: ClusterExternalSecretSpecExternalSecretSpecDataFromRewriteMerge#strategy
+        '''
+        result = self._values.get("strategy")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterExternalSecretSpecExternalSecretSpecDataFromRewriteMerge(%s)" % ", ".join(
             k + "=" + repr(v) for k, v in self._values.items()
         )
 
@@ -1466,6 +1578,8 @@ class ClusterExternalSecretSpecExternalSecretSpecDataFromSourceRefGeneratorRefKi
     '''Webhook.'''
     GRAFANA = "GRAFANA"
     '''Grafana.'''
+    MFA = "MFA"
+    '''MFA.'''
 
 
 @jsii.data_type(
@@ -1926,6 +2040,8 @@ class ClusterExternalSecretSpecExternalSecretSpecDataSourceRefGeneratorRefKind(
     '''Webhook.'''
     GRAFANA = "GRAFANA"
     '''Grafana.'''
+    MFA = "MFA"
+    '''MFA.'''
 
 
 @jsii.data_type(
@@ -3352,7 +3468,7 @@ class ClusterExternalSecretV1Beta1Spec:
         :param external_secret_metadata: The metadata of the external secrets to be created.
         :param external_secret_name: The name of the external secrets to be created. Defaults to the name of the ClusterExternalSecret Default: the name of the ClusterExternalSecret
         :param namespaces: Choose namespaces by name. This field is ORed with anything that NamespaceSelectors ends up choosing. Deprecated: Use NamespaceSelectors instead.
-        :param namespace_selector: The labels to select by to find the Namespaces to create the ExternalSecrets in. Deprecated: Use NamespaceSelectors instead.
+        :param namespace_selector: The labels to select by to find the Namespaces to create the ExternalSecrets in.
         :param namespace_selectors: A list of labels to select by to find the Namespaces to create the ExternalSecrets in. The selectors are ORed.
         :param refresh_time: The time in which the controller should reconcile its objects and recheck namespaces for labels.
 
@@ -3442,8 +3558,6 @@ class ClusterExternalSecretV1Beta1Spec:
         self,
     ) -> typing.Optional["ClusterExternalSecretV1Beta1SpecNamespaceSelector"]:
         '''The labels to select by to find the Namespaces to create the ExternalSecrets in.
-
-        Deprecated: Use NamespaceSelectors instead.
 
         :schema: ClusterExternalSecretV1Beta1Spec#namespaceSelector
         '''
@@ -6073,8 +6187,6 @@ class ClusterExternalSecretV1Beta1SpecNamespaceSelector:
     ) -> None:
         '''The labels to select by to find the Namespaces to create the ExternalSecrets in.
 
-        Deprecated: Use NamespaceSelectors instead.
-
         :param match_expressions: matchExpressions is a list of label selector requirements. The requirements are ANDed.
         :param match_labels: matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
 
@@ -7636,6 +7748,8 @@ class ClusterPushSecretSpecPushSecretSpecSelectorGeneratorRefKind(enum.Enum):
     '''Webhook.'''
     GRAFANA = "GRAFANA"
     '''Grafana.'''
+    MFA = "MFA"
+    '''MFA.'''
 
 
 @jsii.data_type(
@@ -17338,6 +17452,8 @@ class ClusterSecretStoreSpecProviderGithubAuthPrivateKey:
     jsii_struct_bases=[],
     name_mapping={
         "auth": "auth",
+        "ca_bundle": "caBundle",
+        "ca_provider": "caProvider",
         "environment": "environment",
         "group_i_ds": "groupIDs",
         "inherit_from_groups": "inheritFromGroups",
@@ -17350,6 +17466,8 @@ class ClusterSecretStoreSpecProviderGitlab:
         self,
         *,
         auth: typing.Union["ClusterSecretStoreSpecProviderGitlabAuth", typing.Dict[builtins.str, typing.Any]],
+        ca_bundle: typing.Optional[builtins.str] = None,
+        ca_provider: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderGitlabCaProvider", typing.Dict[builtins.str, typing.Any]]] = None,
         environment: typing.Optional[builtins.str] = None,
         group_i_ds: typing.Optional[typing.Sequence[builtins.str]] = None,
         inherit_from_groups: typing.Optional[builtins.bool] = None,
@@ -17359,6 +17477,8 @@ class ClusterSecretStoreSpecProviderGitlab:
         '''GitLab configures this store to sync secrets using GitLab Variables provider.
 
         :param auth: Auth configures how secret-manager authenticates with a GitLab instance.
+        :param ca_bundle: Base64 encoded certificate for the GitLab server sdk. The sdk MUST run with HTTPS to make sure no MITM attack can be performed.
+        :param ca_provider: see: https://external-secrets.io/latest/spec/#external-secrets.io/v1alpha1.CAProvider.
         :param environment: Environment environment_scope of gitlab CI/CD variables (Please see https://docs.gitlab.com/ee/ci/environments/#create-a-static-environment on how to create environments).
         :param group_i_ds: GroupIDs specify, which gitlab groups to pull secrets from. Group secrets are read from left to right followed by the project variables.
         :param inherit_from_groups: InheritFromGroups specifies whether parent groups should be discovered and checked for secrets.
@@ -17369,9 +17489,13 @@ class ClusterSecretStoreSpecProviderGitlab:
         '''
         if isinstance(auth, dict):
             auth = ClusterSecretStoreSpecProviderGitlabAuth(**auth)
+        if isinstance(ca_provider, dict):
+            ca_provider = ClusterSecretStoreSpecProviderGitlabCaProvider(**ca_provider)
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__cd6c28ce03a61453b779c63be95c17f14c569df7b7901767be17f3b916f7b7b9)
             check_type(argname="argument auth", value=auth, expected_type=type_hints["auth"])
+            check_type(argname="argument ca_bundle", value=ca_bundle, expected_type=type_hints["ca_bundle"])
+            check_type(argname="argument ca_provider", value=ca_provider, expected_type=type_hints["ca_provider"])
             check_type(argname="argument environment", value=environment, expected_type=type_hints["environment"])
             check_type(argname="argument group_i_ds", value=group_i_ds, expected_type=type_hints["group_i_ds"])
             check_type(argname="argument inherit_from_groups", value=inherit_from_groups, expected_type=type_hints["inherit_from_groups"])
@@ -17380,6 +17504,10 @@ class ClusterSecretStoreSpecProviderGitlab:
         self._values: typing.Dict[builtins.str, typing.Any] = {
             "auth": auth,
         }
+        if ca_bundle is not None:
+            self._values["ca_bundle"] = ca_bundle
+        if ca_provider is not None:
+            self._values["ca_provider"] = ca_provider
         if environment is not None:
             self._values["environment"] = environment
         if group_i_ds is not None:
@@ -17400,6 +17528,29 @@ class ClusterSecretStoreSpecProviderGitlab:
         result = self._values.get("auth")
         assert result is not None, "Required property 'auth' is missing"
         return typing.cast("ClusterSecretStoreSpecProviderGitlabAuth", result)
+
+    @builtins.property
+    def ca_bundle(self) -> typing.Optional[builtins.str]:
+        '''Base64 encoded certificate for the GitLab server sdk.
+
+        The sdk MUST run with HTTPS to make sure no MITM attack
+        can be performed.
+
+        :schema: ClusterSecretStoreSpecProviderGitlab#caBundle
+        '''
+        result = self._values.get("ca_bundle")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def ca_provider(
+        self,
+    ) -> typing.Optional["ClusterSecretStoreSpecProviderGitlabCaProvider"]:
+        '''see: https://external-secrets.io/latest/spec/#external-secrets.io/v1alpha1.CAProvider.
+
+        :schema: ClusterSecretStoreSpecProviderGitlab#caProvider
+        '''
+        result = self._values.get("ca_provider")
+        return typing.cast(typing.Optional["ClusterSecretStoreSpecProviderGitlabCaProvider"], result)
 
     @builtins.property
     def environment(self) -> typing.Optional[builtins.str]:
@@ -17634,6 +17785,116 @@ class ClusterSecretStoreSpecProviderGitlabAuthSecretRefAccessToken:
         return "ClusterSecretStoreSpecProviderGitlabAuthSecretRefAccessToken(%s)" % ", ".join(
             k + "=" + repr(v) for k, v in self._values.items()
         )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderGitlabCaProvider",
+    jsii_struct_bases=[],
+    name_mapping={
+        "name": "name",
+        "type": "type",
+        "key": "key",
+        "namespace": "namespace",
+    },
+)
+class ClusterSecretStoreSpecProviderGitlabCaProvider:
+    def __init__(
+        self,
+        *,
+        name: builtins.str,
+        type: "ClusterSecretStoreSpecProviderGitlabCaProviderType",
+        key: typing.Optional[builtins.str] = None,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''see: https://external-secrets.io/latest/spec/#external-secrets.io/v1alpha1.CAProvider.
+
+        :param name: The name of the object located at the provider type.
+        :param type: The type of provider to use such as "Secret", or "ConfigMap".
+        :param key: The key where the CA certificate can be found in the Secret or ConfigMap.
+        :param namespace: The namespace the Provider type is in. Can only be defined when used in a ClusterSecretStore.
+
+        :schema: ClusterSecretStoreSpecProviderGitlabCaProvider
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__c6f2249277df3b2da87aa2a93ebaaf6bccfe3ed4744b94ca19d78269848223ab)
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument type", value=type, expected_type=type_hints["type"])
+            check_type(argname="argument key", value=key, expected_type=type_hints["key"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "name": name,
+            "type": type,
+        }
+        if key is not None:
+            self._values["key"] = key
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def name(self) -> builtins.str:
+        '''The name of the object located at the provider type.
+
+        :schema: ClusterSecretStoreSpecProviderGitlabCaProvider#name
+        '''
+        result = self._values.get("name")
+        assert result is not None, "Required property 'name' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def type(self) -> "ClusterSecretStoreSpecProviderGitlabCaProviderType":
+        '''The type of provider to use such as "Secret", or "ConfigMap".
+
+        :schema: ClusterSecretStoreSpecProviderGitlabCaProvider#type
+        '''
+        result = self._values.get("type")
+        assert result is not None, "Required property 'type' is missing"
+        return typing.cast("ClusterSecretStoreSpecProviderGitlabCaProviderType", result)
+
+    @builtins.property
+    def key(self) -> typing.Optional[builtins.str]:
+        '''The key where the CA certificate can be found in the Secret or ConfigMap.
+
+        :schema: ClusterSecretStoreSpecProviderGitlabCaProvider#key
+        '''
+        result = self._values.get("key")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''The namespace the Provider type is in.
+
+        Can only be defined when used in a ClusterSecretStore.
+
+        :schema: ClusterSecretStoreSpecProviderGitlabCaProvider#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterSecretStoreSpecProviderGitlabCaProvider(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.enum(
+    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderGitlabCaProviderType"
+)
+class ClusterSecretStoreSpecProviderGitlabCaProviderType(enum.Enum):
+    '''The type of provider to use such as "Secret", or "ConfigMap".
+
+    :schema: ClusterSecretStoreSpecProviderGitlabCaProviderType
+    '''
+
+    SECRET = "SECRET"
+    '''Secret.'''
+    CONFIG_MAP = "CONFIG_MAP"
+    '''ConfigMap.'''
 
 
 @jsii.data_type(
@@ -18053,28 +18314,48 @@ class ClusterSecretStoreSpecProviderInfisical:
 @jsii.data_type(
     jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderInfisicalAuth",
     jsii_struct_bases=[],
-    name_mapping={"universal_auth_credentials": "universalAuthCredentials"},
+    name_mapping={
+        "azure_auth_credentials": "azureAuthCredentials",
+        "universal_auth_credentials": "universalAuthCredentials",
+    },
 )
 class ClusterSecretStoreSpecProviderInfisicalAuth:
     def __init__(
         self,
         *,
+        azure_auth_credentials: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentials", typing.Dict[builtins.str, typing.Any]]] = None,
         universal_auth_credentials: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderInfisicalAuthUniversalAuthCredentials", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''Auth configures how the Operator authenticates with the Infisical API.
 
+        :param azure_auth_credentials: 
         :param universal_auth_credentials: 
 
         :schema: ClusterSecretStoreSpecProviderInfisicalAuth
         '''
+        if isinstance(azure_auth_credentials, dict):
+            azure_auth_credentials = ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentials(**azure_auth_credentials)
         if isinstance(universal_auth_credentials, dict):
             universal_auth_credentials = ClusterSecretStoreSpecProviderInfisicalAuthUniversalAuthCredentials(**universal_auth_credentials)
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__ae8e43ed0dcb745a28d01603703e9ed1d603467b34c9bb1ada1eae4fd110f66f)
+            check_type(argname="argument azure_auth_credentials", value=azure_auth_credentials, expected_type=type_hints["azure_auth_credentials"])
             check_type(argname="argument universal_auth_credentials", value=universal_auth_credentials, expected_type=type_hints["universal_auth_credentials"])
         self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if azure_auth_credentials is not None:
+            self._values["azure_auth_credentials"] = azure_auth_credentials
         if universal_auth_credentials is not None:
             self._values["universal_auth_credentials"] = universal_auth_credentials
+
+    @builtins.property
+    def azure_auth_credentials(
+        self,
+    ) -> typing.Optional["ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentials"]:
+        '''
+        :schema: ClusterSecretStoreSpecProviderInfisicalAuth#azureAuthCredentials
+        '''
+        result = self._values.get("azure_auth_credentials")
+        return typing.cast(typing.Optional["ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentials"], result)
 
     @builtins.property
     def universal_auth_credentials(
@@ -18094,6 +18375,235 @@ class ClusterSecretStoreSpecProviderInfisicalAuth:
 
     def __repr__(self) -> str:
         return "ClusterSecretStoreSpecProviderInfisicalAuth(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentials",
+    jsii_struct_bases=[],
+    name_mapping={"identity_id": "identityId", "resource": "resource"},
+)
+class ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentials:
+    def __init__(
+        self,
+        *,
+        identity_id: typing.Union["ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsIdentityId", typing.Dict[builtins.str, typing.Any]],
+        resource: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsResource", typing.Dict[builtins.str, typing.Any]]] = None,
+    ) -> None:
+        '''
+        :param identity_id: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param resource: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+
+        :schema: ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentials
+        '''
+        if isinstance(identity_id, dict):
+            identity_id = ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsIdentityId(**identity_id)
+        if isinstance(resource, dict):
+            resource = ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsResource(**resource)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__a52cc70168ced27a4f2bf55e43b513cc2426363cb9917b7c0340de7a9007f4fd)
+            check_type(argname="argument identity_id", value=identity_id, expected_type=type_hints["identity_id"])
+            check_type(argname="argument resource", value=resource, expected_type=type_hints["resource"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "identity_id": identity_id,
+        }
+        if resource is not None:
+            self._values["resource"] = resource
+
+    @builtins.property
+    def identity_id(
+        self,
+    ) -> "ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsIdentityId":
+        '''A reference to a specific 'key' within a Secret resource.
+
+        In some instances, ``key`` is a required field.
+
+        :schema: ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentials#identityId
+        '''
+        result = self._values.get("identity_id")
+        assert result is not None, "Required property 'identity_id' is missing"
+        return typing.cast("ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsIdentityId", result)
+
+    @builtins.property
+    def resource(
+        self,
+    ) -> typing.Optional["ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsResource"]:
+        '''A reference to a specific 'key' within a Secret resource.
+
+        In some instances, ``key`` is a required field.
+
+        :schema: ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentials#resource
+        '''
+        result = self._values.get("resource")
+        return typing.cast(typing.Optional["ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsResource"], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentials(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsIdentityId",
+    jsii_struct_bases=[],
+    name_mapping={"key": "key", "name": "name", "namespace": "namespace"},
+)
+class ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsIdentityId:
+    def __init__(
+        self,
+        *,
+        key: typing.Optional[builtins.str] = None,
+        name: typing.Optional[builtins.str] = None,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''A reference to a specific 'key' within a Secret resource.
+
+        In some instances, ``key`` is a required field.
+
+        :param key: A key in the referenced Secret. Some instances of this field may be defaulted, in others it may be required.
+        :param name: The name of the Secret resource being referred to.
+        :param namespace: The namespace of the Secret resource being referred to. Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsIdentityId
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__e8e0cf99af1d80c73a32f4aba0a678c5d2e617d070b1647b42985d7b1aaa78cb)
+            check_type(argname="argument key", value=key, expected_type=type_hints["key"])
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if key is not None:
+            self._values["key"] = key
+        if name is not None:
+            self._values["name"] = name
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def key(self) -> typing.Optional[builtins.str]:
+        '''A key in the referenced Secret.
+
+        Some instances of this field may be defaulted, in others it may be required.
+
+        :schema: ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsIdentityId#key
+        '''
+        result = self._values.get("key")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def name(self) -> typing.Optional[builtins.str]:
+        '''The name of the Secret resource being referred to.
+
+        :schema: ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsIdentityId#name
+        '''
+        result = self._values.get("name")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''The namespace of the Secret resource being referred to.
+
+        Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsIdentityId#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsIdentityId(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsResource",
+    jsii_struct_bases=[],
+    name_mapping={"key": "key", "name": "name", "namespace": "namespace"},
+)
+class ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsResource:
+    def __init__(
+        self,
+        *,
+        key: typing.Optional[builtins.str] = None,
+        name: typing.Optional[builtins.str] = None,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''A reference to a specific 'key' within a Secret resource.
+
+        In some instances, ``key`` is a required field.
+
+        :param key: A key in the referenced Secret. Some instances of this field may be defaulted, in others it may be required.
+        :param name: The name of the Secret resource being referred to.
+        :param namespace: The namespace of the Secret resource being referred to. Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsResource
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__e2a5e848f506f0b8dd95cec48c77101b59234d66cf008ca16e4da074bb719b3a)
+            check_type(argname="argument key", value=key, expected_type=type_hints["key"])
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if key is not None:
+            self._values["key"] = key
+        if name is not None:
+            self._values["name"] = name
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def key(self) -> typing.Optional[builtins.str]:
+        '''A key in the referenced Secret.
+
+        Some instances of this field may be defaulted, in others it may be required.
+
+        :schema: ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsResource#key
+        '''
+        result = self._values.get("key")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def name(self) -> typing.Optional[builtins.str]:
+        '''The name of the Secret resource being referred to.
+
+        :schema: ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsResource#name
+        '''
+        result = self._values.get("name")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''The namespace of the Secret resource being referred to.
+
+        Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsResource#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsResource(%s)" % ", ".join(
             k + "=" + repr(v) for k, v in self._values.items()
         )
 
@@ -20069,7 +20579,7 @@ class ClusterSecretStoreSpecProviderOnepasswordSdk:
         '''OnePasswordSDK configures this store to use 1Password's new Go SDK to sync secrets.
 
         :param auth: Auth defines the information necessary to authenticate against OnePassword API.
-        :param vault: Vault defines the vault's name to access. Do NOT add op:// prefix. This will be done automatically.
+        :param vault: Vault defines the vault's name or uuid to access. Do NOT add op:// prefix. This will be done automatically.
         :param integration_info: IntegrationInfo specifies the name and version of the integration built using the 1Password Go SDK. If you don't know which name and version to use, use ``DefaultIntegrationName`` and ``DefaultIntegrationVersion``, respectively.
 
         :schema: ClusterSecretStoreSpecProviderOnepasswordSdk
@@ -20102,7 +20612,7 @@ class ClusterSecretStoreSpecProviderOnepasswordSdk:
 
     @builtins.property
     def vault(self) -> builtins.str:
-        '''Vault defines the vault's name to access.
+        '''Vault defines the vault's name or uuid to access.
 
         Do NOT add op:// prefix. This will be done automatically.
 
@@ -36196,6 +36706,8 @@ class ClusterSecretStoreV1Beta1SpecProviderGithubAuthPrivateKey:
     jsii_struct_bases=[],
     name_mapping={
         "auth": "auth",
+        "ca_bundle": "caBundle",
+        "ca_provider": "caProvider",
         "environment": "environment",
         "group_i_ds": "groupIDs",
         "inherit_from_groups": "inheritFromGroups",
@@ -36208,6 +36720,8 @@ class ClusterSecretStoreV1Beta1SpecProviderGitlab:
         self,
         *,
         auth: typing.Union["ClusterSecretStoreV1Beta1SpecProviderGitlabAuth", typing.Dict[builtins.str, typing.Any]],
+        ca_bundle: typing.Optional[builtins.str] = None,
+        ca_provider: typing.Optional[typing.Union["ClusterSecretStoreV1Beta1SpecProviderGitlabCaProvider", typing.Dict[builtins.str, typing.Any]]] = None,
         environment: typing.Optional[builtins.str] = None,
         group_i_ds: typing.Optional[typing.Sequence[builtins.str]] = None,
         inherit_from_groups: typing.Optional[builtins.bool] = None,
@@ -36217,6 +36731,8 @@ class ClusterSecretStoreV1Beta1SpecProviderGitlab:
         '''GitLab configures this store to sync secrets using GitLab Variables provider.
 
         :param auth: Auth configures how secret-manager authenticates with a GitLab instance.
+        :param ca_bundle: Base64 encoded certificate for the GitLab server sdk. The sdk MUST run with HTTPS to make sure no MITM attack can be performed.
+        :param ca_provider: see: https://external-secrets.io/latest/spec/#external-secrets.io/v1alpha1.CAProvider.
         :param environment: Environment environment_scope of gitlab CI/CD variables (Please see https://docs.gitlab.com/ee/ci/environments/#create-a-static-environment on how to create environments).
         :param group_i_ds: GroupIDs specify, which gitlab groups to pull secrets from. Group secrets are read from left to right followed by the project variables.
         :param inherit_from_groups: InheritFromGroups specifies whether parent groups should be discovered and checked for secrets.
@@ -36227,9 +36743,13 @@ class ClusterSecretStoreV1Beta1SpecProviderGitlab:
         '''
         if isinstance(auth, dict):
             auth = ClusterSecretStoreV1Beta1SpecProviderGitlabAuth(**auth)
+        if isinstance(ca_provider, dict):
+            ca_provider = ClusterSecretStoreV1Beta1SpecProviderGitlabCaProvider(**ca_provider)
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__b842bc57f7fd92b2b56e655e52606a5bebb9bcb992f4ddde8e086b665b8aba49)
             check_type(argname="argument auth", value=auth, expected_type=type_hints["auth"])
+            check_type(argname="argument ca_bundle", value=ca_bundle, expected_type=type_hints["ca_bundle"])
+            check_type(argname="argument ca_provider", value=ca_provider, expected_type=type_hints["ca_provider"])
             check_type(argname="argument environment", value=environment, expected_type=type_hints["environment"])
             check_type(argname="argument group_i_ds", value=group_i_ds, expected_type=type_hints["group_i_ds"])
             check_type(argname="argument inherit_from_groups", value=inherit_from_groups, expected_type=type_hints["inherit_from_groups"])
@@ -36238,6 +36758,10 @@ class ClusterSecretStoreV1Beta1SpecProviderGitlab:
         self._values: typing.Dict[builtins.str, typing.Any] = {
             "auth": auth,
         }
+        if ca_bundle is not None:
+            self._values["ca_bundle"] = ca_bundle
+        if ca_provider is not None:
+            self._values["ca_provider"] = ca_provider
         if environment is not None:
             self._values["environment"] = environment
         if group_i_ds is not None:
@@ -36258,6 +36782,29 @@ class ClusterSecretStoreV1Beta1SpecProviderGitlab:
         result = self._values.get("auth")
         assert result is not None, "Required property 'auth' is missing"
         return typing.cast("ClusterSecretStoreV1Beta1SpecProviderGitlabAuth", result)
+
+    @builtins.property
+    def ca_bundle(self) -> typing.Optional[builtins.str]:
+        '''Base64 encoded certificate for the GitLab server sdk.
+
+        The sdk MUST run with HTTPS to make sure no MITM attack
+        can be performed.
+
+        :schema: ClusterSecretStoreV1Beta1SpecProviderGitlab#caBundle
+        '''
+        result = self._values.get("ca_bundle")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def ca_provider(
+        self,
+    ) -> typing.Optional["ClusterSecretStoreV1Beta1SpecProviderGitlabCaProvider"]:
+        '''see: https://external-secrets.io/latest/spec/#external-secrets.io/v1alpha1.CAProvider.
+
+        :schema: ClusterSecretStoreV1Beta1SpecProviderGitlab#caProvider
+        '''
+        result = self._values.get("ca_provider")
+        return typing.cast(typing.Optional["ClusterSecretStoreV1Beta1SpecProviderGitlabCaProvider"], result)
 
     @builtins.property
     def environment(self) -> typing.Optional[builtins.str]:
@@ -36492,6 +37039,116 @@ class ClusterSecretStoreV1Beta1SpecProviderGitlabAuthSecretRefAccessToken:
         return "ClusterSecretStoreV1Beta1SpecProviderGitlabAuthSecretRefAccessToken(%s)" % ", ".join(
             k + "=" + repr(v) for k, v in self._values.items()
         )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.ClusterSecretStoreV1Beta1SpecProviderGitlabCaProvider",
+    jsii_struct_bases=[],
+    name_mapping={
+        "name": "name",
+        "type": "type",
+        "key": "key",
+        "namespace": "namespace",
+    },
+)
+class ClusterSecretStoreV1Beta1SpecProviderGitlabCaProvider:
+    def __init__(
+        self,
+        *,
+        name: builtins.str,
+        type: "ClusterSecretStoreV1Beta1SpecProviderGitlabCaProviderType",
+        key: typing.Optional[builtins.str] = None,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''see: https://external-secrets.io/latest/spec/#external-secrets.io/v1alpha1.CAProvider.
+
+        :param name: The name of the object located at the provider type.
+        :param type: The type of provider to use such as "Secret", or "ConfigMap".
+        :param key: The key where the CA certificate can be found in the Secret or ConfigMap.
+        :param namespace: The namespace the Provider type is in. Can only be defined when used in a ClusterSecretStore.
+
+        :schema: ClusterSecretStoreV1Beta1SpecProviderGitlabCaProvider
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__443e48bfe537a6cd49de5977990e1610955866563f0326899122da85504278e9)
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument type", value=type, expected_type=type_hints["type"])
+            check_type(argname="argument key", value=key, expected_type=type_hints["key"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "name": name,
+            "type": type,
+        }
+        if key is not None:
+            self._values["key"] = key
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def name(self) -> builtins.str:
+        '''The name of the object located at the provider type.
+
+        :schema: ClusterSecretStoreV1Beta1SpecProviderGitlabCaProvider#name
+        '''
+        result = self._values.get("name")
+        assert result is not None, "Required property 'name' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def type(self) -> "ClusterSecretStoreV1Beta1SpecProviderGitlabCaProviderType":
+        '''The type of provider to use such as "Secret", or "ConfigMap".
+
+        :schema: ClusterSecretStoreV1Beta1SpecProviderGitlabCaProvider#type
+        '''
+        result = self._values.get("type")
+        assert result is not None, "Required property 'type' is missing"
+        return typing.cast("ClusterSecretStoreV1Beta1SpecProviderGitlabCaProviderType", result)
+
+    @builtins.property
+    def key(self) -> typing.Optional[builtins.str]:
+        '''The key where the CA certificate can be found in the Secret or ConfigMap.
+
+        :schema: ClusterSecretStoreV1Beta1SpecProviderGitlabCaProvider#key
+        '''
+        result = self._values.get("key")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''The namespace the Provider type is in.
+
+        Can only be defined when used in a ClusterSecretStore.
+
+        :schema: ClusterSecretStoreV1Beta1SpecProviderGitlabCaProvider#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterSecretStoreV1Beta1SpecProviderGitlabCaProvider(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.enum(
+    jsii_type="ioexternal-secrets.ClusterSecretStoreV1Beta1SpecProviderGitlabCaProviderType"
+)
+class ClusterSecretStoreV1Beta1SpecProviderGitlabCaProviderType(enum.Enum):
+    '''The type of provider to use such as "Secret", or "ConfigMap".
+
+    :schema: ClusterSecretStoreV1Beta1SpecProviderGitlabCaProviderType
+    '''
+
+    SECRET = "SECRET"
+    '''Secret.'''
+    CONFIG_MAP = "CONFIG_MAP"
+    '''ConfigMap.'''
 
 
 @jsii.data_type(
@@ -46740,34 +47397,50 @@ class ExternalSecretSpecDataFromFindName:
 @jsii.data_type(
     jsii_type="ioexternal-secrets.ExternalSecretSpecDataFromRewrite",
     jsii_struct_bases=[],
-    name_mapping={"regexp": "regexp", "transform": "transform"},
+    name_mapping={"merge": "merge", "regexp": "regexp", "transform": "transform"},
 )
 class ExternalSecretSpecDataFromRewrite:
     def __init__(
         self,
         *,
+        merge: typing.Optional[typing.Union["ExternalSecretSpecDataFromRewriteMerge", typing.Dict[builtins.str, typing.Any]]] = None,
         regexp: typing.Optional[typing.Union["ExternalSecretSpecDataFromRewriteRegexp", typing.Dict[builtins.str, typing.Any]]] = None,
         transform: typing.Optional[typing.Union["ExternalSecretSpecDataFromRewriteTransform", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''
+        :param merge: Used to merge key/values in one single Secret The resulting key will contain all values from the specified secrets.
         :param regexp: Used to rewrite with regular expressions. The resulting key will be the output of a regexp.ReplaceAll operation.
         :param transform: Used to apply string transformation on the secrets. The resulting key will be the output of the template applied by the operation.
 
         :schema: ExternalSecretSpecDataFromRewrite
         '''
+        if isinstance(merge, dict):
+            merge = ExternalSecretSpecDataFromRewriteMerge(**merge)
         if isinstance(regexp, dict):
             regexp = ExternalSecretSpecDataFromRewriteRegexp(**regexp)
         if isinstance(transform, dict):
             transform = ExternalSecretSpecDataFromRewriteTransform(**transform)
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__34a7ea8664e4d3b6a1f3e0ff5e2df2f0dac77ecad4d9e29405fde21c45dcf3f4)
+            check_type(argname="argument merge", value=merge, expected_type=type_hints["merge"])
             check_type(argname="argument regexp", value=regexp, expected_type=type_hints["regexp"])
             check_type(argname="argument transform", value=transform, expected_type=type_hints["transform"])
         self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if merge is not None:
+            self._values["merge"] = merge
         if regexp is not None:
             self._values["regexp"] = regexp
         if transform is not None:
             self._values["transform"] = transform
+
+    @builtins.property
+    def merge(self) -> typing.Optional["ExternalSecretSpecDataFromRewriteMerge"]:
+        '''Used to merge key/values in one single Secret The resulting key will contain all values from the specified secrets.
+
+        :schema: ExternalSecretSpecDataFromRewrite#merge
+        '''
+        result = self._values.get("merge")
+        return typing.cast(typing.Optional["ExternalSecretSpecDataFromRewriteMerge"], result)
 
     @builtins.property
     def regexp(self) -> typing.Optional["ExternalSecretSpecDataFromRewriteRegexp"]:
@@ -46801,6 +47474,100 @@ class ExternalSecretSpecDataFromRewrite:
 
     def __repr__(self) -> str:
         return "ExternalSecretSpecDataFromRewrite(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.ExternalSecretSpecDataFromRewriteMerge",
+    jsii_struct_bases=[],
+    name_mapping={
+        "conflict_policy": "conflictPolicy",
+        "into": "into",
+        "priority": "priority",
+        "strategy": "strategy",
+    },
+)
+class ExternalSecretSpecDataFromRewriteMerge:
+    def __init__(
+        self,
+        *,
+        conflict_policy: typing.Optional[builtins.str] = None,
+        into: typing.Optional[builtins.str] = None,
+        priority: typing.Optional[typing.Sequence[builtins.str]] = None,
+        strategy: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''Used to merge key/values in one single Secret The resulting key will contain all values from the specified secrets.
+
+        :param conflict_policy: Used to define the policy to use in conflict resolution.
+        :param into: Used to define the target key of the merge operation. Required if strategy is JSON. Ignored otherwise.
+        :param priority: Used to define key priority in conflict resolution.
+        :param strategy: Used to define the strategy to use in the merge operation.
+
+        :schema: ExternalSecretSpecDataFromRewriteMerge
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__d20754036ee89fd6b0bcd20b5875dee410e09b933e08e4664815ce85715431df)
+            check_type(argname="argument conflict_policy", value=conflict_policy, expected_type=type_hints["conflict_policy"])
+            check_type(argname="argument into", value=into, expected_type=type_hints["into"])
+            check_type(argname="argument priority", value=priority, expected_type=type_hints["priority"])
+            check_type(argname="argument strategy", value=strategy, expected_type=type_hints["strategy"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if conflict_policy is not None:
+            self._values["conflict_policy"] = conflict_policy
+        if into is not None:
+            self._values["into"] = into
+        if priority is not None:
+            self._values["priority"] = priority
+        if strategy is not None:
+            self._values["strategy"] = strategy
+
+    @builtins.property
+    def conflict_policy(self) -> typing.Optional[builtins.str]:
+        '''Used to define the policy to use in conflict resolution.
+
+        :schema: ExternalSecretSpecDataFromRewriteMerge#conflictPolicy
+        '''
+        result = self._values.get("conflict_policy")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def into(self) -> typing.Optional[builtins.str]:
+        '''Used to define the target key of the merge operation.
+
+        Required if strategy is JSON. Ignored otherwise.
+
+        :schema: ExternalSecretSpecDataFromRewriteMerge#into
+        '''
+        result = self._values.get("into")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def priority(self) -> typing.Optional[typing.List[builtins.str]]:
+        '''Used to define key priority in conflict resolution.
+
+        :schema: ExternalSecretSpecDataFromRewriteMerge#priority
+        '''
+        result = self._values.get("priority")
+        return typing.cast(typing.Optional[typing.List[builtins.str]], result)
+
+    @builtins.property
+    def strategy(self) -> typing.Optional[builtins.str]:
+        '''Used to define the strategy to use in the merge operation.
+
+        :schema: ExternalSecretSpecDataFromRewriteMerge#strategy
+        '''
+        result = self._values.get("strategy")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ExternalSecretSpecDataFromRewriteMerge(%s)" % ", ".join(
             k + "=" + repr(v) for k, v in self._values.items()
         )
 
@@ -47089,6 +47856,8 @@ class ExternalSecretSpecDataFromSourceRefGeneratorRefKind(enum.Enum):
     '''Webhook.'''
     GRAFANA = "GRAFANA"
     '''Grafana.'''
+    MFA = "MFA"
+    '''MFA.'''
 
 
 @jsii.data_type(
@@ -47537,6 +48306,8 @@ class ExternalSecretSpecDataSourceRefGeneratorRefKind(enum.Enum):
     '''Webhook.'''
     GRAFANA = "GRAFANA"
     '''Grafana.'''
+    MFA = "MFA"
+    '''MFA.'''
 
 
 @jsii.data_type(
@@ -51959,6 +52730,8 @@ class PushSecretSpecSelectorGeneratorRefKind(enum.Enum):
     '''Webhook.'''
     GRAFANA = "GRAFANA"
     '''Grafana.'''
+    MFA = "MFA"
+    '''MFA.'''
 
 
 @jsii.data_type(
@@ -61601,6 +62374,8 @@ class SecretStoreSpecProviderGithubAuthPrivateKey:
     jsii_struct_bases=[],
     name_mapping={
         "auth": "auth",
+        "ca_bundle": "caBundle",
+        "ca_provider": "caProvider",
         "environment": "environment",
         "group_i_ds": "groupIDs",
         "inherit_from_groups": "inheritFromGroups",
@@ -61613,6 +62388,8 @@ class SecretStoreSpecProviderGitlab:
         self,
         *,
         auth: typing.Union["SecretStoreSpecProviderGitlabAuth", typing.Dict[builtins.str, typing.Any]],
+        ca_bundle: typing.Optional[builtins.str] = None,
+        ca_provider: typing.Optional[typing.Union["SecretStoreSpecProviderGitlabCaProvider", typing.Dict[builtins.str, typing.Any]]] = None,
         environment: typing.Optional[builtins.str] = None,
         group_i_ds: typing.Optional[typing.Sequence[builtins.str]] = None,
         inherit_from_groups: typing.Optional[builtins.bool] = None,
@@ -61622,6 +62399,8 @@ class SecretStoreSpecProviderGitlab:
         '''GitLab configures this store to sync secrets using GitLab Variables provider.
 
         :param auth: Auth configures how secret-manager authenticates with a GitLab instance.
+        :param ca_bundle: Base64 encoded certificate for the GitLab server sdk. The sdk MUST run with HTTPS to make sure no MITM attack can be performed.
+        :param ca_provider: see: https://external-secrets.io/latest/spec/#external-secrets.io/v1alpha1.CAProvider.
         :param environment: Environment environment_scope of gitlab CI/CD variables (Please see https://docs.gitlab.com/ee/ci/environments/#create-a-static-environment on how to create environments).
         :param group_i_ds: GroupIDs specify, which gitlab groups to pull secrets from. Group secrets are read from left to right followed by the project variables.
         :param inherit_from_groups: InheritFromGroups specifies whether parent groups should be discovered and checked for secrets.
@@ -61632,9 +62411,13 @@ class SecretStoreSpecProviderGitlab:
         '''
         if isinstance(auth, dict):
             auth = SecretStoreSpecProviderGitlabAuth(**auth)
+        if isinstance(ca_provider, dict):
+            ca_provider = SecretStoreSpecProviderGitlabCaProvider(**ca_provider)
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__74a9704961b5ebc67a85b13e3ea0b0eecabb2dbda2aee0064fc2ce88d60d1a03)
             check_type(argname="argument auth", value=auth, expected_type=type_hints["auth"])
+            check_type(argname="argument ca_bundle", value=ca_bundle, expected_type=type_hints["ca_bundle"])
+            check_type(argname="argument ca_provider", value=ca_provider, expected_type=type_hints["ca_provider"])
             check_type(argname="argument environment", value=environment, expected_type=type_hints["environment"])
             check_type(argname="argument group_i_ds", value=group_i_ds, expected_type=type_hints["group_i_ds"])
             check_type(argname="argument inherit_from_groups", value=inherit_from_groups, expected_type=type_hints["inherit_from_groups"])
@@ -61643,6 +62426,10 @@ class SecretStoreSpecProviderGitlab:
         self._values: typing.Dict[builtins.str, typing.Any] = {
             "auth": auth,
         }
+        if ca_bundle is not None:
+            self._values["ca_bundle"] = ca_bundle
+        if ca_provider is not None:
+            self._values["ca_provider"] = ca_provider
         if environment is not None:
             self._values["environment"] = environment
         if group_i_ds is not None:
@@ -61663,6 +62450,27 @@ class SecretStoreSpecProviderGitlab:
         result = self._values.get("auth")
         assert result is not None, "Required property 'auth' is missing"
         return typing.cast("SecretStoreSpecProviderGitlabAuth", result)
+
+    @builtins.property
+    def ca_bundle(self) -> typing.Optional[builtins.str]:
+        '''Base64 encoded certificate for the GitLab server sdk.
+
+        The sdk MUST run with HTTPS to make sure no MITM attack
+        can be performed.
+
+        :schema: SecretStoreSpecProviderGitlab#caBundle
+        '''
+        result = self._values.get("ca_bundle")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def ca_provider(self) -> typing.Optional["SecretStoreSpecProviderGitlabCaProvider"]:
+        '''see: https://external-secrets.io/latest/spec/#external-secrets.io/v1alpha1.CAProvider.
+
+        :schema: SecretStoreSpecProviderGitlab#caProvider
+        '''
+        result = self._values.get("ca_provider")
+        return typing.cast(typing.Optional["SecretStoreSpecProviderGitlabCaProvider"], result)
 
     @builtins.property
     def environment(self) -> typing.Optional[builtins.str]:
@@ -61897,6 +62705,114 @@ class SecretStoreSpecProviderGitlabAuthSecretRefAccessToken:
         return "SecretStoreSpecProviderGitlabAuthSecretRefAccessToken(%s)" % ", ".join(
             k + "=" + repr(v) for k, v in self._values.items()
         )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.SecretStoreSpecProviderGitlabCaProvider",
+    jsii_struct_bases=[],
+    name_mapping={
+        "name": "name",
+        "type": "type",
+        "key": "key",
+        "namespace": "namespace",
+    },
+)
+class SecretStoreSpecProviderGitlabCaProvider:
+    def __init__(
+        self,
+        *,
+        name: builtins.str,
+        type: "SecretStoreSpecProviderGitlabCaProviderType",
+        key: typing.Optional[builtins.str] = None,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''see: https://external-secrets.io/latest/spec/#external-secrets.io/v1alpha1.CAProvider.
+
+        :param name: The name of the object located at the provider type.
+        :param type: The type of provider to use such as "Secret", or "ConfigMap".
+        :param key: The key where the CA certificate can be found in the Secret or ConfigMap.
+        :param namespace: The namespace the Provider type is in. Can only be defined when used in a ClusterSecretStore.
+
+        :schema: SecretStoreSpecProviderGitlabCaProvider
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__e84cca76ee135b238fc441a916a198b4b1b2696cb2b280ad5e3c86d3717d7984)
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument type", value=type, expected_type=type_hints["type"])
+            check_type(argname="argument key", value=key, expected_type=type_hints["key"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "name": name,
+            "type": type,
+        }
+        if key is not None:
+            self._values["key"] = key
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def name(self) -> builtins.str:
+        '''The name of the object located at the provider type.
+
+        :schema: SecretStoreSpecProviderGitlabCaProvider#name
+        '''
+        result = self._values.get("name")
+        assert result is not None, "Required property 'name' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def type(self) -> "SecretStoreSpecProviderGitlabCaProviderType":
+        '''The type of provider to use such as "Secret", or "ConfigMap".
+
+        :schema: SecretStoreSpecProviderGitlabCaProvider#type
+        '''
+        result = self._values.get("type")
+        assert result is not None, "Required property 'type' is missing"
+        return typing.cast("SecretStoreSpecProviderGitlabCaProviderType", result)
+
+    @builtins.property
+    def key(self) -> typing.Optional[builtins.str]:
+        '''The key where the CA certificate can be found in the Secret or ConfigMap.
+
+        :schema: SecretStoreSpecProviderGitlabCaProvider#key
+        '''
+        result = self._values.get("key")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''The namespace the Provider type is in.
+
+        Can only be defined when used in a ClusterSecretStore.
+
+        :schema: SecretStoreSpecProviderGitlabCaProvider#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "SecretStoreSpecProviderGitlabCaProvider(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.enum(jsii_type="ioexternal-secrets.SecretStoreSpecProviderGitlabCaProviderType")
+class SecretStoreSpecProviderGitlabCaProviderType(enum.Enum):
+    '''The type of provider to use such as "Secret", or "ConfigMap".
+
+    :schema: SecretStoreSpecProviderGitlabCaProviderType
+    '''
+
+    SECRET = "SECRET"
+    '''Secret.'''
+    CONFIG_MAP = "CONFIG_MAP"
+    '''ConfigMap.'''
 
 
 @jsii.data_type(
@@ -62314,28 +63230,48 @@ class SecretStoreSpecProviderInfisical:
 @jsii.data_type(
     jsii_type="ioexternal-secrets.SecretStoreSpecProviderInfisicalAuth",
     jsii_struct_bases=[],
-    name_mapping={"universal_auth_credentials": "universalAuthCredentials"},
+    name_mapping={
+        "azure_auth_credentials": "azureAuthCredentials",
+        "universal_auth_credentials": "universalAuthCredentials",
+    },
 )
 class SecretStoreSpecProviderInfisicalAuth:
     def __init__(
         self,
         *,
+        azure_auth_credentials: typing.Optional[typing.Union["SecretStoreSpecProviderInfisicalAuthAzureAuthCredentials", typing.Dict[builtins.str, typing.Any]]] = None,
         universal_auth_credentials: typing.Optional[typing.Union["SecretStoreSpecProviderInfisicalAuthUniversalAuthCredentials", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''Auth configures how the Operator authenticates with the Infisical API.
 
+        :param azure_auth_credentials: 
         :param universal_auth_credentials: 
 
         :schema: SecretStoreSpecProviderInfisicalAuth
         '''
+        if isinstance(azure_auth_credentials, dict):
+            azure_auth_credentials = SecretStoreSpecProviderInfisicalAuthAzureAuthCredentials(**azure_auth_credentials)
         if isinstance(universal_auth_credentials, dict):
             universal_auth_credentials = SecretStoreSpecProviderInfisicalAuthUniversalAuthCredentials(**universal_auth_credentials)
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__4211e854bf463efca6f2a7a96d5d9025a00068690dcc74fbce6e470284698158)
+            check_type(argname="argument azure_auth_credentials", value=azure_auth_credentials, expected_type=type_hints["azure_auth_credentials"])
             check_type(argname="argument universal_auth_credentials", value=universal_auth_credentials, expected_type=type_hints["universal_auth_credentials"])
         self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if azure_auth_credentials is not None:
+            self._values["azure_auth_credentials"] = azure_auth_credentials
         if universal_auth_credentials is not None:
             self._values["universal_auth_credentials"] = universal_auth_credentials
+
+    @builtins.property
+    def azure_auth_credentials(
+        self,
+    ) -> typing.Optional["SecretStoreSpecProviderInfisicalAuthAzureAuthCredentials"]:
+        '''
+        :schema: SecretStoreSpecProviderInfisicalAuth#azureAuthCredentials
+        '''
+        result = self._values.get("azure_auth_credentials")
+        return typing.cast(typing.Optional["SecretStoreSpecProviderInfisicalAuthAzureAuthCredentials"], result)
 
     @builtins.property
     def universal_auth_credentials(
@@ -62355,6 +63291,235 @@ class SecretStoreSpecProviderInfisicalAuth:
 
     def __repr__(self) -> str:
         return "SecretStoreSpecProviderInfisicalAuth(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.SecretStoreSpecProviderInfisicalAuthAzureAuthCredentials",
+    jsii_struct_bases=[],
+    name_mapping={"identity_id": "identityId", "resource": "resource"},
+)
+class SecretStoreSpecProviderInfisicalAuthAzureAuthCredentials:
+    def __init__(
+        self,
+        *,
+        identity_id: typing.Union["SecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsIdentityId", typing.Dict[builtins.str, typing.Any]],
+        resource: typing.Optional[typing.Union["SecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsResource", typing.Dict[builtins.str, typing.Any]]] = None,
+    ) -> None:
+        '''
+        :param identity_id: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param resource: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+
+        :schema: SecretStoreSpecProviderInfisicalAuthAzureAuthCredentials
+        '''
+        if isinstance(identity_id, dict):
+            identity_id = SecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsIdentityId(**identity_id)
+        if isinstance(resource, dict):
+            resource = SecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsResource(**resource)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__678f74ace18776bc62ab9534b0205e499edd8723fb4a037d174c01ce6138921d)
+            check_type(argname="argument identity_id", value=identity_id, expected_type=type_hints["identity_id"])
+            check_type(argname="argument resource", value=resource, expected_type=type_hints["resource"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "identity_id": identity_id,
+        }
+        if resource is not None:
+            self._values["resource"] = resource
+
+    @builtins.property
+    def identity_id(
+        self,
+    ) -> "SecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsIdentityId":
+        '''A reference to a specific 'key' within a Secret resource.
+
+        In some instances, ``key`` is a required field.
+
+        :schema: SecretStoreSpecProviderInfisicalAuthAzureAuthCredentials#identityId
+        '''
+        result = self._values.get("identity_id")
+        assert result is not None, "Required property 'identity_id' is missing"
+        return typing.cast("SecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsIdentityId", result)
+
+    @builtins.property
+    def resource(
+        self,
+    ) -> typing.Optional["SecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsResource"]:
+        '''A reference to a specific 'key' within a Secret resource.
+
+        In some instances, ``key`` is a required field.
+
+        :schema: SecretStoreSpecProviderInfisicalAuthAzureAuthCredentials#resource
+        '''
+        result = self._values.get("resource")
+        return typing.cast(typing.Optional["SecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsResource"], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "SecretStoreSpecProviderInfisicalAuthAzureAuthCredentials(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.SecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsIdentityId",
+    jsii_struct_bases=[],
+    name_mapping={"key": "key", "name": "name", "namespace": "namespace"},
+)
+class SecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsIdentityId:
+    def __init__(
+        self,
+        *,
+        key: typing.Optional[builtins.str] = None,
+        name: typing.Optional[builtins.str] = None,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''A reference to a specific 'key' within a Secret resource.
+
+        In some instances, ``key`` is a required field.
+
+        :param key: A key in the referenced Secret. Some instances of this field may be defaulted, in others it may be required.
+        :param name: The name of the Secret resource being referred to.
+        :param namespace: The namespace of the Secret resource being referred to. Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: SecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsIdentityId
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__75924784c4b07ea92ad32a0456e0ab3b72ecb5e3ec51af2b602958b3ce4bc9a3)
+            check_type(argname="argument key", value=key, expected_type=type_hints["key"])
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if key is not None:
+            self._values["key"] = key
+        if name is not None:
+            self._values["name"] = name
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def key(self) -> typing.Optional[builtins.str]:
+        '''A key in the referenced Secret.
+
+        Some instances of this field may be defaulted, in others it may be required.
+
+        :schema: SecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsIdentityId#key
+        '''
+        result = self._values.get("key")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def name(self) -> typing.Optional[builtins.str]:
+        '''The name of the Secret resource being referred to.
+
+        :schema: SecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsIdentityId#name
+        '''
+        result = self._values.get("name")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''The namespace of the Secret resource being referred to.
+
+        Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: SecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsIdentityId#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "SecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsIdentityId(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.SecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsResource",
+    jsii_struct_bases=[],
+    name_mapping={"key": "key", "name": "name", "namespace": "namespace"},
+)
+class SecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsResource:
+    def __init__(
+        self,
+        *,
+        key: typing.Optional[builtins.str] = None,
+        name: typing.Optional[builtins.str] = None,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''A reference to a specific 'key' within a Secret resource.
+
+        In some instances, ``key`` is a required field.
+
+        :param key: A key in the referenced Secret. Some instances of this field may be defaulted, in others it may be required.
+        :param name: The name of the Secret resource being referred to.
+        :param namespace: The namespace of the Secret resource being referred to. Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: SecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsResource
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__72f2ebf37c0cd6cc2f4136ad620ea94317c9d731fd672efcc854b1a6af467465)
+            check_type(argname="argument key", value=key, expected_type=type_hints["key"])
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if key is not None:
+            self._values["key"] = key
+        if name is not None:
+            self._values["name"] = name
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def key(self) -> typing.Optional[builtins.str]:
+        '''A key in the referenced Secret.
+
+        Some instances of this field may be defaulted, in others it may be required.
+
+        :schema: SecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsResource#key
+        '''
+        result = self._values.get("key")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def name(self) -> typing.Optional[builtins.str]:
+        '''The name of the Secret resource being referred to.
+
+        :schema: SecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsResource#name
+        '''
+        result = self._values.get("name")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''The namespace of the Secret resource being referred to.
+
+        Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: SecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsResource#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "SecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsResource(%s)" % ", ".join(
             k + "=" + repr(v) for k, v in self._values.items()
         )
 
@@ -64320,7 +65485,7 @@ class SecretStoreSpecProviderOnepasswordSdk:
         '''OnePasswordSDK configures this store to use 1Password's new Go SDK to sync secrets.
 
         :param auth: Auth defines the information necessary to authenticate against OnePassword API.
-        :param vault: Vault defines the vault's name to access. Do NOT add op:// prefix. This will be done automatically.
+        :param vault: Vault defines the vault's name or uuid to access. Do NOT add op:// prefix. This will be done automatically.
         :param integration_info: IntegrationInfo specifies the name and version of the integration built using the 1Password Go SDK. If you don't know which name and version to use, use ``DefaultIntegrationName`` and ``DefaultIntegrationVersion``, respectively.
 
         :schema: SecretStoreSpecProviderOnepasswordSdk
@@ -64353,7 +65518,7 @@ class SecretStoreSpecProviderOnepasswordSdk:
 
     @builtins.property
     def vault(self) -> builtins.str:
-        '''Vault defines the vault's name to access.
+        '''Vault defines the vault's name or uuid to access.
 
         Do NOT add op:// prefix. This will be done automatically.
 
@@ -80369,6 +81534,8 @@ class SecretStoreV1Beta1SpecProviderGithubAuthPrivateKey:
     jsii_struct_bases=[],
     name_mapping={
         "auth": "auth",
+        "ca_bundle": "caBundle",
+        "ca_provider": "caProvider",
         "environment": "environment",
         "group_i_ds": "groupIDs",
         "inherit_from_groups": "inheritFromGroups",
@@ -80381,6 +81548,8 @@ class SecretStoreV1Beta1SpecProviderGitlab:
         self,
         *,
         auth: typing.Union["SecretStoreV1Beta1SpecProviderGitlabAuth", typing.Dict[builtins.str, typing.Any]],
+        ca_bundle: typing.Optional[builtins.str] = None,
+        ca_provider: typing.Optional[typing.Union["SecretStoreV1Beta1SpecProviderGitlabCaProvider", typing.Dict[builtins.str, typing.Any]]] = None,
         environment: typing.Optional[builtins.str] = None,
         group_i_ds: typing.Optional[typing.Sequence[builtins.str]] = None,
         inherit_from_groups: typing.Optional[builtins.bool] = None,
@@ -80390,6 +81559,8 @@ class SecretStoreV1Beta1SpecProviderGitlab:
         '''GitLab configures this store to sync secrets using GitLab Variables provider.
 
         :param auth: Auth configures how secret-manager authenticates with a GitLab instance.
+        :param ca_bundle: Base64 encoded certificate for the GitLab server sdk. The sdk MUST run with HTTPS to make sure no MITM attack can be performed.
+        :param ca_provider: see: https://external-secrets.io/latest/spec/#external-secrets.io/v1alpha1.CAProvider.
         :param environment: Environment environment_scope of gitlab CI/CD variables (Please see https://docs.gitlab.com/ee/ci/environments/#create-a-static-environment on how to create environments).
         :param group_i_ds: GroupIDs specify, which gitlab groups to pull secrets from. Group secrets are read from left to right followed by the project variables.
         :param inherit_from_groups: InheritFromGroups specifies whether parent groups should be discovered and checked for secrets.
@@ -80400,9 +81571,13 @@ class SecretStoreV1Beta1SpecProviderGitlab:
         '''
         if isinstance(auth, dict):
             auth = SecretStoreV1Beta1SpecProviderGitlabAuth(**auth)
+        if isinstance(ca_provider, dict):
+            ca_provider = SecretStoreV1Beta1SpecProviderGitlabCaProvider(**ca_provider)
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__b398588d0e2703fe1f91c36ee1116bd611797b0d35e42ae69ec6f3a660a899aa)
             check_type(argname="argument auth", value=auth, expected_type=type_hints["auth"])
+            check_type(argname="argument ca_bundle", value=ca_bundle, expected_type=type_hints["ca_bundle"])
+            check_type(argname="argument ca_provider", value=ca_provider, expected_type=type_hints["ca_provider"])
             check_type(argname="argument environment", value=environment, expected_type=type_hints["environment"])
             check_type(argname="argument group_i_ds", value=group_i_ds, expected_type=type_hints["group_i_ds"])
             check_type(argname="argument inherit_from_groups", value=inherit_from_groups, expected_type=type_hints["inherit_from_groups"])
@@ -80411,6 +81586,10 @@ class SecretStoreV1Beta1SpecProviderGitlab:
         self._values: typing.Dict[builtins.str, typing.Any] = {
             "auth": auth,
         }
+        if ca_bundle is not None:
+            self._values["ca_bundle"] = ca_bundle
+        if ca_provider is not None:
+            self._values["ca_provider"] = ca_provider
         if environment is not None:
             self._values["environment"] = environment
         if group_i_ds is not None:
@@ -80431,6 +81610,29 @@ class SecretStoreV1Beta1SpecProviderGitlab:
         result = self._values.get("auth")
         assert result is not None, "Required property 'auth' is missing"
         return typing.cast("SecretStoreV1Beta1SpecProviderGitlabAuth", result)
+
+    @builtins.property
+    def ca_bundle(self) -> typing.Optional[builtins.str]:
+        '''Base64 encoded certificate for the GitLab server sdk.
+
+        The sdk MUST run with HTTPS to make sure no MITM attack
+        can be performed.
+
+        :schema: SecretStoreV1Beta1SpecProviderGitlab#caBundle
+        '''
+        result = self._values.get("ca_bundle")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def ca_provider(
+        self,
+    ) -> typing.Optional["SecretStoreV1Beta1SpecProviderGitlabCaProvider"]:
+        '''see: https://external-secrets.io/latest/spec/#external-secrets.io/v1alpha1.CAProvider.
+
+        :schema: SecretStoreV1Beta1SpecProviderGitlab#caProvider
+        '''
+        result = self._values.get("ca_provider")
+        return typing.cast(typing.Optional["SecretStoreV1Beta1SpecProviderGitlabCaProvider"], result)
 
     @builtins.property
     def environment(self) -> typing.Optional[builtins.str]:
@@ -80665,6 +81867,116 @@ class SecretStoreV1Beta1SpecProviderGitlabAuthSecretRefAccessToken:
         return "SecretStoreV1Beta1SpecProviderGitlabAuthSecretRefAccessToken(%s)" % ", ".join(
             k + "=" + repr(v) for k, v in self._values.items()
         )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.SecretStoreV1Beta1SpecProviderGitlabCaProvider",
+    jsii_struct_bases=[],
+    name_mapping={
+        "name": "name",
+        "type": "type",
+        "key": "key",
+        "namespace": "namespace",
+    },
+)
+class SecretStoreV1Beta1SpecProviderGitlabCaProvider:
+    def __init__(
+        self,
+        *,
+        name: builtins.str,
+        type: "SecretStoreV1Beta1SpecProviderGitlabCaProviderType",
+        key: typing.Optional[builtins.str] = None,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''see: https://external-secrets.io/latest/spec/#external-secrets.io/v1alpha1.CAProvider.
+
+        :param name: The name of the object located at the provider type.
+        :param type: The type of provider to use such as "Secret", or "ConfigMap".
+        :param key: The key where the CA certificate can be found in the Secret or ConfigMap.
+        :param namespace: The namespace the Provider type is in. Can only be defined when used in a ClusterSecretStore.
+
+        :schema: SecretStoreV1Beta1SpecProviderGitlabCaProvider
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__a489c17dd0fcb24b502244c9e937361c0720d34949e09ce4a1b644d13fbc0ccd)
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument type", value=type, expected_type=type_hints["type"])
+            check_type(argname="argument key", value=key, expected_type=type_hints["key"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "name": name,
+            "type": type,
+        }
+        if key is not None:
+            self._values["key"] = key
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def name(self) -> builtins.str:
+        '''The name of the object located at the provider type.
+
+        :schema: SecretStoreV1Beta1SpecProviderGitlabCaProvider#name
+        '''
+        result = self._values.get("name")
+        assert result is not None, "Required property 'name' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def type(self) -> "SecretStoreV1Beta1SpecProviderGitlabCaProviderType":
+        '''The type of provider to use such as "Secret", or "ConfigMap".
+
+        :schema: SecretStoreV1Beta1SpecProviderGitlabCaProvider#type
+        '''
+        result = self._values.get("type")
+        assert result is not None, "Required property 'type' is missing"
+        return typing.cast("SecretStoreV1Beta1SpecProviderGitlabCaProviderType", result)
+
+    @builtins.property
+    def key(self) -> typing.Optional[builtins.str]:
+        '''The key where the CA certificate can be found in the Secret or ConfigMap.
+
+        :schema: SecretStoreV1Beta1SpecProviderGitlabCaProvider#key
+        '''
+        result = self._values.get("key")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''The namespace the Provider type is in.
+
+        Can only be defined when used in a ClusterSecretStore.
+
+        :schema: SecretStoreV1Beta1SpecProviderGitlabCaProvider#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "SecretStoreV1Beta1SpecProviderGitlabCaProvider(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.enum(
+    jsii_type="ioexternal-secrets.SecretStoreV1Beta1SpecProviderGitlabCaProviderType"
+)
+class SecretStoreV1Beta1SpecProviderGitlabCaProviderType(enum.Enum):
+    '''The type of provider to use such as "Secret", or "ConfigMap".
+
+    :schema: SecretStoreV1Beta1SpecProviderGitlabCaProviderType
+    '''
+
+    SECRET = "SECRET"
+    '''Secret.'''
+    CONFIG_MAP = "CONFIG_MAP"
+    '''ConfigMap.'''
 
 
 @jsii.data_type(
@@ -90065,6 +91377,7 @@ __all__ = [
     "ClusterExternalSecretSpecExternalSecretSpecDataFromFindDecodingStrategy",
     "ClusterExternalSecretSpecExternalSecretSpecDataFromFindName",
     "ClusterExternalSecretSpecExternalSecretSpecDataFromRewrite",
+    "ClusterExternalSecretSpecExternalSecretSpecDataFromRewriteMerge",
     "ClusterExternalSecretSpecExternalSecretSpecDataFromRewriteRegexp",
     "ClusterExternalSecretSpecExternalSecretSpecDataFromRewriteTransform",
     "ClusterExternalSecretSpecExternalSecretSpecDataFromSourceRef",
@@ -90307,6 +91620,8 @@ __all__ = [
     "ClusterSecretStoreSpecProviderGitlabAuth",
     "ClusterSecretStoreSpecProviderGitlabAuthSecretRef",
     "ClusterSecretStoreSpecProviderGitlabAuthSecretRefAccessToken",
+    "ClusterSecretStoreSpecProviderGitlabCaProvider",
+    "ClusterSecretStoreSpecProviderGitlabCaProviderType",
     "ClusterSecretStoreSpecProviderIbm",
     "ClusterSecretStoreSpecProviderIbmAuth",
     "ClusterSecretStoreSpecProviderIbmAuthContainerAuth",
@@ -90314,6 +91629,9 @@ __all__ = [
     "ClusterSecretStoreSpecProviderIbmAuthSecretRefSecretApiKeySecretRef",
     "ClusterSecretStoreSpecProviderInfisical",
     "ClusterSecretStoreSpecProviderInfisicalAuth",
+    "ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentials",
+    "ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsIdentityId",
+    "ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsResource",
     "ClusterSecretStoreSpecProviderInfisicalAuthUniversalAuthCredentials",
     "ClusterSecretStoreSpecProviderInfisicalAuthUniversalAuthCredentialsClientId",
     "ClusterSecretStoreSpecProviderInfisicalAuthUniversalAuthCredentialsClientSecret",
@@ -90548,6 +91866,8 @@ __all__ = [
     "ClusterSecretStoreV1Beta1SpecProviderGitlabAuth",
     "ClusterSecretStoreV1Beta1SpecProviderGitlabAuthSecretRef",
     "ClusterSecretStoreV1Beta1SpecProviderGitlabAuthSecretRefAccessToken",
+    "ClusterSecretStoreV1Beta1SpecProviderGitlabCaProvider",
+    "ClusterSecretStoreV1Beta1SpecProviderGitlabCaProviderType",
     "ClusterSecretStoreV1Beta1SpecProviderIbm",
     "ClusterSecretStoreV1Beta1SpecProviderIbmAuth",
     "ClusterSecretStoreV1Beta1SpecProviderIbmAuthContainerAuth",
@@ -90684,6 +92004,7 @@ __all__ = [
     "ExternalSecretSpecDataFromFindDecodingStrategy",
     "ExternalSecretSpecDataFromFindName",
     "ExternalSecretSpecDataFromRewrite",
+    "ExternalSecretSpecDataFromRewriteMerge",
     "ExternalSecretSpecDataFromRewriteRegexp",
     "ExternalSecretSpecDataFromRewriteTransform",
     "ExternalSecretSpecDataFromSourceRef",
@@ -90912,6 +92233,8 @@ __all__ = [
     "SecretStoreSpecProviderGitlabAuth",
     "SecretStoreSpecProviderGitlabAuthSecretRef",
     "SecretStoreSpecProviderGitlabAuthSecretRefAccessToken",
+    "SecretStoreSpecProviderGitlabCaProvider",
+    "SecretStoreSpecProviderGitlabCaProviderType",
     "SecretStoreSpecProviderIbm",
     "SecretStoreSpecProviderIbmAuth",
     "SecretStoreSpecProviderIbmAuthContainerAuth",
@@ -90919,6 +92242,9 @@ __all__ = [
     "SecretStoreSpecProviderIbmAuthSecretRefSecretApiKeySecretRef",
     "SecretStoreSpecProviderInfisical",
     "SecretStoreSpecProviderInfisicalAuth",
+    "SecretStoreSpecProviderInfisicalAuthAzureAuthCredentials",
+    "SecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsIdentityId",
+    "SecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsResource",
     "SecretStoreSpecProviderInfisicalAuthUniversalAuthCredentials",
     "SecretStoreSpecProviderInfisicalAuthUniversalAuthCredentialsClientId",
     "SecretStoreSpecProviderInfisicalAuthUniversalAuthCredentialsClientSecret",
@@ -91153,6 +92479,8 @@ __all__ = [
     "SecretStoreV1Beta1SpecProviderGitlabAuth",
     "SecretStoreV1Beta1SpecProviderGitlabAuthSecretRef",
     "SecretStoreV1Beta1SpecProviderGitlabAuthSecretRefAccessToken",
+    "SecretStoreV1Beta1SpecProviderGitlabCaProvider",
+    "SecretStoreV1Beta1SpecProviderGitlabCaProviderType",
     "SecretStoreV1Beta1SpecProviderIbm",
     "SecretStoreV1Beta1SpecProviderIbmAuth",
     "SecretStoreV1Beta1SpecProviderIbmAuthContainerAuth",
@@ -91381,8 +92709,19 @@ def _typecheckingstub__5968a6b40dcf2aead8c61044c5dee50fa9d4651e3d45dc7f12383fe77
 
 def _typecheckingstub__f601bc7c910f4395527a2edbe9ff719509d7d8808af893ad08740c049a2c5b76(
     *,
+    merge: typing.Optional[typing.Union[ClusterExternalSecretSpecExternalSecretSpecDataFromRewriteMerge, typing.Dict[builtins.str, typing.Any]]] = None,
     regexp: typing.Optional[typing.Union[ClusterExternalSecretSpecExternalSecretSpecDataFromRewriteRegexp, typing.Dict[builtins.str, typing.Any]]] = None,
     transform: typing.Optional[typing.Union[ClusterExternalSecretSpecExternalSecretSpecDataFromRewriteTransform, typing.Dict[builtins.str, typing.Any]]] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__2b350ae1d764952aa1647501bd4693e82eb2caa28988780c400b948cfe584d0a(
+    *,
+    conflict_policy: typing.Optional[builtins.str] = None,
+    into: typing.Optional[builtins.str] = None,
+    priority: typing.Optional[typing.Sequence[builtins.str]] = None,
+    strategy: typing.Optional[builtins.str] = None,
 ) -> None:
     """Type checking stubs"""
     pass
@@ -93057,6 +94396,8 @@ def _typecheckingstub__6a12983b1377e6b52014a0141979c7ba3a512a112cbc6a87911b48901
 def _typecheckingstub__cd6c28ce03a61453b779c63be95c17f14c569df7b7901767be17f3b916f7b7b9(
     *,
     auth: typing.Union[ClusterSecretStoreSpecProviderGitlabAuth, typing.Dict[builtins.str, typing.Any]],
+    ca_bundle: typing.Optional[builtins.str] = None,
+    ca_provider: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderGitlabCaProvider, typing.Dict[builtins.str, typing.Any]]] = None,
     environment: typing.Optional[builtins.str] = None,
     group_i_ds: typing.Optional[typing.Sequence[builtins.str]] = None,
     inherit_from_groups: typing.Optional[builtins.bool] = None,
@@ -93084,6 +94425,16 @@ def _typecheckingstub__511067b3b8641da6fae0b888268797929d1d7d4597ddb24ebbdc23c76
     *,
     key: typing.Optional[builtins.str] = None,
     name: typing.Optional[builtins.str] = None,
+    namespace: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__c6f2249277df3b2da87aa2a93ebaaf6bccfe3ed4744b94ca19d78269848223ab(
+    *,
+    name: builtins.str,
+    type: ClusterSecretStoreSpecProviderGitlabCaProviderType,
+    key: typing.Optional[builtins.str] = None,
     namespace: typing.Optional[builtins.str] = None,
 ) -> None:
     """Type checking stubs"""
@@ -93141,7 +94492,34 @@ def _typecheckingstub__9a6b80a96af13e75f58be942b229d3c8494ce16b99ec94b56bea68a87
 
 def _typecheckingstub__ae8e43ed0dcb745a28d01603703e9ed1d603467b34c9bb1ada1eae4fd110f66f(
     *,
+    azure_auth_credentials: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentials, typing.Dict[builtins.str, typing.Any]]] = None,
     universal_auth_credentials: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderInfisicalAuthUniversalAuthCredentials, typing.Dict[builtins.str, typing.Any]]] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__a52cc70168ced27a4f2bf55e43b513cc2426363cb9917b7c0340de7a9007f4fd(
+    *,
+    identity_id: typing.Union[ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsIdentityId, typing.Dict[builtins.str, typing.Any]],
+    resource: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsResource, typing.Dict[builtins.str, typing.Any]]] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__e8e0cf99af1d80c73a32f4aba0a678c5d2e617d070b1647b42985d7b1aaa78cb(
+    *,
+    key: typing.Optional[builtins.str] = None,
+    name: typing.Optional[builtins.str] = None,
+    namespace: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__e2a5e848f506f0b8dd95cec48c77101b59234d66cf008ca16e4da074bb719b3a(
+    *,
+    key: typing.Optional[builtins.str] = None,
+    name: typing.Optional[builtins.str] = None,
+    namespace: typing.Optional[builtins.str] = None,
 ) -> None:
     """Type checking stubs"""
     pass
@@ -95121,6 +96499,8 @@ def _typecheckingstub__4c7182794d735b381017a3ac79153198c56e1faf2e95b04362ffa34b7
 def _typecheckingstub__b842bc57f7fd92b2b56e655e52606a5bebb9bcb992f4ddde8e086b665b8aba49(
     *,
     auth: typing.Union[ClusterSecretStoreV1Beta1SpecProviderGitlabAuth, typing.Dict[builtins.str, typing.Any]],
+    ca_bundle: typing.Optional[builtins.str] = None,
+    ca_provider: typing.Optional[typing.Union[ClusterSecretStoreV1Beta1SpecProviderGitlabCaProvider, typing.Dict[builtins.str, typing.Any]]] = None,
     environment: typing.Optional[builtins.str] = None,
     group_i_ds: typing.Optional[typing.Sequence[builtins.str]] = None,
     inherit_from_groups: typing.Optional[builtins.bool] = None,
@@ -95148,6 +96528,16 @@ def _typecheckingstub__e80400499c318d990d15b26a86d2debab77bc685ec0bdf02963692ecf
     *,
     key: typing.Optional[builtins.str] = None,
     name: typing.Optional[builtins.str] = None,
+    namespace: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__443e48bfe537a6cd49de5977990e1610955866563f0326899122da85504278e9(
+    *,
+    name: builtins.str,
+    type: ClusterSecretStoreV1Beta1SpecProviderGitlabCaProviderType,
+    key: typing.Optional[builtins.str] = None,
     namespace: typing.Optional[builtins.str] = None,
 ) -> None:
     """Type checking stubs"""
@@ -96278,8 +97668,19 @@ def _typecheckingstub__2e51f0ba94048fcba1af9bf78d0b379efd9e574853c52555f3c81052e
 
 def _typecheckingstub__34a7ea8664e4d3b6a1f3e0ff5e2df2f0dac77ecad4d9e29405fde21c45dcf3f4(
     *,
+    merge: typing.Optional[typing.Union[ExternalSecretSpecDataFromRewriteMerge, typing.Dict[builtins.str, typing.Any]]] = None,
     regexp: typing.Optional[typing.Union[ExternalSecretSpecDataFromRewriteRegexp, typing.Dict[builtins.str, typing.Any]]] = None,
     transform: typing.Optional[typing.Union[ExternalSecretSpecDataFromRewriteTransform, typing.Dict[builtins.str, typing.Any]]] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__d20754036ee89fd6b0bcd20b5875dee410e09b933e08e4664815ce85715431df(
+    *,
+    conflict_policy: typing.Optional[builtins.str] = None,
+    into: typing.Optional[builtins.str] = None,
+    priority: typing.Optional[typing.Sequence[builtins.str]] = None,
+    strategy: typing.Optional[builtins.str] = None,
 ) -> None:
     """Type checking stubs"""
     pass
@@ -97829,6 +99230,8 @@ def _typecheckingstub__8ee332cf21d198c331fa0c98a6f21084e66783244519b8b4fb47c61c6
 def _typecheckingstub__74a9704961b5ebc67a85b13e3ea0b0eecabb2dbda2aee0064fc2ce88d60d1a03(
     *,
     auth: typing.Union[SecretStoreSpecProviderGitlabAuth, typing.Dict[builtins.str, typing.Any]],
+    ca_bundle: typing.Optional[builtins.str] = None,
+    ca_provider: typing.Optional[typing.Union[SecretStoreSpecProviderGitlabCaProvider, typing.Dict[builtins.str, typing.Any]]] = None,
     environment: typing.Optional[builtins.str] = None,
     group_i_ds: typing.Optional[typing.Sequence[builtins.str]] = None,
     inherit_from_groups: typing.Optional[builtins.bool] = None,
@@ -97856,6 +99259,16 @@ def _typecheckingstub__09362b98cec758e02e93e69b896f7fb16827ce7a4e50ce19232e7d22f
     *,
     key: typing.Optional[builtins.str] = None,
     name: typing.Optional[builtins.str] = None,
+    namespace: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__e84cca76ee135b238fc441a916a198b4b1b2696cb2b280ad5e3c86d3717d7984(
+    *,
+    name: builtins.str,
+    type: SecretStoreSpecProviderGitlabCaProviderType,
+    key: typing.Optional[builtins.str] = None,
     namespace: typing.Optional[builtins.str] = None,
 ) -> None:
     """Type checking stubs"""
@@ -97913,7 +99326,34 @@ def _typecheckingstub__04fba857dc426841da1155a76d2c4ebcc7578ef2aea12274a93875d14
 
 def _typecheckingstub__4211e854bf463efca6f2a7a96d5d9025a00068690dcc74fbce6e470284698158(
     *,
+    azure_auth_credentials: typing.Optional[typing.Union[SecretStoreSpecProviderInfisicalAuthAzureAuthCredentials, typing.Dict[builtins.str, typing.Any]]] = None,
     universal_auth_credentials: typing.Optional[typing.Union[SecretStoreSpecProviderInfisicalAuthUniversalAuthCredentials, typing.Dict[builtins.str, typing.Any]]] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__678f74ace18776bc62ab9534b0205e499edd8723fb4a037d174c01ce6138921d(
+    *,
+    identity_id: typing.Union[SecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsIdentityId, typing.Dict[builtins.str, typing.Any]],
+    resource: typing.Optional[typing.Union[SecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsResource, typing.Dict[builtins.str, typing.Any]]] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__75924784c4b07ea92ad32a0456e0ab3b72ecb5e3ec51af2b602958b3ce4bc9a3(
+    *,
+    key: typing.Optional[builtins.str] = None,
+    name: typing.Optional[builtins.str] = None,
+    namespace: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__72f2ebf37c0cd6cc2f4136ad620ea94317c9d731fd672efcc854b1a6af467465(
+    *,
+    key: typing.Optional[builtins.str] = None,
+    name: typing.Optional[builtins.str] = None,
+    namespace: typing.Optional[builtins.str] = None,
 ) -> None:
     """Type checking stubs"""
     pass
@@ -99893,6 +101333,8 @@ def _typecheckingstub__2a32ab5d7e9bb7a4aa8c88bc943c9ab78d5d4c756dfdb84f9362b3bbb
 def _typecheckingstub__b398588d0e2703fe1f91c36ee1116bd611797b0d35e42ae69ec6f3a660a899aa(
     *,
     auth: typing.Union[SecretStoreV1Beta1SpecProviderGitlabAuth, typing.Dict[builtins.str, typing.Any]],
+    ca_bundle: typing.Optional[builtins.str] = None,
+    ca_provider: typing.Optional[typing.Union[SecretStoreV1Beta1SpecProviderGitlabCaProvider, typing.Dict[builtins.str, typing.Any]]] = None,
     environment: typing.Optional[builtins.str] = None,
     group_i_ds: typing.Optional[typing.Sequence[builtins.str]] = None,
     inherit_from_groups: typing.Optional[builtins.bool] = None,
@@ -99920,6 +101362,16 @@ def _typecheckingstub__d5024106fecce7059ce27d090bc0293130bbb172a7cd76a1e71a78bb7
     *,
     key: typing.Optional[builtins.str] = None,
     name: typing.Optional[builtins.str] = None,
+    namespace: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__a489c17dd0fcb24b502244c9e937361c0720d34949e09ce4a1b644d13fbc0ccd(
+    *,
+    name: builtins.str,
+    type: SecretStoreV1Beta1SpecProviderGitlabCaProviderType,
+    key: typing.Optional[builtins.str] = None,
     namespace: typing.Optional[builtins.str] = None,
 ) -> None:
     """Type checking stubs"""
