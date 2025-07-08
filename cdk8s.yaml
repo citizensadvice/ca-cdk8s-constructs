@@ -4,3 +4,4 @@ output: ca_cdk8s_constructs/imports
 imports:
   - https://github.com/kubernetes/autoscaler/raw/refs/heads/master/vertical-pod-autoscaler/deploy/vpa-v1-crd-gen.yaml
   - https://raw.githubusercontent.com/external-secrets/external-secrets/refs/heads/main/deploy/crds/bundle.yaml
+  - https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/refs/heads/main/example/prometheus-operator-crd/monitoring.coreos.com_probes.yaml

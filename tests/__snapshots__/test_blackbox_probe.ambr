@@ -1,0 +1,106 @@
+# serializer version: 1
+# name: test_blackbox_probe_custom_interval_long
+  dict({
+    'interval': '1800s',
+    'module': 'http_2xx',
+    'prober': dict({
+      'path': '/probe',
+      'url': 'prometheus-blackbox-exporter.kube-monitoring.svc.cluster.local:9115',
+    }),
+    'targets': dict({
+      'staticConfig': dict({
+        'static': list([
+          'http://localhost:8080',
+        ]),
+      }),
+    }),
+  })
+# ---
+# name: test_blackbox_probe_custom_interval_short
+  dict({
+    'interval': '30s',
+    'module': 'http_2xx',
+    'prober': dict({
+      'path': '/probe',
+      'url': 'prometheus-blackbox-exporter.kube-monitoring.svc.cluster.local:9115',
+    }),
+    'targets': dict({
+      'staticConfig': dict({
+        'static': list([
+          'http://localhost:8080',
+        ]),
+      }),
+    }),
+  })
+# ---
+# name: test_blackbox_probe_custom_timeout
+  dict({
+    'interval': '60s',
+    'module': 'http_2xx',
+    'prober': dict({
+      'path': '/probe',
+      'url': 'prometheus-blackbox-exporter.kube-monitoring.svc.cluster.local:9115',
+    }),
+    'scrapeTimeout': '30s',
+    'targets': dict({
+      'staticConfig': dict({
+        'static': list([
+          'http://localhost:8080',
+        ]),
+      }),
+    }),
+  })
+# ---
+# name: test_blackbox_probe_ingress
+  dict({
+    'interval': '60s',
+    'module': 'http_2xx',
+    'prober': dict({
+      'path': '/probe',
+      'url': 'prometheus-blackbox-exporter.kube-monitoring.svc.cluster.local:9115',
+    }),
+    'targets': dict({
+      'ingress': dict({
+        'selector': dict({
+          'matchLabels': dict({
+            'app.kubernetes.io/blackbox-target': 'test-deployment-service-ingress-c8ed2409',
+          }),
+        }),
+      }),
+    }),
+  })
+# ---
+# name: test_blackbox_probe_static
+  dict({
+    'interval': '60s',
+    'module': 'http_2xx',
+    'prober': dict({
+      'path': '/probe',
+      'url': 'prometheus-blackbox-exporter.kube-monitoring.svc.cluster.local:9115',
+    }),
+    'targets': dict({
+      'staticConfig': dict({
+        'static': list([
+          'http://localhost:8080',
+        ]),
+      }),
+    }),
+  })
+# ---
+# name: test_blackbox_probe_with_path
+  dict({
+    'interval': '60s',
+    'module': 'http_2xx',
+    'prober': dict({
+      'path': '/probe',
+      'url': 'prometheus-blackbox-exporter.kube-monitoring.svc.cluster.local:9115',
+    }),
+    'targets': dict({
+      'staticConfig': dict({
+        'static': list([
+          'http://localhost:8080/api/health',
+        ]),
+      }),
+    }),
+  })
+# ---
