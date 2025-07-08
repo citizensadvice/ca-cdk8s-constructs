@@ -121,14 +121,14 @@ ujson = ["ujson (>=5.7.0)"]
 
 [[package]]
 name = "cdk8s"
-version = "2.69.74"
+version = "2.69.76"
 description = "This is the core library of Cloud Development Kit (CDK) for Kubernetes (cdk8s). cdk8s apps synthesize into standard Kubernetes manifests which can be applied to any Kubernetes cluster."
 optional = false
 python-versions = "~=3.9"
 groups = ["main"]
 files = [
-    {file = "cdk8s-2.69.74-py3-none-any.whl", hash = "sha256:5a04678a1d8dd3582ad6391f520abb39eca8f198aee0441b94f4800fdea15800"},
-    {file = "cdk8s-2.69.74.tar.gz", hash = "sha256:cda6c4f49e70c73436e1bf76fd1387037a3b7d94fe09797540e54ba6d76e2ae5"},
+    {file = "cdk8s-2.69.76-py3-none-any.whl", hash = "sha256:db6bad73382c86eca94d54cd4a6263719321c74e7eb4adb911e859600d8ece87"},
+    {file = "cdk8s-2.69.76.tar.gz", hash = "sha256:48dd505165ab9eb7679b426588bbd5ec34a04d8b2ca22d468e5b7fd1b2de7a41"},
 ]
 
 [package.dependencies]
@@ -569,4 +569,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10, <3.14"
-content-hash = "2096e0326da821a0cc19a488809011aec2d2d3d8235ce8aee6afcf2252d20e03"
+content-hash = "c1be1246846fe028d23bf211e2f8b24218a05a3683dd476214340c85216d1d45"
