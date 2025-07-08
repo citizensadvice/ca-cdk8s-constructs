@@ -11,8 +11,9 @@ import yaml
 from aws_cdk import Duration
 from aws_cdk.aws_eks import HelmChart, ICluster
 from aws_cdk.aws_s3_assets import Asset
-from cdk8s_plus_32 import Job
 from constructs import Construct
+
+from .helpers import HasApiObjectMetadata
 
 
 class HelmChartAsset(Construct):
@@ -181,29 +182,31 @@ class HelmHookDeletePolicy(Enum):
 
 
 def apply_helm_hook(
-    job: Job,
+    resource: HasApiObjectMetadata,
     hook_types: Sequence[HelmHookType],
     hook_delete_policy: Sequence[HelmHookDeletePolicy] = [
         HelmHookDeletePolicy.BEFORE_HOOK_CREATION
     ],
-    weight: int = None,
+    weight: typing.Optional[int] = None,
 ) -> None:
-    """Apply helm hook annotations to a job.
+    """Apply helm hook annotations to a resource.
 
-    This applies the correct annotations to the job to ensure that the job is executed as
+    This applies the correct annotations to the resource to ensure that the resource is executed as
     a helm hook if the resource is deployed as a helm chart.
 
     Args:
-        job: The job to apply the helm hook to.
+        resource: The resource to apply the helm hook to. Must have a metadata attribute with add_annotation method.
         hook_types: The types of hook to apply.
         hook_delete_policy: The policy for deleting the hook resource after the hook has been executed.
         weight: The weight of the hook.
     """
-    job.metadata.add_annotation(
+    resource.metadata.add_annotation(
         "helm.sh/hook-delete-policy", ",".join([policy.value for policy in hook_delete_policy])
     )
 
-    job.metadata.add_annotation("helm.sh/hook", ",".join([hook.value for hook in hook_types]))
+    resource.metadata.add_annotation(
+        "helm.sh/hook", ",".join([hook.value for hook in hook_types])
+    )
 
     if weight:
-        job.metadata.add_annotation("helm.sh/hook-weight", str(weight))
+        resource.metadata.add_annotation("helm.sh/hook-weight", str(weight))
