@@ -1,15 +1,7 @@
 """A collection of helper functions for cdk8s applications."""
 
-from typing import Protocol
-
 import cdk8s
 from constructs import Construct
-
-
-class HasApiObjectMetadata(Protocol):
-    """Protocol for objects that have an ApiObjectMetadataDefinition property."""
-
-    metadata: cdk8s.ApiObjectMetadataDefinition
 
 
 def add_labels(construct: Construct, labels: dict[str, str]) -> None:
