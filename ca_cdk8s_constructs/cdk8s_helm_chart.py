@@ -7,6 +7,7 @@ from textwrap import dedent
 from typing import Sequence
 
 import cdk8s
+import cdk8s_plus_32
 import yaml
 from aws_cdk import Duration
 from aws_cdk.aws_eks import HelmChart, ICluster
@@ -180,7 +181,7 @@ class HelmHookDeletePolicy(Enum):
 
 
 def apply_helm_hook(
-    resource: cdk8s.ApiObject,
+    resource: cdk8s_plus_32.Resource,
     hook_types: Sequence[HelmHookType],
     hook_delete_policy: Sequence[HelmHookDeletePolicy] = [
         HelmHookDeletePolicy.BEFORE_HOOK_CREATION
