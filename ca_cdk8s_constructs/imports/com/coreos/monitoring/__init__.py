@@ -2673,7 +2673,10 @@ class ProbeSpecOauth2TlsConfigMinVersion(enum.Enum):
     jsii_struct_bases=[],
     name_mapping={
         "url": "url",
+        "no_proxy": "noProxy",
         "path": "path",
+        "proxy_connect_header": "proxyConnectHeader",
+        "proxy_from_environment": "proxyFromEnvironment",
         "proxy_url": "proxyUrl",
         "scheme": "scheme",
     },
@@ -2683,7 +2686,10 @@ class ProbeSpecProber:
         self,
         *,
         url: builtins.str,
+        no_proxy: typing.Optional[builtins.str] = None,
         path: typing.Optional[builtins.str] = None,
+        proxy_connect_header: typing.Optional[typing.Mapping[builtins.str, typing.Sequence[typing.Union["ProbeSpecProberProxyConnectHeader", typing.Dict[builtins.str, typing.Any]]]]] = None,
+        proxy_from_environment: typing.Optional[builtins.bool] = None,
         proxy_url: typing.Optional[builtins.str] = None,
         scheme: typing.Optional["ProbeSpecProberScheme"] = None,
     ) -> None:
@@ -2692,8 +2698,11 @@ class ProbeSpecProber:
         The prober.URL parameter is required. Targets cannot be probed if left empty.
 
         :param url: Mandatory URL of the prober.
+        :param no_proxy: ``noProxy`` is a comma-separated string that can contain IPs, CIDR notation, domain names that should be excluded from proxying. IP and domain names can contain port numbers. It requires Prometheus >= v2.43.0, Alertmanager >= v0.25.0 or Thanos >= v0.32.0.
         :param path: Path to collect metrics from. Defaults to ``/probe``. Default: probe`.
-        :param proxy_url: Optional ProxyURL.
+        :param proxy_connect_header: ProxyConnectHeader optionally specifies headers to send to proxies during CONNECT requests. It requires Prometheus >= v2.43.0, Alertmanager >= v0.25.0 or Thanos >= v0.32.0.
+        :param proxy_from_environment: Whether to use the proxy configuration defined by environment variables (HTTP_PROXY, HTTPS_PROXY, and NO_PROXY). It requires Prometheus >= v2.43.0, Alertmanager >= v0.25.0 or Thanos >= v0.32.0.
+        :param proxy_url: ``proxyURL`` defines the HTTP proxy server to use.
         :param scheme: HTTP scheme to use for scraping. ``http`` and ``https`` are the expected values unless you rewrite the ``__scheme__`` label via relabeling. If empty, Prometheus uses the default value ``http``.
 
         :schema: ProbeSpecProber
@@ -2701,14 +2710,23 @@ class ProbeSpecProber:
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__6684cb5ff968185a87d2fade885ee91d9329d7babe8bc8fbb69c24e63cd7cdb7)
             check_type(argname="argument url", value=url, expected_type=type_hints["url"])
+            check_type(argname="argument no_proxy", value=no_proxy, expected_type=type_hints["no_proxy"])
             check_type(argname="argument path", value=path, expected_type=type_hints["path"])
+            check_type(argname="argument proxy_connect_header", value=proxy_connect_header, expected_type=type_hints["proxy_connect_header"])
+            check_type(argname="argument proxy_from_environment", value=proxy_from_environment, expected_type=type_hints["proxy_from_environment"])
             check_type(argname="argument proxy_url", value=proxy_url, expected_type=type_hints["proxy_url"])
             check_type(argname="argument scheme", value=scheme, expected_type=type_hints["scheme"])
         self._values: typing.Dict[builtins.str, typing.Any] = {
             "url": url,
         }
+        if no_proxy is not None:
+            self._values["no_proxy"] = no_proxy
         if path is not None:
             self._values["path"] = path
+        if proxy_connect_header is not None:
+            self._values["proxy_connect_header"] = proxy_connect_header
+        if proxy_from_environment is not None:
+            self._values["proxy_from_environment"] = proxy_from_environment
         if proxy_url is not None:
             self._values["proxy_url"] = proxy_url
         if scheme is not None:
@@ -2725,6 +2743,20 @@ class ProbeSpecProber:
         return typing.cast(builtins.str, result)
 
     @builtins.property
+    def no_proxy(self) -> typing.Optional[builtins.str]:
+        '''``noProxy`` is a comma-separated string that can contain IPs, CIDR notation, domain names that should be excluded from proxying.
+
+        IP and domain names can
+        contain port numbers.
+
+        It requires Prometheus >= v2.43.0, Alertmanager >= v0.25.0 or Thanos >= v0.32.0.
+
+        :schema: ProbeSpecProber#noProxy
+        '''
+        result = self._values.get("no_proxy")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
     def path(self) -> typing.Optional[builtins.str]:
         '''Path to collect metrics from.
 
@@ -2738,8 +2770,32 @@ class ProbeSpecProber:
         return typing.cast(typing.Optional[builtins.str], result)
 
     @builtins.property
+    def proxy_connect_header(
+        self,
+    ) -> typing.Optional[typing.Mapping[builtins.str, typing.List["ProbeSpecProberProxyConnectHeader"]]]:
+        '''ProxyConnectHeader optionally specifies headers to send to proxies during CONNECT requests.
+
+        It requires Prometheus >= v2.43.0, Alertmanager >= v0.25.0 or Thanos >= v0.32.0.
+
+        :schema: ProbeSpecProber#proxyConnectHeader
+        '''
+        result = self._values.get("proxy_connect_header")
+        return typing.cast(typing.Optional[typing.Mapping[builtins.str, typing.List["ProbeSpecProberProxyConnectHeader"]]], result)
+
+    @builtins.property
+    def proxy_from_environment(self) -> typing.Optional[builtins.bool]:
+        '''Whether to use the proxy configuration defined by environment variables (HTTP_PROXY, HTTPS_PROXY, and NO_PROXY).
+
+        It requires Prometheus >= v2.43.0, Alertmanager >= v0.25.0 or Thanos >= v0.32.0.
+
+        :schema: ProbeSpecProber#proxyFromEnvironment
+        '''
+        result = self._values.get("proxy_from_environment")
+        return typing.cast(typing.Optional[builtins.bool], result)
+
+    @builtins.property
     def proxy_url(self) -> typing.Optional[builtins.str]:
-        '''Optional ProxyURL.
+        '''``proxyURL`` defines the HTTP proxy server to use.
 
         :schema: ProbeSpecProber#proxyUrl
         '''
@@ -2766,6 +2822,87 @@ class ProbeSpecProber:
 
     def __repr__(self) -> str:
         return "ProbeSpecProber(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="comcoreosmonitoring.ProbeSpecProberProxyConnectHeader",
+    jsii_struct_bases=[],
+    name_mapping={"key": "key", "name": "name", "optional": "optional"},
+)
+class ProbeSpecProberProxyConnectHeader:
+    def __init__(
+        self,
+        *,
+        key: builtins.str,
+        name: typing.Optional[builtins.str] = None,
+        optional: typing.Optional[builtins.bool] = None,
+    ) -> None:
+        '''SecretKeySelector selects a key of a Secret.
+
+        :param key: The key of the secret to select from. Must be a valid secret key.
+        :param name: Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+        :param optional: Specify whether the Secret or its key must be defined.
+
+        :schema: ProbeSpecProberProxyConnectHeader
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__735075c33de8beaf61a817a03a8a9ef456504a89e716a6b517da4fee912fe297)
+            check_type(argname="argument key", value=key, expected_type=type_hints["key"])
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument optional", value=optional, expected_type=type_hints["optional"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "key": key,
+        }
+        if name is not None:
+            self._values["name"] = name
+        if optional is not None:
+            self._values["optional"] = optional
+
+    @builtins.property
+    def key(self) -> builtins.str:
+        '''The key of the secret to select from.
+
+        Must be a valid secret key.
+
+        :schema: ProbeSpecProberProxyConnectHeader#key
+        '''
+        result = self._values.get("key")
+        assert result is not None, "Required property 'key' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def name(self) -> typing.Optional[builtins.str]:
+        '''Name of the referent.
+
+        This field is effectively required, but due to backwards compatibility is
+        allowed to be empty. Instances of this type with an empty value here are
+        almost certainly wrong.
+        More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
+
+        :schema: ProbeSpecProberProxyConnectHeader#name
+        '''
+        result = self._values.get("name")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def optional(self) -> typing.Optional[builtins.bool]:
+        '''Specify whether the Secret or its key must be defined.
+
+        :schema: ProbeSpecProberProxyConnectHeader#optional
+        '''
+        result = self._values.get("optional")
+        return typing.cast(typing.Optional[builtins.bool], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ProbeSpecProberProxyConnectHeader(%s)" % ", ".join(
             k + "=" + repr(v) for k, v in self._values.items()
         )
 
@@ -4407,6 +4544,7 @@ __all__ = [
     "ProbeSpecOauth2TlsConfigMaxVersion",
     "ProbeSpecOauth2TlsConfigMinVersion",
     "ProbeSpecProber",
+    "ProbeSpecProberProxyConnectHeader",
     "ProbeSpecProberScheme",
     "ProbeSpecScrapeProtocols",
     "ProbeSpecTargets",
@@ -4696,9 +4834,21 @@ def _typecheckingstub__33dc52b7c1489b1ef2cb0651104939ff50b5f5fc1d5e6875fce37f06f
 def _typecheckingstub__6684cb5ff968185a87d2fade885ee91d9329d7babe8bc8fbb69c24e63cd7cdb7(
     *,
     url: builtins.str,
+    no_proxy: typing.Optional[builtins.str] = None,
     path: typing.Optional[builtins.str] = None,
+    proxy_connect_header: typing.Optional[typing.Mapping[builtins.str, typing.Sequence[typing.Union[ProbeSpecProberProxyConnectHeader, typing.Dict[builtins.str, typing.Any]]]]] = None,
+    proxy_from_environment: typing.Optional[builtins.bool] = None,
     proxy_url: typing.Optional[builtins.str] = None,
     scheme: typing.Optional[ProbeSpecProberScheme] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__735075c33de8beaf61a817a03a8a9ef456504a89e716a6b517da4fee912fe297(
+    *,
+    key: builtins.str,
+    name: typing.Optional[builtins.str] = None,
+    optional: typing.Optional[builtins.bool] = None,
 ) -> None:
     """Type checking stubs"""
     pass
