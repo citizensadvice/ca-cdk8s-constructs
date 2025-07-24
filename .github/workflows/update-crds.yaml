@@ -43,3 +43,7 @@ jobs:
           title: Update CRDs
           body: |
             Automated PR to update CRDs to latest version.
+
+            The checks will not run automatically due to workflows not being able to be triggered by other workflows, but you can trigger them with:
+
+            `git checkout origin updates/crds && git pull && git commit --allow-empty --allow-empty-message -m "" && git push`
