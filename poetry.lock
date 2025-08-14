@@ -121,19 +121,19 @@ ujson = ["ujson (>=5.7.0)"]
 
 [[package]]
 name = "cdk8s"
-version = "2.70.4"
+version = "2.70.7"
 description = "This is the core library of Cloud Development Kit (CDK) for Kubernetes (cdk8s). cdk8s apps synthesize into standard Kubernetes manifests which can be applied to any Kubernetes cluster."
 optional = false
 python-versions = "~=3.9"
 groups = ["main"]
 files = [
-    {file = "cdk8s-2.70.4-py3-none-any.whl", hash = "sha256:2a294f99690b4af93b958662f0e50de1afb9324b6496ba0e046a3a325f6b8965"},
-    {file = "cdk8s-2.70.4.tar.gz", hash = "sha256:6ddae3011efa5bd3c647278d00768f4c63a10b161ca5f6c00a24d4ee03d43517"},
+    {file = "cdk8s-2.70.7-py3-none-any.whl", hash = "sha256:837be2a5e8fff67b912f8075a62e3a6d11b5be6fd82c144c95c6e4425d5edd38"},
+    {file = "cdk8s-2.70.7.tar.gz", hash = "sha256:3a3b364bb4db508ad72152da5c384e523b13fe33e5ebe59b1e9d0e2b3df7080b"},
 ]
 
 [package.dependencies]
 constructs = ">=10.0.0,<11.0.0"
-jsii = ">=1.112.0,<2.0.0"
+jsii = ">=1.113.0,<2.0.0"
 publication = ">=0.0.3"
 typeguard = ">=2.13.3,<4.3.0"
 
@@ -236,19 +236,19 @@ files = [
 
 [[package]]
 name = "jsii"
-version = "1.112.0"
+version = "1.113.0"
 description = "Python client for jsii runtime"
 optional = false
 python-versions = "~=3.9"
 groups = ["main"]
 files = [
-    {file = "jsii-1.112.0-py3-none-any.whl", hash = "sha256:6510c223074d9b206fd0570849a791e4d9ecfff7ffe68428de73870cea9f55a1"},
-    {file = "jsii-1.112.0.tar.gz", hash = "sha256:6b7d19f361c2565b76828ecbe8cbed8b8d6028a82aa98a46b206a4ee5083157e"},
+    {file = "jsii-1.113.0-py3-none-any.whl", hash = "sha256:62377c651554234ea945693f7c03cb96a969ba425a686950c88d43b0d4d76b07"},
+    {file = "jsii-1.113.0.tar.gz", hash = "sha256:2dedea9d6006af53467a7a67f1d35a56ab3f75a3d6ed4b4536fffc3e1d1fe476"},
 ]
 
 [package.dependencies]
 attrs = ">=21.2,<26.0"
-cattrs = ">=1.8,<24.2"
+cattrs = ">=1.8,<25.2"
 importlib_resources = ">=5.2.0"
 publication = ">=0.0.3"
 python-dateutil = "*"
@@ -569,4 +569,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10, <3.14"
-content-hash = "5a9b10716414299160dd1dca28e294d8a152a7cba955b358b1b7b21616dd8e0b"
+content-hash = "56d0cecf4c4ede58f1e53575f402f2e4531651a74ce5e44ebc9462344fe3664f"
