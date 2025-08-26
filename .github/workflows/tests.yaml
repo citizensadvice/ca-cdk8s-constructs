@@ -14,7 +14,7 @@ jobs:
       - extras=s3-cache
     steps:
       - uses: runs-on/action@v2
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       
       - name: Setup Python
         uses: citizensadvice/python-poetry-setup-action@v1
