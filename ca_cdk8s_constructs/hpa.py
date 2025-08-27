@@ -1,5 +1,6 @@
 from numbers import Number
-from cdk8s_plus_32 import IScalable, HorizontalPodAutoscaler, Metric, MetricTarget
+
+from cdk8s_plus_32 import HorizontalPodAutoscaler, IScalable, Metric, MetricTarget
 from constructs import Construct
 
 

@@ -1,10 +1,11 @@
-from cdk8s_plus_32 import Job
-from ca_cdk8s_constructs.cdk8s_helm_chart import (
-    apply_helm_hook,
-    HelmHookType,
-    HelmHookDeletePolicy,
-)
 from cdk8s import Chart
+from cdk8s_plus_32 import Job
+
+from ca_cdk8s_constructs.cdk8s_helm_chart import (
+    HelmHookDeletePolicy,
+    HelmHookType,
+    apply_helm_hook,
+)
 
 
 def test_apply_helm_hook_defaults(chart_fixture: Chart):
