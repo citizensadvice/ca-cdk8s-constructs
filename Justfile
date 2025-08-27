@@ -38,7 +38,6 @@ _bump_version bump:
     git checkout main
     git pull origin main
     git reset
-    @just build
     uv version --bump {{ bump }}
     git add pyproject.toml uv.lock
 
