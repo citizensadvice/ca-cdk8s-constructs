@@ -6,27 +6,15 @@ on:
       - main
 
 jobs:
-  pytest:
+  tests:
     name: Run Tests
     runs-on: 
       - runs-on=${{ github.run_id }}
-      - job=pytest
+      - job=tests
       - extras=s3-cache
     steps:
       - uses: runs-on/action@v2
       - uses: actions/checkout@v5
-      
-      - name: Setup Python
-        uses: citizensadvice/python-poetry-setup-action@v1
-
-      - name: Install Dependencies
-        run: poetry install --with dev
-
-      - name: Ruff Check
-        run: poetry run ruff check
-      
-      - name: Ruff Format
-        run: poetry run ruff format --check
-
-      - name: Pytest
-        run: poetry run pytest
+      - uses: citizensadvice/python-uv-setup-action@v1
+      - uses: extractions/setup-just@v3
+      - run: just lint pytest
