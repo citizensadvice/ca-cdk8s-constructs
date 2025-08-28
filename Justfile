@@ -4,19 +4,19 @@
 
 # Run typechecking
 [group("code quality")]
-typecheck:
-    uv run ty check .
+typecheck +files='.':
+    uv run ty check {{ files }}
 
 # Run pytest tests
 [group("code quality")]
-pytest:
-    uv run pytest tests
+pytest +files='tests':
+    uv run pytest {{ files }}
 
 # Run ruff linter
 [group("code quality")]
-lint:
-    uv run ruff check .
-    uv run ruff format --check .
+lint +files='.':
+    uv run ruff check {{ files }}
+    uv run ruff format --check {{ files }}
 
 # Run all tests: typechecking, pytest, and linting
 [group("code quality")]
