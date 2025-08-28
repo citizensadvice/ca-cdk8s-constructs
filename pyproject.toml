@@ -32,6 +32,9 @@ module-root = "."
 exclude = ["ca_cdk8s_constructs/imports"]
 line-length = 95
 
+[tool.ruff.lint.isort]
+combine-as-imports = true
+
 [tool.ruff.lint]
 ignore = ['E501']
 select = [
