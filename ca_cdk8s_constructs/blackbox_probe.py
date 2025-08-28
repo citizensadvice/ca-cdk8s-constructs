@@ -50,7 +50,7 @@ def ca_blackbox_probe(
         by cdk8s with a hashed suffix we can be sure that it is unique.
         """
         target.metadata.add_label(LABEL_KEY, f"{target.name}")
-        target = Targets(
+        target_spec = Targets(
             ingress=IngressTarget(
                 selector=IngressSelector(
                     match_labels={LABEL_KEY: target.metadata.get_label(LABEL_KEY)}
@@ -58,7 +58,7 @@ def ca_blackbox_probe(
             )
         )
     elif isinstance(target, str):
-        target = Targets(static_config=StaticTarget(static=[target]))
+        target_spec = Targets(static_config=StaticTarget(static=[target]))
     else:
         raise ValueError(f"Invalid target type: {type(target)}, must be Ingress or str")
 
@@ -78,7 +78,7 @@ def ca_blackbox_probe(
                 url="prometheus-blackbox-exporter.kube-monitoring.svc.cluster.local:9115",
                 path="/probe",
             ),
-            targets=target,
+            targets=target_spec,
         ),
     )
 
