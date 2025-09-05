@@ -1,4 +1,4 @@
-name: Pytest
+name: Tests
 
 on:
   pull_request:
@@ -7,7 +7,7 @@ on:
 
 jobs:
   pytest:
-    name: Run Tests
+    name: All Tests
     runs-on: 
       - runs-on=${{ github.run_id }}
       - job=pytest
