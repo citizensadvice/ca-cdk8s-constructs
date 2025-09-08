@@ -121,19 +121,19 @@ ujson = ["ujson (>=5.7.0)"]
 
 [[package]]
 name = "cdk8s"
-version = "2.70.11"
+version = "2.70.12"
 description = "This is the core library of Cloud Development Kit (CDK) for Kubernetes (cdk8s). cdk8s apps synthesize into standard Kubernetes manifests which can be applied to any Kubernetes cluster."
 optional = false
 python-versions = "~=3.9"
 groups = ["main"]
 files = [
-    {file = "cdk8s-2.70.11-py3-none-any.whl", hash = "sha256:1fc7266cd002f6deb0e95941cbb3d2f618a007d5989e2f26a37184b839ed924a"},
-    {file = "cdk8s-2.70.11.tar.gz", hash = "sha256:31b5b00ee51310092ac2d572a16b64e8305b1c47c81a27181af556e41d48eabb"},
+    {file = "cdk8s-2.70.12-py3-none-any.whl", hash = "sha256:be95129a7f9d851ef20adb62eea748e9310265a436f58d10b3cce085122270e2"},
+    {file = "cdk8s-2.70.12.tar.gz", hash = "sha256:3a0bb7accf6ad9d51b893b3590d2f14d57f951ea2564791387b850628340026b"},
 ]
 
 [package.dependencies]
 constructs = ">=10.0.0,<11.0.0"
-jsii = ">=1.113.0,<2.0.0"
+jsii = ">=1.114.1,<2.0.0"
 publication = ">=0.0.3"
 typeguard = ">=2.13.3,<4.3.0"
 
@@ -236,19 +236,19 @@ files = [
 
 [[package]]
 name = "jsii"
-version = "1.113.0"
+version = "1.114.1"
 description = "Python client for jsii runtime"
 optional = false
 python-versions = "~=3.9"
 groups = ["main"]
 files = [
-    {file = "jsii-1.113.0-py3-none-any.whl", hash = "sha256:62377c651554234ea945693f7c03cb96a969ba425a686950c88d43b0d4d76b07"},
-    {file = "jsii-1.113.0.tar.gz", hash = "sha256:2dedea9d6006af53467a7a67f1d35a56ab3f75a3d6ed4b4536fffc3e1d1fe476"},
+    {file = "jsii-1.114.1-py3-none-any.whl", hash = "sha256:e8e6a2fb6117af734803b709cbbb74745548e4d70248417f14724c9f6d4945dd"},
+    {file = "jsii-1.114.1.tar.gz", hash = "sha256:bd3a9ab7aa3f3971aea638e02ae079599f70ff2fe80a0bd8a6e38759f1235d78"},
 ]
 
 [package.dependencies]
 attrs = ">=21.2,<26.0"
-cattrs = ">=1.8,<25.2"
+cattrs = ">=1.8,<25.3"
 importlib_resources = ">=5.2.0"
 publication = ">=0.0.3"
 python-dateutil = "*"
@@ -570,4 +570,4 @@ files = [
 [metadata]
 lock-version = "2.1"
 python-versions = ">=3.10, <3.14"
-content-hash = "8ef99a128cbb9ee4025d28477b02506528a79e19b129f782046217f4852d0c3b"
+content-hash = "afab06fa99faa91218a4908d09c6e160130844ffbe29d39e16b0d1e81b66b6fe"
