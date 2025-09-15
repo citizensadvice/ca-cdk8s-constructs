@@ -47,15 +47,14 @@ New versions of this library will be released via Github Releases and will follo
 
 This project uses:
 
-- `poetry` for dependency management
+- `uv` for dependency management
 - `pytest` for testing
 - `ruff` for linting and formatting
 
 To run the tests and linting, run the following command:
 
 ```bash
-poetry install --with dev
-poetry run pytest
-poetry run ruff check
-poetry run ruff format
+uv run pytest
+uv run ruff check
+uv run ruff format
 ```
