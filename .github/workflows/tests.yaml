@@ -12,12 +12,17 @@ jobs:
       - runs-on=${{ github.run_id }}
       - job=pytest
       - extras=s3-cache
+    strategy:
+      matrix:
+        python_version: ['3.10', '3.11', '3.12', '3.13', '3.14']
     steps:
       - uses: runs-on/action@v2
       - uses: actions/checkout@v5
       
       - name: Setup Python
         uses: citizensadvice/python-uv-setup-action@v1
+        with:
+          python_version: ${{ matrix.python_version }}
 
       - name: Ruff Check
         run: uv run ruff check
