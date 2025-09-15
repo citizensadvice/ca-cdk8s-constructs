@@ -3,7 +3,7 @@ name = "ca-cdk8s-constructs"
 version = "3.0.1"
 description = "A collection of cdk8s constructs"
 readme = "README.md"
-requires-python = ">=3.12"
+requires-python = ">=3.10"
 dependencies = [
   "cdk8s>=2.70.11",
   "cdk8s-plus-32>=2.4.1",
