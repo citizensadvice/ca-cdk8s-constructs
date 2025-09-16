@@ -43,9 +43,9 @@ _bump_version bump:
 
 [confirm("Are you sure you want to push the version change? [y/N]")]
 _push_version:
-    git commit -m "Bumped version to $(uv version --short)"
+    git commit -m "Bumped version to v$(uv version --short)"
     git push origin main
 
 _create_draft_release:
-    gh release create $(uv version --short) --draft --generate-notes
+    gh release create v$(uv version --short) --draft --generate-notes
     echo "> Follow the link to review and publish the release"
