@@ -6,23 +6,11 @@ from constructs import Construct
 
 from ca_cdk8s_constructs.imports.com.coreos.monitoring import (
     Probe,
-)
-from ca_cdk8s_constructs.imports.com.coreos.monitoring import (
     ProbeSpec as Spec,
-)
-from ca_cdk8s_constructs.imports.com.coreos.monitoring import (
     ProbeSpecProber as Prober,
-)
-from ca_cdk8s_constructs.imports.com.coreos.monitoring import (
     ProbeSpecTargets as Targets,
-)
-from ca_cdk8s_constructs.imports.com.coreos.monitoring import (
     ProbeSpecTargetsIngress as IngressTarget,
-)
-from ca_cdk8s_constructs.imports.com.coreos.monitoring import (
     ProbeSpecTargetsIngressSelector as IngressSelector,
-)
-from ca_cdk8s_constructs.imports.com.coreos.monitoring import (
     ProbeSpecTargetsStaticConfig as StaticTarget,
 )
 
