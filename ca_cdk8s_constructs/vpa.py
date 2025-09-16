@@ -1,6 +1,6 @@
 import enum
 
-from cdk8s_plus_32 import Cpu, IScalable
+from cdk8s_plus_32 import Cpu, Workload
 from constructs import Construct
 
 from ca_cdk8s_constructs.imports.io.k8s.autoscaling import (
@@ -44,7 +44,7 @@ class VpaUpdateMode(enum.Enum):
 def ca_vpa(
     scope: Construct,
     id: str,
-    target: IScalable,
+    target: Workload,
     min_allowed_cpu: Cpu = Cpu.millis(100),
     update_mode: VpaUpdateMode = VpaUpdateMode.AUTO,
 ) -> VerticalPodAutoscaler:
