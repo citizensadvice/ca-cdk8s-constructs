@@ -63,3 +63,16 @@ To develop this project you will need the following installed:
 - `uv` for dependency management
 
 Run `just` to see all available commands.
+
+### Releases
+
+This project uses semantic versioning and versions must be bumped in accordance with SemVer rules.
+
+The `Justfile` contains a helper command for making releases, `just draft-release`. To use it:
+
+1. Determine the release type (patch, minor, major)
+2. Run `just draft-release <patch | minor | major>`
+3. Approve the version bump if acceptable
+4. Check the staged changes and approve if acceptable
+5. Follow the link to the draft release and edit it to add details if requied
+6. Publish the release
