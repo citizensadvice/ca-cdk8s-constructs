@@ -1,7 +1,8 @@
-from ca_cdk8s_constructs.vpa import ca_vpa, VpaUpdateMode
-from ca_cdk8s_constructs.imports.io.k8s.autoscaling import VerticalPodAutoscaler
-from cdk8s_plus_32 import Deployment, Cpu
 from cdk8s import Chart
+from cdk8s_plus_32 import Cpu, Deployment
+
+from ca_cdk8s_constructs.imports.io.k8s.autoscaling import VerticalPodAutoscaler
+from ca_cdk8s_constructs.vpa import VpaUpdateMode, ca_vpa
 
 
 def test_vpa_default(chart_fixture: Chart):

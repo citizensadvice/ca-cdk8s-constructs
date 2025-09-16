@@ -34,7 +34,10 @@ line-length = 95
 
 [tool.ruff.lint]
 ignore = ['E501']
-select = ['E', 'W', 'F', 'C', 'N']
+select = ['E', 'W', 'F', 'C', 'N', 'I']
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
 
 [tool.ty.environment]
 root = ["ca_cdk8s_constructs"]

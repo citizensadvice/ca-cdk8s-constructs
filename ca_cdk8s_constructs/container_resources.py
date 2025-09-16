@@ -1,5 +1,5 @@
-from cdk8s_plus_32 import ContainerResources, CpuResources, Cpu, MemoryResources
 from cdk8s import Size
+from cdk8s_plus_32 import ContainerResources, Cpu, CpuResources, MemoryResources
 
 
 def ca_container_resources(cpu: Cpu, memory: Size):
