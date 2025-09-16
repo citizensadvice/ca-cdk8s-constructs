@@ -6,10 +6,22 @@ This repository contains a collection of opinionated cdk8s constructs that are c
 
 To use the constructs, add the following to your `pyproject.toml` file:
 
+### Poetry project
+
 ```toml
 [tool.poetry.dependencies]
 ca-cdk8s-constructs = { git = "https://github.com/citizensadvice/ca-cdk8s-constructs", rev = "<version>" }
 ```
+
+### uv project
+
+```toml
+dependencies = [
+  "ca-cdk-constructs @ git+https://github.com/citizensadvice/ca-cdk8s-constructs@<version>"
+]
+```
+
+## Features
 
 There are currently constructs available for:
 
@@ -45,16 +57,9 @@ New versions of this library will be released via Github Releases and will follo
 
 ## Contributing
 
-This project uses:
+To develop this project you will need the following installed:
 
+- `Just` for running commands
 - `uv` for dependency management
-- `pytest` for testing
-- `ruff` for linting and formatting
 
-To run the tests and linting, run the following command:
-
-```bash
-uv run pytest
-uv run ruff check
-uv run ruff format
-```
+Run `just` to see all available commands.
