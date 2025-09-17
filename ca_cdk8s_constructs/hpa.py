@@ -6,8 +6,8 @@ def ca_hpa(
     scope: Construct,
     id: str,
     target: IScalable,
-    cpu_utilization_target: int = 75,
-    memory_utilization_target: int = 75,
+    cpu_utilization_target: int | float = 75,
+    memory_utilization_target: int | float = 75,
     max_replicas: int = 3,
     min_replicas: int = 1,
 ) -> HorizontalPodAutoscaler:
