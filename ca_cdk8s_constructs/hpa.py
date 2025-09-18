@@ -1,5 +1,3 @@
-from numbers import Number
-
 from cdk8s_plus_32 import HorizontalPodAutoscaler, IScalable, Metric, MetricTarget
 from constructs import Construct
 
@@ -8,8 +6,8 @@ def ca_hpa(
     scope: Construct,
     id: str,
     target: IScalable,
-    cpu_utilization_target: Number = 75,
-    memory_utilization_target: Number = 75,
+    cpu_utilization_target: int | float = 75,
+    memory_utilization_target: int | float = 75,
     max_replicas: int = 3,
     min_replicas: int = 1,
 ) -> HorizontalPodAutoscaler:

@@ -1,4 +1,4 @@
-from cdk8s_plus_32 import IScalable
+from cdk8s_plus_32 import Workload
 from cdk8s_plus_32.k8s import (
     IntOrString,
     KubePodDisruptionBudget,
@@ -11,7 +11,7 @@ from constructs import Construct
 def ca_pod_disruption_budget(
     scope: Construct,
     id: str,
-    target: IScalable,
+    target: Workload,
     max_unavailable: int = 1,
 ) -> KubePodDisruptionBudget:
     """Create a PodDisruptionBudget for a deployment.

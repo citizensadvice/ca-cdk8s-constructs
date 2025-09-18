@@ -30,6 +30,9 @@ jobs:
       - name: Ruff Format
         run: uv run ruff format --check
 
+      - name: ty check
+        run: uv run ty check
+
       - name: Pytest
         run: uv run pytest
 
