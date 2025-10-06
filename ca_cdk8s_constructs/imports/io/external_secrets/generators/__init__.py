@@ -837,6 +837,307 @@ class AcrAccessTokenSpecEnvironmentType(enum.Enum):
     '''ChinaCloud.'''
     GERMAN_CLOUD = "GERMAN_CLOUD"
     '''GermanCloud.'''
+    AZURE_STACK_CLOUD = "AZURE_STACK_CLOUD"
+    '''AzureStackCloud.'''
+
+
+class CloudsmithAccessToken(
+    _cdk8s_d3d9af27.ApiObject,
+    metaclass=jsii.JSIIMeta,
+    jsii_type="ioexternal-secretsgenerators.CloudsmithAccessToken",
+):
+    '''CloudsmithAccessToken generates Cloudsmith access token using OIDC authentication.
+
+    :schema: CloudsmithAccessToken
+    '''
+
+    def __init__(
+        self,
+        scope: _constructs_77d1e7e8.Construct,
+        id: builtins.str,
+        *,
+        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        spec: typing.Optional[typing.Union["CloudsmithAccessTokenSpec", typing.Dict[builtins.str, typing.Any]]] = None,
+    ) -> None:
+        '''Defines a "CloudsmithAccessToken" API object.
+
+        :param scope: the scope in which to define this object.
+        :param id: a scope-local name for the object.
+        :param metadata: 
+        :param spec: 
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__8a7a7a71241266fc4bcad24d1e3ed683758199364aa6f6793360ad4140c05222)
+            check_type(argname="argument scope", value=scope, expected_type=type_hints["scope"])
+            check_type(argname="argument id", value=id, expected_type=type_hints["id"])
+        props = CloudsmithAccessTokenProps(metadata=metadata, spec=spec)
+
+        jsii.create(self.__class__, self, [scope, id, props])
+
+    @jsii.member(jsii_name="manifest")
+    @builtins.classmethod
+    def manifest(
+        cls,
+        *,
+        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        spec: typing.Optional[typing.Union["CloudsmithAccessTokenSpec", typing.Dict[builtins.str, typing.Any]]] = None,
+    ) -> typing.Any:
+        '''Renders a Kubernetes manifest for "CloudsmithAccessToken".
+
+        This can be used to inline resource manifests inside other objects (e.g. as templates).
+
+        :param metadata: 
+        :param spec: 
+        '''
+        props = CloudsmithAccessTokenProps(metadata=metadata, spec=spec)
+
+        return typing.cast(typing.Any, jsii.sinvoke(cls, "manifest", [props]))
+
+    @jsii.member(jsii_name="toJson")
+    def to_json(self) -> typing.Any:
+        '''Renders the object to Kubernetes JSON.'''
+        return typing.cast(typing.Any, jsii.invoke(self, "toJson", []))
+
+    @jsii.python.classproperty
+    @jsii.member(jsii_name="GVK")
+    def GVK(cls) -> _cdk8s_d3d9af27.GroupVersionKind:
+        '''Returns the apiVersion and kind for "CloudsmithAccessToken".'''
+        return typing.cast(_cdk8s_d3d9af27.GroupVersionKind, jsii.sget(cls, "GVK"))
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secretsgenerators.CloudsmithAccessTokenProps",
+    jsii_struct_bases=[],
+    name_mapping={"metadata": "metadata", "spec": "spec"},
+)
+class CloudsmithAccessTokenProps:
+    def __init__(
+        self,
+        *,
+        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        spec: typing.Optional[typing.Union["CloudsmithAccessTokenSpec", typing.Dict[builtins.str, typing.Any]]] = None,
+    ) -> None:
+        '''CloudsmithAccessToken generates Cloudsmith access token using OIDC authentication.
+
+        :param metadata: 
+        :param spec: 
+
+        :schema: CloudsmithAccessToken
+        '''
+        if isinstance(metadata, dict):
+            metadata = _cdk8s_d3d9af27.ApiObjectMetadata(**metadata)
+        if isinstance(spec, dict):
+            spec = CloudsmithAccessTokenSpec(**spec)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__4bc71d26b4e63684954f4630ae279d86c0d699124a2fa43b719aa761774dbdbf)
+            check_type(argname="argument metadata", value=metadata, expected_type=type_hints["metadata"])
+            check_type(argname="argument spec", value=spec, expected_type=type_hints["spec"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if metadata is not None:
+            self._values["metadata"] = metadata
+        if spec is not None:
+            self._values["spec"] = spec
+
+    @builtins.property
+    def metadata(self) -> typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata]:
+        '''
+        :schema: CloudsmithAccessToken#metadata
+        '''
+        result = self._values.get("metadata")
+        return typing.cast(typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata], result)
+
+    @builtins.property
+    def spec(self) -> typing.Optional["CloudsmithAccessTokenSpec"]:
+        '''
+        :schema: CloudsmithAccessToken#spec
+        '''
+        result = self._values.get("spec")
+        return typing.cast(typing.Optional["CloudsmithAccessTokenSpec"], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "CloudsmithAccessTokenProps(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secretsgenerators.CloudsmithAccessTokenSpec",
+    jsii_struct_bases=[],
+    name_mapping={
+        "org_slug": "orgSlug",
+        "service_account_ref": "serviceAccountRef",
+        "service_slug": "serviceSlug",
+        "api_url": "apiUrl",
+    },
+)
+class CloudsmithAccessTokenSpec:
+    def __init__(
+        self,
+        *,
+        org_slug: builtins.str,
+        service_account_ref: typing.Union["CloudsmithAccessTokenSpecServiceAccountRef", typing.Dict[builtins.str, typing.Any]],
+        service_slug: builtins.str,
+        api_url: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''
+        :param org_slug: OrgSlug is the organization slug in Cloudsmith.
+        :param service_account_ref: Name of the service account you are federating with.
+        :param service_slug: ServiceSlug is the service slug in Cloudsmith for OIDC authentication.
+        :param api_url: APIURL configures the Cloudsmith API URL. Defaults to https://api.cloudsmith.io. Default: https://api.cloudsmith.io.
+
+        :schema: CloudsmithAccessTokenSpec
+        '''
+        if isinstance(service_account_ref, dict):
+            service_account_ref = CloudsmithAccessTokenSpecServiceAccountRef(**service_account_ref)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__a1e7a402a360e74e55534ec2897d635470212b952ebda4887f55c41296292723)
+            check_type(argname="argument org_slug", value=org_slug, expected_type=type_hints["org_slug"])
+            check_type(argname="argument service_account_ref", value=service_account_ref, expected_type=type_hints["service_account_ref"])
+            check_type(argname="argument service_slug", value=service_slug, expected_type=type_hints["service_slug"])
+            check_type(argname="argument api_url", value=api_url, expected_type=type_hints["api_url"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "org_slug": org_slug,
+            "service_account_ref": service_account_ref,
+            "service_slug": service_slug,
+        }
+        if api_url is not None:
+            self._values["api_url"] = api_url
+
+    @builtins.property
+    def org_slug(self) -> builtins.str:
+        '''OrgSlug is the organization slug in Cloudsmith.
+
+        :schema: CloudsmithAccessTokenSpec#orgSlug
+        '''
+        result = self._values.get("org_slug")
+        assert result is not None, "Required property 'org_slug' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def service_account_ref(self) -> "CloudsmithAccessTokenSpecServiceAccountRef":
+        '''Name of the service account you are federating with.
+
+        :schema: CloudsmithAccessTokenSpec#serviceAccountRef
+        '''
+        result = self._values.get("service_account_ref")
+        assert result is not None, "Required property 'service_account_ref' is missing"
+        return typing.cast("CloudsmithAccessTokenSpecServiceAccountRef", result)
+
+    @builtins.property
+    def service_slug(self) -> builtins.str:
+        '''ServiceSlug is the service slug in Cloudsmith for OIDC authentication.
+
+        :schema: CloudsmithAccessTokenSpec#serviceSlug
+        '''
+        result = self._values.get("service_slug")
+        assert result is not None, "Required property 'service_slug' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def api_url(self) -> typing.Optional[builtins.str]:
+        '''APIURL configures the Cloudsmith API URL.
+
+        Defaults to https://api.cloudsmith.io.
+
+        :default: https://api.cloudsmith.io.
+
+        :schema: CloudsmithAccessTokenSpec#apiUrl
+        '''
+        result = self._values.get("api_url")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "CloudsmithAccessTokenSpec(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secretsgenerators.CloudsmithAccessTokenSpecServiceAccountRef",
+    jsii_struct_bases=[],
+    name_mapping={"name": "name", "audiences": "audiences", "namespace": "namespace"},
+)
+class CloudsmithAccessTokenSpecServiceAccountRef:
+    def __init__(
+        self,
+        *,
+        name: builtins.str,
+        audiences: typing.Optional[typing.Sequence[builtins.str]] = None,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''Name of the service account you are federating with.
+
+        :param name: The name of the ServiceAccount resource being referred to.
+        :param audiences: Audience specifies the ``aud`` claim for the service account token If the service account uses a well-known annotation for e.g. IRSA or GCP Workload Identity then this audiences will be appended to the list.
+        :param namespace: Namespace of the resource being referred to. Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: CloudsmithAccessTokenSpecServiceAccountRef
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__7a398c57a7075a6ee2cee70b683646bed4b48bbe65675bcb0449e26cb45a92a8)
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument audiences", value=audiences, expected_type=type_hints["audiences"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "name": name,
+        }
+        if audiences is not None:
+            self._values["audiences"] = audiences
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def name(self) -> builtins.str:
+        '''The name of the ServiceAccount resource being referred to.
+
+        :schema: CloudsmithAccessTokenSpecServiceAccountRef#name
+        '''
+        result = self._values.get("name")
+        assert result is not None, "Required property 'name' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def audiences(self) -> typing.Optional[typing.List[builtins.str]]:
+        '''Audience specifies the ``aud`` claim for the service account token If the service account uses a well-known annotation for e.g. IRSA or GCP Workload Identity then this audiences will be appended to the list.
+
+        :schema: CloudsmithAccessTokenSpecServiceAccountRef#audiences
+        '''
+        result = self._values.get("audiences")
+        return typing.cast(typing.Optional[typing.List[builtins.str]], result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''Namespace of the resource being referred to.
+
+        Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: CloudsmithAccessTokenSpecServiceAccountRef#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "CloudsmithAccessTokenSpecServiceAccountRef(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
 
 
 class ClusterGenerator(
@@ -1030,6 +1331,7 @@ class ClusterGeneratorSpec:
     jsii_struct_bases=[],
     name_mapping={
         "acr_access_token_spec": "acrAccessTokenSpec",
+        "cloudsmith_access_token_spec": "cloudsmithAccessTokenSpec",
         "ecr_authorization_token_spec": "ecrAuthorizationTokenSpec",
         "fake_spec": "fakeSpec",
         "gcr_access_token_spec": "gcrAccessTokenSpec",
@@ -1038,6 +1340,7 @@ class ClusterGeneratorSpec:
         "mfa_spec": "mfaSpec",
         "password_spec": "passwordSpec",
         "quay_access_token_spec": "quayAccessTokenSpec",
+        "ssh_key_spec": "sshKeySpec",
         "sts_session_token_spec": "stsSessionTokenSpec",
         "uuid_spec": "uuidSpec",
         "vault_dynamic_secret_spec": "vaultDynamicSecretSpec",
@@ -1049,6 +1352,7 @@ class ClusterGeneratorSpecGenerator:
         self,
         *,
         acr_access_token_spec: typing.Optional[typing.Union["ClusterGeneratorSpecGeneratorAcrAccessTokenSpec", typing.Dict[builtins.str, typing.Any]]] = None,
+        cloudsmith_access_token_spec: typing.Optional[typing.Union["ClusterGeneratorSpecGeneratorCloudsmithAccessTokenSpec", typing.Dict[builtins.str, typing.Any]]] = None,
         ecr_authorization_token_spec: typing.Optional[typing.Union["ClusterGeneratorSpecGeneratorEcrAuthorizationTokenSpec", typing.Dict[builtins.str, typing.Any]]] = None,
         fake_spec: typing.Optional[typing.Union["ClusterGeneratorSpecGeneratorFakeSpec", typing.Dict[builtins.str, typing.Any]]] = None,
         gcr_access_token_spec: typing.Optional[typing.Union["ClusterGeneratorSpecGeneratorGcrAccessTokenSpec", typing.Dict[builtins.str, typing.Any]]] = None,
@@ -1057,6 +1361,7 @@ class ClusterGeneratorSpecGenerator:
         mfa_spec: typing.Optional[typing.Union["ClusterGeneratorSpecGeneratorMfaSpec", typing.Dict[builtins.str, typing.Any]]] = None,
         password_spec: typing.Optional[typing.Union["ClusterGeneratorSpecGeneratorPasswordSpec", typing.Dict[builtins.str, typing.Any]]] = None,
         quay_access_token_spec: typing.Optional[typing.Union["ClusterGeneratorSpecGeneratorQuayAccessTokenSpec", typing.Dict[builtins.str, typing.Any]]] = None,
+        ssh_key_spec: typing.Optional[typing.Union["ClusterGeneratorSpecGeneratorSshKeySpec", typing.Dict[builtins.str, typing.Any]]] = None,
         sts_session_token_spec: typing.Optional[typing.Union["ClusterGeneratorSpecGeneratorStsSessionTokenSpec", typing.Dict[builtins.str, typing.Any]]] = None,
         uuid_spec: typing.Any = None,
         vault_dynamic_secret_spec: typing.Optional[typing.Union["ClusterGeneratorSpecGeneratorVaultDynamicSecretSpec", typing.Dict[builtins.str, typing.Any]]] = None,
@@ -1065,6 +1370,7 @@ class ClusterGeneratorSpecGenerator:
         '''Generator the spec for this generator, must match the kind.
 
         :param acr_access_token_spec: ACRAccessTokenSpec defines how to generate the access token e.g. how to authenticate and which registry to use. see: https://github.com/Azure/acr/blob/main/docs/AAD-OAuth.md#overview.
+        :param cloudsmith_access_token_spec: 
         :param ecr_authorization_token_spec: 
         :param fake_spec: FakeSpec contains the static data.
         :param gcr_access_token_spec: 
@@ -1073,6 +1379,7 @@ class ClusterGeneratorSpecGenerator:
         :param mfa_spec: MFASpec controls the behavior of the mfa generator.
         :param password_spec: PasswordSpec controls the behavior of the password generator.
         :param quay_access_token_spec: 
+        :param ssh_key_spec: SSHKeySpec controls the behavior of the ssh key generator.
         :param sts_session_token_spec: 
         :param uuid_spec: UUIDSpec controls the behavior of the uuid generator.
         :param vault_dynamic_secret_spec: 
@@ -1082,6 +1389,8 @@ class ClusterGeneratorSpecGenerator:
         '''
         if isinstance(acr_access_token_spec, dict):
             acr_access_token_spec = ClusterGeneratorSpecGeneratorAcrAccessTokenSpec(**acr_access_token_spec)
+        if isinstance(cloudsmith_access_token_spec, dict):
+            cloudsmith_access_token_spec = ClusterGeneratorSpecGeneratorCloudsmithAccessTokenSpec(**cloudsmith_access_token_spec)
         if isinstance(ecr_authorization_token_spec, dict):
             ecr_authorization_token_spec = ClusterGeneratorSpecGeneratorEcrAuthorizationTokenSpec(**ecr_authorization_token_spec)
         if isinstance(fake_spec, dict):
@@ -1098,6 +1407,8 @@ class ClusterGeneratorSpecGenerator:
             password_spec = ClusterGeneratorSpecGeneratorPasswordSpec(**password_spec)
         if isinstance(quay_access_token_spec, dict):
             quay_access_token_spec = ClusterGeneratorSpecGeneratorQuayAccessTokenSpec(**quay_access_token_spec)
+        if isinstance(ssh_key_spec, dict):
+            ssh_key_spec = ClusterGeneratorSpecGeneratorSshKeySpec(**ssh_key_spec)
         if isinstance(sts_session_token_spec, dict):
             sts_session_token_spec = ClusterGeneratorSpecGeneratorStsSessionTokenSpec(**sts_session_token_spec)
         if isinstance(vault_dynamic_secret_spec, dict):
@@ -1107,6 +1418,7 @@ class ClusterGeneratorSpecGenerator:
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__75697d100ce0404120222110ca16af3984f4ab31958e84b7756b37400e311f59)
             check_type(argname="argument acr_access_token_spec", value=acr_access_token_spec, expected_type=type_hints["acr_access_token_spec"])
+            check_type(argname="argument cloudsmith_access_token_spec", value=cloudsmith_access_token_spec, expected_type=type_hints["cloudsmith_access_token_spec"])
             check_type(argname="argument ecr_authorization_token_spec", value=ecr_authorization_token_spec, expected_type=type_hints["ecr_authorization_token_spec"])
             check_type(argname="argument fake_spec", value=fake_spec, expected_type=type_hints["fake_spec"])
             check_type(argname="argument gcr_access_token_spec", value=gcr_access_token_spec, expected_type=type_hints["gcr_access_token_spec"])
@@ -1115,6 +1427,7 @@ class ClusterGeneratorSpecGenerator:
             check_type(argname="argument mfa_spec", value=mfa_spec, expected_type=type_hints["mfa_spec"])
             check_type(argname="argument password_spec", value=password_spec, expected_type=type_hints["password_spec"])
             check_type(argname="argument quay_access_token_spec", value=quay_access_token_spec, expected_type=type_hints["quay_access_token_spec"])
+            check_type(argname="argument ssh_key_spec", value=ssh_key_spec, expected_type=type_hints["ssh_key_spec"])
             check_type(argname="argument sts_session_token_spec", value=sts_session_token_spec, expected_type=type_hints["sts_session_token_spec"])
             check_type(argname="argument uuid_spec", value=uuid_spec, expected_type=type_hints["uuid_spec"])
             check_type(argname="argument vault_dynamic_secret_spec", value=vault_dynamic_secret_spec, expected_type=type_hints["vault_dynamic_secret_spec"])
@@ -1122,6 +1435,8 @@ class ClusterGeneratorSpecGenerator:
         self._values: typing.Dict[builtins.str, typing.Any] = {}
         if acr_access_token_spec is not None:
             self._values["acr_access_token_spec"] = acr_access_token_spec
+        if cloudsmith_access_token_spec is not None:
+            self._values["cloudsmith_access_token_spec"] = cloudsmith_access_token_spec
         if ecr_authorization_token_spec is not None:
             self._values["ecr_authorization_token_spec"] = ecr_authorization_token_spec
         if fake_spec is not None:
@@ -1138,6 +1453,8 @@ class ClusterGeneratorSpecGenerator:
             self._values["password_spec"] = password_spec
         if quay_access_token_spec is not None:
             self._values["quay_access_token_spec"] = quay_access_token_spec
+        if ssh_key_spec is not None:
+            self._values["ssh_key_spec"] = ssh_key_spec
         if sts_session_token_spec is not None:
             self._values["sts_session_token_spec"] = sts_session_token_spec
         if uuid_spec is not None:
@@ -1157,6 +1474,16 @@ class ClusterGeneratorSpecGenerator:
         '''
         result = self._values.get("acr_access_token_spec")
         return typing.cast(typing.Optional["ClusterGeneratorSpecGeneratorAcrAccessTokenSpec"], result)
+
+    @builtins.property
+    def cloudsmith_access_token_spec(
+        self,
+    ) -> typing.Optional["ClusterGeneratorSpecGeneratorCloudsmithAccessTokenSpec"]:
+        '''
+        :schema: ClusterGeneratorSpecGenerator#cloudsmithAccessTokenSpec
+        '''
+        result = self._values.get("cloudsmith_access_token_spec")
+        return typing.cast(typing.Optional["ClusterGeneratorSpecGeneratorCloudsmithAccessTokenSpec"], result)
 
     @builtins.property
     def ecr_authorization_token_spec(
@@ -1237,6 +1564,17 @@ class ClusterGeneratorSpecGenerator:
         '''
         result = self._values.get("quay_access_token_spec")
         return typing.cast(typing.Optional["ClusterGeneratorSpecGeneratorQuayAccessTokenSpec"], result)
+
+    @builtins.property
+    def ssh_key_spec(
+        self,
+    ) -> typing.Optional["ClusterGeneratorSpecGeneratorSshKeySpec"]:
+        '''SSHKeySpec controls the behavior of the ssh key generator.
+
+        :schema: ClusterGeneratorSpecGenerator#sshKeySpec
+        '''
+        result = self._values.get("ssh_key_spec")
+        return typing.cast(typing.Optional["ClusterGeneratorSpecGeneratorSshKeySpec"], result)
 
     @builtins.property
     def sts_session_token_spec(
@@ -1961,6 +2299,184 @@ class ClusterGeneratorSpecGeneratorAcrAccessTokenSpecEnvironmentType(enum.Enum):
     '''ChinaCloud.'''
     GERMAN_CLOUD = "GERMAN_CLOUD"
     '''GermanCloud.'''
+    AZURE_STACK_CLOUD = "AZURE_STACK_CLOUD"
+    '''AzureStackCloud.'''
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secretsgenerators.ClusterGeneratorSpecGeneratorCloudsmithAccessTokenSpec",
+    jsii_struct_bases=[],
+    name_mapping={
+        "org_slug": "orgSlug",
+        "service_account_ref": "serviceAccountRef",
+        "service_slug": "serviceSlug",
+        "api_url": "apiUrl",
+    },
+)
+class ClusterGeneratorSpecGeneratorCloudsmithAccessTokenSpec:
+    def __init__(
+        self,
+        *,
+        org_slug: builtins.str,
+        service_account_ref: typing.Union["ClusterGeneratorSpecGeneratorCloudsmithAccessTokenSpecServiceAccountRef", typing.Dict[builtins.str, typing.Any]],
+        service_slug: builtins.str,
+        api_url: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''
+        :param org_slug: OrgSlug is the organization slug in Cloudsmith.
+        :param service_account_ref: Name of the service account you are federating with.
+        :param service_slug: ServiceSlug is the service slug in Cloudsmith for OIDC authentication.
+        :param api_url: APIURL configures the Cloudsmith API URL. Defaults to https://api.cloudsmith.io. Default: https://api.cloudsmith.io.
+
+        :schema: ClusterGeneratorSpecGeneratorCloudsmithAccessTokenSpec
+        '''
+        if isinstance(service_account_ref, dict):
+            service_account_ref = ClusterGeneratorSpecGeneratorCloudsmithAccessTokenSpecServiceAccountRef(**service_account_ref)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__52c5f5bab4ea8c55a5b4a509a8aad5365a779d7cdbf972f9f7e4636e886aa45e)
+            check_type(argname="argument org_slug", value=org_slug, expected_type=type_hints["org_slug"])
+            check_type(argname="argument service_account_ref", value=service_account_ref, expected_type=type_hints["service_account_ref"])
+            check_type(argname="argument service_slug", value=service_slug, expected_type=type_hints["service_slug"])
+            check_type(argname="argument api_url", value=api_url, expected_type=type_hints["api_url"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "org_slug": org_slug,
+            "service_account_ref": service_account_ref,
+            "service_slug": service_slug,
+        }
+        if api_url is not None:
+            self._values["api_url"] = api_url
+
+    @builtins.property
+    def org_slug(self) -> builtins.str:
+        '''OrgSlug is the organization slug in Cloudsmith.
+
+        :schema: ClusterGeneratorSpecGeneratorCloudsmithAccessTokenSpec#orgSlug
+        '''
+        result = self._values.get("org_slug")
+        assert result is not None, "Required property 'org_slug' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def service_account_ref(
+        self,
+    ) -> "ClusterGeneratorSpecGeneratorCloudsmithAccessTokenSpecServiceAccountRef":
+        '''Name of the service account you are federating with.
+
+        :schema: ClusterGeneratorSpecGeneratorCloudsmithAccessTokenSpec#serviceAccountRef
+        '''
+        result = self._values.get("service_account_ref")
+        assert result is not None, "Required property 'service_account_ref' is missing"
+        return typing.cast("ClusterGeneratorSpecGeneratorCloudsmithAccessTokenSpecServiceAccountRef", result)
+
+    @builtins.property
+    def service_slug(self) -> builtins.str:
+        '''ServiceSlug is the service slug in Cloudsmith for OIDC authentication.
+
+        :schema: ClusterGeneratorSpecGeneratorCloudsmithAccessTokenSpec#serviceSlug
+        '''
+        result = self._values.get("service_slug")
+        assert result is not None, "Required property 'service_slug' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def api_url(self) -> typing.Optional[builtins.str]:
+        '''APIURL configures the Cloudsmith API URL.
+
+        Defaults to https://api.cloudsmith.io.
+
+        :default: https://api.cloudsmith.io.
+
+        :schema: ClusterGeneratorSpecGeneratorCloudsmithAccessTokenSpec#apiUrl
+        '''
+        result = self._values.get("api_url")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterGeneratorSpecGeneratorCloudsmithAccessTokenSpec(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secretsgenerators.ClusterGeneratorSpecGeneratorCloudsmithAccessTokenSpecServiceAccountRef",
+    jsii_struct_bases=[],
+    name_mapping={"name": "name", "audiences": "audiences", "namespace": "namespace"},
+)
+class ClusterGeneratorSpecGeneratorCloudsmithAccessTokenSpecServiceAccountRef:
+    def __init__(
+        self,
+        *,
+        name: builtins.str,
+        audiences: typing.Optional[typing.Sequence[builtins.str]] = None,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''Name of the service account you are federating with.
+
+        :param name: The name of the ServiceAccount resource being referred to.
+        :param audiences: Audience specifies the ``aud`` claim for the service account token If the service account uses a well-known annotation for e.g. IRSA or GCP Workload Identity then this audiences will be appended to the list.
+        :param namespace: Namespace of the resource being referred to. Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: ClusterGeneratorSpecGeneratorCloudsmithAccessTokenSpecServiceAccountRef
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__6b57e17e7da6a732b9a4f5844eabf1b5ff9b086a91343406be80ee1f2f9f2f69)
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument audiences", value=audiences, expected_type=type_hints["audiences"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "name": name,
+        }
+        if audiences is not None:
+            self._values["audiences"] = audiences
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def name(self) -> builtins.str:
+        '''The name of the ServiceAccount resource being referred to.
+
+        :schema: ClusterGeneratorSpecGeneratorCloudsmithAccessTokenSpecServiceAccountRef#name
+        '''
+        result = self._values.get("name")
+        assert result is not None, "Required property 'name' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def audiences(self) -> typing.Optional[typing.List[builtins.str]]:
+        '''Audience specifies the ``aud`` claim for the service account token If the service account uses a well-known annotation for e.g. IRSA or GCP Workload Identity then this audiences will be appended to the list.
+
+        :schema: ClusterGeneratorSpecGeneratorCloudsmithAccessTokenSpecServiceAccountRef#audiences
+        '''
+        result = self._values.get("audiences")
+        return typing.cast(typing.Optional[typing.List[builtins.str]], result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''Namespace of the resource being referred to.
+
+        Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: ClusterGeneratorSpecGeneratorCloudsmithAccessTokenSpecServiceAccountRef#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterGeneratorSpecGeneratorCloudsmithAccessTokenSpecServiceAccountRef(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
 
 
 @jsii.data_type(
@@ -2696,7 +3212,11 @@ class ClusterGeneratorSpecGeneratorGcrAccessTokenSpec:
 @jsii.data_type(
     jsii_type="ioexternal-secretsgenerators.ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuth",
     jsii_struct_bases=[],
-    name_mapping={"secret_ref": "secretRef", "workload_identity": "workloadIdentity"},
+    name_mapping={
+        "secret_ref": "secretRef",
+        "workload_identity": "workloadIdentity",
+        "workload_identity_federation": "workloadIdentityFederation",
+    },
 )
 class ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuth:
     def __init__(
@@ -2704,11 +3224,13 @@ class ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuth:
         *,
         secret_ref: typing.Optional[typing.Union["ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthSecretRef", typing.Dict[builtins.str, typing.Any]]] = None,
         workload_identity: typing.Optional[typing.Union["ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentity", typing.Dict[builtins.str, typing.Any]]] = None,
+        workload_identity_federation: typing.Optional[typing.Union["ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederation", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''Auth defines the means for authenticating with GCP.
 
         :param secret_ref: 
         :param workload_identity: 
+        :param workload_identity_federation: GCPWorkloadIdentityFederation holds the configurations required for generating federated access tokens.
 
         :schema: ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuth
         '''
@@ -2716,15 +3238,20 @@ class ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuth:
             secret_ref = ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthSecretRef(**secret_ref)
         if isinstance(workload_identity, dict):
             workload_identity = ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentity(**workload_identity)
+        if isinstance(workload_identity_federation, dict):
+            workload_identity_federation = ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederation(**workload_identity_federation)
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__5c8999aeefd932f01d9db846a206c060725cfe557132891c96a281dd55eb65cb)
             check_type(argname="argument secret_ref", value=secret_ref, expected_type=type_hints["secret_ref"])
             check_type(argname="argument workload_identity", value=workload_identity, expected_type=type_hints["workload_identity"])
+            check_type(argname="argument workload_identity_federation", value=workload_identity_federation, expected_type=type_hints["workload_identity_federation"])
         self._values: typing.Dict[builtins.str, typing.Any] = {}
         if secret_ref is not None:
             self._values["secret_ref"] = secret_ref
         if workload_identity is not None:
             self._values["workload_identity"] = workload_identity
+        if workload_identity_federation is not None:
+            self._values["workload_identity_federation"] = workload_identity_federation
 
     @builtins.property
     def secret_ref(
@@ -2745,6 +3272,17 @@ class ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuth:
         '''
         result = self._values.get("workload_identity")
         return typing.cast(typing.Optional["ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentity"], result)
+
+    @builtins.property
+    def workload_identity_federation(
+        self,
+    ) -> typing.Optional["ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederation"]:
+        '''GCPWorkloadIdentityFederation holds the configurations required for generating federated access tokens.
+
+        :schema: ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuth#workloadIdentityFederation
+        '''
+        result = self._values.get("workload_identity_federation")
+        return typing.cast(typing.Optional["ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederation"], result)
 
     def __eq__(self, rhs: typing.Any) -> builtins.bool:
         return isinstance(rhs, self.__class__) and rhs._values == self._values
@@ -2972,6 +3510,427 @@ class ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentity:
 
     def __repr__(self) -> str:
         return "ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentity(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secretsgenerators.ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederation",
+    jsii_struct_bases=[],
+    name_mapping={
+        "audience": "audience",
+        "aws_security_credentials": "awsSecurityCredentials",
+        "cred_config": "credConfig",
+        "external_token_endpoint": "externalTokenEndpoint",
+        "service_account_ref": "serviceAccountRef",
+    },
+)
+class ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederation:
+    def __init__(
+        self,
+        *,
+        audience: typing.Optional[builtins.str] = None,
+        aws_security_credentials: typing.Optional[typing.Union["ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentials", typing.Dict[builtins.str, typing.Any]]] = None,
+        cred_config: typing.Optional[typing.Union["ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationCredConfig", typing.Dict[builtins.str, typing.Any]]] = None,
+        external_token_endpoint: typing.Optional[builtins.str] = None,
+        service_account_ref: typing.Optional[typing.Union["ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationServiceAccountRef", typing.Dict[builtins.str, typing.Any]]] = None,
+    ) -> None:
+        '''GCPWorkloadIdentityFederation holds the configurations required for generating federated access tokens.
+
+        :param audience: audience is the Secure Token Service (STS) audience which contains the resource name for the workload identity pool and the provider identifier in that pool. If specified, Audience found in the external account credential config will be overridden with the configured value. audience must be provided when serviceAccountRef or awsSecurityCredentials is configured.
+        :param aws_security_credentials: awsSecurityCredentials is for configuring AWS region and credentials to use for obtaining the access token, when using the AWS metadata server is not an option.
+        :param cred_config: credConfig holds the configmap reference containing the GCP external account credential configuration in JSON format and the key name containing the json data. For using Kubernetes cluster as the identity provider, use serviceAccountRef instead. Operators mounted serviceaccount token cannot be used as the token source, instead serviceAccountRef must be used by providing operators service account details.
+        :param external_token_endpoint: externalTokenEndpoint is the endpoint explicitly set up to provide tokens, which will be matched against the credential_source.url in the provided credConfig. This field is merely to double-check the external token source URL is having the expected value.
+        :param service_account_ref: serviceAccountRef is the reference to the kubernetes ServiceAccount to be used for obtaining the tokens, when Kubernetes is configured as provider in workload identity pool.
+
+        :schema: ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederation
+        '''
+        if isinstance(aws_security_credentials, dict):
+            aws_security_credentials = ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentials(**aws_security_credentials)
+        if isinstance(cred_config, dict):
+            cred_config = ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationCredConfig(**cred_config)
+        if isinstance(service_account_ref, dict):
+            service_account_ref = ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationServiceAccountRef(**service_account_ref)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__d97f56a9ddbe3b302ef091a16d78d1b4fee560958dfa9aa7936e82dac9ccc0a6)
+            check_type(argname="argument audience", value=audience, expected_type=type_hints["audience"])
+            check_type(argname="argument aws_security_credentials", value=aws_security_credentials, expected_type=type_hints["aws_security_credentials"])
+            check_type(argname="argument cred_config", value=cred_config, expected_type=type_hints["cred_config"])
+            check_type(argname="argument external_token_endpoint", value=external_token_endpoint, expected_type=type_hints["external_token_endpoint"])
+            check_type(argname="argument service_account_ref", value=service_account_ref, expected_type=type_hints["service_account_ref"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if audience is not None:
+            self._values["audience"] = audience
+        if aws_security_credentials is not None:
+            self._values["aws_security_credentials"] = aws_security_credentials
+        if cred_config is not None:
+            self._values["cred_config"] = cred_config
+        if external_token_endpoint is not None:
+            self._values["external_token_endpoint"] = external_token_endpoint
+        if service_account_ref is not None:
+            self._values["service_account_ref"] = service_account_ref
+
+    @builtins.property
+    def audience(self) -> typing.Optional[builtins.str]:
+        '''audience is the Secure Token Service (STS) audience which contains the resource name for the workload identity pool and the provider identifier in that pool.
+
+        If specified, Audience found in the external account credential config will be overridden with the configured value.
+        audience must be provided when serviceAccountRef or awsSecurityCredentials is configured.
+
+        :schema: ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederation#audience
+        '''
+        result = self._values.get("audience")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def aws_security_credentials(
+        self,
+    ) -> typing.Optional["ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentials"]:
+        '''awsSecurityCredentials is for configuring AWS region and credentials to use for obtaining the access token, when using the AWS metadata server is not an option.
+
+        :schema: ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederation#awsSecurityCredentials
+        '''
+        result = self._values.get("aws_security_credentials")
+        return typing.cast(typing.Optional["ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentials"], result)
+
+    @builtins.property
+    def cred_config(
+        self,
+    ) -> typing.Optional["ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationCredConfig"]:
+        '''credConfig holds the configmap reference containing the GCP external account credential configuration in JSON format and the key name containing the json data.
+
+        For using Kubernetes cluster as the identity provider, use serviceAccountRef instead. Operators mounted serviceaccount token cannot be used as the token source, instead
+        serviceAccountRef must be used by providing operators service account details.
+
+        :schema: ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederation#credConfig
+        '''
+        result = self._values.get("cred_config")
+        return typing.cast(typing.Optional["ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationCredConfig"], result)
+
+    @builtins.property
+    def external_token_endpoint(self) -> typing.Optional[builtins.str]:
+        '''externalTokenEndpoint is the endpoint explicitly set up to provide tokens, which will be matched against the credential_source.url in the provided credConfig. This field is merely to double-check the external token source URL is having the expected value.
+
+        :schema: ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederation#externalTokenEndpoint
+        '''
+        result = self._values.get("external_token_endpoint")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def service_account_ref(
+        self,
+    ) -> typing.Optional["ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationServiceAccountRef"]:
+        '''serviceAccountRef is the reference to the kubernetes ServiceAccount to be used for obtaining the tokens, when Kubernetes is configured as provider in workload identity pool.
+
+        :schema: ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederation#serviceAccountRef
+        '''
+        result = self._values.get("service_account_ref")
+        return typing.cast(typing.Optional["ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationServiceAccountRef"], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederation(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secretsgenerators.ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentials",
+    jsii_struct_bases=[],
+    name_mapping={
+        "aws_credentials_secret_ref": "awsCredentialsSecretRef",
+        "region": "region",
+    },
+)
+class ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentials:
+    def __init__(
+        self,
+        *,
+        aws_credentials_secret_ref: typing.Union["ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentialsAwsCredentialsSecretRef", typing.Dict[builtins.str, typing.Any]],
+        region: builtins.str,
+    ) -> None:
+        '''awsSecurityCredentials is for configuring AWS region and credentials to use for obtaining the access token, when using the AWS metadata server is not an option.
+
+        :param aws_credentials_secret_ref: awsCredentialsSecretRef is the reference to the secret which holds the AWS credentials. Secret should be created with below names for keys - aws_access_key_id: Access Key ID, which is the unique identifier for the AWS account or the IAM user. - aws_secret_access_key: Secret Access Key, which is used to authenticate requests made to AWS services. - aws_session_token: Session Token, is the short-lived token to authenticate requests made to AWS services.
+        :param region: region is for configuring the AWS region to be used.
+
+        :schema: ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentials
+        '''
+        if isinstance(aws_credentials_secret_ref, dict):
+            aws_credentials_secret_ref = ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentialsAwsCredentialsSecretRef(**aws_credentials_secret_ref)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__ce9ca6c765dec3025e2e5b8d105310925f46ce5e7930e52aff4d71cf375dc95b)
+            check_type(argname="argument aws_credentials_secret_ref", value=aws_credentials_secret_ref, expected_type=type_hints["aws_credentials_secret_ref"])
+            check_type(argname="argument region", value=region, expected_type=type_hints["region"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "aws_credentials_secret_ref": aws_credentials_secret_ref,
+            "region": region,
+        }
+
+    @builtins.property
+    def aws_credentials_secret_ref(
+        self,
+    ) -> "ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentialsAwsCredentialsSecretRef":
+        '''awsCredentialsSecretRef is the reference to the secret which holds the AWS credentials.
+
+        Secret should be created with below names for keys
+
+        - aws_access_key_id: Access Key ID, which is the unique identifier for the AWS account or the IAM user.
+        - aws_secret_access_key: Secret Access Key, which is used to authenticate requests made to AWS services.
+        - aws_session_token: Session Token, is the short-lived token to authenticate requests made to AWS services.
+
+        :schema: ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentials#awsCredentialsSecretRef
+        '''
+        result = self._values.get("aws_credentials_secret_ref")
+        assert result is not None, "Required property 'aws_credentials_secret_ref' is missing"
+        return typing.cast("ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentialsAwsCredentialsSecretRef", result)
+
+    @builtins.property
+    def region(self) -> builtins.str:
+        '''region is for configuring the AWS region to be used.
+
+        :schema: ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentials#region
+        '''
+        result = self._values.get("region")
+        assert result is not None, "Required property 'region' is missing"
+        return typing.cast(builtins.str, result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentials(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secretsgenerators.ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentialsAwsCredentialsSecretRef",
+    jsii_struct_bases=[],
+    name_mapping={"name": "name", "namespace": "namespace"},
+)
+class ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentialsAwsCredentialsSecretRef:
+    def __init__(
+        self,
+        *,
+        name: builtins.str,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''awsCredentialsSecretRef is the reference to the secret which holds the AWS credentials.
+
+        Secret should be created with below names for keys
+
+        - aws_access_key_id: Access Key ID, which is the unique identifier for the AWS account or the IAM user.
+        - aws_secret_access_key: Secret Access Key, which is used to authenticate requests made to AWS services.
+        - aws_session_token: Session Token, is the short-lived token to authenticate requests made to AWS services.
+
+        :param name: name of the secret.
+        :param namespace: namespace in which the secret exists. If empty, secret will looked up in local namespace.
+
+        :schema: ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentialsAwsCredentialsSecretRef
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__1a867900007938529825658cf7cd1f725e4a0c4bc3604719b92208da9a8d5100)
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "name": name,
+        }
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def name(self) -> builtins.str:
+        '''name of the secret.
+
+        :schema: ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentialsAwsCredentialsSecretRef#name
+        '''
+        result = self._values.get("name")
+        assert result is not None, "Required property 'name' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''namespace in which the secret exists.
+
+        If empty, secret will looked up in local namespace.
+
+        :schema: ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentialsAwsCredentialsSecretRef#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentialsAwsCredentialsSecretRef(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secretsgenerators.ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationCredConfig",
+    jsii_struct_bases=[],
+    name_mapping={"key": "key", "name": "name", "namespace": "namespace"},
+)
+class ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationCredConfig:
+    def __init__(
+        self,
+        *,
+        key: builtins.str,
+        name: builtins.str,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''credConfig holds the configmap reference containing the GCP external account credential configuration in JSON format and the key name containing the json data.
+
+        For using Kubernetes cluster as the identity provider, use serviceAccountRef instead. Operators mounted serviceaccount token cannot be used as the token source, instead
+        serviceAccountRef must be used by providing operators service account details.
+
+        :param key: key name holding the external account credential config.
+        :param name: name of the configmap.
+        :param namespace: namespace in which the configmap exists. If empty, configmap will looked up in local namespace.
+
+        :schema: ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationCredConfig
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__593f95361d47077c774038dda2fc2c75b23e849d5da027d50c3075928b017245)
+            check_type(argname="argument key", value=key, expected_type=type_hints["key"])
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "key": key,
+            "name": name,
+        }
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def key(self) -> builtins.str:
+        '''key name holding the external account credential config.
+
+        :schema: ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationCredConfig#key
+        '''
+        result = self._values.get("key")
+        assert result is not None, "Required property 'key' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def name(self) -> builtins.str:
+        '''name of the configmap.
+
+        :schema: ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationCredConfig#name
+        '''
+        result = self._values.get("name")
+        assert result is not None, "Required property 'name' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''namespace in which the configmap exists.
+
+        If empty, configmap will looked up in local namespace.
+
+        :schema: ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationCredConfig#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationCredConfig(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secretsgenerators.ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationServiceAccountRef",
+    jsii_struct_bases=[],
+    name_mapping={"name": "name", "audiences": "audiences", "namespace": "namespace"},
+)
+class ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationServiceAccountRef:
+    def __init__(
+        self,
+        *,
+        name: builtins.str,
+        audiences: typing.Optional[typing.Sequence[builtins.str]] = None,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''serviceAccountRef is the reference to the kubernetes ServiceAccount to be used for obtaining the tokens, when Kubernetes is configured as provider in workload identity pool.
+
+        :param name: The name of the ServiceAccount resource being referred to.
+        :param audiences: Audience specifies the ``aud`` claim for the service account token If the service account uses a well-known annotation for e.g. IRSA or GCP Workload Identity then this audiences will be appended to the list.
+        :param namespace: Namespace of the resource being referred to. Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationServiceAccountRef
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__625ce40cdc9428dc7b4030682f9fd7477064844b81b16ff508050cc53299a3ea)
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument audiences", value=audiences, expected_type=type_hints["audiences"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "name": name,
+        }
+        if audiences is not None:
+            self._values["audiences"] = audiences
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def name(self) -> builtins.str:
+        '''The name of the ServiceAccount resource being referred to.
+
+        :schema: ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationServiceAccountRef#name
+        '''
+        result = self._values.get("name")
+        assert result is not None, "Required property 'name' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def audiences(self) -> typing.Optional[typing.List[builtins.str]]:
+        '''Audience specifies the ``aud`` claim for the service account token If the service account uses a well-known annotation for e.g. IRSA or GCP Workload Identity then this audiences will be appended to the list.
+
+        :schema: ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationServiceAccountRef#audiences
+        '''
+        result = self._values.get("audiences")
+        return typing.cast(typing.Optional[typing.List[builtins.str]], result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''Namespace of the resource being referred to.
+
+        Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationServiceAccountRef#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationServiceAccountRef(%s)" % ", ".join(
             k + "=" + repr(v) for k, v in self._values.items()
         )
 
@@ -4257,6 +5216,96 @@ class ClusterGeneratorSpecGeneratorQuayAccessTokenSpecServiceAccountRef:
 
 
 @jsii.data_type(
+    jsii_type="ioexternal-secretsgenerators.ClusterGeneratorSpecGeneratorSshKeySpec",
+    jsii_struct_bases=[],
+    name_mapping={"comment": "comment", "key_size": "keySize", "key_type": "keyType"},
+)
+class ClusterGeneratorSpecGeneratorSshKeySpec:
+    def __init__(
+        self,
+        *,
+        comment: typing.Optional[builtins.str] = None,
+        key_size: typing.Optional[jsii.Number] = None,
+        key_type: typing.Optional["ClusterGeneratorSpecGeneratorSshKeySpecKeyType"] = None,
+    ) -> None:
+        '''SSHKeySpec controls the behavior of the ssh key generator.
+
+        :param comment: Comment specifies an optional comment for the SSH key.
+        :param key_size: KeySize specifies the key size for RSA keys (default: 2048) For RSA keys: 2048, 3072, 4096 Ignored for ed25519 keys.
+        :param key_type: KeyType specifies the SSH key type (rsa, ed25519).
+
+        :schema: ClusterGeneratorSpecGeneratorSshKeySpec
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__aba5ca874987179bddbe4d806641f3229154c54926702676020b1fa1a62ff876)
+            check_type(argname="argument comment", value=comment, expected_type=type_hints["comment"])
+            check_type(argname="argument key_size", value=key_size, expected_type=type_hints["key_size"])
+            check_type(argname="argument key_type", value=key_type, expected_type=type_hints["key_type"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if comment is not None:
+            self._values["comment"] = comment
+        if key_size is not None:
+            self._values["key_size"] = key_size
+        if key_type is not None:
+            self._values["key_type"] = key_type
+
+    @builtins.property
+    def comment(self) -> typing.Optional[builtins.str]:
+        '''Comment specifies an optional comment for the SSH key.
+
+        :schema: ClusterGeneratorSpecGeneratorSshKeySpec#comment
+        '''
+        result = self._values.get("comment")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def key_size(self) -> typing.Optional[jsii.Number]:
+        '''KeySize specifies the key size for RSA keys (default: 2048) For RSA keys: 2048, 3072, 4096 Ignored for ed25519 keys.
+
+        :schema: ClusterGeneratorSpecGeneratorSshKeySpec#keySize
+        '''
+        result = self._values.get("key_size")
+        return typing.cast(typing.Optional[jsii.Number], result)
+
+    @builtins.property
+    def key_type(
+        self,
+    ) -> typing.Optional["ClusterGeneratorSpecGeneratorSshKeySpecKeyType"]:
+        '''KeyType specifies the SSH key type (rsa, ed25519).
+
+        :schema: ClusterGeneratorSpecGeneratorSshKeySpec#keyType
+        '''
+        result = self._values.get("key_type")
+        return typing.cast(typing.Optional["ClusterGeneratorSpecGeneratorSshKeySpecKeyType"], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterGeneratorSpecGeneratorSshKeySpec(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.enum(
+    jsii_type="ioexternal-secretsgenerators.ClusterGeneratorSpecGeneratorSshKeySpecKeyType"
+)
+class ClusterGeneratorSpecGeneratorSshKeySpecKeyType(enum.Enum):
+    '''KeyType specifies the SSH key type (rsa, ed25519).
+
+    :schema: ClusterGeneratorSpecGeneratorSshKeySpecKeyType
+    '''
+
+    RSA = "RSA"
+    '''rsa.'''
+    ED25519 = "ED25519"
+    '''ed25519.'''
+
+
+@jsii.data_type(
     jsii_type="ioexternal-secretsgenerators.ClusterGeneratorSpecGeneratorStsSessionTokenSpec",
     jsii_struct_bases=[],
     name_mapping={
@@ -5123,6 +6172,7 @@ class ClusterGeneratorSpecGeneratorVaultDynamicSecretSpec:
         "auth": "auth",
         "ca_bundle": "caBundle",
         "ca_provider": "caProvider",
+        "check_and_set": "checkAndSet",
         "forward_inconsistent": "forwardInconsistent",
         "headers": "headers",
         "namespace": "namespace",
@@ -5140,6 +6190,7 @@ class ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProvider:
         auth: typing.Optional[typing.Union["ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderAuth", typing.Dict[builtins.str, typing.Any]]] = None,
         ca_bundle: typing.Optional[builtins.str] = None,
         ca_provider: typing.Optional[typing.Union["ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderCaProvider", typing.Dict[builtins.str, typing.Any]]] = None,
+        check_and_set: typing.Optional[typing.Union["ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderCheckAndSet", typing.Dict[builtins.str, typing.Any]]] = None,
         forward_inconsistent: typing.Optional[builtins.bool] = None,
         headers: typing.Optional[typing.Mapping[builtins.str, builtins.str]] = None,
         namespace: typing.Optional[builtins.str] = None,
@@ -5154,6 +6205,7 @@ class ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProvider:
         :param auth: Auth configures how secret-manager authenticates with the Vault server.
         :param ca_bundle: PEM encoded CA bundle used to validate Vault server certificate. Only used if the Server URL is using HTTPS protocol. This parameter is ignored for plain HTTP protocol connection. If not set the system root certificates are used to validate the TLS connection.
         :param ca_provider: The provider for the CA bundle to use to validate Vault server certificate.
+        :param check_and_set: CheckAndSet defines the Check-And-Set (CAS) settings for PushSecret operations. Only applies to Vault KV v2 stores. When enabled, write operations must include the current version of the secret to prevent unintentional overwrites.
         :param forward_inconsistent: ForwardInconsistent tells Vault to forward read-after-write requests to the Vault leader instead of simply retrying within a loop. This can increase performance if the option is enabled serverside. https://www.vaultproject.io/docs/configuration/replication#allow_forwarding_via_header
         :param headers: Headers to be added in Vault request.
         :param namespace: Name of the vault namespace. Namespaces is a set of features within Vault Enterprise that allows Vault environments to support Secure Multi-tenancy. e.g: "ns1". More about namespaces can be found here https://www.vaultproject.io/docs/enterprise/namespaces
@@ -5168,6 +6220,8 @@ class ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProvider:
             auth = ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderAuth(**auth)
         if isinstance(ca_provider, dict):
             ca_provider = ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderCaProvider(**ca_provider)
+        if isinstance(check_and_set, dict):
+            check_and_set = ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderCheckAndSet(**check_and_set)
         if isinstance(tls, dict):
             tls = ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderTls(**tls)
         if __debug__:
@@ -5176,6 +6230,7 @@ class ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProvider:
             check_type(argname="argument auth", value=auth, expected_type=type_hints["auth"])
             check_type(argname="argument ca_bundle", value=ca_bundle, expected_type=type_hints["ca_bundle"])
             check_type(argname="argument ca_provider", value=ca_provider, expected_type=type_hints["ca_provider"])
+            check_type(argname="argument check_and_set", value=check_and_set, expected_type=type_hints["check_and_set"])
             check_type(argname="argument forward_inconsistent", value=forward_inconsistent, expected_type=type_hints["forward_inconsistent"])
             check_type(argname="argument headers", value=headers, expected_type=type_hints["headers"])
             check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
@@ -5192,6 +6247,8 @@ class ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProvider:
             self._values["ca_bundle"] = ca_bundle
         if ca_provider is not None:
             self._values["ca_provider"] = ca_provider
+        if check_and_set is not None:
+            self._values["check_and_set"] = check_and_set
         if forward_inconsistent is not None:
             self._values["forward_inconsistent"] = forward_inconsistent
         if headers is not None:
@@ -5252,6 +6309,20 @@ class ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProvider:
         '''
         result = self._values.get("ca_provider")
         return typing.cast(typing.Optional["ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderCaProvider"], result)
+
+    @builtins.property
+    def check_and_set(
+        self,
+    ) -> typing.Optional["ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderCheckAndSet"]:
+        '''CheckAndSet defines the Check-And-Set (CAS) settings for PushSecret operations.
+
+        Only applies to Vault KV v2 stores. When enabled, write operations must include
+        the current version of the secret to prevent unintentional overwrites.
+
+        :schema: ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProvider#checkAndSet
+        '''
+        result = self._values.get("check_and_set")
+        return typing.cast(typing.Optional["ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderCheckAndSet"], result)
 
     @builtins.property
     def forward_inconsistent(self) -> typing.Optional[builtins.bool]:
@@ -5826,18 +6897,24 @@ class ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderAuthAppRoleSecr
 @jsii.data_type(
     jsii_type="ioexternal-secretsgenerators.ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderAuthCert",
     jsii_struct_bases=[],
-    name_mapping={"client_cert": "clientCert", "secret_ref": "secretRef"},
+    name_mapping={
+        "client_cert": "clientCert",
+        "path": "path",
+        "secret_ref": "secretRef",
+    },
 )
 class ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderAuthCert:
     def __init__(
         self,
         *,
         client_cert: typing.Optional[typing.Union["ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderAuthCertClientCert", typing.Dict[builtins.str, typing.Any]]] = None,
+        path: typing.Optional[builtins.str] = None,
         secret_ref: typing.Optional[typing.Union["ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderAuthCertSecretRef", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''Cert authenticates with TLS Certificates by passing client certificate, private key and ca certificate Cert authentication method.
 
         :param client_cert: ClientCert is a certificate to authenticate using the Cert Vault authentication method.
+        :param path: Path where the Certificate authentication backend is mounted in Vault, e.g: "cert".
         :param secret_ref: SecretRef to a key in a Secret resource containing client private key to authenticate with Vault using the Cert authentication method.
 
         :schema: ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderAuthCert
@@ -5849,10 +6926,13 @@ class ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderAuthCert:
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__6a48a6f2044f51d1f9bce54540f955f0f3c0e34ca0c5a81e258fb25258a1812d)
             check_type(argname="argument client_cert", value=client_cert, expected_type=type_hints["client_cert"])
+            check_type(argname="argument path", value=path, expected_type=type_hints["path"])
             check_type(argname="argument secret_ref", value=secret_ref, expected_type=type_hints["secret_ref"])
         self._values: typing.Dict[builtins.str, typing.Any] = {}
         if client_cert is not None:
             self._values["client_cert"] = client_cert
+        if path is not None:
+            self._values["path"] = path
         if secret_ref is not None:
             self._values["secret_ref"] = secret_ref
 
@@ -5866,6 +6946,15 @@ class ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderAuthCert:
         '''
         result = self._values.get("client_cert")
         return typing.cast(typing.Optional["ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderAuthCertClientCert"], result)
+
+    @builtins.property
+    def path(self) -> typing.Optional[builtins.str]:
+        '''Path where the Certificate authentication backend is mounted in Vault, e.g: "cert".
+
+        :schema: ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderAuthCert#path
+        '''
+        result = self._values.get("path")
+        return typing.cast(typing.Optional[builtins.str], result)
 
     @builtins.property
     def secret_ref(
@@ -7775,6 +8864,52 @@ class ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderCaProviderType(
 
 
 @jsii.data_type(
+    jsii_type="ioexternal-secretsgenerators.ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderCheckAndSet",
+    jsii_struct_bases=[],
+    name_mapping={"required": "required"},
+)
+class ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderCheckAndSet:
+    def __init__(self, *, required: typing.Optional[builtins.bool] = None) -> None:
+        '''CheckAndSet defines the Check-And-Set (CAS) settings for PushSecret operations.
+
+        Only applies to Vault KV v2 stores. When enabled, write operations must include
+        the current version of the secret to prevent unintentional overwrites.
+
+        :param required: Required when true, all write operations must include a check-and-set parameter. This helps prevent unintentional overwrites of secrets.
+
+        :schema: ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderCheckAndSet
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__fe0c9d6d5560b96e3dd0f6dfdab34a2f761f260c91bbb9da613cc5dd6d2d7325)
+            check_type(argname="argument required", value=required, expected_type=type_hints["required"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if required is not None:
+            self._values["required"] = required
+
+    @builtins.property
+    def required(self) -> typing.Optional[builtins.bool]:
+        '''Required when true, all write operations must include a check-and-set parameter.
+
+        This helps prevent unintentional overwrites of secrets.
+
+        :schema: ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderCheckAndSet#required
+        '''
+        result = self._values.get("required")
+        return typing.cast(typing.Optional[builtins.bool], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderCheckAndSet(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
     jsii_type="ioexternal-secretsgenerators.ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderTls",
     jsii_struct_bases=[],
     name_mapping={
@@ -8873,6 +10008,8 @@ class ClusterGeneratorSpecKind(enum.Enum):
 
     ACR_ACCESS_TOKEN = "ACR_ACCESS_TOKEN"
     '''ACRAccessToken.'''
+    CLOUDSMITH_ACCESS_TOKEN = "CLOUDSMITH_ACCESS_TOKEN"
+    '''CloudsmithAccessToken.'''
     ECR_AUTHORIZATION_TOKEN = "ECR_AUTHORIZATION_TOKEN"
     '''ECRAuthorizationToken.'''
     FAKE = "FAKE"
@@ -8885,6 +10022,8 @@ class ClusterGeneratorSpecKind(enum.Enum):
     '''QuayAccessToken.'''
     PASSWORD = "PASSWORD"
     '''Password.'''
+    SSH_KEY = "SSH_KEY"
+    '''SSHKey.'''
     STS_SESSION_TOKEN = "STS_SESSION_TOKEN"
     '''STSSessionToken.'''
     UUID = "UUID"
@@ -10016,7 +11155,11 @@ class GcrAccessTokenSpec:
 @jsii.data_type(
     jsii_type="ioexternal-secretsgenerators.GcrAccessTokenSpecAuth",
     jsii_struct_bases=[],
-    name_mapping={"secret_ref": "secretRef", "workload_identity": "workloadIdentity"},
+    name_mapping={
+        "secret_ref": "secretRef",
+        "workload_identity": "workloadIdentity",
+        "workload_identity_federation": "workloadIdentityFederation",
+    },
 )
 class GcrAccessTokenSpecAuth:
     def __init__(
@@ -10024,11 +11167,13 @@ class GcrAccessTokenSpecAuth:
         *,
         secret_ref: typing.Optional[typing.Union["GcrAccessTokenSpecAuthSecretRef", typing.Dict[builtins.str, typing.Any]]] = None,
         workload_identity: typing.Optional[typing.Union["GcrAccessTokenSpecAuthWorkloadIdentity", typing.Dict[builtins.str, typing.Any]]] = None,
+        workload_identity_federation: typing.Optional[typing.Union["GcrAccessTokenSpecAuthWorkloadIdentityFederation", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''Auth defines the means for authenticating with GCP.
 
         :param secret_ref: 
         :param workload_identity: 
+        :param workload_identity_federation: GCPWorkloadIdentityFederation holds the configurations required for generating federated access tokens.
 
         :schema: GcrAccessTokenSpecAuth
         '''
@@ -10036,15 +11181,20 @@ class GcrAccessTokenSpecAuth:
             secret_ref = GcrAccessTokenSpecAuthSecretRef(**secret_ref)
         if isinstance(workload_identity, dict):
             workload_identity = GcrAccessTokenSpecAuthWorkloadIdentity(**workload_identity)
+        if isinstance(workload_identity_federation, dict):
+            workload_identity_federation = GcrAccessTokenSpecAuthWorkloadIdentityFederation(**workload_identity_federation)
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__93eb12ae2068134fa04136f7c937cab838ac29d82534e5b5803842066fae6e48)
             check_type(argname="argument secret_ref", value=secret_ref, expected_type=type_hints["secret_ref"])
             check_type(argname="argument workload_identity", value=workload_identity, expected_type=type_hints["workload_identity"])
+            check_type(argname="argument workload_identity_federation", value=workload_identity_federation, expected_type=type_hints["workload_identity_federation"])
         self._values: typing.Dict[builtins.str, typing.Any] = {}
         if secret_ref is not None:
             self._values["secret_ref"] = secret_ref
         if workload_identity is not None:
             self._values["workload_identity"] = workload_identity
+        if workload_identity_federation is not None:
+            self._values["workload_identity_federation"] = workload_identity_federation
 
     @builtins.property
     def secret_ref(self) -> typing.Optional["GcrAccessTokenSpecAuthSecretRef"]:
@@ -10063,6 +11213,17 @@ class GcrAccessTokenSpecAuth:
         '''
         result = self._values.get("workload_identity")
         return typing.cast(typing.Optional["GcrAccessTokenSpecAuthWorkloadIdentity"], result)
+
+    @builtins.property
+    def workload_identity_federation(
+        self,
+    ) -> typing.Optional["GcrAccessTokenSpecAuthWorkloadIdentityFederation"]:
+        '''GCPWorkloadIdentityFederation holds the configurations required for generating federated access tokens.
+
+        :schema: GcrAccessTokenSpecAuth#workloadIdentityFederation
+        '''
+        result = self._values.get("workload_identity_federation")
+        return typing.cast(typing.Optional["GcrAccessTokenSpecAuthWorkloadIdentityFederation"], result)
 
     def __eq__(self, rhs: typing.Any) -> builtins.bool:
         return isinstance(rhs, self.__class__) and rhs._values == self._values
@@ -10290,6 +11451,427 @@ class GcrAccessTokenSpecAuthWorkloadIdentity:
 
     def __repr__(self) -> str:
         return "GcrAccessTokenSpecAuthWorkloadIdentity(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secretsgenerators.GcrAccessTokenSpecAuthWorkloadIdentityFederation",
+    jsii_struct_bases=[],
+    name_mapping={
+        "audience": "audience",
+        "aws_security_credentials": "awsSecurityCredentials",
+        "cred_config": "credConfig",
+        "external_token_endpoint": "externalTokenEndpoint",
+        "service_account_ref": "serviceAccountRef",
+    },
+)
+class GcrAccessTokenSpecAuthWorkloadIdentityFederation:
+    def __init__(
+        self,
+        *,
+        audience: typing.Optional[builtins.str] = None,
+        aws_security_credentials: typing.Optional[typing.Union["GcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentials", typing.Dict[builtins.str, typing.Any]]] = None,
+        cred_config: typing.Optional[typing.Union["GcrAccessTokenSpecAuthWorkloadIdentityFederationCredConfig", typing.Dict[builtins.str, typing.Any]]] = None,
+        external_token_endpoint: typing.Optional[builtins.str] = None,
+        service_account_ref: typing.Optional[typing.Union["GcrAccessTokenSpecAuthWorkloadIdentityFederationServiceAccountRef", typing.Dict[builtins.str, typing.Any]]] = None,
+    ) -> None:
+        '''GCPWorkloadIdentityFederation holds the configurations required for generating federated access tokens.
+
+        :param audience: audience is the Secure Token Service (STS) audience which contains the resource name for the workload identity pool and the provider identifier in that pool. If specified, Audience found in the external account credential config will be overridden with the configured value. audience must be provided when serviceAccountRef or awsSecurityCredentials is configured.
+        :param aws_security_credentials: awsSecurityCredentials is for configuring AWS region and credentials to use for obtaining the access token, when using the AWS metadata server is not an option.
+        :param cred_config: credConfig holds the configmap reference containing the GCP external account credential configuration in JSON format and the key name containing the json data. For using Kubernetes cluster as the identity provider, use serviceAccountRef instead. Operators mounted serviceaccount token cannot be used as the token source, instead serviceAccountRef must be used by providing operators service account details.
+        :param external_token_endpoint: externalTokenEndpoint is the endpoint explicitly set up to provide tokens, which will be matched against the credential_source.url in the provided credConfig. This field is merely to double-check the external token source URL is having the expected value.
+        :param service_account_ref: serviceAccountRef is the reference to the kubernetes ServiceAccount to be used for obtaining the tokens, when Kubernetes is configured as provider in workload identity pool.
+
+        :schema: GcrAccessTokenSpecAuthWorkloadIdentityFederation
+        '''
+        if isinstance(aws_security_credentials, dict):
+            aws_security_credentials = GcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentials(**aws_security_credentials)
+        if isinstance(cred_config, dict):
+            cred_config = GcrAccessTokenSpecAuthWorkloadIdentityFederationCredConfig(**cred_config)
+        if isinstance(service_account_ref, dict):
+            service_account_ref = GcrAccessTokenSpecAuthWorkloadIdentityFederationServiceAccountRef(**service_account_ref)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__b72df953fc01d525595211fee595ae85c7514ad34a23d582f41347363fd3248d)
+            check_type(argname="argument audience", value=audience, expected_type=type_hints["audience"])
+            check_type(argname="argument aws_security_credentials", value=aws_security_credentials, expected_type=type_hints["aws_security_credentials"])
+            check_type(argname="argument cred_config", value=cred_config, expected_type=type_hints["cred_config"])
+            check_type(argname="argument external_token_endpoint", value=external_token_endpoint, expected_type=type_hints["external_token_endpoint"])
+            check_type(argname="argument service_account_ref", value=service_account_ref, expected_type=type_hints["service_account_ref"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if audience is not None:
+            self._values["audience"] = audience
+        if aws_security_credentials is not None:
+            self._values["aws_security_credentials"] = aws_security_credentials
+        if cred_config is not None:
+            self._values["cred_config"] = cred_config
+        if external_token_endpoint is not None:
+            self._values["external_token_endpoint"] = external_token_endpoint
+        if service_account_ref is not None:
+            self._values["service_account_ref"] = service_account_ref
+
+    @builtins.property
+    def audience(self) -> typing.Optional[builtins.str]:
+        '''audience is the Secure Token Service (STS) audience which contains the resource name for the workload identity pool and the provider identifier in that pool.
+
+        If specified, Audience found in the external account credential config will be overridden with the configured value.
+        audience must be provided when serviceAccountRef or awsSecurityCredentials is configured.
+
+        :schema: GcrAccessTokenSpecAuthWorkloadIdentityFederation#audience
+        '''
+        result = self._values.get("audience")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def aws_security_credentials(
+        self,
+    ) -> typing.Optional["GcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentials"]:
+        '''awsSecurityCredentials is for configuring AWS region and credentials to use for obtaining the access token, when using the AWS metadata server is not an option.
+
+        :schema: GcrAccessTokenSpecAuthWorkloadIdentityFederation#awsSecurityCredentials
+        '''
+        result = self._values.get("aws_security_credentials")
+        return typing.cast(typing.Optional["GcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentials"], result)
+
+    @builtins.property
+    def cred_config(
+        self,
+    ) -> typing.Optional["GcrAccessTokenSpecAuthWorkloadIdentityFederationCredConfig"]:
+        '''credConfig holds the configmap reference containing the GCP external account credential configuration in JSON format and the key name containing the json data.
+
+        For using Kubernetes cluster as the identity provider, use serviceAccountRef instead. Operators mounted serviceaccount token cannot be used as the token source, instead
+        serviceAccountRef must be used by providing operators service account details.
+
+        :schema: GcrAccessTokenSpecAuthWorkloadIdentityFederation#credConfig
+        '''
+        result = self._values.get("cred_config")
+        return typing.cast(typing.Optional["GcrAccessTokenSpecAuthWorkloadIdentityFederationCredConfig"], result)
+
+    @builtins.property
+    def external_token_endpoint(self) -> typing.Optional[builtins.str]:
+        '''externalTokenEndpoint is the endpoint explicitly set up to provide tokens, which will be matched against the credential_source.url in the provided credConfig. This field is merely to double-check the external token source URL is having the expected value.
+
+        :schema: GcrAccessTokenSpecAuthWorkloadIdentityFederation#externalTokenEndpoint
+        '''
+        result = self._values.get("external_token_endpoint")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def service_account_ref(
+        self,
+    ) -> typing.Optional["GcrAccessTokenSpecAuthWorkloadIdentityFederationServiceAccountRef"]:
+        '''serviceAccountRef is the reference to the kubernetes ServiceAccount to be used for obtaining the tokens, when Kubernetes is configured as provider in workload identity pool.
+
+        :schema: GcrAccessTokenSpecAuthWorkloadIdentityFederation#serviceAccountRef
+        '''
+        result = self._values.get("service_account_ref")
+        return typing.cast(typing.Optional["GcrAccessTokenSpecAuthWorkloadIdentityFederationServiceAccountRef"], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "GcrAccessTokenSpecAuthWorkloadIdentityFederation(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secretsgenerators.GcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentials",
+    jsii_struct_bases=[],
+    name_mapping={
+        "aws_credentials_secret_ref": "awsCredentialsSecretRef",
+        "region": "region",
+    },
+)
+class GcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentials:
+    def __init__(
+        self,
+        *,
+        aws_credentials_secret_ref: typing.Union["GcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentialsAwsCredentialsSecretRef", typing.Dict[builtins.str, typing.Any]],
+        region: builtins.str,
+    ) -> None:
+        '''awsSecurityCredentials is for configuring AWS region and credentials to use for obtaining the access token, when using the AWS metadata server is not an option.
+
+        :param aws_credentials_secret_ref: awsCredentialsSecretRef is the reference to the secret which holds the AWS credentials. Secret should be created with below names for keys - aws_access_key_id: Access Key ID, which is the unique identifier for the AWS account or the IAM user. - aws_secret_access_key: Secret Access Key, which is used to authenticate requests made to AWS services. - aws_session_token: Session Token, is the short-lived token to authenticate requests made to AWS services.
+        :param region: region is for configuring the AWS region to be used.
+
+        :schema: GcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentials
+        '''
+        if isinstance(aws_credentials_secret_ref, dict):
+            aws_credentials_secret_ref = GcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentialsAwsCredentialsSecretRef(**aws_credentials_secret_ref)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__e9e7add81095635a405234976851b1d03246004a08947af1a26d776ccdaf4978)
+            check_type(argname="argument aws_credentials_secret_ref", value=aws_credentials_secret_ref, expected_type=type_hints["aws_credentials_secret_ref"])
+            check_type(argname="argument region", value=region, expected_type=type_hints["region"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "aws_credentials_secret_ref": aws_credentials_secret_ref,
+            "region": region,
+        }
+
+    @builtins.property
+    def aws_credentials_secret_ref(
+        self,
+    ) -> "GcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentialsAwsCredentialsSecretRef":
+        '''awsCredentialsSecretRef is the reference to the secret which holds the AWS credentials.
+
+        Secret should be created with below names for keys
+
+        - aws_access_key_id: Access Key ID, which is the unique identifier for the AWS account or the IAM user.
+        - aws_secret_access_key: Secret Access Key, which is used to authenticate requests made to AWS services.
+        - aws_session_token: Session Token, is the short-lived token to authenticate requests made to AWS services.
+
+        :schema: GcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentials#awsCredentialsSecretRef
+        '''
+        result = self._values.get("aws_credentials_secret_ref")
+        assert result is not None, "Required property 'aws_credentials_secret_ref' is missing"
+        return typing.cast("GcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentialsAwsCredentialsSecretRef", result)
+
+    @builtins.property
+    def region(self) -> builtins.str:
+        '''region is for configuring the AWS region to be used.
+
+        :schema: GcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentials#region
+        '''
+        result = self._values.get("region")
+        assert result is not None, "Required property 'region' is missing"
+        return typing.cast(builtins.str, result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "GcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentials(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secretsgenerators.GcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentialsAwsCredentialsSecretRef",
+    jsii_struct_bases=[],
+    name_mapping={"name": "name", "namespace": "namespace"},
+)
+class GcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentialsAwsCredentialsSecretRef:
+    def __init__(
+        self,
+        *,
+        name: builtins.str,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''awsCredentialsSecretRef is the reference to the secret which holds the AWS credentials.
+
+        Secret should be created with below names for keys
+
+        - aws_access_key_id: Access Key ID, which is the unique identifier for the AWS account or the IAM user.
+        - aws_secret_access_key: Secret Access Key, which is used to authenticate requests made to AWS services.
+        - aws_session_token: Session Token, is the short-lived token to authenticate requests made to AWS services.
+
+        :param name: name of the secret.
+        :param namespace: namespace in which the secret exists. If empty, secret will looked up in local namespace.
+
+        :schema: GcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentialsAwsCredentialsSecretRef
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__ae887f5130079f21c89a12a820c4a01ae9b1840a5dffad50449d0b79a6e78096)
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "name": name,
+        }
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def name(self) -> builtins.str:
+        '''name of the secret.
+
+        :schema: GcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentialsAwsCredentialsSecretRef#name
+        '''
+        result = self._values.get("name")
+        assert result is not None, "Required property 'name' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''namespace in which the secret exists.
+
+        If empty, secret will looked up in local namespace.
+
+        :schema: GcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentialsAwsCredentialsSecretRef#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "GcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentialsAwsCredentialsSecretRef(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secretsgenerators.GcrAccessTokenSpecAuthWorkloadIdentityFederationCredConfig",
+    jsii_struct_bases=[],
+    name_mapping={"key": "key", "name": "name", "namespace": "namespace"},
+)
+class GcrAccessTokenSpecAuthWorkloadIdentityFederationCredConfig:
+    def __init__(
+        self,
+        *,
+        key: builtins.str,
+        name: builtins.str,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''credConfig holds the configmap reference containing the GCP external account credential configuration in JSON format and the key name containing the json data.
+
+        For using Kubernetes cluster as the identity provider, use serviceAccountRef instead. Operators mounted serviceaccount token cannot be used as the token source, instead
+        serviceAccountRef must be used by providing operators service account details.
+
+        :param key: key name holding the external account credential config.
+        :param name: name of the configmap.
+        :param namespace: namespace in which the configmap exists. If empty, configmap will looked up in local namespace.
+
+        :schema: GcrAccessTokenSpecAuthWorkloadIdentityFederationCredConfig
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__a67526db795e7c54f2a28ed8c4ad785dd640d2611480ad20124a799f5bc694b1)
+            check_type(argname="argument key", value=key, expected_type=type_hints["key"])
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "key": key,
+            "name": name,
+        }
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def key(self) -> builtins.str:
+        '''key name holding the external account credential config.
+
+        :schema: GcrAccessTokenSpecAuthWorkloadIdentityFederationCredConfig#key
+        '''
+        result = self._values.get("key")
+        assert result is not None, "Required property 'key' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def name(self) -> builtins.str:
+        '''name of the configmap.
+
+        :schema: GcrAccessTokenSpecAuthWorkloadIdentityFederationCredConfig#name
+        '''
+        result = self._values.get("name")
+        assert result is not None, "Required property 'name' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''namespace in which the configmap exists.
+
+        If empty, configmap will looked up in local namespace.
+
+        :schema: GcrAccessTokenSpecAuthWorkloadIdentityFederationCredConfig#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "GcrAccessTokenSpecAuthWorkloadIdentityFederationCredConfig(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secretsgenerators.GcrAccessTokenSpecAuthWorkloadIdentityFederationServiceAccountRef",
+    jsii_struct_bases=[],
+    name_mapping={"name": "name", "audiences": "audiences", "namespace": "namespace"},
+)
+class GcrAccessTokenSpecAuthWorkloadIdentityFederationServiceAccountRef:
+    def __init__(
+        self,
+        *,
+        name: builtins.str,
+        audiences: typing.Optional[typing.Sequence[builtins.str]] = None,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''serviceAccountRef is the reference to the kubernetes ServiceAccount to be used for obtaining the tokens, when Kubernetes is configured as provider in workload identity pool.
+
+        :param name: The name of the ServiceAccount resource being referred to.
+        :param audiences: Audience specifies the ``aud`` claim for the service account token If the service account uses a well-known annotation for e.g. IRSA or GCP Workload Identity then this audiences will be appended to the list.
+        :param namespace: Namespace of the resource being referred to. Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: GcrAccessTokenSpecAuthWorkloadIdentityFederationServiceAccountRef
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__fd64306626805104fdcfe0e2625e9f0419d6860151ba1912a94312c4314a0bc2)
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument audiences", value=audiences, expected_type=type_hints["audiences"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "name": name,
+        }
+        if audiences is not None:
+            self._values["audiences"] = audiences
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def name(self) -> builtins.str:
+        '''The name of the ServiceAccount resource being referred to.
+
+        :schema: GcrAccessTokenSpecAuthWorkloadIdentityFederationServiceAccountRef#name
+        '''
+        result = self._values.get("name")
+        assert result is not None, "Required property 'name' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def audiences(self) -> typing.Optional[typing.List[builtins.str]]:
+        '''Audience specifies the ``aud`` claim for the service account token If the service account uses a well-known annotation for e.g. IRSA or GCP Workload Identity then this audiences will be appended to the list.
+
+        :schema: GcrAccessTokenSpecAuthWorkloadIdentityFederationServiceAccountRef#audiences
+        '''
+        result = self._values.get("audiences")
+        return typing.cast(typing.Optional[typing.List[builtins.str]], result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''Namespace of the resource being referred to.
+
+        Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: GcrAccessTokenSpecAuthWorkloadIdentityFederationServiceAccountRef#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "GcrAccessTokenSpecAuthWorkloadIdentityFederationServiceAccountRef(%s)" % ", ".join(
             k + "=" + repr(v) for k, v in self._values.items()
         )
 
@@ -12401,6 +13983,218 @@ class QuayAccessTokenSpecServiceAccountRef:
         )
 
 
+class SshKey(
+    _cdk8s_d3d9af27.ApiObject,
+    metaclass=jsii.JSIIMeta,
+    jsii_type="ioexternal-secretsgenerators.SshKey",
+):
+    '''SSHKey generates SSH key pairs.
+
+    :schema: SSHKey
+    '''
+
+    def __init__(
+        self,
+        scope: _constructs_77d1e7e8.Construct,
+        id: builtins.str,
+        *,
+        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        spec: typing.Optional[typing.Union["SshKeySpec", typing.Dict[builtins.str, typing.Any]]] = None,
+    ) -> None:
+        '''Defines a "SSHKey" API object.
+
+        :param scope: the scope in which to define this object.
+        :param id: a scope-local name for the object.
+        :param metadata: 
+        :param spec: SSHKeySpec controls the behavior of the ssh key generator.
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__3706cf7d3d566a6cf46377e0a0f1e4934c819e3c330d3c8462c3235f2996d4d8)
+            check_type(argname="argument scope", value=scope, expected_type=type_hints["scope"])
+            check_type(argname="argument id", value=id, expected_type=type_hints["id"])
+        props = SshKeyProps(metadata=metadata, spec=spec)
+
+        jsii.create(self.__class__, self, [scope, id, props])
+
+    @jsii.member(jsii_name="manifest")
+    @builtins.classmethod
+    def manifest(
+        cls,
+        *,
+        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        spec: typing.Optional[typing.Union["SshKeySpec", typing.Dict[builtins.str, typing.Any]]] = None,
+    ) -> typing.Any:
+        '''Renders a Kubernetes manifest for "SSHKey".
+
+        This can be used to inline resource manifests inside other objects (e.g. as templates).
+
+        :param metadata: 
+        :param spec: SSHKeySpec controls the behavior of the ssh key generator.
+        '''
+        props = SshKeyProps(metadata=metadata, spec=spec)
+
+        return typing.cast(typing.Any, jsii.sinvoke(cls, "manifest", [props]))
+
+    @jsii.member(jsii_name="toJson")
+    def to_json(self) -> typing.Any:
+        '''Renders the object to Kubernetes JSON.'''
+        return typing.cast(typing.Any, jsii.invoke(self, "toJson", []))
+
+    @jsii.python.classproperty
+    @jsii.member(jsii_name="GVK")
+    def GVK(cls) -> _cdk8s_d3d9af27.GroupVersionKind:
+        '''Returns the apiVersion and kind for "SSHKey".'''
+        return typing.cast(_cdk8s_d3d9af27.GroupVersionKind, jsii.sget(cls, "GVK"))
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secretsgenerators.SshKeyProps",
+    jsii_struct_bases=[],
+    name_mapping={"metadata": "metadata", "spec": "spec"},
+)
+class SshKeyProps:
+    def __init__(
+        self,
+        *,
+        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        spec: typing.Optional[typing.Union["SshKeySpec", typing.Dict[builtins.str, typing.Any]]] = None,
+    ) -> None:
+        '''SSHKey generates SSH key pairs.
+
+        :param metadata: 
+        :param spec: SSHKeySpec controls the behavior of the ssh key generator.
+
+        :schema: SSHKey
+        '''
+        if isinstance(metadata, dict):
+            metadata = _cdk8s_d3d9af27.ApiObjectMetadata(**metadata)
+        if isinstance(spec, dict):
+            spec = SshKeySpec(**spec)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__dc3e69f9c465057fa7dec8b92133bd3d917b3f7d57a9ca2e48033da78d936da3)
+            check_type(argname="argument metadata", value=metadata, expected_type=type_hints["metadata"])
+            check_type(argname="argument spec", value=spec, expected_type=type_hints["spec"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if metadata is not None:
+            self._values["metadata"] = metadata
+        if spec is not None:
+            self._values["spec"] = spec
+
+    @builtins.property
+    def metadata(self) -> typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata]:
+        '''
+        :schema: SSHKey#metadata
+        '''
+        result = self._values.get("metadata")
+        return typing.cast(typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata], result)
+
+    @builtins.property
+    def spec(self) -> typing.Optional["SshKeySpec"]:
+        '''SSHKeySpec controls the behavior of the ssh key generator.
+
+        :schema: SSHKey#spec
+        '''
+        result = self._values.get("spec")
+        return typing.cast(typing.Optional["SshKeySpec"], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "SshKeyProps(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secretsgenerators.SshKeySpec",
+    jsii_struct_bases=[],
+    name_mapping={"comment": "comment", "key_size": "keySize", "key_type": "keyType"},
+)
+class SshKeySpec:
+    def __init__(
+        self,
+        *,
+        comment: typing.Optional[builtins.str] = None,
+        key_size: typing.Optional[jsii.Number] = None,
+        key_type: typing.Optional["SshKeySpecKeyType"] = None,
+    ) -> None:
+        '''SSHKeySpec controls the behavior of the ssh key generator.
+
+        :param comment: Comment specifies an optional comment for the SSH key.
+        :param key_size: KeySize specifies the key size for RSA keys (default: 2048) For RSA keys: 2048, 3072, 4096 Ignored for ed25519 keys.
+        :param key_type: KeyType specifies the SSH key type (rsa, ed25519).
+
+        :schema: SshKeySpec
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__d3b36a7ea722110ba1ed55060a7e8413c41e88eda7375d2c52710b6e05924ee6)
+            check_type(argname="argument comment", value=comment, expected_type=type_hints["comment"])
+            check_type(argname="argument key_size", value=key_size, expected_type=type_hints["key_size"])
+            check_type(argname="argument key_type", value=key_type, expected_type=type_hints["key_type"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if comment is not None:
+            self._values["comment"] = comment
+        if key_size is not None:
+            self._values["key_size"] = key_size
+        if key_type is not None:
+            self._values["key_type"] = key_type
+
+    @builtins.property
+    def comment(self) -> typing.Optional[builtins.str]:
+        '''Comment specifies an optional comment for the SSH key.
+
+        :schema: SshKeySpec#comment
+        '''
+        result = self._values.get("comment")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def key_size(self) -> typing.Optional[jsii.Number]:
+        '''KeySize specifies the key size for RSA keys (default: 2048) For RSA keys: 2048, 3072, 4096 Ignored for ed25519 keys.
+
+        :schema: SshKeySpec#keySize
+        '''
+        result = self._values.get("key_size")
+        return typing.cast(typing.Optional[jsii.Number], result)
+
+    @builtins.property
+    def key_type(self) -> typing.Optional["SshKeySpecKeyType"]:
+        '''KeyType specifies the SSH key type (rsa, ed25519).
+
+        :schema: SshKeySpec#keyType
+        '''
+        result = self._values.get("key_type")
+        return typing.cast(typing.Optional["SshKeySpecKeyType"], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "SshKeySpec(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.enum(jsii_type="ioexternal-secretsgenerators.SshKeySpecKeyType")
+class SshKeySpecKeyType(enum.Enum):
+    '''KeyType specifies the SSH key type (rsa, ed25519).
+
+    :schema: SshKeySpecKeyType
+    '''
+
+    RSA = "RSA"
+    '''rsa.'''
+    ED25519 = "ED25519"
+    '''ed25519.'''
+
+
 class StsSessionToken(
     _cdk8s_d3d9af27.ApiObject,
     metaclass=jsii.JSIIMeta,
@@ -13638,6 +15432,7 @@ class VaultDynamicSecretSpec:
         "auth": "auth",
         "ca_bundle": "caBundle",
         "ca_provider": "caProvider",
+        "check_and_set": "checkAndSet",
         "forward_inconsistent": "forwardInconsistent",
         "headers": "headers",
         "namespace": "namespace",
@@ -13655,6 +15450,7 @@ class VaultDynamicSecretSpecProvider:
         auth: typing.Optional[typing.Union["VaultDynamicSecretSpecProviderAuth", typing.Dict[builtins.str, typing.Any]]] = None,
         ca_bundle: typing.Optional[builtins.str] = None,
         ca_provider: typing.Optional[typing.Union["VaultDynamicSecretSpecProviderCaProvider", typing.Dict[builtins.str, typing.Any]]] = None,
+        check_and_set: typing.Optional[typing.Union["VaultDynamicSecretSpecProviderCheckAndSet", typing.Dict[builtins.str, typing.Any]]] = None,
         forward_inconsistent: typing.Optional[builtins.bool] = None,
         headers: typing.Optional[typing.Mapping[builtins.str, builtins.str]] = None,
         namespace: typing.Optional[builtins.str] = None,
@@ -13669,6 +15465,7 @@ class VaultDynamicSecretSpecProvider:
         :param auth: Auth configures how secret-manager authenticates with the Vault server.
         :param ca_bundle: PEM encoded CA bundle used to validate Vault server certificate. Only used if the Server URL is using HTTPS protocol. This parameter is ignored for plain HTTP protocol connection. If not set the system root certificates are used to validate the TLS connection.
         :param ca_provider: The provider for the CA bundle to use to validate Vault server certificate.
+        :param check_and_set: CheckAndSet defines the Check-And-Set (CAS) settings for PushSecret operations. Only applies to Vault KV v2 stores. When enabled, write operations must include the current version of the secret to prevent unintentional overwrites.
         :param forward_inconsistent: ForwardInconsistent tells Vault to forward read-after-write requests to the Vault leader instead of simply retrying within a loop. This can increase performance if the option is enabled serverside. https://www.vaultproject.io/docs/configuration/replication#allow_forwarding_via_header
         :param headers: Headers to be added in Vault request.
         :param namespace: Name of the vault namespace. Namespaces is a set of features within Vault Enterprise that allows Vault environments to support Secure Multi-tenancy. e.g: "ns1". More about namespaces can be found here https://www.vaultproject.io/docs/enterprise/namespaces
@@ -13683,6 +15480,8 @@ class VaultDynamicSecretSpecProvider:
             auth = VaultDynamicSecretSpecProviderAuth(**auth)
         if isinstance(ca_provider, dict):
             ca_provider = VaultDynamicSecretSpecProviderCaProvider(**ca_provider)
+        if isinstance(check_and_set, dict):
+            check_and_set = VaultDynamicSecretSpecProviderCheckAndSet(**check_and_set)
         if isinstance(tls, dict):
             tls = VaultDynamicSecretSpecProviderTls(**tls)
         if __debug__:
@@ -13691,6 +15490,7 @@ class VaultDynamicSecretSpecProvider:
             check_type(argname="argument auth", value=auth, expected_type=type_hints["auth"])
             check_type(argname="argument ca_bundle", value=ca_bundle, expected_type=type_hints["ca_bundle"])
             check_type(argname="argument ca_provider", value=ca_provider, expected_type=type_hints["ca_provider"])
+            check_type(argname="argument check_and_set", value=check_and_set, expected_type=type_hints["check_and_set"])
             check_type(argname="argument forward_inconsistent", value=forward_inconsistent, expected_type=type_hints["forward_inconsistent"])
             check_type(argname="argument headers", value=headers, expected_type=type_hints["headers"])
             check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
@@ -13707,6 +15507,8 @@ class VaultDynamicSecretSpecProvider:
             self._values["ca_bundle"] = ca_bundle
         if ca_provider is not None:
             self._values["ca_provider"] = ca_provider
+        if check_and_set is not None:
+            self._values["check_and_set"] = check_and_set
         if forward_inconsistent is not None:
             self._values["forward_inconsistent"] = forward_inconsistent
         if headers is not None:
@@ -13765,6 +15567,20 @@ class VaultDynamicSecretSpecProvider:
         '''
         result = self._values.get("ca_provider")
         return typing.cast(typing.Optional["VaultDynamicSecretSpecProviderCaProvider"], result)
+
+    @builtins.property
+    def check_and_set(
+        self,
+    ) -> typing.Optional["VaultDynamicSecretSpecProviderCheckAndSet"]:
+        '''CheckAndSet defines the Check-And-Set (CAS) settings for PushSecret operations.
+
+        Only applies to Vault KV v2 stores. When enabled, write operations must include
+        the current version of the secret to prevent unintentional overwrites.
+
+        :schema: VaultDynamicSecretSpecProvider#checkAndSet
+        '''
+        result = self._values.get("check_and_set")
+        return typing.cast(typing.Optional["VaultDynamicSecretSpecProviderCheckAndSet"], result)
 
     @builtins.property
     def forward_inconsistent(self) -> typing.Optional[builtins.bool]:
@@ -14323,18 +16139,24 @@ class VaultDynamicSecretSpecProviderAuthAppRoleSecretRef:
 @jsii.data_type(
     jsii_type="ioexternal-secretsgenerators.VaultDynamicSecretSpecProviderAuthCert",
     jsii_struct_bases=[],
-    name_mapping={"client_cert": "clientCert", "secret_ref": "secretRef"},
+    name_mapping={
+        "client_cert": "clientCert",
+        "path": "path",
+        "secret_ref": "secretRef",
+    },
 )
 class VaultDynamicSecretSpecProviderAuthCert:
     def __init__(
         self,
         *,
         client_cert: typing.Optional[typing.Union["VaultDynamicSecretSpecProviderAuthCertClientCert", typing.Dict[builtins.str, typing.Any]]] = None,
+        path: typing.Optional[builtins.str] = None,
         secret_ref: typing.Optional[typing.Union["VaultDynamicSecretSpecProviderAuthCertSecretRef", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''Cert authenticates with TLS Certificates by passing client certificate, private key and ca certificate Cert authentication method.
 
         :param client_cert: ClientCert is a certificate to authenticate using the Cert Vault authentication method.
+        :param path: Path where the Certificate authentication backend is mounted in Vault, e.g: "cert".
         :param secret_ref: SecretRef to a key in a Secret resource containing client private key to authenticate with Vault using the Cert authentication method.
 
         :schema: VaultDynamicSecretSpecProviderAuthCert
@@ -14346,10 +16168,13 @@ class VaultDynamicSecretSpecProviderAuthCert:
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__397dacbf5d6cbf9d8bfbc50e753f1950aee0b37fec712f2c76630a0668f3e146)
             check_type(argname="argument client_cert", value=client_cert, expected_type=type_hints["client_cert"])
+            check_type(argname="argument path", value=path, expected_type=type_hints["path"])
             check_type(argname="argument secret_ref", value=secret_ref, expected_type=type_hints["secret_ref"])
         self._values: typing.Dict[builtins.str, typing.Any] = {}
         if client_cert is not None:
             self._values["client_cert"] = client_cert
+        if path is not None:
+            self._values["path"] = path
         if secret_ref is not None:
             self._values["secret_ref"] = secret_ref
 
@@ -14363,6 +16188,15 @@ class VaultDynamicSecretSpecProviderAuthCert:
         '''
         result = self._values.get("client_cert")
         return typing.cast(typing.Optional["VaultDynamicSecretSpecProviderAuthCertClientCert"], result)
+
+    @builtins.property
+    def path(self) -> typing.Optional[builtins.str]:
+        '''Path where the Certificate authentication backend is mounted in Vault, e.g: "cert".
+
+        :schema: VaultDynamicSecretSpecProviderAuthCert#path
+        '''
+        result = self._values.get("path")
+        return typing.cast(typing.Optional[builtins.str], result)
 
     @builtins.property
     def secret_ref(
@@ -16266,6 +18100,52 @@ class VaultDynamicSecretSpecProviderCaProviderType(enum.Enum):
 
 
 @jsii.data_type(
+    jsii_type="ioexternal-secretsgenerators.VaultDynamicSecretSpecProviderCheckAndSet",
+    jsii_struct_bases=[],
+    name_mapping={"required": "required"},
+)
+class VaultDynamicSecretSpecProviderCheckAndSet:
+    def __init__(self, *, required: typing.Optional[builtins.bool] = None) -> None:
+        '''CheckAndSet defines the Check-And-Set (CAS) settings for PushSecret operations.
+
+        Only applies to Vault KV v2 stores. When enabled, write operations must include
+        the current version of the secret to prevent unintentional overwrites.
+
+        :param required: Required when true, all write operations must include a check-and-set parameter. This helps prevent unintentional overwrites of secrets.
+
+        :schema: VaultDynamicSecretSpecProviderCheckAndSet
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__121c91f04879ba611faf542f33fa575ce3149a93c4640101243a4f983caca8d8)
+            check_type(argname="argument required", value=required, expected_type=type_hints["required"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if required is not None:
+            self._values["required"] = required
+
+    @builtins.property
+    def required(self) -> typing.Optional[builtins.bool]:
+        '''Required when true, all write operations must include a check-and-set parameter.
+
+        This helps prevent unintentional overwrites of secrets.
+
+        :schema: VaultDynamicSecretSpecProviderCheckAndSet#required
+        '''
+        result = self._values.get("required")
+        return typing.cast(typing.Optional[builtins.bool], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "VaultDynamicSecretSpecProviderCheckAndSet(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
     jsii_type="ioexternal-secretsgenerators.VaultDynamicSecretSpecProviderTls",
     jsii_struct_bases=[],
     name_mapping={
@@ -17488,6 +19368,10 @@ __all__ = [
     "AcrAccessTokenSpecAuthWorkloadIdentity",
     "AcrAccessTokenSpecAuthWorkloadIdentityServiceAccountRef",
     "AcrAccessTokenSpecEnvironmentType",
+    "CloudsmithAccessToken",
+    "CloudsmithAccessTokenProps",
+    "CloudsmithAccessTokenSpec",
+    "CloudsmithAccessTokenSpecServiceAccountRef",
     "ClusterGenerator",
     "ClusterGeneratorProps",
     "ClusterGeneratorSpec",
@@ -17502,6 +19386,8 @@ __all__ = [
     "ClusterGeneratorSpecGeneratorAcrAccessTokenSpecAuthWorkloadIdentity",
     "ClusterGeneratorSpecGeneratorAcrAccessTokenSpecAuthWorkloadIdentityServiceAccountRef",
     "ClusterGeneratorSpecGeneratorAcrAccessTokenSpecEnvironmentType",
+    "ClusterGeneratorSpecGeneratorCloudsmithAccessTokenSpec",
+    "ClusterGeneratorSpecGeneratorCloudsmithAccessTokenSpecServiceAccountRef",
     "ClusterGeneratorSpecGeneratorEcrAuthorizationTokenSpec",
     "ClusterGeneratorSpecGeneratorEcrAuthorizationTokenSpecAuth",
     "ClusterGeneratorSpecGeneratorEcrAuthorizationTokenSpecAuthJwt",
@@ -17516,6 +19402,11 @@ __all__ = [
     "ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthSecretRef",
     "ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthSecretRefSecretAccessKeySecretRef",
     "ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentity",
+    "ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederation",
+    "ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentials",
+    "ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentialsAwsCredentialsSecretRef",
+    "ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationCredConfig",
+    "ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationServiceAccountRef",
     "ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityServiceAccountRef",
     "ClusterGeneratorSpecGeneratorGithubAccessTokenSpec",
     "ClusterGeneratorSpecGeneratorGithubAccessTokenSpecAuth",
@@ -17532,6 +19423,8 @@ __all__ = [
     "ClusterGeneratorSpecGeneratorPasswordSpec",
     "ClusterGeneratorSpecGeneratorQuayAccessTokenSpec",
     "ClusterGeneratorSpecGeneratorQuayAccessTokenSpecServiceAccountRef",
+    "ClusterGeneratorSpecGeneratorSshKeySpec",
+    "ClusterGeneratorSpecGeneratorSshKeySpecKeyType",
     "ClusterGeneratorSpecGeneratorStsSessionTokenSpec",
     "ClusterGeneratorSpecGeneratorStsSessionTokenSpecAuth",
     "ClusterGeneratorSpecGeneratorStsSessionTokenSpecAuthJwt",
@@ -17571,6 +19464,7 @@ __all__ = [
     "ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderAuthUserPassSecretRef",
     "ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderCaProvider",
     "ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderCaProviderType",
+    "ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderCheckAndSet",
     "ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderTls",
     "ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderTlsCertSecretRef",
     "ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderTlsKeySecretRef",
@@ -17608,6 +19502,11 @@ __all__ = [
     "GcrAccessTokenSpecAuthSecretRef",
     "GcrAccessTokenSpecAuthSecretRefSecretAccessKeySecretRef",
     "GcrAccessTokenSpecAuthWorkloadIdentity",
+    "GcrAccessTokenSpecAuthWorkloadIdentityFederation",
+    "GcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentials",
+    "GcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentialsAwsCredentialsSecretRef",
+    "GcrAccessTokenSpecAuthWorkloadIdentityFederationCredConfig",
+    "GcrAccessTokenSpecAuthWorkloadIdentityFederationServiceAccountRef",
     "GcrAccessTokenSpecAuthWorkloadIdentityServiceAccountRef",
     "GeneratorState",
     "GeneratorStateProps",
@@ -17637,6 +19536,10 @@ __all__ = [
     "QuayAccessTokenProps",
     "QuayAccessTokenSpec",
     "QuayAccessTokenSpecServiceAccountRef",
+    "SshKey",
+    "SshKeyProps",
+    "SshKeySpec",
+    "SshKeySpecKeyType",
     "StsSessionToken",
     "StsSessionTokenProps",
     "StsSessionTokenSpec",
@@ -17682,6 +19585,7 @@ __all__ = [
     "VaultDynamicSecretSpecProviderAuthUserPassSecretRef",
     "VaultDynamicSecretSpecProviderCaProvider",
     "VaultDynamicSecretSpecProviderCaProviderType",
+    "VaultDynamicSecretSpecProviderCheckAndSet",
     "VaultDynamicSecretSpecProviderTls",
     "VaultDynamicSecretSpecProviderTlsCertSecretRef",
     "VaultDynamicSecretSpecProviderTlsKeySecretRef",
@@ -17798,6 +19702,43 @@ def _typecheckingstub__ddf0afa1f998410811287e82c3097165fb87092b51d21d6220a7bd0ce
     """Type checking stubs"""
     pass
 
+def _typecheckingstub__8a7a7a71241266fc4bcad24d1e3ed683758199364aa6f6793360ad4140c05222(
+    scope: _constructs_77d1e7e8.Construct,
+    id: builtins.str,
+    *,
+    metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+    spec: typing.Optional[typing.Union[CloudsmithAccessTokenSpec, typing.Dict[builtins.str, typing.Any]]] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__4bc71d26b4e63684954f4630ae279d86c0d699124a2fa43b719aa761774dbdbf(
+    *,
+    metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+    spec: typing.Optional[typing.Union[CloudsmithAccessTokenSpec, typing.Dict[builtins.str, typing.Any]]] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__a1e7a402a360e74e55534ec2897d635470212b952ebda4887f55c41296292723(
+    *,
+    org_slug: builtins.str,
+    service_account_ref: typing.Union[CloudsmithAccessTokenSpecServiceAccountRef, typing.Dict[builtins.str, typing.Any]],
+    service_slug: builtins.str,
+    api_url: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__7a398c57a7075a6ee2cee70b683646bed4b48bbe65675bcb0449e26cb45a92a8(
+    *,
+    name: builtins.str,
+    audiences: typing.Optional[typing.Sequence[builtins.str]] = None,
+    namespace: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
 def _typecheckingstub__9a344af75ed1cbccde2cb0736d9fd19650ccfcf8db8041ebef1f47376fdd8893(
     scope: _constructs_77d1e7e8.Construct,
     id: builtins.str,
@@ -17827,6 +19768,7 @@ def _typecheckingstub__64d7f76e7038ac114e970dfd5c153b3eb78c0bd1f509f47d2e2323fe8
 def _typecheckingstub__75697d100ce0404120222110ca16af3984f4ab31958e84b7756b37400e311f59(
     *,
     acr_access_token_spec: typing.Optional[typing.Union[ClusterGeneratorSpecGeneratorAcrAccessTokenSpec, typing.Dict[builtins.str, typing.Any]]] = None,
+    cloudsmith_access_token_spec: typing.Optional[typing.Union[ClusterGeneratorSpecGeneratorCloudsmithAccessTokenSpec, typing.Dict[builtins.str, typing.Any]]] = None,
     ecr_authorization_token_spec: typing.Optional[typing.Union[ClusterGeneratorSpecGeneratorEcrAuthorizationTokenSpec, typing.Dict[builtins.str, typing.Any]]] = None,
     fake_spec: typing.Optional[typing.Union[ClusterGeneratorSpecGeneratorFakeSpec, typing.Dict[builtins.str, typing.Any]]] = None,
     gcr_access_token_spec: typing.Optional[typing.Union[ClusterGeneratorSpecGeneratorGcrAccessTokenSpec, typing.Dict[builtins.str, typing.Any]]] = None,
@@ -17835,6 +19777,7 @@ def _typecheckingstub__75697d100ce0404120222110ca16af3984f4ab31958e84b7756b37400
     mfa_spec: typing.Optional[typing.Union[ClusterGeneratorSpecGeneratorMfaSpec, typing.Dict[builtins.str, typing.Any]]] = None,
     password_spec: typing.Optional[typing.Union[ClusterGeneratorSpecGeneratorPasswordSpec, typing.Dict[builtins.str, typing.Any]]] = None,
     quay_access_token_spec: typing.Optional[typing.Union[ClusterGeneratorSpecGeneratorQuayAccessTokenSpec, typing.Dict[builtins.str, typing.Any]]] = None,
+    ssh_key_spec: typing.Optional[typing.Union[ClusterGeneratorSpecGeneratorSshKeySpec, typing.Dict[builtins.str, typing.Any]]] = None,
     sts_session_token_spec: typing.Optional[typing.Union[ClusterGeneratorSpecGeneratorStsSessionTokenSpec, typing.Dict[builtins.str, typing.Any]]] = None,
     uuid_spec: typing.Any = None,
     vault_dynamic_secret_spec: typing.Optional[typing.Union[ClusterGeneratorSpecGeneratorVaultDynamicSecretSpec, typing.Dict[builtins.str, typing.Any]]] = None,
@@ -17911,6 +19854,25 @@ def _typecheckingstub__7a4acab66a42181590587e19c100a1d7003b65b1d598652c5f1488434
     pass
 
 def _typecheckingstub__2c68f57cbeb67b574e5a877d5e187c847dc30c3640b23c4c04763b2a37647017(
+    *,
+    name: builtins.str,
+    audiences: typing.Optional[typing.Sequence[builtins.str]] = None,
+    namespace: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__52c5f5bab4ea8c55a5b4a509a8aad5365a779d7cdbf972f9f7e4636e886aa45e(
+    *,
+    org_slug: builtins.str,
+    service_account_ref: typing.Union[ClusterGeneratorSpecGeneratorCloudsmithAccessTokenSpecServiceAccountRef, typing.Dict[builtins.str, typing.Any]],
+    service_slug: builtins.str,
+    api_url: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__6b57e17e7da6a732b9a4f5844eabf1b5ff9b086a91343406be80ee1f2f9f2f69(
     *,
     name: builtins.str,
     audiences: typing.Optional[typing.Sequence[builtins.str]] = None,
@@ -18009,6 +19971,7 @@ def _typecheckingstub__5c8999aeefd932f01d9db846a206c060725cfe557132891c96a281dd5
     *,
     secret_ref: typing.Optional[typing.Union[ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthSecretRef, typing.Dict[builtins.str, typing.Any]]] = None,
     workload_identity: typing.Optional[typing.Union[ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentity, typing.Dict[builtins.str, typing.Any]]] = None,
+    workload_identity_federation: typing.Optional[typing.Union[ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederation, typing.Dict[builtins.str, typing.Any]]] = None,
 ) -> None:
     """Type checking stubs"""
     pass
@@ -18035,6 +19998,51 @@ def _typecheckingstub__887b623b0239bbb2317604070f1fb61930a4e755b022243ffbd63f615
     cluster_name: builtins.str,
     service_account_ref: typing.Union[ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityServiceAccountRef, typing.Dict[builtins.str, typing.Any]],
     cluster_project_id: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__d97f56a9ddbe3b302ef091a16d78d1b4fee560958dfa9aa7936e82dac9ccc0a6(
+    *,
+    audience: typing.Optional[builtins.str] = None,
+    aws_security_credentials: typing.Optional[typing.Union[ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentials, typing.Dict[builtins.str, typing.Any]]] = None,
+    cred_config: typing.Optional[typing.Union[ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationCredConfig, typing.Dict[builtins.str, typing.Any]]] = None,
+    external_token_endpoint: typing.Optional[builtins.str] = None,
+    service_account_ref: typing.Optional[typing.Union[ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationServiceAccountRef, typing.Dict[builtins.str, typing.Any]]] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__ce9ca6c765dec3025e2e5b8d105310925f46ce5e7930e52aff4d71cf375dc95b(
+    *,
+    aws_credentials_secret_ref: typing.Union[ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentialsAwsCredentialsSecretRef, typing.Dict[builtins.str, typing.Any]],
+    region: builtins.str,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__1a867900007938529825658cf7cd1f725e4a0c4bc3604719b92208da9a8d5100(
+    *,
+    name: builtins.str,
+    namespace: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__593f95361d47077c774038dda2fc2c75b23e849d5da027d50c3075928b017245(
+    *,
+    key: builtins.str,
+    name: builtins.str,
+    namespace: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__625ce40cdc9428dc7b4030682f9fd7477064844b81b16ff508050cc53299a3ea(
+    *,
+    name: builtins.str,
+    audiences: typing.Optional[typing.Sequence[builtins.str]] = None,
+    namespace: typing.Optional[builtins.str] = None,
 ) -> None:
     """Type checking stubs"""
     pass
@@ -18182,6 +20190,15 @@ def _typecheckingstub__b680ae1b78ef0032f149e40bb4a19c7a0b03d8afb67edc0edde80e855
     """Type checking stubs"""
     pass
 
+def _typecheckingstub__aba5ca874987179bddbe4d806641f3229154c54926702676020b1fa1a62ff876(
+    *,
+    comment: typing.Optional[builtins.str] = None,
+    key_size: typing.Optional[jsii.Number] = None,
+    key_type: typing.Optional[ClusterGeneratorSpecGeneratorSshKeySpecKeyType] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
 def _typecheckingstub__7b156d2563dfcafd7828f40e867dc8dbb62b46dfa7870adff7e1ac851c3b64a1(
     *,
     region: builtins.str,
@@ -18281,6 +20298,7 @@ def _typecheckingstub__02abd566c822847d8f25656374f5c631e294093b6020fa8ec60a874e6
     auth: typing.Optional[typing.Union[ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderAuth, typing.Dict[builtins.str, typing.Any]]] = None,
     ca_bundle: typing.Optional[builtins.str] = None,
     ca_provider: typing.Optional[typing.Union[ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderCaProvider, typing.Dict[builtins.str, typing.Any]]] = None,
+    check_and_set: typing.Optional[typing.Union[ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderCheckAndSet, typing.Dict[builtins.str, typing.Any]]] = None,
     forward_inconsistent: typing.Optional[builtins.bool] = None,
     headers: typing.Optional[typing.Mapping[builtins.str, builtins.str]] = None,
     namespace: typing.Optional[builtins.str] = None,
@@ -18338,6 +20356,7 @@ def _typecheckingstub__cf9b835649610475ffd96ef188f0154ea6898cb01beb95dfa906f1836
 def _typecheckingstub__6a48a6f2044f51d1f9bce54540f955f0f3c0e34ca0c5a81e258fb25258a1812d(
     *,
     client_cert: typing.Optional[typing.Union[ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderAuthCertClientCert, typing.Dict[builtins.str, typing.Any]]] = None,
+    path: typing.Optional[builtins.str] = None,
     secret_ref: typing.Optional[typing.Union[ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderAuthCertSecretRef, typing.Dict[builtins.str, typing.Any]]] = None,
 ) -> None:
     """Type checking stubs"""
@@ -18543,6 +20562,13 @@ def _typecheckingstub__340569b935c53537966a2561c57a24a76cbf9c69dbf7689874dd5ce46
     type: ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderCaProviderType,
     key: typing.Optional[builtins.str] = None,
     namespace: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__fe0c9d6d5560b96e3dd0f6dfdab34a2f761f260c91bbb9da613cc5dd6d2d7325(
+    *,
+    required: typing.Optional[builtins.bool] = None,
 ) -> None:
     """Type checking stubs"""
     pass
@@ -18807,6 +20833,7 @@ def _typecheckingstub__93eb12ae2068134fa04136f7c937cab838ac29d82534e5b5803842066
     *,
     secret_ref: typing.Optional[typing.Union[GcrAccessTokenSpecAuthSecretRef, typing.Dict[builtins.str, typing.Any]]] = None,
     workload_identity: typing.Optional[typing.Union[GcrAccessTokenSpecAuthWorkloadIdentity, typing.Dict[builtins.str, typing.Any]]] = None,
+    workload_identity_federation: typing.Optional[typing.Union[GcrAccessTokenSpecAuthWorkloadIdentityFederation, typing.Dict[builtins.str, typing.Any]]] = None,
 ) -> None:
     """Type checking stubs"""
     pass
@@ -18833,6 +20860,51 @@ def _typecheckingstub__199ea61bce5117046e2f5da4c5a50856e146ebaa2773f338ff7d01e23
     cluster_name: builtins.str,
     service_account_ref: typing.Union[GcrAccessTokenSpecAuthWorkloadIdentityServiceAccountRef, typing.Dict[builtins.str, typing.Any]],
     cluster_project_id: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__b72df953fc01d525595211fee595ae85c7514ad34a23d582f41347363fd3248d(
+    *,
+    audience: typing.Optional[builtins.str] = None,
+    aws_security_credentials: typing.Optional[typing.Union[GcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentials, typing.Dict[builtins.str, typing.Any]]] = None,
+    cred_config: typing.Optional[typing.Union[GcrAccessTokenSpecAuthWorkloadIdentityFederationCredConfig, typing.Dict[builtins.str, typing.Any]]] = None,
+    external_token_endpoint: typing.Optional[builtins.str] = None,
+    service_account_ref: typing.Optional[typing.Union[GcrAccessTokenSpecAuthWorkloadIdentityFederationServiceAccountRef, typing.Dict[builtins.str, typing.Any]]] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__e9e7add81095635a405234976851b1d03246004a08947af1a26d776ccdaf4978(
+    *,
+    aws_credentials_secret_ref: typing.Union[GcrAccessTokenSpecAuthWorkloadIdentityFederationAwsSecurityCredentialsAwsCredentialsSecretRef, typing.Dict[builtins.str, typing.Any]],
+    region: builtins.str,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__ae887f5130079f21c89a12a820c4a01ae9b1840a5dffad50449d0b79a6e78096(
+    *,
+    name: builtins.str,
+    namespace: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__a67526db795e7c54f2a28ed8c4ad785dd640d2611480ad20124a799f5bc694b1(
+    *,
+    key: builtins.str,
+    name: builtins.str,
+    namespace: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__fd64306626805104fdcfe0e2625e9f0419d6860151ba1912a94312c4314a0bc2(
+    *,
+    name: builtins.str,
+    audiences: typing.Optional[typing.Sequence[builtins.str]] = None,
+    namespace: typing.Optional[builtins.str] = None,
 ) -> None:
     """Type checking stubs"""
     pass
@@ -19097,6 +21169,33 @@ def _typecheckingstub__3e1a2c5b1a9946bee470f5e44e7010f914a64be38e1bd6c8360526184
     """Type checking stubs"""
     pass
 
+def _typecheckingstub__3706cf7d3d566a6cf46377e0a0f1e4934c819e3c330d3c8462c3235f2996d4d8(
+    scope: _constructs_77d1e7e8.Construct,
+    id: builtins.str,
+    *,
+    metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+    spec: typing.Optional[typing.Union[SshKeySpec, typing.Dict[builtins.str, typing.Any]]] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__dc3e69f9c465057fa7dec8b92133bd3d917b3f7d57a9ca2e48033da78d936da3(
+    *,
+    metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+    spec: typing.Optional[typing.Union[SshKeySpec, typing.Dict[builtins.str, typing.Any]]] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__d3b36a7ea722110ba1ed55060a7e8413c41e88eda7375d2c52710b6e05924ee6(
+    *,
+    comment: typing.Optional[builtins.str] = None,
+    key_size: typing.Optional[jsii.Number] = None,
+    key_type: typing.Optional[SshKeySpecKeyType] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
 def _typecheckingstub__6d24e2306191a5fd4c09bb6b3eba8a928429a33c1a208b4fa447525d2e6efb8e(
     scope: _constructs_77d1e7e8.Construct,
     id: builtins.str,
@@ -19250,6 +21349,7 @@ def _typecheckingstub__99bb9f6b265462d6cb37ae7c7ac1a897af8d4eca0e046b25280a6a5eb
     auth: typing.Optional[typing.Union[VaultDynamicSecretSpecProviderAuth, typing.Dict[builtins.str, typing.Any]]] = None,
     ca_bundle: typing.Optional[builtins.str] = None,
     ca_provider: typing.Optional[typing.Union[VaultDynamicSecretSpecProviderCaProvider, typing.Dict[builtins.str, typing.Any]]] = None,
+    check_and_set: typing.Optional[typing.Union[VaultDynamicSecretSpecProviderCheckAndSet, typing.Dict[builtins.str, typing.Any]]] = None,
     forward_inconsistent: typing.Optional[builtins.bool] = None,
     headers: typing.Optional[typing.Mapping[builtins.str, builtins.str]] = None,
     namespace: typing.Optional[builtins.str] = None,
@@ -19307,6 +21407,7 @@ def _typecheckingstub__06f75a4d6e7bdddfad29285d9805b199b2095b6b69e37f08c865b2d15
 def _typecheckingstub__397dacbf5d6cbf9d8bfbc50e753f1950aee0b37fec712f2c76630a0668f3e146(
     *,
     client_cert: typing.Optional[typing.Union[VaultDynamicSecretSpecProviderAuthCertClientCert, typing.Dict[builtins.str, typing.Any]]] = None,
+    path: typing.Optional[builtins.str] = None,
     secret_ref: typing.Optional[typing.Union[VaultDynamicSecretSpecProviderAuthCertSecretRef, typing.Dict[builtins.str, typing.Any]]] = None,
 ) -> None:
     """Type checking stubs"""
@@ -19512,6 +21613,13 @@ def _typecheckingstub__47aa9e507cb3a56b1071f68782774cbb97be7b7e78095f1255b6540a5
     type: VaultDynamicSecretSpecProviderCaProviderType,
     key: typing.Optional[builtins.str] = None,
     namespace: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__121c91f04879ba611faf542f33fa575ce3149a93c4640101243a4f983caca8d8(
+    *,
+    required: typing.Optional[builtins.bool] = None,
 ) -> None:
     """Type checking stubs"""
     pass

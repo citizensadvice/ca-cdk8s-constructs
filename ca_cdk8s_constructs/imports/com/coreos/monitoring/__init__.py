@@ -62,7 +62,7 @@ class Probe(
 
         :param scope: the scope in which to define this object.
         :param id: a scope-local name for the object.
-        :param spec: Specification of desired Ingress selection for target discovery by Prometheus.
+        :param spec: spec defines the specification of desired Ingress selection for target discovery by Prometheus.
         :param metadata: 
         '''
         if __debug__:
@@ -85,7 +85,7 @@ class Probe(
 
         This can be used to inline resource manifests inside other objects (e.g. as templates).
 
-        :param spec: Specification of desired Ingress selection for target discovery by Prometheus.
+        :param spec: spec defines the specification of desired Ingress selection for target discovery by Prometheus.
         :param metadata: 
         '''
         props = ProbeProps(spec=spec, metadata=metadata)
@@ -125,7 +125,7 @@ class ProbeProps:
 
         ``Prometheus`` and ``PrometheusAgent`` objects select ``Probe`` objects using label and namespace selectors.
 
-        :param spec: Specification of desired Ingress selection for target discovery by Prometheus.
+        :param spec: spec defines the specification of desired Ingress selection for target discovery by Prometheus.
         :param metadata: 
 
         :schema: Probe
@@ -146,7 +146,7 @@ class ProbeProps:
 
     @builtins.property
     def spec(self) -> "ProbeSpec":
-        '''Specification of desired Ingress selection for target discovery by Prometheus.
+        '''spec defines the specification of desired Ingress selection for target discovery by Prometheus.
 
         :schema: Probe#spec
         '''
@@ -194,6 +194,7 @@ class ProbeProps:
         "native_histogram_bucket_limit": "nativeHistogramBucketLimit",
         "native_histogram_min_bucket_factor": "nativeHistogramMinBucketFactor",
         "oauth2": "oauth2",
+        "params": "params",
         "prober": "prober",
         "sample_limit": "sampleLimit",
         "scrape_class": "scrapeClass",
@@ -225,6 +226,7 @@ class ProbeSpec:
         native_histogram_bucket_limit: typing.Optional[jsii.Number] = None,
         native_histogram_min_bucket_factor: typing.Optional["ProbeSpecNativeHistogramMinBucketFactor"] = None,
         oauth2: typing.Optional[typing.Union["ProbeSpecOauth2", typing.Dict[builtins.str, typing.Any]]] = None,
+        params: typing.Optional[typing.Sequence[typing.Union["ProbeSpecParams", typing.Dict[builtins.str, typing.Any]]]] = None,
         prober: typing.Optional[typing.Union["ProbeSpecProber", typing.Dict[builtins.str, typing.Any]]] = None,
         sample_limit: typing.Optional[jsii.Number] = None,
         scrape_class: typing.Optional[builtins.str] = None,
@@ -235,33 +237,34 @@ class ProbeSpec:
         targets: typing.Optional[typing.Union["ProbeSpecTargets", typing.Dict[builtins.str, typing.Any]]] = None,
         tls_config: typing.Optional[typing.Union["ProbeSpecTlsConfig", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''Specification of desired Ingress selection for target discovery by Prometheus.
+        '''spec defines the specification of desired Ingress selection for target discovery by Prometheus.
 
-        :param authorization: Authorization section for this endpoint.
-        :param basic_auth: BasicAuth allow an endpoint to authenticate over basic authentication. More info: https://prometheus.io/docs/operating/configuration/#endpoint
-        :param bearer_token_secret: Secret to mount to read bearer token for scraping targets. The secret needs to be in the same namespace as the probe and accessible by the Prometheus Operator.
-        :param convert_classic_histograms_to_nhcb: Whether to convert all scraped classic histograms into a native histogram with custom buckets. It requires Prometheus >= v3.0.0.
-        :param fallback_scrape_protocol: The protocol to use if a scrape returns blank, unparseable, or otherwise invalid Content-Type. It requires Prometheus >= v3.0.0.
-        :param interval: Interval at which targets are probed using the configured prober. If not specified Prometheus' global scrape interval is used.
-        :param job_name: The job name assigned to scraped metrics by default.
-        :param keep_dropped_targets: Per-scrape limit on the number of targets dropped by relabeling that will be kept in memory. 0 means no limit. It requires Prometheus >= v2.47.0.
-        :param label_limit: Per-scrape limit on number of labels that will be accepted for a sample. Only valid in Prometheus versions 2.27.0 and newer.
-        :param label_name_length_limit: Per-scrape limit on length of labels name that will be accepted for a sample. Only valid in Prometheus versions 2.27.0 and newer.
-        :param label_value_length_limit: Per-scrape limit on length of labels value that will be accepted for a sample. Only valid in Prometheus versions 2.27.0 and newer.
-        :param metric_relabelings: MetricRelabelConfigs to apply to samples before ingestion.
-        :param module: The module to use for probing specifying how to probe the target. Example module configuring in the blackbox exporter: https://github.com/prometheus/blackbox_exporter/blob/master/example.yml
-        :param native_histogram_bucket_limit: If there are more than this many buckets in a native histogram, buckets will be merged to stay within the limit. It requires Prometheus >= v2.45.0.
-        :param native_histogram_min_bucket_factor: If the growth factor of one bucket to the next is smaller than this, buckets will be merged to increase the factor sufficiently. It requires Prometheus >= v2.50.0.
-        :param oauth2: OAuth2 for the URL. Only valid in Prometheus versions 2.27.0 and newer.
-        :param prober: Specification for the prober to use for probing targets. The prober.URL parameter is required. Targets cannot be probed if left empty.
-        :param sample_limit: SampleLimit defines per-scrape limit on number of scraped samples that will be accepted.
-        :param scrape_class: The scrape class to apply.
-        :param scrape_classic_histograms: Whether to scrape a classic histogram that is also exposed as a native histogram. It requires Prometheus >= v2.45.0.
-        :param scrape_protocols: ``scrapeProtocols`` defines the protocols to negotiate during a scrape. It tells clients the protocols supported by Prometheus in order of preference (from most to least preferred). If unset, Prometheus uses its default value. It requires Prometheus >= v2.49.0.
-        :param scrape_timeout: Timeout for scraping metrics from the Prometheus exporter. If not specified, the Prometheus global scrape timeout is used. The value cannot be greater than the scrape interval otherwise the operator will reject the resource.
-        :param target_limit: TargetLimit defines a limit on the number of scraped targets that will be accepted.
-        :param targets: Targets defines a set of static or dynamically discovered targets to probe.
-        :param tls_config: TLS configuration to use when scraping the endpoint.
+        :param authorization: authorization section for this endpoint.
+        :param basic_auth: basicAuth allow an endpoint to authenticate over basic authentication. More info: https://prometheus.io/docs/operating/configuration/#endpoint
+        :param bearer_token_secret: bearerTokenSecret defines the secret to mount to read bearer token for scraping targets. The secret needs to be in the same namespace as the probe and accessible by the Prometheus Operator.
+        :param convert_classic_histograms_to_nhcb: convertClassicHistogramsToNHCB defines whether to convert all scraped classic histograms into a native histogram with custom buckets. It requires Prometheus >= v3.0.0.
+        :param fallback_scrape_protocol: fallbackScrapeProtocol defines the protocol to use if a scrape returns blank, unparseable, or otherwise invalid Content-Type. It requires Prometheus >= v3.0.0.
+        :param interval: interval at which targets are probed using the configured prober. If not specified Prometheus' global scrape interval is used.
+        :param job_name: jobName assigned to scraped metrics by default.
+        :param keep_dropped_targets: keepDroppedTargets defines the per-scrape limit on the number of targets dropped by relabeling that will be kept in memory. 0 means no limit. It requires Prometheus >= v2.47.0.
+        :param label_limit: labelLimit defines the per-scrape limit on number of labels that will be accepted for a sample. Only valid in Prometheus versions 2.27.0 and newer.
+        :param label_name_length_limit: labelNameLengthLimit defines the per-scrape limit on length of labels name that will be accepted for a sample. Only valid in Prometheus versions 2.27.0 and newer.
+        :param label_value_length_limit: labelValueLengthLimit defines the per-scrape limit on length of labels value that will be accepted for a sample. Only valid in Prometheus versions 2.27.0 and newer.
+        :param metric_relabelings: metricRelabelings defines the RelabelConfig to apply to samples before ingestion.
+        :param module: module to use for probing specifying how to probe the target. Example module configuring in the blackbox exporter: https://github.com/prometheus/blackbox_exporter/blob/master/example.yml
+        :param native_histogram_bucket_limit: nativeHistogramBucketLimit defines ff there are more than this many buckets in a native histogram, buckets will be merged to stay within the limit. It requires Prometheus >= v2.45.0.
+        :param native_histogram_min_bucket_factor: nativeHistogramMinBucketFactor defines if the growth factor of one bucket to the next is smaller than this, buckets will be merged to increase the factor sufficiently. It requires Prometheus >= v2.50.0.
+        :param oauth2: oauth2 for the URL. Only valid in Prometheus versions 2.27.0 and newer.
+        :param params: params defines the list of HTTP query parameters for the scrape. Please note that the ``.spec.module`` field takes precedence over the ``module`` parameter from this list when both are defined. The module name must be added using Module under ProbeSpec.
+        :param prober: prober defines the specification for the prober to use for probing targets. The prober.URL parameter is required. Targets cannot be probed if left empty.
+        :param sample_limit: sampleLimit defines per-scrape limit on number of scraped samples that will be accepted.
+        :param scrape_class: scrapeClass defines the scrape class to apply.
+        :param scrape_classic_histograms: scrapeClassicHistograms defines whether to scrape a classic histogram that is also exposed as a native histogram. It requires Prometheus >= v2.45.0. Notice: ``scrapeClassicHistograms`` corresponds to the ``always_scrape_classic_histograms`` field in the Prometheus configuration.
+        :param scrape_protocols: scrapeProtocols defines the protocols to negotiate during a scrape. It tells clients the protocols supported by Prometheus in order of preference (from most to least preferred). If unset, Prometheus uses its default value. It requires Prometheus >= v2.49.0.
+        :param scrape_timeout: scrapeTimeout defines the timeout for scraping metrics from the Prometheus exporter. If not specified, the Prometheus global scrape timeout is used. The value cannot be greater than the scrape interval otherwise the operator will reject the resource.
+        :param target_limit: targetLimit defines a limit on the number of scraped targets that will be accepted.
+        :param targets: targets defines a set of static or dynamically discovered targets to probe.
+        :param tls_config: tlsConfig defines the TLS configuration to use when scraping the endpoint.
 
         :schema: ProbeSpec
         '''
@@ -297,6 +300,7 @@ class ProbeSpec:
             check_type(argname="argument native_histogram_bucket_limit", value=native_histogram_bucket_limit, expected_type=type_hints["native_histogram_bucket_limit"])
             check_type(argname="argument native_histogram_min_bucket_factor", value=native_histogram_min_bucket_factor, expected_type=type_hints["native_histogram_min_bucket_factor"])
             check_type(argname="argument oauth2", value=oauth2, expected_type=type_hints["oauth2"])
+            check_type(argname="argument params", value=params, expected_type=type_hints["params"])
             check_type(argname="argument prober", value=prober, expected_type=type_hints["prober"])
             check_type(argname="argument sample_limit", value=sample_limit, expected_type=type_hints["sample_limit"])
             check_type(argname="argument scrape_class", value=scrape_class, expected_type=type_hints["scrape_class"])
@@ -339,6 +343,8 @@ class ProbeSpec:
             self._values["native_histogram_min_bucket_factor"] = native_histogram_min_bucket_factor
         if oauth2 is not None:
             self._values["oauth2"] = oauth2
+        if params is not None:
+            self._values["params"] = params
         if prober is not None:
             self._values["prober"] = prober
         if sample_limit is not None:
@@ -360,7 +366,7 @@ class ProbeSpec:
 
     @builtins.property
     def authorization(self) -> typing.Optional["ProbeSpecAuthorization"]:
-        '''Authorization section for this endpoint.
+        '''authorization section for this endpoint.
 
         :schema: ProbeSpec#authorization
         '''
@@ -369,7 +375,7 @@ class ProbeSpec:
 
     @builtins.property
     def basic_auth(self) -> typing.Optional["ProbeSpecBasicAuth"]:
-        '''BasicAuth allow an endpoint to authenticate over basic authentication.
+        '''basicAuth allow an endpoint to authenticate over basic authentication.
 
         More info: https://prometheus.io/docs/operating/configuration/#endpoint
 
@@ -380,7 +386,7 @@ class ProbeSpec:
 
     @builtins.property
     def bearer_token_secret(self) -> typing.Optional["ProbeSpecBearerTokenSecret"]:
-        '''Secret to mount to read bearer token for scraping targets.
+        '''bearerTokenSecret defines the secret to mount to read bearer token for scraping targets.
 
         The secret
         needs to be in the same namespace as the probe and accessible by
@@ -393,7 +399,7 @@ class ProbeSpec:
 
     @builtins.property
     def convert_classic_histograms_to_nhcb(self) -> typing.Optional[builtins.bool]:
-        '''Whether to convert all scraped classic histograms into a native histogram with custom buckets.
+        '''convertClassicHistogramsToNHCB defines whether to convert all scraped classic histograms into a native histogram with custom buckets.
 
         It requires Prometheus >= v3.0.0.
 
@@ -406,7 +412,7 @@ class ProbeSpec:
     def fallback_scrape_protocol(
         self,
     ) -> typing.Optional["ProbeSpecFallbackScrapeProtocol"]:
-        '''The protocol to use if a scrape returns blank, unparseable, or otherwise invalid Content-Type.
+        '''fallbackScrapeProtocol defines the protocol to use if a scrape returns blank, unparseable, or otherwise invalid Content-Type.
 
         It requires Prometheus >= v3.0.0.
 
@@ -417,7 +423,7 @@ class ProbeSpec:
 
     @builtins.property
     def interval(self) -> typing.Optional[builtins.str]:
-        '''Interval at which targets are probed using the configured prober.
+        '''interval at which targets are probed using the configured prober.
 
         If not specified Prometheus' global scrape interval is used.
 
@@ -428,7 +434,7 @@ class ProbeSpec:
 
     @builtins.property
     def job_name(self) -> typing.Optional[builtins.str]:
-        '''The job name assigned to scraped metrics by default.
+        '''jobName assigned to scraped metrics by default.
 
         :schema: ProbeSpec#jobName
         '''
@@ -437,7 +443,9 @@ class ProbeSpec:
 
     @builtins.property
     def keep_dropped_targets(self) -> typing.Optional[jsii.Number]:
-        '''Per-scrape limit on the number of targets dropped by relabeling that will be kept in memory. 0 means no limit.
+        '''keepDroppedTargets defines the per-scrape limit on the number of targets dropped by relabeling that will be kept in memory.
+
+        0 means no limit.
 
         It requires Prometheus >= v2.47.0.
 
@@ -448,7 +456,7 @@ class ProbeSpec:
 
     @builtins.property
     def label_limit(self) -> typing.Optional[jsii.Number]:
-        '''Per-scrape limit on number of labels that will be accepted for a sample.
+        '''labelLimit defines the per-scrape limit on number of labels that will be accepted for a sample.
 
         Only valid in Prometheus versions 2.27.0 and newer.
 
@@ -459,7 +467,7 @@ class ProbeSpec:
 
     @builtins.property
     def label_name_length_limit(self) -> typing.Optional[jsii.Number]:
-        '''Per-scrape limit on length of labels name that will be accepted for a sample.
+        '''labelNameLengthLimit defines the per-scrape limit on length of labels name that will be accepted for a sample.
 
         Only valid in Prometheus versions 2.27.0 and newer.
 
@@ -470,7 +478,7 @@ class ProbeSpec:
 
     @builtins.property
     def label_value_length_limit(self) -> typing.Optional[jsii.Number]:
-        '''Per-scrape limit on length of labels value that will be accepted for a sample.
+        '''labelValueLengthLimit defines the per-scrape limit on length of labels value that will be accepted for a sample.
 
         Only valid in Prometheus versions 2.27.0 and newer.
 
@@ -483,7 +491,7 @@ class ProbeSpec:
     def metric_relabelings(
         self,
     ) -> typing.Optional[typing.List["ProbeSpecMetricRelabelings"]]:
-        '''MetricRelabelConfigs to apply to samples before ingestion.
+        '''metricRelabelings defines the RelabelConfig to apply to samples before ingestion.
 
         :schema: ProbeSpec#metricRelabelings
         '''
@@ -492,7 +500,7 @@ class ProbeSpec:
 
     @builtins.property
     def module(self) -> typing.Optional[builtins.str]:
-        '''The module to use for probing specifying how to probe the target.
+        '''module to use for probing specifying how to probe the target.
 
         Example module configuring in the blackbox exporter:
         https://github.com/prometheus/blackbox_exporter/blob/master/example.yml
@@ -504,7 +512,7 @@ class ProbeSpec:
 
     @builtins.property
     def native_histogram_bucket_limit(self) -> typing.Optional[jsii.Number]:
-        '''If there are more than this many buckets in a native histogram, buckets will be merged to stay within the limit.
+        '''nativeHistogramBucketLimit defines ff there are more than this many buckets in a native histogram, buckets will be merged to stay within the limit.
 
         It requires Prometheus >= v2.45.0.
 
@@ -517,7 +525,7 @@ class ProbeSpec:
     def native_histogram_min_bucket_factor(
         self,
     ) -> typing.Optional["ProbeSpecNativeHistogramMinBucketFactor"]:
-        '''If the growth factor of one bucket to the next is smaller than this, buckets will be merged to increase the factor sufficiently.
+        '''nativeHistogramMinBucketFactor defines if the growth factor of one bucket to the next is smaller than this, buckets will be merged to increase the factor sufficiently.
 
         It requires Prometheus >= v2.50.0.
 
@@ -528,7 +536,7 @@ class ProbeSpec:
 
     @builtins.property
     def oauth2(self) -> typing.Optional["ProbeSpecOauth2"]:
-        '''OAuth2 for the URL.
+        '''oauth2 for the URL.
 
         Only valid in Prometheus versions 2.27.0 and newer.
 
@@ -538,8 +546,20 @@ class ProbeSpec:
         return typing.cast(typing.Optional["ProbeSpecOauth2"], result)
 
     @builtins.property
+    def params(self) -> typing.Optional[typing.List["ProbeSpecParams"]]:
+        '''params defines the list of HTTP query parameters for the scrape.
+
+        Please note that the ``.spec.module`` field takes precedence over the ``module`` parameter from this list when both are defined.
+        The module name must be added using Module under ProbeSpec.
+
+        :schema: ProbeSpec#params
+        '''
+        result = self._values.get("params")
+        return typing.cast(typing.Optional[typing.List["ProbeSpecParams"]], result)
+
+    @builtins.property
     def prober(self) -> typing.Optional["ProbeSpecProber"]:
-        '''Specification for the prober to use for probing targets.
+        '''prober defines the specification for the prober to use for probing targets.
 
         The prober.URL parameter is required. Targets cannot be probed if left empty.
 
@@ -550,7 +570,7 @@ class ProbeSpec:
 
     @builtins.property
     def sample_limit(self) -> typing.Optional[jsii.Number]:
-        '''SampleLimit defines per-scrape limit on number of scraped samples that will be accepted.
+        '''sampleLimit defines per-scrape limit on number of scraped samples that will be accepted.
 
         :schema: ProbeSpec#sampleLimit
         '''
@@ -559,7 +579,7 @@ class ProbeSpec:
 
     @builtins.property
     def scrape_class(self) -> typing.Optional[builtins.str]:
-        '''The scrape class to apply.
+        '''scrapeClass defines the scrape class to apply.
 
         :schema: ProbeSpec#scrapeClass
         '''
@@ -568,9 +588,11 @@ class ProbeSpec:
 
     @builtins.property
     def scrape_classic_histograms(self) -> typing.Optional[builtins.bool]:
-        '''Whether to scrape a classic histogram that is also exposed as a native histogram.
+        '''scrapeClassicHistograms defines whether to scrape a classic histogram that is also exposed as a native histogram.
 
         It requires Prometheus >= v2.45.0.
+
+        Notice: ``scrapeClassicHistograms`` corresponds to the ``always_scrape_classic_histograms`` field in the Prometheus configuration.
 
         :schema: ProbeSpec#scrapeClassicHistograms
         '''
@@ -581,7 +603,7 @@ class ProbeSpec:
     def scrape_protocols(
         self,
     ) -> typing.Optional[typing.List["ProbeSpecScrapeProtocols"]]:
-        '''``scrapeProtocols`` defines the protocols to negotiate during a scrape.
+        '''scrapeProtocols defines the protocols to negotiate during a scrape.
 
         It tells clients the
         protocols supported by Prometheus in order of preference (from most to least preferred).
@@ -597,7 +619,7 @@ class ProbeSpec:
 
     @builtins.property
     def scrape_timeout(self) -> typing.Optional[builtins.str]:
-        '''Timeout for scraping metrics from the Prometheus exporter.
+        '''scrapeTimeout defines the timeout for scraping metrics from the Prometheus exporter.
 
         If not specified, the Prometheus global scrape timeout is used.
         The value cannot be greater than the scrape interval otherwise the operator will reject the resource.
@@ -609,7 +631,7 @@ class ProbeSpec:
 
     @builtins.property
     def target_limit(self) -> typing.Optional[jsii.Number]:
-        '''TargetLimit defines a limit on the number of scraped targets that will be accepted.
+        '''targetLimit defines a limit on the number of scraped targets that will be accepted.
 
         :schema: ProbeSpec#targetLimit
         '''
@@ -618,7 +640,7 @@ class ProbeSpec:
 
     @builtins.property
     def targets(self) -> typing.Optional["ProbeSpecTargets"]:
-        '''Targets defines a set of static or dynamically discovered targets to probe.
+        '''targets defines a set of static or dynamically discovered targets to probe.
 
         :schema: ProbeSpec#targets
         '''
@@ -627,7 +649,7 @@ class ProbeSpec:
 
     @builtins.property
     def tls_config(self) -> typing.Optional["ProbeSpecTlsConfig"]:
-        '''TLS configuration to use when scraping the endpoint.
+        '''tlsConfig defines the TLS configuration to use when scraping the endpoint.
 
         :schema: ProbeSpec#tlsConfig
         '''
@@ -658,10 +680,10 @@ class ProbeSpecAuthorization:
         credentials: typing.Optional[typing.Union["ProbeSpecAuthorizationCredentials", typing.Dict[builtins.str, typing.Any]]] = None,
         type: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''Authorization section for this endpoint.
+        '''authorization section for this endpoint.
 
-        :param credentials: Selects a key of a Secret in the namespace that contains the credentials for authentication.
-        :param type: Defines the authentication type. The value is case-insensitive. "Basic" is not a supported value. Default: "Bearer"
+        :param credentials: credentials defines a key of a Secret in the namespace that contains the credentials for authentication.
+        :param type: type defines the authentication type. The value is case-insensitive. "Basic" is not a supported value. Default: "Bearer"
 
         :schema: ProbeSpecAuthorization
         '''
@@ -679,7 +701,7 @@ class ProbeSpecAuthorization:
 
     @builtins.property
     def credentials(self) -> typing.Optional["ProbeSpecAuthorizationCredentials"]:
-        '''Selects a key of a Secret in the namespace that contains the credentials for authentication.
+        '''credentials defines a key of a Secret in the namespace that contains the credentials for authentication.
 
         :schema: ProbeSpecAuthorization#credentials
         '''
@@ -688,7 +710,7 @@ class ProbeSpecAuthorization:
 
     @builtins.property
     def type(self) -> typing.Optional[builtins.str]:
-        '''Defines the authentication type. The value is case-insensitive.
+        '''type defines the authentication type. The value is case-insensitive.
 
         "Basic" is not a supported value.
 
@@ -724,7 +746,7 @@ class ProbeSpecAuthorizationCredentials:
         name: typing.Optional[builtins.str] = None,
         optional: typing.Optional[builtins.bool] = None,
     ) -> None:
-        '''Selects a key of a Secret in the namespace that contains the credentials for authentication.
+        '''credentials defines a key of a Secret in the namespace that contains the credentials for authentication.
 
         :param key: The key of the secret to select from. Must be a valid secret key.
         :param name: Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
@@ -804,12 +826,12 @@ class ProbeSpecBasicAuth:
         password: typing.Optional[typing.Union["ProbeSpecBasicAuthPassword", typing.Dict[builtins.str, typing.Any]]] = None,
         username: typing.Optional[typing.Union["ProbeSpecBasicAuthUsername", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''BasicAuth allow an endpoint to authenticate over basic authentication.
+        '''basicAuth allow an endpoint to authenticate over basic authentication.
 
         More info: https://prometheus.io/docs/operating/configuration/#endpoint
 
-        :param password: ``password`` specifies a key of a Secret containing the password for authentication.
-        :param username: ``username`` specifies a key of a Secret containing the username for authentication.
+        :param password: password defines a key of a Secret containing the password for authentication.
+        :param username: username defines a key of a Secret containing the username for authentication.
 
         :schema: ProbeSpecBasicAuth
         '''
@@ -829,7 +851,7 @@ class ProbeSpecBasicAuth:
 
     @builtins.property
     def password(self) -> typing.Optional["ProbeSpecBasicAuthPassword"]:
-        '''``password`` specifies a key of a Secret containing the password for authentication.
+        '''password defines a key of a Secret containing the password for authentication.
 
         :schema: ProbeSpecBasicAuth#password
         '''
@@ -838,7 +860,7 @@ class ProbeSpecBasicAuth:
 
     @builtins.property
     def username(self) -> typing.Optional["ProbeSpecBasicAuthUsername"]:
-        '''``username`` specifies a key of a Secret containing the username for authentication.
+        '''username defines a key of a Secret containing the username for authentication.
 
         :schema: ProbeSpecBasicAuth#username
         '''
@@ -870,7 +892,7 @@ class ProbeSpecBasicAuthPassword:
         name: typing.Optional[builtins.str] = None,
         optional: typing.Optional[builtins.bool] = None,
     ) -> None:
-        '''``password`` specifies a key of a Secret containing the password for authentication.
+        '''password defines a key of a Secret containing the password for authentication.
 
         :param key: The key of the secret to select from. Must be a valid secret key.
         :param name: Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
@@ -951,7 +973,7 @@ class ProbeSpecBasicAuthUsername:
         name: typing.Optional[builtins.str] = None,
         optional: typing.Optional[builtins.bool] = None,
     ) -> None:
-        '''``username`` specifies a key of a Secret containing the username for authentication.
+        '''username defines a key of a Secret containing the username for authentication.
 
         :param key: The key of the secret to select from. Must be a valid secret key.
         :param name: Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
@@ -1032,7 +1054,7 @@ class ProbeSpecBearerTokenSecret:
         name: typing.Optional[builtins.str] = None,
         optional: typing.Optional[builtins.bool] = None,
     ) -> None:
-        '''Secret to mount to read bearer token for scraping targets.
+        '''bearerTokenSecret defines the secret to mount to read bearer token for scraping targets.
 
         The secret
         needs to be in the same namespace as the probe and accessible by
@@ -1106,7 +1128,7 @@ class ProbeSpecBearerTokenSecret:
 
 @jsii.enum(jsii_type="comcoreosmonitoring.ProbeSpecFallbackScrapeProtocol")
 class ProbeSpecFallbackScrapeProtocol(enum.Enum):
-    '''The protocol to use if a scrape returns blank, unparseable, or otherwise invalid Content-Type.
+    '''fallbackScrapeProtocol defines the protocol to use if a scrape returns blank, unparseable, or otherwise invalid Content-Type.
 
     It requires Prometheus >= v3.0.0.
 
@@ -1154,13 +1176,13 @@ class ProbeSpecMetricRelabelings:
 
         More info: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config
 
-        :param action: Action to perform based on the regex matching. ``Uppercase`` and ``Lowercase`` actions require Prometheus >= v2.36.0. ``DropEqual`` and ``KeepEqual`` actions require Prometheus >= v2.41.0. Default: "Replace"
-        :param modulus: Modulus to take of the hash of the source label values. Only applicable when the action is ``HashMod``.
-        :param regex: Regular expression against which the extracted value is matched.
-        :param replacement: Replacement value against which a Replace action is performed if the regular expression matches. Regex capture groups are available.
-        :param separator: Separator is the string between concatenated SourceLabels.
-        :param source_labels: The source labels select values from existing labels. Their content is concatenated using the configured Separator and matched against the configured regular expression.
-        :param target_label: Label to which the resulting string is written in a replacement. It is mandatory for ``Replace``, ``HashMod``, ``Lowercase``, ``Uppercase``, ``KeepEqual`` and ``DropEqual`` actions. Regex capture groups are available.
+        :param action: action to perform based on the regex matching. ``Uppercase`` and ``Lowercase`` actions require Prometheus >= v2.36.0. ``DropEqual`` and ``KeepEqual`` actions require Prometheus >= v2.41.0. Default: "Replace"
+        :param modulus: modulus to take of the hash of the source label values. Only applicable when the action is ``HashMod``.
+        :param regex: regex defines the regular expression against which the extracted value is matched.
+        :param replacement: replacement value against which a Replace action is performed if the regular expression matches. Regex capture groups are available.
+        :param separator: separator defines the string between concatenated SourceLabels.
+        :param source_labels: sourceLabels defines the source labels select values from existing labels. Their content is concatenated using the configured Separator and matched against the configured regular expression.
+        :param target_label: targetLabel defines the label to which the resulting string is written in a replacement. It is mandatory for ``Replace``, ``HashMod``, ``Lowercase``, ``Uppercase``, ``KeepEqual`` and ``DropEqual`` actions. Regex capture groups are available.
 
         :schema: ProbeSpecMetricRelabelings
         '''
@@ -1191,7 +1213,7 @@ class ProbeSpecMetricRelabelings:
 
     @builtins.property
     def action(self) -> typing.Optional["ProbeSpecMetricRelabelingsAction"]:
-        '''Action to perform based on the regex matching.
+        '''action to perform based on the regex matching.
 
         ``Uppercase`` and ``Lowercase`` actions require Prometheus >= v2.36.0.
         ``DropEqual`` and ``KeepEqual`` actions require Prometheus >= v2.41.0.
@@ -1205,7 +1227,7 @@ class ProbeSpecMetricRelabelings:
 
     @builtins.property
     def modulus(self) -> typing.Optional[jsii.Number]:
-        '''Modulus to take of the hash of the source label values.
+        '''modulus to take of the hash of the source label values.
 
         Only applicable when the action is ``HashMod``.
 
@@ -1216,7 +1238,7 @@ class ProbeSpecMetricRelabelings:
 
     @builtins.property
     def regex(self) -> typing.Optional[builtins.str]:
-        '''Regular expression against which the extracted value is matched.
+        '''regex defines the regular expression against which the extracted value is matched.
 
         :schema: ProbeSpecMetricRelabelings#regex
         '''
@@ -1225,7 +1247,7 @@ class ProbeSpecMetricRelabelings:
 
     @builtins.property
     def replacement(self) -> typing.Optional[builtins.str]:
-        '''Replacement value against which a Replace action is performed if the regular expression matches.
+        '''replacement value against which a Replace action is performed if the regular expression matches.
 
         Regex capture groups are available.
 
@@ -1236,7 +1258,7 @@ class ProbeSpecMetricRelabelings:
 
     @builtins.property
     def separator(self) -> typing.Optional[builtins.str]:
-        '''Separator is the string between concatenated SourceLabels.
+        '''separator defines the string between concatenated SourceLabels.
 
         :schema: ProbeSpecMetricRelabelings#separator
         '''
@@ -1245,7 +1267,7 @@ class ProbeSpecMetricRelabelings:
 
     @builtins.property
     def source_labels(self) -> typing.Optional[typing.List[builtins.str]]:
-        '''The source labels select values from existing labels.
+        '''sourceLabels defines the source labels select values from existing labels.
 
         Their content is
         concatenated using the configured Separator and matched against the
@@ -1258,7 +1280,7 @@ class ProbeSpecMetricRelabelings:
 
     @builtins.property
     def target_label(self) -> typing.Optional[builtins.str]:
-        '''Label to which the resulting string is written in a replacement.
+        '''targetLabel defines the label to which the resulting string is written in a replacement.
 
         It is mandatory for ``Replace``, ``HashMod``, ``Lowercase``, ``Uppercase``,
         ``KeepEqual`` and ``DropEqual`` actions.
@@ -1284,7 +1306,7 @@ class ProbeSpecMetricRelabelings:
 
 @jsii.enum(jsii_type="comcoreosmonitoring.ProbeSpecMetricRelabelingsAction")
 class ProbeSpecMetricRelabelingsAction(enum.Enum):
-    '''Action to perform based on the regex matching.
+    '''action to perform based on the regex matching.
 
     ``Uppercase`` and ``Lowercase`` actions require Prometheus >= v2.36.0.
     ``DropEqual`` and ``KeepEqual`` actions require Prometheus >= v2.41.0.
@@ -1322,7 +1344,7 @@ class ProbeSpecNativeHistogramMinBucketFactor(
     metaclass=jsii.JSIIMeta,
     jsii_type="comcoreosmonitoring.ProbeSpecNativeHistogramMinBucketFactor",
 ):
-    '''If the growth factor of one bucket to the next is smaller than this, buckets will be merged to increase the factor sufficiently.
+    '''nativeHistogramMinBucketFactor defines if the growth factor of one bucket to the next is smaller than this, buckets will be merged to increase the factor sufficiently.
 
     It requires Prometheus >= v2.50.0.
 
@@ -1394,20 +1416,20 @@ class ProbeSpecOauth2:
         scopes: typing.Optional[typing.Sequence[builtins.str]] = None,
         tls_config: typing.Optional[typing.Union["ProbeSpecOauth2TlsConfig", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''OAuth2 for the URL.
+        '''oauth2 for the URL.
 
         Only valid in Prometheus versions 2.27.0 and newer.
 
-        :param client_id: ``clientId`` specifies a key of a Secret or ConfigMap containing the OAuth2 client's ID.
-        :param client_secret: ``clientSecret`` specifies a key of a Secret containing the OAuth2 client's secret.
-        :param token_url: ``tokenURL`` configures the URL to fetch the token from.
-        :param endpoint_params: ``endpointParams`` configures the HTTP parameters to append to the token URL.
-        :param no_proxy: ``noProxy`` is a comma-separated string that can contain IPs, CIDR notation, domain names that should be excluded from proxying. IP and domain names can contain port numbers. It requires Prometheus >= v2.43.0, Alertmanager >= v0.25.0 or Thanos >= v0.32.0.
-        :param proxy_connect_header: ProxyConnectHeader optionally specifies headers to send to proxies during CONNECT requests. It requires Prometheus >= v2.43.0, Alertmanager >= v0.25.0 or Thanos >= v0.32.0.
-        :param proxy_from_environment: Whether to use the proxy configuration defined by environment variables (HTTP_PROXY, HTTPS_PROXY, and NO_PROXY). It requires Prometheus >= v2.43.0, Alertmanager >= v0.25.0 or Thanos >= v0.32.0.
-        :param proxy_url: ``proxyURL`` defines the HTTP proxy server to use.
-        :param scopes: ``scopes`` defines the OAuth2 scopes used for the token request.
-        :param tls_config: TLS configuration to use when connecting to the OAuth2 server. It requires Prometheus >= v2.43.0.
+        :param client_id: clientId defines a key of a Secret or ConfigMap containing the OAuth2 client's ID.
+        :param client_secret: clientSecret defines a key of a Secret containing the OAuth2 client's secret.
+        :param token_url: tokenUrl defines the URL to fetch the token from.
+        :param endpoint_params: endpointParams configures the HTTP parameters to append to the token URL.
+        :param no_proxy: noProxy defines a comma-separated string that can contain IPs, CIDR notation, domain names that should be excluded from proxying. IP and domain names can contain port numbers. It requires Prometheus >= v2.43.0, Alertmanager >= v0.25.0 or Thanos >= v0.32.0.
+        :param proxy_connect_header: proxyConnectHeader optionally specifies headers to send to proxies during CONNECT requests. It requires Prometheus >= v2.43.0, Alertmanager >= v0.25.0 or Thanos >= v0.32.0.
+        :param proxy_from_environment: proxyFromEnvironment defines whether to use the proxy configuration defined by environment variables (HTTP_PROXY, HTTPS_PROXY, and NO_PROXY). It requires Prometheus >= v2.43.0, Alertmanager >= v0.25.0 or Thanos >= v0.32.0.
+        :param proxy_url: proxyUrl defines the HTTP proxy server to use.
+        :param scopes: scopes defines the OAuth2 scopes used for the token request.
+        :param tls_config: tlsConfig defines the TLS configuration to use when connecting to the OAuth2 server. It requires Prometheus >= v2.43.0.
 
         :schema: ProbeSpecOauth2
         '''
@@ -1451,7 +1473,7 @@ class ProbeSpecOauth2:
 
     @builtins.property
     def client_id(self) -> "ProbeSpecOauth2ClientId":
-        '''``clientId`` specifies a key of a Secret or ConfigMap containing the OAuth2 client's ID.
+        '''clientId defines a key of a Secret or ConfigMap containing the OAuth2 client's ID.
 
         :schema: ProbeSpecOauth2#clientId
         '''
@@ -1461,7 +1483,7 @@ class ProbeSpecOauth2:
 
     @builtins.property
     def client_secret(self) -> "ProbeSpecOauth2ClientSecret":
-        '''``clientSecret`` specifies a key of a Secret containing the OAuth2 client's secret.
+        '''clientSecret defines a key of a Secret containing the OAuth2 client's secret.
 
         :schema: ProbeSpecOauth2#clientSecret
         '''
@@ -1471,7 +1493,7 @@ class ProbeSpecOauth2:
 
     @builtins.property
     def token_url(self) -> builtins.str:
-        '''``tokenURL`` configures the URL to fetch the token from.
+        '''tokenUrl defines the URL to fetch the token from.
 
         :schema: ProbeSpecOauth2#tokenUrl
         '''
@@ -1483,7 +1505,7 @@ class ProbeSpecOauth2:
     def endpoint_params(
         self,
     ) -> typing.Optional[typing.Mapping[builtins.str, builtins.str]]:
-        '''``endpointParams`` configures the HTTP parameters to append to the token URL.
+        '''endpointParams configures the HTTP parameters to append to the token URL.
 
         :schema: ProbeSpecOauth2#endpointParams
         '''
@@ -1492,7 +1514,7 @@ class ProbeSpecOauth2:
 
     @builtins.property
     def no_proxy(self) -> typing.Optional[builtins.str]:
-        '''``noProxy`` is a comma-separated string that can contain IPs, CIDR notation, domain names that should be excluded from proxying.
+        '''noProxy defines a comma-separated string that can contain IPs, CIDR notation, domain names that should be excluded from proxying.
 
         IP and domain names can
         contain port numbers.
@@ -1508,7 +1530,7 @@ class ProbeSpecOauth2:
     def proxy_connect_header(
         self,
     ) -> typing.Optional[typing.Mapping[builtins.str, typing.List["ProbeSpecOauth2ProxyConnectHeader"]]]:
-        '''ProxyConnectHeader optionally specifies headers to send to proxies during CONNECT requests.
+        '''proxyConnectHeader optionally specifies headers to send to proxies during CONNECT requests.
 
         It requires Prometheus >= v2.43.0, Alertmanager >= v0.25.0 or Thanos >= v0.32.0.
 
@@ -1519,7 +1541,7 @@ class ProbeSpecOauth2:
 
     @builtins.property
     def proxy_from_environment(self) -> typing.Optional[builtins.bool]:
-        '''Whether to use the proxy configuration defined by environment variables (HTTP_PROXY, HTTPS_PROXY, and NO_PROXY).
+        '''proxyFromEnvironment defines whether to use the proxy configuration defined by environment variables (HTTP_PROXY, HTTPS_PROXY, and NO_PROXY).
 
         It requires Prometheus >= v2.43.0, Alertmanager >= v0.25.0 or Thanos >= v0.32.0.
 
@@ -1530,7 +1552,7 @@ class ProbeSpecOauth2:
 
     @builtins.property
     def proxy_url(self) -> typing.Optional[builtins.str]:
-        '''``proxyURL`` defines the HTTP proxy server to use.
+        '''proxyUrl defines the HTTP proxy server to use.
 
         :schema: ProbeSpecOauth2#proxyUrl
         '''
@@ -1539,7 +1561,7 @@ class ProbeSpecOauth2:
 
     @builtins.property
     def scopes(self) -> typing.Optional[typing.List[builtins.str]]:
-        '''``scopes`` defines the OAuth2 scopes used for the token request.
+        '''scopes defines the OAuth2 scopes used for the token request.
 
         :schema: ProbeSpecOauth2#scopes
         '''
@@ -1548,7 +1570,7 @@ class ProbeSpecOauth2:
 
     @builtins.property
     def tls_config(self) -> typing.Optional["ProbeSpecOauth2TlsConfig"]:
-        '''TLS configuration to use when connecting to the OAuth2 server.
+        '''tlsConfig defines the TLS configuration to use when connecting to the OAuth2 server.
 
         It requires Prometheus >= v2.43.0.
 
@@ -1581,10 +1603,10 @@ class ProbeSpecOauth2ClientId:
         config_map: typing.Optional[typing.Union["ProbeSpecOauth2ClientIdConfigMap", typing.Dict[builtins.str, typing.Any]]] = None,
         secret: typing.Optional[typing.Union["ProbeSpecOauth2ClientIdSecret", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''``clientId`` specifies a key of a Secret or ConfigMap containing the OAuth2 client's ID.
+        '''clientId defines a key of a Secret or ConfigMap containing the OAuth2 client's ID.
 
-        :param config_map: ConfigMap containing data to use for the targets.
-        :param secret: Secret containing data to use for the targets.
+        :param config_map: configMap defines the ConfigMap containing data to use for the targets.
+        :param secret: secret defines the Secret containing data to use for the targets.
 
         :schema: ProbeSpecOauth2ClientId
         '''
@@ -1604,7 +1626,7 @@ class ProbeSpecOauth2ClientId:
 
     @builtins.property
     def config_map(self) -> typing.Optional["ProbeSpecOauth2ClientIdConfigMap"]:
-        '''ConfigMap containing data to use for the targets.
+        '''configMap defines the ConfigMap containing data to use for the targets.
 
         :schema: ProbeSpecOauth2ClientId#configMap
         '''
@@ -1613,7 +1635,7 @@ class ProbeSpecOauth2ClientId:
 
     @builtins.property
     def secret(self) -> typing.Optional["ProbeSpecOauth2ClientIdSecret"]:
-        '''Secret containing data to use for the targets.
+        '''secret defines the Secret containing data to use for the targets.
 
         :schema: ProbeSpecOauth2ClientId#secret
         '''
@@ -1645,7 +1667,7 @@ class ProbeSpecOauth2ClientIdConfigMap:
         name: typing.Optional[builtins.str] = None,
         optional: typing.Optional[builtins.bool] = None,
     ) -> None:
-        '''ConfigMap containing data to use for the targets.
+        '''configMap defines the ConfigMap containing data to use for the targets.
 
         :param key: The key to select.
         :param name: Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
@@ -1724,7 +1746,7 @@ class ProbeSpecOauth2ClientIdSecret:
         name: typing.Optional[builtins.str] = None,
         optional: typing.Optional[builtins.bool] = None,
     ) -> None:
-        '''Secret containing data to use for the targets.
+        '''secret defines the Secret containing data to use for the targets.
 
         :param key: The key of the secret to select from. Must be a valid secret key.
         :param name: Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
@@ -1805,7 +1827,7 @@ class ProbeSpecOauth2ClientSecret:
         name: typing.Optional[builtins.str] = None,
         optional: typing.Optional[builtins.bool] = None,
     ) -> None:
-        '''``clientSecret`` specifies a key of a Secret containing the OAuth2 client's secret.
+        '''clientSecret defines a key of a Secret containing the OAuth2 client's secret.
 
         :param key: The key of the secret to select from. Must be a valid secret key.
         :param name: Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
@@ -1979,17 +2001,17 @@ class ProbeSpecOauth2TlsConfig:
         min_version: typing.Optional["ProbeSpecOauth2TlsConfigMinVersion"] = None,
         server_name: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''TLS configuration to use when connecting to the OAuth2 server.
+        '''tlsConfig defines the TLS configuration to use when connecting to the OAuth2 server.
 
         It requires Prometheus >= v2.43.0.
 
-        :param ca: Certificate authority used when verifying server certificates.
-        :param cert: Client certificate to present when doing client-authentication.
-        :param insecure_skip_verify: Disable target certificate validation.
-        :param key_secret: Secret containing the client key file for the targets.
-        :param max_version: Maximum acceptable TLS version. It requires Prometheus >= v2.41.0 or Thanos >= v0.31.0.
-        :param min_version: Minimum acceptable TLS version. It requires Prometheus >= v2.35.0 or Thanos >= v0.28.0.
-        :param server_name: Used to verify the hostname for the targets.
+        :param ca: ca defines the Certificate authority used when verifying server certificates.
+        :param cert: cert defines the Client certificate to present when doing client-authentication.
+        :param insecure_skip_verify: insecureSkipVerify defines how to disable target certificate validation.
+        :param key_secret: keySecret defines the Secret containing the client key file for the targets.
+        :param max_version: maxVersion defines the maximum acceptable TLS version. It requires Prometheus >= v2.41.0 or Thanos >= v0.31.0.
+        :param min_version: minVersion defines the minimum acceptable TLS version. It requires Prometheus >= v2.35.0 or Thanos >= v0.28.0.
+        :param server_name: serverName is used to verify the hostname for the targets.
 
         :schema: ProbeSpecOauth2TlsConfig
         '''
@@ -2026,7 +2048,7 @@ class ProbeSpecOauth2TlsConfig:
 
     @builtins.property
     def ca(self) -> typing.Optional["ProbeSpecOauth2TlsConfigCa"]:
-        '''Certificate authority used when verifying server certificates.
+        '''ca defines the Certificate authority used when verifying server certificates.
 
         :schema: ProbeSpecOauth2TlsConfig#ca
         '''
@@ -2035,7 +2057,7 @@ class ProbeSpecOauth2TlsConfig:
 
     @builtins.property
     def cert(self) -> typing.Optional["ProbeSpecOauth2TlsConfigCert"]:
-        '''Client certificate to present when doing client-authentication.
+        '''cert defines the Client certificate to present when doing client-authentication.
 
         :schema: ProbeSpecOauth2TlsConfig#cert
         '''
@@ -2044,7 +2066,7 @@ class ProbeSpecOauth2TlsConfig:
 
     @builtins.property
     def insecure_skip_verify(self) -> typing.Optional[builtins.bool]:
-        '''Disable target certificate validation.
+        '''insecureSkipVerify defines how to disable target certificate validation.
 
         :schema: ProbeSpecOauth2TlsConfig#insecureSkipVerify
         '''
@@ -2053,7 +2075,7 @@ class ProbeSpecOauth2TlsConfig:
 
     @builtins.property
     def key_secret(self) -> typing.Optional["ProbeSpecOauth2TlsConfigKeySecret"]:
-        '''Secret containing the client key file for the targets.
+        '''keySecret defines the Secret containing the client key file for the targets.
 
         :schema: ProbeSpecOauth2TlsConfig#keySecret
         '''
@@ -2062,7 +2084,7 @@ class ProbeSpecOauth2TlsConfig:
 
     @builtins.property
     def max_version(self) -> typing.Optional["ProbeSpecOauth2TlsConfigMaxVersion"]:
-        '''Maximum acceptable TLS version.
+        '''maxVersion defines the maximum acceptable TLS version.
 
         It requires Prometheus >= v2.41.0 or Thanos >= v0.31.0.
 
@@ -2073,7 +2095,7 @@ class ProbeSpecOauth2TlsConfig:
 
     @builtins.property
     def min_version(self) -> typing.Optional["ProbeSpecOauth2TlsConfigMinVersion"]:
-        '''Minimum acceptable TLS version.
+        '''minVersion defines the minimum acceptable TLS version.
 
         It requires Prometheus >= v2.35.0 or Thanos >= v0.28.0.
 
@@ -2084,7 +2106,7 @@ class ProbeSpecOauth2TlsConfig:
 
     @builtins.property
     def server_name(self) -> typing.Optional[builtins.str]:
-        '''Used to verify the hostname for the targets.
+        '''serverName is used to verify the hostname for the targets.
 
         :schema: ProbeSpecOauth2TlsConfig#serverName
         '''
@@ -2115,10 +2137,10 @@ class ProbeSpecOauth2TlsConfigCa:
         config_map: typing.Optional[typing.Union["ProbeSpecOauth2TlsConfigCaConfigMap", typing.Dict[builtins.str, typing.Any]]] = None,
         secret: typing.Optional[typing.Union["ProbeSpecOauth2TlsConfigCaSecret", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''Certificate authority used when verifying server certificates.
+        '''ca defines the Certificate authority used when verifying server certificates.
 
-        :param config_map: ConfigMap containing data to use for the targets.
-        :param secret: Secret containing data to use for the targets.
+        :param config_map: configMap defines the ConfigMap containing data to use for the targets.
+        :param secret: secret defines the Secret containing data to use for the targets.
 
         :schema: ProbeSpecOauth2TlsConfigCa
         '''
@@ -2138,7 +2160,7 @@ class ProbeSpecOauth2TlsConfigCa:
 
     @builtins.property
     def config_map(self) -> typing.Optional["ProbeSpecOauth2TlsConfigCaConfigMap"]:
-        '''ConfigMap containing data to use for the targets.
+        '''configMap defines the ConfigMap containing data to use for the targets.
 
         :schema: ProbeSpecOauth2TlsConfigCa#configMap
         '''
@@ -2147,7 +2169,7 @@ class ProbeSpecOauth2TlsConfigCa:
 
     @builtins.property
     def secret(self) -> typing.Optional["ProbeSpecOauth2TlsConfigCaSecret"]:
-        '''Secret containing data to use for the targets.
+        '''secret defines the Secret containing data to use for the targets.
 
         :schema: ProbeSpecOauth2TlsConfigCa#secret
         '''
@@ -2179,7 +2201,7 @@ class ProbeSpecOauth2TlsConfigCaConfigMap:
         name: typing.Optional[builtins.str] = None,
         optional: typing.Optional[builtins.bool] = None,
     ) -> None:
-        '''ConfigMap containing data to use for the targets.
+        '''configMap defines the ConfigMap containing data to use for the targets.
 
         :param key: The key to select.
         :param name: Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
@@ -2258,7 +2280,7 @@ class ProbeSpecOauth2TlsConfigCaSecret:
         name: typing.Optional[builtins.str] = None,
         optional: typing.Optional[builtins.bool] = None,
     ) -> None:
-        '''Secret containing data to use for the targets.
+        '''secret defines the Secret containing data to use for the targets.
 
         :param key: The key of the secret to select from. Must be a valid secret key.
         :param name: Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
@@ -2338,10 +2360,10 @@ class ProbeSpecOauth2TlsConfigCert:
         config_map: typing.Optional[typing.Union["ProbeSpecOauth2TlsConfigCertConfigMap", typing.Dict[builtins.str, typing.Any]]] = None,
         secret: typing.Optional[typing.Union["ProbeSpecOauth2TlsConfigCertSecret", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''Client certificate to present when doing client-authentication.
+        '''cert defines the Client certificate to present when doing client-authentication.
 
-        :param config_map: ConfigMap containing data to use for the targets.
-        :param secret: Secret containing data to use for the targets.
+        :param config_map: configMap defines the ConfigMap containing data to use for the targets.
+        :param secret: secret defines the Secret containing data to use for the targets.
 
         :schema: ProbeSpecOauth2TlsConfigCert
         '''
@@ -2361,7 +2383,7 @@ class ProbeSpecOauth2TlsConfigCert:
 
     @builtins.property
     def config_map(self) -> typing.Optional["ProbeSpecOauth2TlsConfigCertConfigMap"]:
-        '''ConfigMap containing data to use for the targets.
+        '''configMap defines the ConfigMap containing data to use for the targets.
 
         :schema: ProbeSpecOauth2TlsConfigCert#configMap
         '''
@@ -2370,7 +2392,7 @@ class ProbeSpecOauth2TlsConfigCert:
 
     @builtins.property
     def secret(self) -> typing.Optional["ProbeSpecOauth2TlsConfigCertSecret"]:
-        '''Secret containing data to use for the targets.
+        '''secret defines the Secret containing data to use for the targets.
 
         :schema: ProbeSpecOauth2TlsConfigCert#secret
         '''
@@ -2402,7 +2424,7 @@ class ProbeSpecOauth2TlsConfigCertConfigMap:
         name: typing.Optional[builtins.str] = None,
         optional: typing.Optional[builtins.bool] = None,
     ) -> None:
-        '''ConfigMap containing data to use for the targets.
+        '''configMap defines the ConfigMap containing data to use for the targets.
 
         :param key: The key to select.
         :param name: Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
@@ -2481,7 +2503,7 @@ class ProbeSpecOauth2TlsConfigCertSecret:
         name: typing.Optional[builtins.str] = None,
         optional: typing.Optional[builtins.bool] = None,
     ) -> None:
-        '''Secret containing data to use for the targets.
+        '''secret defines the Secret containing data to use for the targets.
 
         :param key: The key of the secret to select from. Must be a valid secret key.
         :param name: Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
@@ -2562,7 +2584,7 @@ class ProbeSpecOauth2TlsConfigKeySecret:
         name: typing.Optional[builtins.str] = None,
         optional: typing.Optional[builtins.bool] = None,
     ) -> None:
-        '''Secret containing the client key file for the targets.
+        '''keySecret defines the Secret containing the client key file for the targets.
 
         :param key: The key of the secret to select from. Must be a valid secret key.
         :param name: Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
@@ -2632,7 +2654,7 @@ class ProbeSpecOauth2TlsConfigKeySecret:
 
 @jsii.enum(jsii_type="comcoreosmonitoring.ProbeSpecOauth2TlsConfigMaxVersion")
 class ProbeSpecOauth2TlsConfigMaxVersion(enum.Enum):
-    '''Maximum acceptable TLS version.
+    '''maxVersion defines the maximum acceptable TLS version.
 
     It requires Prometheus >= v2.41.0 or Thanos >= v0.31.0.
 
@@ -2651,7 +2673,7 @@ class ProbeSpecOauth2TlsConfigMaxVersion(enum.Enum):
 
 @jsii.enum(jsii_type="comcoreosmonitoring.ProbeSpecOauth2TlsConfigMinVersion")
 class ProbeSpecOauth2TlsConfigMinVersion(enum.Enum):
-    '''Minimum acceptable TLS version.
+    '''minVersion defines the minimum acceptable TLS version.
 
     It requires Prometheus >= v2.35.0 or Thanos >= v0.28.0.
 
@@ -2666,6 +2688,66 @@ class ProbeSpecOauth2TlsConfigMinVersion(enum.Enum):
     '''TLS12.'''
     TLS13 = "TLS13"
     '''TLS13.'''
+
+
+@jsii.data_type(
+    jsii_type="comcoreosmonitoring.ProbeSpecParams",
+    jsii_struct_bases=[],
+    name_mapping={"name": "name", "values": "values"},
+)
+class ProbeSpecParams:
+    def __init__(
+        self,
+        *,
+        name: builtins.str,
+        values: typing.Optional[typing.Sequence[builtins.str]] = None,
+    ) -> None:
+        '''ProbeParam defines specification of extra parameters for a Probe.
+
+        :param name: name defines the parameter name.
+        :param values: values defines the parameter values.
+
+        :schema: ProbeSpecParams
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__f83e6f1b9e7885581ddfaea5d163a9a2c94860c9d3f775f17b2f2191928513d2)
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument values", value=values, expected_type=type_hints["values"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "name": name,
+        }
+        if values is not None:
+            self._values["values"] = values
+
+    @builtins.property
+    def name(self) -> builtins.str:
+        '''name defines the parameter name.
+
+        :schema: ProbeSpecParams#name
+        '''
+        result = self._values.get("name")
+        assert result is not None, "Required property 'name' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def values(self) -> typing.Optional[typing.List[builtins.str]]:
+        '''values defines the parameter values.
+
+        :schema: ProbeSpecParams#values
+        '''
+        result = self._values.get("values")
+        return typing.cast(typing.Optional[typing.List[builtins.str]], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ProbeSpecParams(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
 
 
 @jsii.data_type(
@@ -2693,17 +2775,17 @@ class ProbeSpecProber:
         proxy_url: typing.Optional[builtins.str] = None,
         scheme: typing.Optional["ProbeSpecProberScheme"] = None,
     ) -> None:
-        '''Specification for the prober to use for probing targets.
+        '''prober defines the specification for the prober to use for probing targets.
 
         The prober.URL parameter is required. Targets cannot be probed if left empty.
 
-        :param url: Mandatory URL of the prober.
-        :param no_proxy: ``noProxy`` is a comma-separated string that can contain IPs, CIDR notation, domain names that should be excluded from proxying. IP and domain names can contain port numbers. It requires Prometheus >= v2.43.0, Alertmanager >= v0.25.0 or Thanos >= v0.32.0.
-        :param path: Path to collect metrics from. Defaults to ``/probe``. Default: probe`.
-        :param proxy_connect_header: ProxyConnectHeader optionally specifies headers to send to proxies during CONNECT requests. It requires Prometheus >= v2.43.0, Alertmanager >= v0.25.0 or Thanos >= v0.32.0.
-        :param proxy_from_environment: Whether to use the proxy configuration defined by environment variables (HTTP_PROXY, HTTPS_PROXY, and NO_PROXY). It requires Prometheus >= v2.43.0, Alertmanager >= v0.25.0 or Thanos >= v0.32.0.
-        :param proxy_url: ``proxyURL`` defines the HTTP proxy server to use.
-        :param scheme: HTTP scheme to use for scraping. ``http`` and ``https`` are the expected values unless you rewrite the ``__scheme__`` label via relabeling. If empty, Prometheus uses the default value ``http``.
+        :param url: url defines the mandatory URL of the prober.
+        :param no_proxy: noProxy defines a comma-separated string that can contain IPs, CIDR notation, domain names that should be excluded from proxying. IP and domain names can contain port numbers. It requires Prometheus >= v2.43.0, Alertmanager >= v0.25.0 or Thanos >= v0.32.0.
+        :param path: path to collect metrics from. Defaults to ``/probe``. Default: probe`.
+        :param proxy_connect_header: proxyConnectHeader optionally specifies headers to send to proxies during CONNECT requests. It requires Prometheus >= v2.43.0, Alertmanager >= v0.25.0 or Thanos >= v0.32.0.
+        :param proxy_from_environment: proxyFromEnvironment defines whether to use the proxy configuration defined by environment variables (HTTP_PROXY, HTTPS_PROXY, and NO_PROXY). It requires Prometheus >= v2.43.0, Alertmanager >= v0.25.0 or Thanos >= v0.32.0.
+        :param proxy_url: proxyUrl defines the HTTP proxy server to use.
+        :param scheme: scheme defines the HTTP scheme to use for scraping. ``http`` and ``https`` are the expected values unless you rewrite the ``__scheme__`` label via relabeling. If empty, Prometheus uses the default value ``http``.
 
         :schema: ProbeSpecProber
         '''
@@ -2734,7 +2816,7 @@ class ProbeSpecProber:
 
     @builtins.property
     def url(self) -> builtins.str:
-        '''Mandatory URL of the prober.
+        '''url defines the mandatory URL of the prober.
 
         :schema: ProbeSpecProber#url
         '''
@@ -2744,7 +2826,7 @@ class ProbeSpecProber:
 
     @builtins.property
     def no_proxy(self) -> typing.Optional[builtins.str]:
-        '''``noProxy`` is a comma-separated string that can contain IPs, CIDR notation, domain names that should be excluded from proxying.
+        '''noProxy defines a comma-separated string that can contain IPs, CIDR notation, domain names that should be excluded from proxying.
 
         IP and domain names can
         contain port numbers.
@@ -2758,7 +2840,7 @@ class ProbeSpecProber:
 
     @builtins.property
     def path(self) -> typing.Optional[builtins.str]:
-        '''Path to collect metrics from.
+        '''path to collect metrics from.
 
         Defaults to ``/probe``.
 
@@ -2773,7 +2855,7 @@ class ProbeSpecProber:
     def proxy_connect_header(
         self,
     ) -> typing.Optional[typing.Mapping[builtins.str, typing.List["ProbeSpecProberProxyConnectHeader"]]]:
-        '''ProxyConnectHeader optionally specifies headers to send to proxies during CONNECT requests.
+        '''proxyConnectHeader optionally specifies headers to send to proxies during CONNECT requests.
 
         It requires Prometheus >= v2.43.0, Alertmanager >= v0.25.0 or Thanos >= v0.32.0.
 
@@ -2784,7 +2866,7 @@ class ProbeSpecProber:
 
     @builtins.property
     def proxy_from_environment(self) -> typing.Optional[builtins.bool]:
-        '''Whether to use the proxy configuration defined by environment variables (HTTP_PROXY, HTTPS_PROXY, and NO_PROXY).
+        '''proxyFromEnvironment defines whether to use the proxy configuration defined by environment variables (HTTP_PROXY, HTTPS_PROXY, and NO_PROXY).
 
         It requires Prometheus >= v2.43.0, Alertmanager >= v0.25.0 or Thanos >= v0.32.0.
 
@@ -2795,7 +2877,7 @@ class ProbeSpecProber:
 
     @builtins.property
     def proxy_url(self) -> typing.Optional[builtins.str]:
-        '''``proxyURL`` defines the HTTP proxy server to use.
+        '''proxyUrl defines the HTTP proxy server to use.
 
         :schema: ProbeSpecProber#proxyUrl
         '''
@@ -2804,7 +2886,7 @@ class ProbeSpecProber:
 
     @builtins.property
     def scheme(self) -> typing.Optional["ProbeSpecProberScheme"]:
-        '''HTTP scheme to use for scraping.
+        '''scheme defines the HTTP scheme to use for scraping.
 
         ``http`` and ``https`` are the expected values unless you rewrite the ``__scheme__`` label via relabeling.
         If empty, Prometheus uses the default value ``http``.
@@ -2909,7 +2991,7 @@ class ProbeSpecProberProxyConnectHeader:
 
 @jsii.enum(jsii_type="comcoreosmonitoring.ProbeSpecProberScheme")
 class ProbeSpecProberScheme(enum.Enum):
-    '''HTTP scheme to use for scraping.
+    '''scheme defines the HTTP scheme to use for scraping.
 
     ``http`` and ``https`` are the expected values unless you rewrite the ``__scheme__`` label via relabeling.
     If empty, Prometheus uses the default value ``http``.
@@ -2962,7 +3044,7 @@ class ProbeSpecTargets:
         ingress: typing.Optional[typing.Union["ProbeSpecTargetsIngress", typing.Dict[builtins.str, typing.Any]]] = None,
         static_config: typing.Optional[typing.Union["ProbeSpecTargetsStaticConfig", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''Targets defines a set of static or dynamically discovered targets to probe.
+        '''targets defines a set of static or dynamically discovered targets to probe.
 
         :param ingress: ingress defines the Ingress objects to probe and the relabeling configuration. If ``staticConfig`` is also defined, ``staticConfig`` takes precedence.
         :param static_config: staticConfig defines the static list of targets to probe and the relabeling configuration. If ``ingress`` is also defined, ``staticConfig`` takes precedence. More info: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#static_config.
@@ -3039,9 +3121,9 @@ class ProbeSpecTargetsIngress:
 
         If ``staticConfig`` is also defined, ``staticConfig`` takes precedence.
 
-        :param namespace_selector: From which namespaces to select Ingress objects.
-        :param relabeling_configs: RelabelConfigs to apply to the label set of the target before it gets scraped. The original ingress address is available via the ``__tmp_prometheus_ingress_address`` label. It can be used to customize the probed URL. The original scrape job's name is available via the ``__tmp_prometheus_job_name`` label. More info: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config
-        :param selector: Selector to select the Ingress objects.
+        :param namespace_selector: namespaceSelector defines from which namespaces to select Ingress objects.
+        :param relabeling_configs: relabelingConfigs to apply to the label set of the target before it gets scraped. The original ingress address is available via the ``__tmp_prometheus_ingress_address`` label. It can be used to customize the probed URL. The original scrape job's name is available via the ``__tmp_prometheus_job_name`` label. More info: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config
+        :param selector: selector to select the Ingress objects.
 
         :schema: ProbeSpecTargetsIngress
         '''
@@ -3066,7 +3148,7 @@ class ProbeSpecTargetsIngress:
     def namespace_selector(
         self,
     ) -> typing.Optional["ProbeSpecTargetsIngressNamespaceSelector"]:
-        '''From which namespaces to select Ingress objects.
+        '''namespaceSelector defines from which namespaces to select Ingress objects.
 
         :schema: ProbeSpecTargetsIngress#namespaceSelector
         '''
@@ -3077,7 +3159,7 @@ class ProbeSpecTargetsIngress:
     def relabeling_configs(
         self,
     ) -> typing.Optional[typing.List["ProbeSpecTargetsIngressRelabelingConfigs"]]:
-        '''RelabelConfigs to apply to the label set of the target before it gets scraped.
+        '''relabelingConfigs to apply to the label set of the target before it gets scraped.
 
         The original ingress address is available via the
         ``__tmp_prometheus_ingress_address`` label. It can be used to customize the
@@ -3092,7 +3174,7 @@ class ProbeSpecTargetsIngress:
 
     @builtins.property
     def selector(self) -> typing.Optional["ProbeSpecTargetsIngressSelector"]:
-        '''Selector to select the Ingress objects.
+        '''selector to select the Ingress objects.
 
         :schema: ProbeSpecTargetsIngress#selector
         '''
@@ -3123,10 +3205,10 @@ class ProbeSpecTargetsIngressNamespaceSelector:
         any: typing.Optional[builtins.bool] = None,
         match_names: typing.Optional[typing.Sequence[builtins.str]] = None,
     ) -> None:
-        '''From which namespaces to select Ingress objects.
+        '''namespaceSelector defines from which namespaces to select Ingress objects.
 
-        :param any: Boolean describing whether all namespaces are selected in contrast to a list restricting them.
-        :param match_names: List of namespace names to select from.
+        :param any: any defines the boolean describing whether all namespaces are selected in contrast to a list restricting them.
+        :param match_names: matchNames defines the list of namespace names to select from.
 
         :schema: ProbeSpecTargetsIngressNamespaceSelector
         '''
@@ -3142,7 +3224,7 @@ class ProbeSpecTargetsIngressNamespaceSelector:
 
     @builtins.property
     def any(self) -> typing.Optional[builtins.bool]:
-        '''Boolean describing whether all namespaces are selected in contrast to a list restricting them.
+        '''any defines the boolean describing whether all namespaces are selected in contrast to a list restricting them.
 
         :schema: ProbeSpecTargetsIngressNamespaceSelector#any
         '''
@@ -3151,7 +3233,7 @@ class ProbeSpecTargetsIngressNamespaceSelector:
 
     @builtins.property
     def match_names(self) -> typing.Optional[typing.List[builtins.str]]:
-        '''List of namespace names to select from.
+        '''matchNames defines the list of namespace names to select from.
 
         :schema: ProbeSpecTargetsIngressNamespaceSelector#matchNames
         '''
@@ -3199,13 +3281,13 @@ class ProbeSpecTargetsIngressRelabelingConfigs:
 
         More info: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config
 
-        :param action: Action to perform based on the regex matching. ``Uppercase`` and ``Lowercase`` actions require Prometheus >= v2.36.0. ``DropEqual`` and ``KeepEqual`` actions require Prometheus >= v2.41.0. Default: "Replace"
-        :param modulus: Modulus to take of the hash of the source label values. Only applicable when the action is ``HashMod``.
-        :param regex: Regular expression against which the extracted value is matched.
-        :param replacement: Replacement value against which a Replace action is performed if the regular expression matches. Regex capture groups are available.
-        :param separator: Separator is the string between concatenated SourceLabels.
-        :param source_labels: The source labels select values from existing labels. Their content is concatenated using the configured Separator and matched against the configured regular expression.
-        :param target_label: Label to which the resulting string is written in a replacement. It is mandatory for ``Replace``, ``HashMod``, ``Lowercase``, ``Uppercase``, ``KeepEqual`` and ``DropEqual`` actions. Regex capture groups are available.
+        :param action: action to perform based on the regex matching. ``Uppercase`` and ``Lowercase`` actions require Prometheus >= v2.36.0. ``DropEqual`` and ``KeepEqual`` actions require Prometheus >= v2.41.0. Default: "Replace"
+        :param modulus: modulus to take of the hash of the source label values. Only applicable when the action is ``HashMod``.
+        :param regex: regex defines the regular expression against which the extracted value is matched.
+        :param replacement: replacement value against which a Replace action is performed if the regular expression matches. Regex capture groups are available.
+        :param separator: separator defines the string between concatenated SourceLabels.
+        :param source_labels: sourceLabels defines the source labels select values from existing labels. Their content is concatenated using the configured Separator and matched against the configured regular expression.
+        :param target_label: targetLabel defines the label to which the resulting string is written in a replacement. It is mandatory for ``Replace``, ``HashMod``, ``Lowercase``, ``Uppercase``, ``KeepEqual`` and ``DropEqual`` actions. Regex capture groups are available.
 
         :schema: ProbeSpecTargetsIngressRelabelingConfigs
         '''
@@ -3238,7 +3320,7 @@ class ProbeSpecTargetsIngressRelabelingConfigs:
     def action(
         self,
     ) -> typing.Optional["ProbeSpecTargetsIngressRelabelingConfigsAction"]:
-        '''Action to perform based on the regex matching.
+        '''action to perform based on the regex matching.
 
         ``Uppercase`` and ``Lowercase`` actions require Prometheus >= v2.36.0.
         ``DropEqual`` and ``KeepEqual`` actions require Prometheus >= v2.41.0.
@@ -3252,7 +3334,7 @@ class ProbeSpecTargetsIngressRelabelingConfigs:
 
     @builtins.property
     def modulus(self) -> typing.Optional[jsii.Number]:
-        '''Modulus to take of the hash of the source label values.
+        '''modulus to take of the hash of the source label values.
 
         Only applicable when the action is ``HashMod``.
 
@@ -3263,7 +3345,7 @@ class ProbeSpecTargetsIngressRelabelingConfigs:
 
     @builtins.property
     def regex(self) -> typing.Optional[builtins.str]:
-        '''Regular expression against which the extracted value is matched.
+        '''regex defines the regular expression against which the extracted value is matched.
 
         :schema: ProbeSpecTargetsIngressRelabelingConfigs#regex
         '''
@@ -3272,7 +3354,7 @@ class ProbeSpecTargetsIngressRelabelingConfigs:
 
     @builtins.property
     def replacement(self) -> typing.Optional[builtins.str]:
-        '''Replacement value against which a Replace action is performed if the regular expression matches.
+        '''replacement value against which a Replace action is performed if the regular expression matches.
 
         Regex capture groups are available.
 
@@ -3283,7 +3365,7 @@ class ProbeSpecTargetsIngressRelabelingConfigs:
 
     @builtins.property
     def separator(self) -> typing.Optional[builtins.str]:
-        '''Separator is the string between concatenated SourceLabels.
+        '''separator defines the string between concatenated SourceLabels.
 
         :schema: ProbeSpecTargetsIngressRelabelingConfigs#separator
         '''
@@ -3292,7 +3374,7 @@ class ProbeSpecTargetsIngressRelabelingConfigs:
 
     @builtins.property
     def source_labels(self) -> typing.Optional[typing.List[builtins.str]]:
-        '''The source labels select values from existing labels.
+        '''sourceLabels defines the source labels select values from existing labels.
 
         Their content is
         concatenated using the configured Separator and matched against the
@@ -3305,7 +3387,7 @@ class ProbeSpecTargetsIngressRelabelingConfigs:
 
     @builtins.property
     def target_label(self) -> typing.Optional[builtins.str]:
-        '''Label to which the resulting string is written in a replacement.
+        '''targetLabel defines the label to which the resulting string is written in a replacement.
 
         It is mandatory for ``Replace``, ``HashMod``, ``Lowercase``, ``Uppercase``,
         ``KeepEqual`` and ``DropEqual`` actions.
@@ -3333,7 +3415,7 @@ class ProbeSpecTargetsIngressRelabelingConfigs:
     jsii_type="comcoreosmonitoring.ProbeSpecTargetsIngressRelabelingConfigsAction"
 )
 class ProbeSpecTargetsIngressRelabelingConfigsAction(enum.Enum):
-    '''Action to perform based on the regex matching.
+    '''action to perform based on the regex matching.
 
     ``Uppercase`` and ``Lowercase`` actions require Prometheus >= v2.36.0.
     ``DropEqual`` and ``KeepEqual`` actions require Prometheus >= v2.41.0.
@@ -3382,7 +3464,7 @@ class ProbeSpecTargetsIngressSelector:
         match_expressions: typing.Optional[typing.Sequence[typing.Union["ProbeSpecTargetsIngressSelectorMatchExpressions", typing.Dict[builtins.str, typing.Any]]]] = None,
         match_labels: typing.Optional[typing.Mapping[builtins.str, builtins.str]] = None,
     ) -> None:
-        '''Selector to select the Ingress objects.
+        '''selector to select the Ingress objects.
 
         :param match_expressions: matchExpressions is a list of label selector requirements. The requirements are ANDed.
         :param match_labels: matchLabels is a map of {key,value} pairs. A single {key,value} in the matchLabels map is equivalent to an element of matchExpressions, whose key field is "key", the operator is "In", and the values array contains only "value". The requirements are ANDed.
@@ -3542,9 +3624,9 @@ class ProbeSpecTargetsStaticConfig:
         If ``ingress`` is also defined, ``staticConfig`` takes precedence.
         More info: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#static_config.
 
-        :param labels: Labels assigned to all metrics scraped from the targets.
-        :param relabeling_configs: RelabelConfigs to apply to the label set of the targets before it gets scraped. More info: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config
-        :param static: The list of hosts to probe.
+        :param labels: labels defines all labels assigned to all metrics scraped from the targets.
+        :param relabeling_configs: relabelingConfigs defines relabelings to be apply to the label set of the targets before it gets scraped. More info: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config
+        :param static: static defines the list of hosts to probe.
 
         :schema: ProbeSpecTargetsStaticConfig
         '''
@@ -3563,7 +3645,7 @@ class ProbeSpecTargetsStaticConfig:
 
     @builtins.property
     def labels(self) -> typing.Optional[typing.Mapping[builtins.str, builtins.str]]:
-        '''Labels assigned to all metrics scraped from the targets.
+        '''labels defines all labels assigned to all metrics scraped from the targets.
 
         :schema: ProbeSpecTargetsStaticConfig#labels
         '''
@@ -3574,7 +3656,7 @@ class ProbeSpecTargetsStaticConfig:
     def relabeling_configs(
         self,
     ) -> typing.Optional[typing.List["ProbeSpecTargetsStaticConfigRelabelingConfigs"]]:
-        '''RelabelConfigs to apply to the label set of the targets before it gets scraped.
+        '''relabelingConfigs defines relabelings to be apply to the label set of the targets before it gets scraped.
 
         More info: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config
 
@@ -3585,7 +3667,7 @@ class ProbeSpecTargetsStaticConfig:
 
     @builtins.property
     def static(self) -> typing.Optional[typing.List[builtins.str]]:
-        '''The list of hosts to probe.
+        '''static defines the list of hosts to probe.
 
         :schema: ProbeSpecTargetsStaticConfig#static
         '''
@@ -3633,13 +3715,13 @@ class ProbeSpecTargetsStaticConfigRelabelingConfigs:
 
         More info: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config
 
-        :param action: Action to perform based on the regex matching. ``Uppercase`` and ``Lowercase`` actions require Prometheus >= v2.36.0. ``DropEqual`` and ``KeepEqual`` actions require Prometheus >= v2.41.0. Default: "Replace"
-        :param modulus: Modulus to take of the hash of the source label values. Only applicable when the action is ``HashMod``.
-        :param regex: Regular expression against which the extracted value is matched.
-        :param replacement: Replacement value against which a Replace action is performed if the regular expression matches. Regex capture groups are available.
-        :param separator: Separator is the string between concatenated SourceLabels.
-        :param source_labels: The source labels select values from existing labels. Their content is concatenated using the configured Separator and matched against the configured regular expression.
-        :param target_label: Label to which the resulting string is written in a replacement. It is mandatory for ``Replace``, ``HashMod``, ``Lowercase``, ``Uppercase``, ``KeepEqual`` and ``DropEqual`` actions. Regex capture groups are available.
+        :param action: action to perform based on the regex matching. ``Uppercase`` and ``Lowercase`` actions require Prometheus >= v2.36.0. ``DropEqual`` and ``KeepEqual`` actions require Prometheus >= v2.41.0. Default: "Replace"
+        :param modulus: modulus to take of the hash of the source label values. Only applicable when the action is ``HashMod``.
+        :param regex: regex defines the regular expression against which the extracted value is matched.
+        :param replacement: replacement value against which a Replace action is performed if the regular expression matches. Regex capture groups are available.
+        :param separator: separator defines the string between concatenated SourceLabels.
+        :param source_labels: sourceLabels defines the source labels select values from existing labels. Their content is concatenated using the configured Separator and matched against the configured regular expression.
+        :param target_label: targetLabel defines the label to which the resulting string is written in a replacement. It is mandatory for ``Replace``, ``HashMod``, ``Lowercase``, ``Uppercase``, ``KeepEqual`` and ``DropEqual`` actions. Regex capture groups are available.
 
         :schema: ProbeSpecTargetsStaticConfigRelabelingConfigs
         '''
@@ -3672,7 +3754,7 @@ class ProbeSpecTargetsStaticConfigRelabelingConfigs:
     def action(
         self,
     ) -> typing.Optional["ProbeSpecTargetsStaticConfigRelabelingConfigsAction"]:
-        '''Action to perform based on the regex matching.
+        '''action to perform based on the regex matching.
 
         ``Uppercase`` and ``Lowercase`` actions require Prometheus >= v2.36.0.
         ``DropEqual`` and ``KeepEqual`` actions require Prometheus >= v2.41.0.
@@ -3686,7 +3768,7 @@ class ProbeSpecTargetsStaticConfigRelabelingConfigs:
 
     @builtins.property
     def modulus(self) -> typing.Optional[jsii.Number]:
-        '''Modulus to take of the hash of the source label values.
+        '''modulus to take of the hash of the source label values.
 
         Only applicable when the action is ``HashMod``.
 
@@ -3697,7 +3779,7 @@ class ProbeSpecTargetsStaticConfigRelabelingConfigs:
 
     @builtins.property
     def regex(self) -> typing.Optional[builtins.str]:
-        '''Regular expression against which the extracted value is matched.
+        '''regex defines the regular expression against which the extracted value is matched.
 
         :schema: ProbeSpecTargetsStaticConfigRelabelingConfigs#regex
         '''
@@ -3706,7 +3788,7 @@ class ProbeSpecTargetsStaticConfigRelabelingConfigs:
 
     @builtins.property
     def replacement(self) -> typing.Optional[builtins.str]:
-        '''Replacement value against which a Replace action is performed if the regular expression matches.
+        '''replacement value against which a Replace action is performed if the regular expression matches.
 
         Regex capture groups are available.
 
@@ -3717,7 +3799,7 @@ class ProbeSpecTargetsStaticConfigRelabelingConfigs:
 
     @builtins.property
     def separator(self) -> typing.Optional[builtins.str]:
-        '''Separator is the string between concatenated SourceLabels.
+        '''separator defines the string between concatenated SourceLabels.
 
         :schema: ProbeSpecTargetsStaticConfigRelabelingConfigs#separator
         '''
@@ -3726,7 +3808,7 @@ class ProbeSpecTargetsStaticConfigRelabelingConfigs:
 
     @builtins.property
     def source_labels(self) -> typing.Optional[typing.List[builtins.str]]:
-        '''The source labels select values from existing labels.
+        '''sourceLabels defines the source labels select values from existing labels.
 
         Their content is
         concatenated using the configured Separator and matched against the
@@ -3739,7 +3821,7 @@ class ProbeSpecTargetsStaticConfigRelabelingConfigs:
 
     @builtins.property
     def target_label(self) -> typing.Optional[builtins.str]:
-        '''Label to which the resulting string is written in a replacement.
+        '''targetLabel defines the label to which the resulting string is written in a replacement.
 
         It is mandatory for ``Replace``, ``HashMod``, ``Lowercase``, ``Uppercase``,
         ``KeepEqual`` and ``DropEqual`` actions.
@@ -3767,7 +3849,7 @@ class ProbeSpecTargetsStaticConfigRelabelingConfigs:
     jsii_type="comcoreosmonitoring.ProbeSpecTargetsStaticConfigRelabelingConfigsAction"
 )
 class ProbeSpecTargetsStaticConfigRelabelingConfigsAction(enum.Enum):
-    '''Action to perform based on the regex matching.
+    '''action to perform based on the regex matching.
 
     ``Uppercase`` and ``Lowercase`` actions require Prometheus >= v2.36.0.
     ``DropEqual`` and ``KeepEqual`` actions require Prometheus >= v2.41.0.
@@ -3826,15 +3908,15 @@ class ProbeSpecTlsConfig:
         min_version: typing.Optional["ProbeSpecTlsConfigMinVersion"] = None,
         server_name: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''TLS configuration to use when scraping the endpoint.
+        '''tlsConfig defines the TLS configuration to use when scraping the endpoint.
 
-        :param ca: Certificate authority used when verifying server certificates.
-        :param cert: Client certificate to present when doing client-authentication.
-        :param insecure_skip_verify: Disable target certificate validation.
-        :param key_secret: Secret containing the client key file for the targets.
-        :param max_version: Maximum acceptable TLS version. It requires Prometheus >= v2.41.0 or Thanos >= v0.31.0.
-        :param min_version: Minimum acceptable TLS version. It requires Prometheus >= v2.35.0 or Thanos >= v0.28.0.
-        :param server_name: Used to verify the hostname for the targets.
+        :param ca: ca defines the Certificate authority used when verifying server certificates.
+        :param cert: cert defines the Client certificate to present when doing client-authentication.
+        :param insecure_skip_verify: insecureSkipVerify defines how to disable target certificate validation.
+        :param key_secret: keySecret defines the Secret containing the client key file for the targets.
+        :param max_version: maxVersion defines the maximum acceptable TLS version. It requires Prometheus >= v2.41.0 or Thanos >= v0.31.0.
+        :param min_version: minVersion defines the minimum acceptable TLS version. It requires Prometheus >= v2.35.0 or Thanos >= v0.28.0.
+        :param server_name: serverName is used to verify the hostname for the targets.
 
         :schema: ProbeSpecTlsConfig
         '''
@@ -3871,7 +3953,7 @@ class ProbeSpecTlsConfig:
 
     @builtins.property
     def ca(self) -> typing.Optional["ProbeSpecTlsConfigCa"]:
-        '''Certificate authority used when verifying server certificates.
+        '''ca defines the Certificate authority used when verifying server certificates.
 
         :schema: ProbeSpecTlsConfig#ca
         '''
@@ -3880,7 +3962,7 @@ class ProbeSpecTlsConfig:
 
     @builtins.property
     def cert(self) -> typing.Optional["ProbeSpecTlsConfigCert"]:
-        '''Client certificate to present when doing client-authentication.
+        '''cert defines the Client certificate to present when doing client-authentication.
 
         :schema: ProbeSpecTlsConfig#cert
         '''
@@ -3889,7 +3971,7 @@ class ProbeSpecTlsConfig:
 
     @builtins.property
     def insecure_skip_verify(self) -> typing.Optional[builtins.bool]:
-        '''Disable target certificate validation.
+        '''insecureSkipVerify defines how to disable target certificate validation.
 
         :schema: ProbeSpecTlsConfig#insecureSkipVerify
         '''
@@ -3898,7 +3980,7 @@ class ProbeSpecTlsConfig:
 
     @builtins.property
     def key_secret(self) -> typing.Optional["ProbeSpecTlsConfigKeySecret"]:
-        '''Secret containing the client key file for the targets.
+        '''keySecret defines the Secret containing the client key file for the targets.
 
         :schema: ProbeSpecTlsConfig#keySecret
         '''
@@ -3907,7 +3989,7 @@ class ProbeSpecTlsConfig:
 
     @builtins.property
     def max_version(self) -> typing.Optional["ProbeSpecTlsConfigMaxVersion"]:
-        '''Maximum acceptable TLS version.
+        '''maxVersion defines the maximum acceptable TLS version.
 
         It requires Prometheus >= v2.41.0 or Thanos >= v0.31.0.
 
@@ -3918,7 +4000,7 @@ class ProbeSpecTlsConfig:
 
     @builtins.property
     def min_version(self) -> typing.Optional["ProbeSpecTlsConfigMinVersion"]:
-        '''Minimum acceptable TLS version.
+        '''minVersion defines the minimum acceptable TLS version.
 
         It requires Prometheus >= v2.35.0 or Thanos >= v0.28.0.
 
@@ -3929,7 +4011,7 @@ class ProbeSpecTlsConfig:
 
     @builtins.property
     def server_name(self) -> typing.Optional[builtins.str]:
-        '''Used to verify the hostname for the targets.
+        '''serverName is used to verify the hostname for the targets.
 
         :schema: ProbeSpecTlsConfig#serverName
         '''
@@ -3960,10 +4042,10 @@ class ProbeSpecTlsConfigCa:
         config_map: typing.Optional[typing.Union["ProbeSpecTlsConfigCaConfigMap", typing.Dict[builtins.str, typing.Any]]] = None,
         secret: typing.Optional[typing.Union["ProbeSpecTlsConfigCaSecret", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''Certificate authority used when verifying server certificates.
+        '''ca defines the Certificate authority used when verifying server certificates.
 
-        :param config_map: ConfigMap containing data to use for the targets.
-        :param secret: Secret containing data to use for the targets.
+        :param config_map: configMap defines the ConfigMap containing data to use for the targets.
+        :param secret: secret defines the Secret containing data to use for the targets.
 
         :schema: ProbeSpecTlsConfigCa
         '''
@@ -3983,7 +4065,7 @@ class ProbeSpecTlsConfigCa:
 
     @builtins.property
     def config_map(self) -> typing.Optional["ProbeSpecTlsConfigCaConfigMap"]:
-        '''ConfigMap containing data to use for the targets.
+        '''configMap defines the ConfigMap containing data to use for the targets.
 
         :schema: ProbeSpecTlsConfigCa#configMap
         '''
@@ -3992,7 +4074,7 @@ class ProbeSpecTlsConfigCa:
 
     @builtins.property
     def secret(self) -> typing.Optional["ProbeSpecTlsConfigCaSecret"]:
-        '''Secret containing data to use for the targets.
+        '''secret defines the Secret containing data to use for the targets.
 
         :schema: ProbeSpecTlsConfigCa#secret
         '''
@@ -4024,7 +4106,7 @@ class ProbeSpecTlsConfigCaConfigMap:
         name: typing.Optional[builtins.str] = None,
         optional: typing.Optional[builtins.bool] = None,
     ) -> None:
-        '''ConfigMap containing data to use for the targets.
+        '''configMap defines the ConfigMap containing data to use for the targets.
 
         :param key: The key to select.
         :param name: Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
@@ -4103,7 +4185,7 @@ class ProbeSpecTlsConfigCaSecret:
         name: typing.Optional[builtins.str] = None,
         optional: typing.Optional[builtins.bool] = None,
     ) -> None:
-        '''Secret containing data to use for the targets.
+        '''secret defines the Secret containing data to use for the targets.
 
         :param key: The key of the secret to select from. Must be a valid secret key.
         :param name: Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
@@ -4183,10 +4265,10 @@ class ProbeSpecTlsConfigCert:
         config_map: typing.Optional[typing.Union["ProbeSpecTlsConfigCertConfigMap", typing.Dict[builtins.str, typing.Any]]] = None,
         secret: typing.Optional[typing.Union["ProbeSpecTlsConfigCertSecret", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''Client certificate to present when doing client-authentication.
+        '''cert defines the Client certificate to present when doing client-authentication.
 
-        :param config_map: ConfigMap containing data to use for the targets.
-        :param secret: Secret containing data to use for the targets.
+        :param config_map: configMap defines the ConfigMap containing data to use for the targets.
+        :param secret: secret defines the Secret containing data to use for the targets.
 
         :schema: ProbeSpecTlsConfigCert
         '''
@@ -4206,7 +4288,7 @@ class ProbeSpecTlsConfigCert:
 
     @builtins.property
     def config_map(self) -> typing.Optional["ProbeSpecTlsConfigCertConfigMap"]:
-        '''ConfigMap containing data to use for the targets.
+        '''configMap defines the ConfigMap containing data to use for the targets.
 
         :schema: ProbeSpecTlsConfigCert#configMap
         '''
@@ -4215,7 +4297,7 @@ class ProbeSpecTlsConfigCert:
 
     @builtins.property
     def secret(self) -> typing.Optional["ProbeSpecTlsConfigCertSecret"]:
-        '''Secret containing data to use for the targets.
+        '''secret defines the Secret containing data to use for the targets.
 
         :schema: ProbeSpecTlsConfigCert#secret
         '''
@@ -4247,7 +4329,7 @@ class ProbeSpecTlsConfigCertConfigMap:
         name: typing.Optional[builtins.str] = None,
         optional: typing.Optional[builtins.bool] = None,
     ) -> None:
-        '''ConfigMap containing data to use for the targets.
+        '''configMap defines the ConfigMap containing data to use for the targets.
 
         :param key: The key to select.
         :param name: Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
@@ -4326,7 +4408,7 @@ class ProbeSpecTlsConfigCertSecret:
         name: typing.Optional[builtins.str] = None,
         optional: typing.Optional[builtins.bool] = None,
     ) -> None:
-        '''Secret containing data to use for the targets.
+        '''secret defines the Secret containing data to use for the targets.
 
         :param key: The key of the secret to select from. Must be a valid secret key.
         :param name: Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
@@ -4407,7 +4489,7 @@ class ProbeSpecTlsConfigKeySecret:
         name: typing.Optional[builtins.str] = None,
         optional: typing.Optional[builtins.bool] = None,
     ) -> None:
-        '''Secret containing the client key file for the targets.
+        '''keySecret defines the Secret containing the client key file for the targets.
 
         :param key: The key of the secret to select from. Must be a valid secret key.
         :param name: Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
@@ -4477,7 +4559,7 @@ class ProbeSpecTlsConfigKeySecret:
 
 @jsii.enum(jsii_type="comcoreosmonitoring.ProbeSpecTlsConfigMaxVersion")
 class ProbeSpecTlsConfigMaxVersion(enum.Enum):
-    '''Maximum acceptable TLS version.
+    '''maxVersion defines the maximum acceptable TLS version.
 
     It requires Prometheus >= v2.41.0 or Thanos >= v0.31.0.
 
@@ -4496,7 +4578,7 @@ class ProbeSpecTlsConfigMaxVersion(enum.Enum):
 
 @jsii.enum(jsii_type="comcoreosmonitoring.ProbeSpecTlsConfigMinVersion")
 class ProbeSpecTlsConfigMinVersion(enum.Enum):
-    '''Minimum acceptable TLS version.
+    '''minVersion defines the minimum acceptable TLS version.
 
     It requires Prometheus >= v2.35.0 or Thanos >= v0.28.0.
 
@@ -4543,6 +4625,7 @@ __all__ = [
     "ProbeSpecOauth2TlsConfigKeySecret",
     "ProbeSpecOauth2TlsConfigMaxVersion",
     "ProbeSpecOauth2TlsConfigMinVersion",
+    "ProbeSpecParams",
     "ProbeSpecProber",
     "ProbeSpecProberProxyConnectHeader",
     "ProbeSpecProberScheme",
@@ -4607,6 +4690,7 @@ def _typecheckingstub__4da9453333edbc627c631d6c0043f58d9dc9b96a470aabc5bda67f045
     native_histogram_bucket_limit: typing.Optional[jsii.Number] = None,
     native_histogram_min_bucket_factor: typing.Optional[ProbeSpecNativeHistogramMinBucketFactor] = None,
     oauth2: typing.Optional[typing.Union[ProbeSpecOauth2, typing.Dict[builtins.str, typing.Any]]] = None,
+    params: typing.Optional[typing.Sequence[typing.Union[ProbeSpecParams, typing.Dict[builtins.str, typing.Any]]]] = None,
     prober: typing.Optional[typing.Union[ProbeSpecProber, typing.Dict[builtins.str, typing.Any]]] = None,
     sample_limit: typing.Optional[jsii.Number] = None,
     scrape_class: typing.Optional[builtins.str] = None,
@@ -4827,6 +4911,14 @@ def _typecheckingstub__33dc52b7c1489b1ef2cb0651104939ff50b5f5fc1d5e6875fce37f06f
     key: builtins.str,
     name: typing.Optional[builtins.str] = None,
     optional: typing.Optional[builtins.bool] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__f83e6f1b9e7885581ddfaea5d163a9a2c94860c9d3f775f17b2f2191928513d2(
+    *,
+    name: builtins.str,
+    values: typing.Optional[typing.Sequence[builtins.str]] = None,
 ) -> None:
     """Type checking stubs"""
     pass
