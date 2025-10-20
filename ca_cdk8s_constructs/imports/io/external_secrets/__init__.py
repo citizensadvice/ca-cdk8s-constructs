@@ -30213,7 +30213,6 @@ class ClusterSecretStoreSpecProviderVolcengineAuthSecretRefToken:
     jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderWebhook",
     jsii_struct_bases=[],
     name_mapping={
-        "result": "result",
         "url": "url",
         "auth": "auth",
         "body": "body",
@@ -30221,6 +30220,7 @@ class ClusterSecretStoreSpecProviderVolcengineAuthSecretRefToken:
         "ca_provider": "caProvider",
         "headers": "headers",
         "method": "method",
+        "result": "result",
         "secrets": "secrets",
         "timeout": "timeout",
     },
@@ -30229,7 +30229,6 @@ class ClusterSecretStoreSpecProviderWebhook:
     def __init__(
         self,
         *,
-        result: typing.Union["ClusterSecretStoreSpecProviderWebhookResult", typing.Dict[builtins.str, typing.Any]],
         url: builtins.str,
         auth: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderWebhookAuth", typing.Dict[builtins.str, typing.Any]]] = None,
         body: typing.Optional[builtins.str] = None,
@@ -30237,12 +30236,12 @@ class ClusterSecretStoreSpecProviderWebhook:
         ca_provider: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderWebhookCaProvider", typing.Dict[builtins.str, typing.Any]]] = None,
         headers: typing.Optional[typing.Mapping[builtins.str, builtins.str]] = None,
         method: typing.Optional[builtins.str] = None,
+        result: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderWebhookResult", typing.Dict[builtins.str, typing.Any]]] = None,
         secrets: typing.Optional[typing.Sequence[typing.Union["ClusterSecretStoreSpecProviderWebhookSecrets", typing.Dict[builtins.str, typing.Any]]]] = None,
         timeout: typing.Optional[builtins.str] = None,
     ) -> None:
         '''Webhook configures this store to sync secrets using a generic templated webhook.
 
-        :param result: Result formatting.
         :param url: Webhook url to call.
         :param auth: Auth specifies a authorization protocol. Only one protocol may be set.
         :param body: Body.
@@ -30250,20 +30249,20 @@ class ClusterSecretStoreSpecProviderWebhook:
         :param ca_provider: The provider for the CA bundle to use to validate webhook server certificate.
         :param headers: Headers.
         :param method: Webhook Method.
+        :param result: Result formatting.
         :param secrets: Secrets to fill in templates These secrets will be passed to the templating function as key value pairs under the given name.
         :param timeout: Timeout.
 
         :schema: ClusterSecretStoreSpecProviderWebhook
         '''
-        if isinstance(result, dict):
-            result = ClusterSecretStoreSpecProviderWebhookResult(**result)
         if isinstance(auth, dict):
             auth = ClusterSecretStoreSpecProviderWebhookAuth(**auth)
         if isinstance(ca_provider, dict):
             ca_provider = ClusterSecretStoreSpecProviderWebhookCaProvider(**ca_provider)
+        if isinstance(result, dict):
+            result = ClusterSecretStoreSpecProviderWebhookResult(**result)
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__567875e5230d606c5c4ae9dfad288f18e0d73f5564ac4e3e6ec54c667c14e548)
-            check_type(argname="argument result", value=result, expected_type=type_hints["result"])
             check_type(argname="argument url", value=url, expected_type=type_hints["url"])
             check_type(argname="argument auth", value=auth, expected_type=type_hints["auth"])
             check_type(argname="argument body", value=body, expected_type=type_hints["body"])
@@ -30271,10 +30270,10 @@ class ClusterSecretStoreSpecProviderWebhook:
             check_type(argname="argument ca_provider", value=ca_provider, expected_type=type_hints["ca_provider"])
             check_type(argname="argument headers", value=headers, expected_type=type_hints["headers"])
             check_type(argname="argument method", value=method, expected_type=type_hints["method"])
+            check_type(argname="argument result", value=result, expected_type=type_hints["result"])
             check_type(argname="argument secrets", value=secrets, expected_type=type_hints["secrets"])
             check_type(argname="argument timeout", value=timeout, expected_type=type_hints["timeout"])
         self._values: typing.Dict[builtins.str, typing.Any] = {
-            "result": result,
             "url": url,
         }
         if auth is not None:
@@ -30289,20 +30288,12 @@ class ClusterSecretStoreSpecProviderWebhook:
             self._values["headers"] = headers
         if method is not None:
             self._values["method"] = method
+        if result is not None:
+            self._values["result"] = result
         if secrets is not None:
             self._values["secrets"] = secrets
         if timeout is not None:
             self._values["timeout"] = timeout
-
-    @builtins.property
-    def result(self) -> "ClusterSecretStoreSpecProviderWebhookResult":
-        '''Result formatting.
-
-        :schema: ClusterSecretStoreSpecProviderWebhook#result
-        '''
-        result = self._values.get("result")
-        assert result is not None, "Required property 'result' is missing"
-        return typing.cast("ClusterSecretStoreSpecProviderWebhookResult", result)
 
     @builtins.property
     def url(self) -> builtins.str:
@@ -30376,6 +30367,15 @@ class ClusterSecretStoreSpecProviderWebhook:
         '''
         result = self._values.get("method")
         return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def result(self) -> typing.Optional["ClusterSecretStoreSpecProviderWebhookResult"]:
+        '''Result formatting.
+
+        :schema: ClusterSecretStoreSpecProviderWebhook#result
+        '''
+        result = self._values.get("result")
+        return typing.cast(typing.Optional["ClusterSecretStoreSpecProviderWebhookResult"], result)
 
     @builtins.property
     def secrets(
@@ -79251,7 +79251,6 @@ class SecretStoreSpecProviderVolcengineAuthSecretRefToken:
     jsii_type="ioexternal-secrets.SecretStoreSpecProviderWebhook",
     jsii_struct_bases=[],
     name_mapping={
-        "result": "result",
         "url": "url",
         "auth": "auth",
         "body": "body",
@@ -79259,6 +79258,7 @@ class SecretStoreSpecProviderVolcengineAuthSecretRefToken:
         "ca_provider": "caProvider",
         "headers": "headers",
         "method": "method",
+        "result": "result",
         "secrets": "secrets",
         "timeout": "timeout",
     },
@@ -79267,7 +79267,6 @@ class SecretStoreSpecProviderWebhook:
     def __init__(
         self,
         *,
-        result: typing.Union["SecretStoreSpecProviderWebhookResult", typing.Dict[builtins.str, typing.Any]],
         url: builtins.str,
         auth: typing.Optional[typing.Union["SecretStoreSpecProviderWebhookAuth", typing.Dict[builtins.str, typing.Any]]] = None,
         body: typing.Optional[builtins.str] = None,
@@ -79275,12 +79274,12 @@ class SecretStoreSpecProviderWebhook:
         ca_provider: typing.Optional[typing.Union["SecretStoreSpecProviderWebhookCaProvider", typing.Dict[builtins.str, typing.Any]]] = None,
         headers: typing.Optional[typing.Mapping[builtins.str, builtins.str]] = None,
         method: typing.Optional[builtins.str] = None,
+        result: typing.Optional[typing.Union["SecretStoreSpecProviderWebhookResult", typing.Dict[builtins.str, typing.Any]]] = None,
         secrets: typing.Optional[typing.Sequence[typing.Union["SecretStoreSpecProviderWebhookSecrets", typing.Dict[builtins.str, typing.Any]]]] = None,
         timeout: typing.Optional[builtins.str] = None,
     ) -> None:
         '''Webhook configures this store to sync secrets using a generic templated webhook.
 
-        :param result: Result formatting.
         :param url: Webhook url to call.
         :param auth: Auth specifies a authorization protocol. Only one protocol may be set.
         :param body: Body.
@@ -79288,20 +79287,20 @@ class SecretStoreSpecProviderWebhook:
         :param ca_provider: The provider for the CA bundle to use to validate webhook server certificate.
         :param headers: Headers.
         :param method: Webhook Method.
+        :param result: Result formatting.
         :param secrets: Secrets to fill in templates These secrets will be passed to the templating function as key value pairs under the given name.
         :param timeout: Timeout.
 
         :schema: SecretStoreSpecProviderWebhook
         '''
-        if isinstance(result, dict):
-            result = SecretStoreSpecProviderWebhookResult(**result)
         if isinstance(auth, dict):
             auth = SecretStoreSpecProviderWebhookAuth(**auth)
         if isinstance(ca_provider, dict):
             ca_provider = SecretStoreSpecProviderWebhookCaProvider(**ca_provider)
+        if isinstance(result, dict):
+            result = SecretStoreSpecProviderWebhookResult(**result)
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__d1fafecaff262b0c905232c30dcb29512b172ba2eadfc2e0fbd39779df81871c)
-            check_type(argname="argument result", value=result, expected_type=type_hints["result"])
             check_type(argname="argument url", value=url, expected_type=type_hints["url"])
             check_type(argname="argument auth", value=auth, expected_type=type_hints["auth"])
             check_type(argname="argument body", value=body, expected_type=type_hints["body"])
@@ -79309,10 +79308,10 @@ class SecretStoreSpecProviderWebhook:
             check_type(argname="argument ca_provider", value=ca_provider, expected_type=type_hints["ca_provider"])
             check_type(argname="argument headers", value=headers, expected_type=type_hints["headers"])
             check_type(argname="argument method", value=method, expected_type=type_hints["method"])
+            check_type(argname="argument result", value=result, expected_type=type_hints["result"])
             check_type(argname="argument secrets", value=secrets, expected_type=type_hints["secrets"])
             check_type(argname="argument timeout", value=timeout, expected_type=type_hints["timeout"])
         self._values: typing.Dict[builtins.str, typing.Any] = {
-            "result": result,
             "url": url,
         }
         if auth is not None:
@@ -79327,20 +79326,12 @@ class SecretStoreSpecProviderWebhook:
             self._values["headers"] = headers
         if method is not None:
             self._values["method"] = method
+        if result is not None:
+            self._values["result"] = result
         if secrets is not None:
             self._values["secrets"] = secrets
         if timeout is not None:
             self._values["timeout"] = timeout
-
-    @builtins.property
-    def result(self) -> "SecretStoreSpecProviderWebhookResult":
-        '''Result formatting.
-
-        :schema: SecretStoreSpecProviderWebhook#result
-        '''
-        result = self._values.get("result")
-        assert result is not None, "Required property 'result' is missing"
-        return typing.cast("SecretStoreSpecProviderWebhookResult", result)
 
     @builtins.property
     def url(self) -> builtins.str:
@@ -79414,6 +79405,15 @@ class SecretStoreSpecProviderWebhook:
         '''
         result = self._values.get("method")
         return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def result(self) -> typing.Optional["SecretStoreSpecProviderWebhookResult"]:
+        '''Result formatting.
+
+        :schema: SecretStoreSpecProviderWebhook#result
+        '''
+        result = self._values.get("result")
+        return typing.cast(typing.Optional["SecretStoreSpecProviderWebhookResult"], result)
 
     @builtins.property
     def secrets(
@@ -104196,7 +104196,6 @@ def _typecheckingstub__f109aa71b547fdcc3daebdd0081a58d38b444649b5fd034cf2ca9c02d
 
 def _typecheckingstub__567875e5230d606c5c4ae9dfad288f18e0d73f5564ac4e3e6ec54c667c14e548(
     *,
-    result: typing.Union[ClusterSecretStoreSpecProviderWebhookResult, typing.Dict[builtins.str, typing.Any]],
     url: builtins.str,
     auth: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderWebhookAuth, typing.Dict[builtins.str, typing.Any]]] = None,
     body: typing.Optional[builtins.str] = None,
@@ -104204,6 +104203,7 @@ def _typecheckingstub__567875e5230d606c5c4ae9dfad288f18e0d73f5564ac4e3e6ec54c667
     ca_provider: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderWebhookCaProvider, typing.Dict[builtins.str, typing.Any]]] = None,
     headers: typing.Optional[typing.Mapping[builtins.str, builtins.str]] = None,
     method: typing.Optional[builtins.str] = None,
+    result: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderWebhookResult, typing.Dict[builtins.str, typing.Any]]] = None,
     secrets: typing.Optional[typing.Sequence[typing.Union[ClusterSecretStoreSpecProviderWebhookSecrets, typing.Dict[builtins.str, typing.Any]]]] = None,
     timeout: typing.Optional[builtins.str] = None,
 ) -> None:
@@ -109473,7 +109473,6 @@ def _typecheckingstub__8d5226f9ffe602352abff7788acf1bcdf553f72649685111045d227f3
 
 def _typecheckingstub__d1fafecaff262b0c905232c30dcb29512b172ba2eadfc2e0fbd39779df81871c(
     *,
-    result: typing.Union[SecretStoreSpecProviderWebhookResult, typing.Dict[builtins.str, typing.Any]],
     url: builtins.str,
     auth: typing.Optional[typing.Union[SecretStoreSpecProviderWebhookAuth, typing.Dict[builtins.str, typing.Any]]] = None,
     body: typing.Optional[builtins.str] = None,
@@ -109481,6 +109480,7 @@ def _typecheckingstub__d1fafecaff262b0c905232c30dcb29512b172ba2eadfc2e0fbd39779d
     ca_provider: typing.Optional[typing.Union[SecretStoreSpecProviderWebhookCaProvider, typing.Dict[builtins.str, typing.Any]]] = None,
     headers: typing.Optional[typing.Mapping[builtins.str, builtins.str]] = None,
     method: typing.Optional[builtins.str] = None,
+    result: typing.Optional[typing.Union[SecretStoreSpecProviderWebhookResult, typing.Dict[builtins.str, typing.Any]]] = None,
     secrets: typing.Optional[typing.Sequence[typing.Union[SecretStoreSpecProviderWebhookSecrets, typing.Dict[builtins.str, typing.Any]]]] = None,
     timeout: typing.Optional[builtins.str] = None,
 ) -> None:
