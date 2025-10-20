@@ -4931,6 +4931,7 @@ class ClusterGeneratorSpecGeneratorMfaSpecSecret:
         "length": "length",
         "no_upper": "noUpper",
         "digits": "digits",
+        "encoding": "encoding",
         "symbol_characters": "symbolCharacters",
         "symbols": "symbols",
     },
@@ -4943,6 +4944,7 @@ class ClusterGeneratorSpecGeneratorPasswordSpec:
         length: jsii.Number,
         no_upper: builtins.bool,
         digits: typing.Optional[jsii.Number] = None,
+        encoding: typing.Optional["ClusterGeneratorSpecGeneratorPasswordSpecEncoding"] = None,
         symbol_characters: typing.Optional[builtins.str] = None,
         symbols: typing.Optional[jsii.Number] = None,
     ) -> None:
@@ -4952,6 +4954,7 @@ class ClusterGeneratorSpecGeneratorPasswordSpec:
         :param length: Length of the password to be generated. Defaults to 24 Default: 24
         :param no_upper: Set NoUpper to disable uppercase characters.
         :param digits: Digits specifies the number of digits in the generated password. If omitted it defaults to 25% of the length of the password
+        :param encoding: Encoding specifies the encoding of the generated password. Valid values are: - "raw" (default): no encoding - "base64": standard base64 encoding - "base64url": base64url encoding - "base32": base32 encoding - "hex": hexadecimal encoding
         :param symbol_characters: SymbolCharacters specifies the special characters that should be used in the generated password.
         :param symbols: Symbols specifies the number of symbol characters in the generated password. If omitted it defaults to 25% of the length of the password
 
@@ -4963,6 +4966,7 @@ class ClusterGeneratorSpecGeneratorPasswordSpec:
             check_type(argname="argument length", value=length, expected_type=type_hints["length"])
             check_type(argname="argument no_upper", value=no_upper, expected_type=type_hints["no_upper"])
             check_type(argname="argument digits", value=digits, expected_type=type_hints["digits"])
+            check_type(argname="argument encoding", value=encoding, expected_type=type_hints["encoding"])
             check_type(argname="argument symbol_characters", value=symbol_characters, expected_type=type_hints["symbol_characters"])
             check_type(argname="argument symbols", value=symbols, expected_type=type_hints["symbols"])
         self._values: typing.Dict[builtins.str, typing.Any] = {
@@ -4972,6 +4976,8 @@ class ClusterGeneratorSpecGeneratorPasswordSpec:
         }
         if digits is not None:
             self._values["digits"] = digits
+        if encoding is not None:
+            self._values["encoding"] = encoding
         if symbol_characters is not None:
             self._values["symbol_characters"] = symbol_characters
         if symbols is not None:
@@ -5023,6 +5029,25 @@ class ClusterGeneratorSpecGeneratorPasswordSpec:
         return typing.cast(typing.Optional[jsii.Number], result)
 
     @builtins.property
+    def encoding(
+        self,
+    ) -> typing.Optional["ClusterGeneratorSpecGeneratorPasswordSpecEncoding"]:
+        '''Encoding specifies the encoding of the generated password.
+
+        Valid values are:
+
+        - "raw" (default): no encoding
+        - "base64": standard base64 encoding
+        - "base64url": base64url encoding
+        - "base32": base32 encoding
+        - "hex": hexadecimal encoding
+
+        :schema: ClusterGeneratorSpecGeneratorPasswordSpec#encoding
+        '''
+        result = self._values.get("encoding")
+        return typing.cast(typing.Optional["ClusterGeneratorSpecGeneratorPasswordSpecEncoding"], result)
+
+    @builtins.property
     def symbol_characters(self) -> typing.Optional[builtins.str]:
         '''SymbolCharacters specifies the special characters that should be used in the generated password.
 
@@ -5052,6 +5077,35 @@ class ClusterGeneratorSpecGeneratorPasswordSpec:
         return "ClusterGeneratorSpecGeneratorPasswordSpec(%s)" % ", ".join(
             k + "=" + repr(v) for k, v in self._values.items()
         )
+
+
+@jsii.enum(
+    jsii_type="ioexternal-secretsgenerators.ClusterGeneratorSpecGeneratorPasswordSpecEncoding"
+)
+class ClusterGeneratorSpecGeneratorPasswordSpecEncoding(enum.Enum):
+    '''Encoding specifies the encoding of the generated password.
+
+    Valid values are:
+
+    - "raw" (default): no encoding
+    - "base64": standard base64 encoding
+    - "base64url": base64url encoding
+    - "base32": base32 encoding
+    - "hex": hexadecimal encoding
+
+    :schema: ClusterGeneratorSpecGeneratorPasswordSpecEncoding
+    '''
+
+    BASE64 = "BASE64"
+    '''base64.'''
+    BASE64URL = "BASE64URL"
+    '''base64url.'''
+    BASE32 = "BASE32"
+    '''base32.'''
+    HEX = "HEX"
+    '''hex.'''
+    RAW = "RAW"
+    '''raw.'''
 
 
 @jsii.data_type(
@@ -13576,6 +13630,7 @@ class PasswordProps:
         "length": "length",
         "no_upper": "noUpper",
         "digits": "digits",
+        "encoding": "encoding",
         "symbol_characters": "symbolCharacters",
         "symbols": "symbols",
     },
@@ -13588,6 +13643,7 @@ class PasswordSpec:
         length: jsii.Number,
         no_upper: builtins.bool,
         digits: typing.Optional[jsii.Number] = None,
+        encoding: typing.Optional["PasswordSpecEncoding"] = None,
         symbol_characters: typing.Optional[builtins.str] = None,
         symbols: typing.Optional[jsii.Number] = None,
     ) -> None:
@@ -13597,6 +13653,7 @@ class PasswordSpec:
         :param length: Length of the password to be generated. Defaults to 24 Default: 24
         :param no_upper: Set NoUpper to disable uppercase characters.
         :param digits: Digits specifies the number of digits in the generated password. If omitted it defaults to 25% of the length of the password
+        :param encoding: Encoding specifies the encoding of the generated password. Valid values are: - "raw" (default): no encoding - "base64": standard base64 encoding - "base64url": base64url encoding - "base32": base32 encoding - "hex": hexadecimal encoding
         :param symbol_characters: SymbolCharacters specifies the special characters that should be used in the generated password.
         :param symbols: Symbols specifies the number of symbol characters in the generated password. If omitted it defaults to 25% of the length of the password
 
@@ -13608,6 +13665,7 @@ class PasswordSpec:
             check_type(argname="argument length", value=length, expected_type=type_hints["length"])
             check_type(argname="argument no_upper", value=no_upper, expected_type=type_hints["no_upper"])
             check_type(argname="argument digits", value=digits, expected_type=type_hints["digits"])
+            check_type(argname="argument encoding", value=encoding, expected_type=type_hints["encoding"])
             check_type(argname="argument symbol_characters", value=symbol_characters, expected_type=type_hints["symbol_characters"])
             check_type(argname="argument symbols", value=symbols, expected_type=type_hints["symbols"])
         self._values: typing.Dict[builtins.str, typing.Any] = {
@@ -13617,6 +13675,8 @@ class PasswordSpec:
         }
         if digits is not None:
             self._values["digits"] = digits
+        if encoding is not None:
+            self._values["encoding"] = encoding
         if symbol_characters is not None:
             self._values["symbol_characters"] = symbol_characters
         if symbols is not None:
@@ -13668,6 +13728,23 @@ class PasswordSpec:
         return typing.cast(typing.Optional[jsii.Number], result)
 
     @builtins.property
+    def encoding(self) -> typing.Optional["PasswordSpecEncoding"]:
+        '''Encoding specifies the encoding of the generated password.
+
+        Valid values are:
+
+        - "raw" (default): no encoding
+        - "base64": standard base64 encoding
+        - "base64url": base64url encoding
+        - "base32": base32 encoding
+        - "hex": hexadecimal encoding
+
+        :schema: PasswordSpec#encoding
+        '''
+        result = self._values.get("encoding")
+        return typing.cast(typing.Optional["PasswordSpecEncoding"], result)
+
+    @builtins.property
     def symbol_characters(self) -> typing.Optional[builtins.str]:
         '''SymbolCharacters specifies the special characters that should be used in the generated password.
 
@@ -13697,6 +13774,33 @@ class PasswordSpec:
         return "PasswordSpec(%s)" % ", ".join(
             k + "=" + repr(v) for k, v in self._values.items()
         )
+
+
+@jsii.enum(jsii_type="ioexternal-secretsgenerators.PasswordSpecEncoding")
+class PasswordSpecEncoding(enum.Enum):
+    '''Encoding specifies the encoding of the generated password.
+
+    Valid values are:
+
+    - "raw" (default): no encoding
+    - "base64": standard base64 encoding
+    - "base64url": base64url encoding
+    - "base32": base32 encoding
+    - "hex": hexadecimal encoding
+
+    :schema: PasswordSpecEncoding
+    '''
+
+    BASE64 = "BASE64"
+    '''base64.'''
+    BASE64URL = "BASE64URL"
+    '''base64url.'''
+    BASE32 = "BASE32"
+    '''base32.'''
+    HEX = "HEX"
+    '''hex.'''
+    RAW = "RAW"
+    '''raw.'''
 
 
 class QuayAccessToken(
@@ -19421,6 +19525,7 @@ __all__ = [
     "ClusterGeneratorSpecGeneratorMfaSpec",
     "ClusterGeneratorSpecGeneratorMfaSpecSecret",
     "ClusterGeneratorSpecGeneratorPasswordSpec",
+    "ClusterGeneratorSpecGeneratorPasswordSpecEncoding",
     "ClusterGeneratorSpecGeneratorQuayAccessTokenSpec",
     "ClusterGeneratorSpecGeneratorQuayAccessTokenSpecServiceAccountRef",
     "ClusterGeneratorSpecGeneratorSshKeySpec",
@@ -19532,6 +19637,7 @@ __all__ = [
     "Password",
     "PasswordProps",
     "PasswordSpec",
+    "PasswordSpecEncoding",
     "QuayAccessToken",
     "QuayAccessTokenProps",
     "QuayAccessTokenSpec",
@@ -20166,6 +20272,7 @@ def _typecheckingstub__6b3ec65a0916fa97e69ec9837c4c6798e17e81eb424563cc5bd5349de
     length: jsii.Number,
     no_upper: builtins.bool,
     digits: typing.Optional[jsii.Number] = None,
+    encoding: typing.Optional[ClusterGeneratorSpecGeneratorPasswordSpecEncoding] = None,
     symbol_characters: typing.Optional[builtins.str] = None,
     symbols: typing.Optional[jsii.Number] = None,
 ) -> None:
@@ -21127,6 +21234,7 @@ def _typecheckingstub__b4393f1aed12b90dce27cf67a339b9404fe1de87a2e6dc07a755ffa39
     length: jsii.Number,
     no_upper: builtins.bool,
     digits: typing.Optional[jsii.Number] = None,
+    encoding: typing.Optional[PasswordSpecEncoding] = None,
     symbol_characters: typing.Optional[builtins.str] = None,
     symbols: typing.Optional[jsii.Number] = None,
 ) -> None:

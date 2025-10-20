@@ -2779,13 +2779,13 @@ class ProbeSpecProber:
 
         The prober.URL parameter is required. Targets cannot be probed if left empty.
 
-        :param url: url defines the mandatory URL of the prober.
+        :param url: url defines the address of the prober. Unlike what the name indicates, the value should be in the form of ``address:port`` without any scheme which should be specified in the ``scheme`` field.
         :param no_proxy: noProxy defines a comma-separated string that can contain IPs, CIDR notation, domain names that should be excluded from proxying. IP and domain names can contain port numbers. It requires Prometheus >= v2.43.0, Alertmanager >= v0.25.0 or Thanos >= v0.32.0.
         :param path: path to collect metrics from. Defaults to ``/probe``. Default: probe`.
         :param proxy_connect_header: proxyConnectHeader optionally specifies headers to send to proxies during CONNECT requests. It requires Prometheus >= v2.43.0, Alertmanager >= v0.25.0 or Thanos >= v0.32.0.
         :param proxy_from_environment: proxyFromEnvironment defines whether to use the proxy configuration defined by environment variables (HTTP_PROXY, HTTPS_PROXY, and NO_PROXY). It requires Prometheus >= v2.43.0, Alertmanager >= v0.25.0 or Thanos >= v0.32.0.
         :param proxy_url: proxyUrl defines the HTTP proxy server to use.
-        :param scheme: scheme defines the HTTP scheme to use for scraping. ``http`` and ``https`` are the expected values unless you rewrite the ``__scheme__`` label via relabeling. If empty, Prometheus uses the default value ``http``.
+        :param scheme: scheme defines the HTTP scheme to use when scraping the prober.
 
         :schema: ProbeSpecProber
         '''
@@ -2816,7 +2816,11 @@ class ProbeSpecProber:
 
     @builtins.property
     def url(self) -> builtins.str:
-        '''url defines the mandatory URL of the prober.
+        '''url defines the address of the prober.
+
+        Unlike what the name indicates, the value should be in the form of
+        ``address:port`` without any scheme which should be specified in the
+        ``scheme`` field.
 
         :schema: ProbeSpecProber#url
         '''
@@ -2886,10 +2890,7 @@ class ProbeSpecProber:
 
     @builtins.property
     def scheme(self) -> typing.Optional["ProbeSpecProberScheme"]:
-        '''scheme defines the HTTP scheme to use for scraping.
-
-        ``http`` and ``https`` are the expected values unless you rewrite the ``__scheme__`` label via relabeling.
-        If empty, Prometheus uses the default value ``http``.
+        '''scheme defines the HTTP scheme to use when scraping the prober.
 
         :schema: ProbeSpecProber#scheme
         '''
@@ -2991,10 +2992,7 @@ class ProbeSpecProberProxyConnectHeader:
 
 @jsii.enum(jsii_type="comcoreosmonitoring.ProbeSpecProberScheme")
 class ProbeSpecProberScheme(enum.Enum):
-    '''scheme defines the HTTP scheme to use for scraping.
-
-    ``http`` and ``https`` are the expected values unless you rewrite the ``__scheme__`` label via relabeling.
-    If empty, Prometheus uses the default value ``http``.
+    '''scheme defines the HTTP scheme to use when scraping the prober.
 
     :schema: ProbeSpecProberScheme
     '''
