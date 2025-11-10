@@ -122,7 +122,7 @@ wheels = [
 
 [[package]]
 name = "cdk8s"
-version = "2.70.23"
+version = "2.70.26"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "constructs" },
@@ -130,9 +130,9 @@ dependencies = [
     { name = "publication" },
     { name = "typeguard" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/fb/59/553927f3f08b895107a2d5ecf8189db843deed69d78ad0dad889c21a4b40/cdk8s-2.70.23.tar.gz", hash = "sha256:2efe90069a5fdfb6ef96656683ac3aabbbf066c37076c147dd33c87c30e43ea0", size = 382225, upload-time = "2025-10-23T12:17:42.005Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/20/e3/cad72fedd063c09c540036e1b1d849805e94f4dce60707eb9bdc6b1b6575/cdk8s-2.70.26.tar.gz", hash = "sha256:2514a1aa21960c3b3ad490b2df562e0d6ea9c214cbf8a48586df646ad2a4c3df", size = 383505, upload-time = "2025-11-04T12:17:11.76Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/86/20/e5bf8919a8e7bc245ee4c5a6662dd6725f1a819d79b884f7a13a3c48b02b/cdk8s-2.70.23-py3-none-any.whl", hash = "sha256:2fd00cf3a035bb1255cb45bdf38bff01ec40e4bbb38c8c958ae1e383c16d77c0", size = 380219, upload-time = "2025-10-23T12:17:37.869Z" },
+    { url = "https://files.pythonhosted.org/packages/d4/73/1d402371e026993f4a25216f96791248fad1c6dd1355dc5bac241a5ca046/cdk8s-2.70.26-py3-none-any.whl", hash = "sha256:89708e803b8eee51b9a8ac40336fb4afde1ebf2fee7fd90a82b1a57d7dc69d53", size = 381464, upload-time = "2025-11-04T12:17:08.498Z" },
 ]
 
 [[package]]
