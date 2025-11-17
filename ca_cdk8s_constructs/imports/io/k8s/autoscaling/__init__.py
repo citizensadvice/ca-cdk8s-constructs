@@ -777,6 +777,8 @@ class VerticalPodAutoscalerSpecResourcePolicy:
         "max_allowed": "maxAllowed",
         "min_allowed": "minAllowed",
         "mode": "mode",
+        "oom_bump_up_ratio": "oomBumpUpRatio",
+        "oom_min_bump_up": "oomMinBumpUp",
     },
 )
 class VerticalPodAutoscalerSpecResourcePolicyContainerPolicies:
@@ -789,6 +791,8 @@ class VerticalPodAutoscalerSpecResourcePolicyContainerPolicies:
         max_allowed: typing.Optional[typing.Mapping[builtins.str, "VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesMaxAllowed"]] = None,
         min_allowed: typing.Optional[typing.Mapping[builtins.str, "VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesMinAllowed"]] = None,
         mode: typing.Optional["VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesMode"] = None,
+        oom_bump_up_ratio: typing.Optional["VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesOomBumpUpRatio"] = None,
+        oom_min_bump_up: typing.Optional["VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesOomMinBumpUp"] = None,
     ) -> None:
         '''ContainerResourcePolicy controls how autoscaler computes the recommended resources for a specific container.
 
@@ -798,6 +802,8 @@ class VerticalPodAutoscalerSpecResourcePolicyContainerPolicies:
         :param max_allowed: Specifies the maximum amount of resources that will be recommended for the container. The default is no maximum.
         :param min_allowed: Specifies the minimal amount of resources that will be recommended for the container. The default is no minimum.
         :param mode: Whether autoscaler is enabled for the container. The default is "Auto".
+        :param oom_bump_up_ratio: oomBumpUpRatio is the ratio to increase memory when OOM is detected.
+        :param oom_min_bump_up: oomMinBumpUp is the minimum increase in memory when OOM is detected.
 
         :schema: VerticalPodAutoscalerSpecResourcePolicyContainerPolicies
         '''
@@ -809,6 +815,8 @@ class VerticalPodAutoscalerSpecResourcePolicyContainerPolicies:
             check_type(argname="argument max_allowed", value=max_allowed, expected_type=type_hints["max_allowed"])
             check_type(argname="argument min_allowed", value=min_allowed, expected_type=type_hints["min_allowed"])
             check_type(argname="argument mode", value=mode, expected_type=type_hints["mode"])
+            check_type(argname="argument oom_bump_up_ratio", value=oom_bump_up_ratio, expected_type=type_hints["oom_bump_up_ratio"])
+            check_type(argname="argument oom_min_bump_up", value=oom_min_bump_up, expected_type=type_hints["oom_min_bump_up"])
         self._values: typing.Dict[builtins.str, typing.Any] = {}
         if container_name is not None:
             self._values["container_name"] = container_name
@@ -822,6 +830,10 @@ class VerticalPodAutoscalerSpecResourcePolicyContainerPolicies:
             self._values["min_allowed"] = min_allowed
         if mode is not None:
             self._values["mode"] = mode
+        if oom_bump_up_ratio is not None:
+            self._values["oom_bump_up_ratio"] = oom_bump_up_ratio
+        if oom_min_bump_up is not None:
+            self._values["oom_min_bump_up"] = oom_min_bump_up
 
     @builtins.property
     def container_name(self) -> typing.Optional[builtins.str]:
@@ -894,6 +906,28 @@ class VerticalPodAutoscalerSpecResourcePolicyContainerPolicies:
         '''
         result = self._values.get("mode")
         return typing.cast(typing.Optional["VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesMode"], result)
+
+    @builtins.property
+    def oom_bump_up_ratio(
+        self,
+    ) -> typing.Optional["VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesOomBumpUpRatio"]:
+        '''oomBumpUpRatio is the ratio to increase memory when OOM is detected.
+
+        :schema: VerticalPodAutoscalerSpecResourcePolicyContainerPolicies#oomBumpUpRatio
+        '''
+        result = self._values.get("oom_bump_up_ratio")
+        return typing.cast(typing.Optional["VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesOomBumpUpRatio"], result)
+
+    @builtins.property
+    def oom_min_bump_up(
+        self,
+    ) -> typing.Optional["VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesOomMinBumpUp"]:
+        '''oomMinBumpUp is the minimum increase in memory when OOM is detected.
+
+        :schema: VerticalPodAutoscalerSpecResourcePolicyContainerPolicies#oomMinBumpUp
+        '''
+        result = self._values.get("oom_min_bump_up")
+        return typing.cast(typing.Optional["VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesOomMinBumpUp"], result)
 
     def __eq__(self, rhs: typing.Any) -> builtins.bool:
         return isinstance(rhs, self.__class__) and rhs._values == self._values
@@ -1025,6 +1059,92 @@ class VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesMode(enum.Enum):
     '''Auto.'''
     OFF = "OFF"
     '''Off.'''
+
+
+class VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesOomBumpUpRatio(
+    metaclass=jsii.JSIIMeta,
+    jsii_type="iok8sautoscaling.VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesOomBumpUpRatio",
+):
+    '''oomBumpUpRatio is the ratio to increase memory when OOM is detected.
+
+    :schema: VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesOomBumpUpRatio
+    '''
+
+    @jsii.member(jsii_name="fromNumber")
+    @builtins.classmethod
+    def from_number(
+        cls,
+        value: jsii.Number,
+    ) -> "VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesOomBumpUpRatio":
+        '''
+        :param value: -
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__693448f123b9a90a95759ecf2b1e7e25d31c25a7d20ad327bca95e4d139dc9e6)
+            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
+        return typing.cast("VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesOomBumpUpRatio", jsii.sinvoke(cls, "fromNumber", [value]))
+
+    @jsii.member(jsii_name="fromString")
+    @builtins.classmethod
+    def from_string(
+        cls,
+        value: builtins.str,
+    ) -> "VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesOomBumpUpRatio":
+        '''
+        :param value: -
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__2784a094ae765b69740bd754165c654fb9ec42b095015896d7dffc39da92dd59)
+            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
+        return typing.cast("VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesOomBumpUpRatio", jsii.sinvoke(cls, "fromString", [value]))
+
+    @builtins.property
+    @jsii.member(jsii_name="value")
+    def value(self) -> typing.Union[builtins.str, jsii.Number]:
+        return typing.cast(typing.Union[builtins.str, jsii.Number], jsii.get(self, "value"))
+
+
+class VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesOomMinBumpUp(
+    metaclass=jsii.JSIIMeta,
+    jsii_type="iok8sautoscaling.VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesOomMinBumpUp",
+):
+    '''oomMinBumpUp is the minimum increase in memory when OOM is detected.
+
+    :schema: VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesOomMinBumpUp
+    '''
+
+    @jsii.member(jsii_name="fromNumber")
+    @builtins.classmethod
+    def from_number(
+        cls,
+        value: jsii.Number,
+    ) -> "VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesOomMinBumpUp":
+        '''
+        :param value: -
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__141812394b9ad99956e4b10ae49e31482ae4a2e1e3e6539c5c49684f94816a93)
+            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
+        return typing.cast("VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesOomMinBumpUp", jsii.sinvoke(cls, "fromNumber", [value]))
+
+    @jsii.member(jsii_name="fromString")
+    @builtins.classmethod
+    def from_string(
+        cls,
+        value: builtins.str,
+    ) -> "VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesOomMinBumpUp":
+        '''
+        :param value: -
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__d653b2712752a2fa0a083e6f29cddf8eed6d3e7d040a856b68597fc040631c92)
+            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
+        return typing.cast("VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesOomMinBumpUp", jsii.sinvoke(cls, "fromString", [value]))
+
+    @builtins.property
+    @jsii.member(jsii_name="value")
+    def value(self) -> typing.Union[builtins.str, jsii.Number]:
+        return typing.cast(typing.Union[builtins.str, jsii.Number], jsii.get(self, "value"))
 
 
 @jsii.data_type(
@@ -1952,6 +2072,8 @@ __all__ = [
     "VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesMaxAllowed",
     "VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesMinAllowed",
     "VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesMode",
+    "VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesOomBumpUpRatio",
+    "VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesOomMinBumpUp",
     "VerticalPodAutoscalerSpecTargetRef",
     "VerticalPodAutoscalerSpecUpdatePolicy",
     "VerticalPodAutoscalerSpecUpdatePolicyEvictionRequirements",
@@ -2074,6 +2196,8 @@ def _typecheckingstub__20e39dd603c99d3d3deb05326547159fd6fe9e3b7008f5a98634351e6
     max_allowed: typing.Optional[typing.Mapping[builtins.str, VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesMaxAllowed]] = None,
     min_allowed: typing.Optional[typing.Mapping[builtins.str, VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesMinAllowed]] = None,
     mode: typing.Optional[VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesMode] = None,
+    oom_bump_up_ratio: typing.Optional[VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesOomBumpUpRatio] = None,
+    oom_min_bump_up: typing.Optional[VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesOomMinBumpUp] = None,
 ) -> None:
     """Type checking stubs"""
     pass
@@ -2097,6 +2221,30 @@ def _typecheckingstub__0d73f677b6a482dbb3b55973d80ae592e9d8c000e9b9e097a4bba666a
     pass
 
 def _typecheckingstub__48e1ef241fc712d94bafc6720c9dbdf04454d7347d241bf8e7b39f821f87b9c6(
+    value: builtins.str,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__693448f123b9a90a95759ecf2b1e7e25d31c25a7d20ad327bca95e4d139dc9e6(
+    value: jsii.Number,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__2784a094ae765b69740bd754165c654fb9ec42b095015896d7dffc39da92dd59(
+    value: builtins.str,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__141812394b9ad99956e4b10ae49e31482ae4a2e1e3e6539c5c49684f94816a93(
+    value: jsii.Number,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__d653b2712752a2fa0a083e6f29cddf8eed6d3e7d040a856b68597fc040631c92(
     value: builtins.str,
 ) -> None:
     """Type checking stubs"""

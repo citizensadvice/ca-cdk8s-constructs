@@ -197,9 +197,9 @@ class AcrAccessTokenSpec:
     ) -> None:
         '''ACRAccessTokenSpec defines how to generate the access token e.g. how to authenticate and which registry to use. see: https://github.com/Azure/acr/blob/main/docs/AAD-OAuth.md#overview.
 
-        :param auth: 
+        :param auth: ACRAuth defines the authentication methods for Azure Container Registry.
         :param registry: the domain name of the ACR registry e.g. foobarexample.azurecr.io.
-        :param environment_type: EnvironmentType specifies the Azure cloud environment endpoints to use for connecting and authenticating with Azure. By default it points to the public cloud AAD endpoint. The following endpoints are available, also see here: https://github.com/Azure/go-autorest/blob/main/autorest/azure/environments.go#L152 PublicCloud, USGovernmentCloud, ChinaCloud, GermanCloud
+        :param environment_type: EnvironmentType specifies the Azure cloud environment endpoints to use for connecting and authenticating with Azure. By default, it points to the public cloud AAD endpoint. The following endpoints are available, also see here: https://github.com/Azure/go-autorest/blob/main/autorest/azure/environments.go#L152 PublicCloud, USGovernmentCloud, ChinaCloud, GermanCloud
         :param scope: Define the scope for the access token, e.g. pull/push access for a repository. if not provided it will return a refresh token that has full scope. Note: you need to pin it down to the repository level, there is no wildcard available. examples: repository:my-repository:pull,push repository:my-repository:pull see docs for details: https://docs.docker.com/registry/spec/auth/scope/
         :param tenant_id: TenantID configures the Azure Tenant to send requests to. Required for ServicePrincipal auth type.
 
@@ -227,7 +227,8 @@ class AcrAccessTokenSpec:
 
     @builtins.property
     def auth(self) -> "AcrAccessTokenSpecAuth":
-        '''
+        '''ACRAuth defines the authentication methods for Azure Container Registry.
+
         :schema: AcrAccessTokenSpec#auth
         '''
         result = self._values.get("auth")
@@ -248,7 +249,7 @@ class AcrAccessTokenSpec:
     def environment_type(self) -> typing.Optional["AcrAccessTokenSpecEnvironmentType"]:
         '''EnvironmentType specifies the Azure cloud environment endpoints to use for connecting and authenticating with Azure.
 
-        By default it points to the public cloud AAD endpoint.
+        By default, it points to the public cloud AAD endpoint.
         The following endpoints are available, also see here: https://github.com/Azure/go-autorest/blob/main/autorest/azure/environments.go#L152
         PublicCloud, USGovernmentCloud, ChinaCloud, GermanCloud
 
@@ -312,7 +313,8 @@ class AcrAccessTokenSpecAuth:
         service_principal: typing.Optional[typing.Union["AcrAccessTokenSpecAuthServicePrincipal", typing.Dict[builtins.str, typing.Any]]] = None,
         workload_identity: typing.Optional[typing.Union["AcrAccessTokenSpecAuthWorkloadIdentity", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
+        '''ACRAuth defines the authentication methods for Azure Container Registry.
+
         :param managed_identity: ManagedIdentity uses Azure Managed Identity to authenticate with Azure.
         :param service_principal: ServicePrincipal uses Azure Service Principal credentials to authenticate with Azure.
         :param workload_identity: WorkloadIdentity uses Azure Workload Identity to authenticate with Azure.
@@ -437,7 +439,7 @@ class AcrAccessTokenSpecAuthServicePrincipal:
     ) -> None:
         '''ServicePrincipal uses Azure Service Principal credentials to authenticate with Azure.
 
-        :param secret_ref: Configuration used to authenticate with Azure using static credentials stored in a Kind=Secret.
+        :param secret_ref: AzureACRServicePrincipalAuthSecretRef defines the secret references for Azure Service Principal authentication. It uses static credentials stored in a Kind=Secret.
 
         :schema: AcrAccessTokenSpecAuthServicePrincipal
         '''
@@ -452,7 +454,9 @@ class AcrAccessTokenSpecAuthServicePrincipal:
 
     @builtins.property
     def secret_ref(self) -> "AcrAccessTokenSpecAuthServicePrincipalSecretRef":
-        '''Configuration used to authenticate with Azure using static credentials stored in a Kind=Secret.
+        '''AzureACRServicePrincipalAuthSecretRef defines the secret references for Azure Service Principal authentication.
+
+        It uses static credentials stored in a Kind=Secret.
 
         :schema: AcrAccessTokenSpecAuthServicePrincipal#secretRef
         '''
@@ -484,7 +488,9 @@ class AcrAccessTokenSpecAuthServicePrincipalSecretRef:
         client_id: typing.Optional[typing.Union["AcrAccessTokenSpecAuthServicePrincipalSecretRefClientId", typing.Dict[builtins.str, typing.Any]]] = None,
         client_secret: typing.Optional[typing.Union["AcrAccessTokenSpecAuthServicePrincipalSecretRefClientSecret", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''Configuration used to authenticate with Azure using static credentials stored in a Kind=Secret.
+        '''AzureACRServicePrincipalAuthSecretRef defines the secret references for Azure Service Principal authentication.
+
+        It uses static credentials stored in a Kind=Secret.
 
         :param client_id: The Azure clientId of the service principle used for authentication.
         :param client_secret: The Azure ClientSecret of the service principle used for authentication.
@@ -822,7 +828,7 @@ class AcrAccessTokenSpecAuthWorkloadIdentityServiceAccountRef:
 class AcrAccessTokenSpecEnvironmentType(enum.Enum):
     '''EnvironmentType specifies the Azure cloud environment endpoints to use for connecting and authenticating with Azure.
 
-    By default it points to the public cloud AAD endpoint.
+    By default, it points to the public cloud AAD endpoint.
     The following endpoints are available, also see here: https://github.com/Azure/go-autorest/blob/main/autorest/azure/environments.go#L152
     PublicCloud, USGovernmentCloud, ChinaCloud, GermanCloud
 
@@ -864,7 +870,7 @@ class CloudsmithAccessToken(
         :param scope: the scope in which to define this object.
         :param id: a scope-local name for the object.
         :param metadata: 
-        :param spec: 
+        :param spec: CloudsmithAccessTokenSpec defines the configuration for generating a Cloudsmith access token using OIDC authentication.
         '''
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__8a7a7a71241266fc4bcad24d1e3ed683758199364aa6f6793360ad4140c05222)
@@ -887,7 +893,7 @@ class CloudsmithAccessToken(
         This can be used to inline resource manifests inside other objects (e.g. as templates).
 
         :param metadata: 
-        :param spec: 
+        :param spec: CloudsmithAccessTokenSpec defines the configuration for generating a Cloudsmith access token using OIDC authentication.
         '''
         props = CloudsmithAccessTokenProps(metadata=metadata, spec=spec)
 
@@ -920,7 +926,7 @@ class CloudsmithAccessTokenProps:
         '''CloudsmithAccessToken generates Cloudsmith access token using OIDC authentication.
 
         :param metadata: 
-        :param spec: 
+        :param spec: CloudsmithAccessTokenSpec defines the configuration for generating a Cloudsmith access token using OIDC authentication.
 
         :schema: CloudsmithAccessToken
         '''
@@ -948,7 +954,8 @@ class CloudsmithAccessTokenProps:
 
     @builtins.property
     def spec(self) -> typing.Optional["CloudsmithAccessTokenSpec"]:
-        '''
+        '''CloudsmithAccessTokenSpec defines the configuration for generating a Cloudsmith access token using OIDC authentication.
+
         :schema: CloudsmithAccessToken#spec
         '''
         result = self._values.get("spec")
@@ -985,7 +992,8 @@ class CloudsmithAccessTokenSpec:
         service_slug: builtins.str,
         api_url: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''
+        '''CloudsmithAccessTokenSpec defines the configuration for generating a Cloudsmith access token using OIDC authentication.
+
         :param org_slug: OrgSlug is the organization slug in Cloudsmith.
         :param service_account_ref: Name of the service account you are federating with.
         :param service_slug: ServiceSlug is the service slug in Cloudsmith for OIDC authentication.
@@ -1163,7 +1171,7 @@ class ClusterGenerator(
         :param scope: the scope in which to define this object.
         :param id: a scope-local name for the object.
         :param metadata: 
-        :param spec: 
+        :param spec: ClusterGeneratorSpec defines the desired state of a ClusterGenerator.
         '''
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__9a344af75ed1cbccde2cb0736d9fd19650ccfcf8db8041ebef1f47376fdd8893)
@@ -1186,7 +1194,7 @@ class ClusterGenerator(
         This can be used to inline resource manifests inside other objects (e.g. as templates).
 
         :param metadata: 
-        :param spec: 
+        :param spec: ClusterGeneratorSpec defines the desired state of a ClusterGenerator.
         '''
         props = ClusterGeneratorProps(metadata=metadata, spec=spec)
 
@@ -1219,7 +1227,7 @@ class ClusterGeneratorProps:
         '''ClusterGenerator represents a cluster-wide generator which can be referenced as part of ``generatorRef`` fields.
 
         :param metadata: 
-        :param spec: 
+        :param spec: ClusterGeneratorSpec defines the desired state of a ClusterGenerator.
 
         :schema: ClusterGenerator
         '''
@@ -1247,7 +1255,8 @@ class ClusterGeneratorProps:
 
     @builtins.property
     def spec(self) -> typing.Optional["ClusterGeneratorSpec"]:
-        '''
+        '''ClusterGeneratorSpec defines the desired state of a ClusterGenerator.
+
         :schema: ClusterGenerator#spec
         '''
         result = self._values.get("spec")
@@ -1277,7 +1286,8 @@ class ClusterGeneratorSpec:
         generator: typing.Union["ClusterGeneratorSpecGenerator", typing.Dict[builtins.str, typing.Any]],
         kind: "ClusterGeneratorSpecKind",
     ) -> None:
-        '''
+        '''ClusterGeneratorSpec defines the desired state of a ClusterGenerator.
+
         :param generator: Generator the spec for this generator, must match the kind.
         :param kind: Kind the kind of this generator.
 
@@ -1370,19 +1380,19 @@ class ClusterGeneratorSpecGenerator:
         '''Generator the spec for this generator, must match the kind.
 
         :param acr_access_token_spec: ACRAccessTokenSpec defines how to generate the access token e.g. how to authenticate and which registry to use. see: https://github.com/Azure/acr/blob/main/docs/AAD-OAuth.md#overview.
-        :param cloudsmith_access_token_spec: 
-        :param ecr_authorization_token_spec: 
+        :param cloudsmith_access_token_spec: CloudsmithAccessTokenSpec defines the configuration for generating a Cloudsmith access token using OIDC authentication.
+        :param ecr_authorization_token_spec: ECRAuthorizationTokenSpec defines the desired state to generate an AWS ECR authorization token.
         :param fake_spec: FakeSpec contains the static data.
-        :param gcr_access_token_spec: 
-        :param github_access_token_spec: 
+        :param gcr_access_token_spec: GCRAccessTokenSpec defines the desired state to generate a Google Container Registry access token.
+        :param github_access_token_spec: GithubAccessTokenSpec defines the desired state to generate a GitHub access token.
         :param grafana_spec: GrafanaSpec controls the behavior of the grafana generator.
         :param mfa_spec: MFASpec controls the behavior of the mfa generator.
         :param password_spec: PasswordSpec controls the behavior of the password generator.
-        :param quay_access_token_spec: 
+        :param quay_access_token_spec: QuayAccessTokenSpec defines the desired state to generate a Quay access token.
         :param ssh_key_spec: SSHKeySpec controls the behavior of the ssh key generator.
-        :param sts_session_token_spec: 
+        :param sts_session_token_spec: STSSessionTokenSpec defines the desired state to generate an AWS STS session token.
         :param uuid_spec: UUIDSpec controls the behavior of the uuid generator.
-        :param vault_dynamic_secret_spec: 
+        :param vault_dynamic_secret_spec: VaultDynamicSecretSpec defines the desired spec of VaultDynamicSecret.
         :param webhook_spec: WebhookSpec controls the behavior of the external generator. Any body parameters should be passed to the server through the parameters field.
 
         :schema: ClusterGeneratorSpecGenerator
@@ -1479,7 +1489,8 @@ class ClusterGeneratorSpecGenerator:
     def cloudsmith_access_token_spec(
         self,
     ) -> typing.Optional["ClusterGeneratorSpecGeneratorCloudsmithAccessTokenSpec"]:
-        '''
+        '''CloudsmithAccessTokenSpec defines the configuration for generating a Cloudsmith access token using OIDC authentication.
+
         :schema: ClusterGeneratorSpecGenerator#cloudsmithAccessTokenSpec
         '''
         result = self._values.get("cloudsmith_access_token_spec")
@@ -1489,7 +1500,8 @@ class ClusterGeneratorSpecGenerator:
     def ecr_authorization_token_spec(
         self,
     ) -> typing.Optional["ClusterGeneratorSpecGeneratorEcrAuthorizationTokenSpec"]:
-        '''
+        '''ECRAuthorizationTokenSpec defines the desired state to generate an AWS ECR authorization token.
+
         :schema: ClusterGeneratorSpecGenerator#ecrAuthorizationTokenSpec
         '''
         result = self._values.get("ecr_authorization_token_spec")
@@ -1508,7 +1520,8 @@ class ClusterGeneratorSpecGenerator:
     def gcr_access_token_spec(
         self,
     ) -> typing.Optional["ClusterGeneratorSpecGeneratorGcrAccessTokenSpec"]:
-        '''
+        '''GCRAccessTokenSpec defines the desired state to generate a Google Container Registry access token.
+
         :schema: ClusterGeneratorSpecGenerator#gcrAccessTokenSpec
         '''
         result = self._values.get("gcr_access_token_spec")
@@ -1518,7 +1531,8 @@ class ClusterGeneratorSpecGenerator:
     def github_access_token_spec(
         self,
     ) -> typing.Optional["ClusterGeneratorSpecGeneratorGithubAccessTokenSpec"]:
-        '''
+        '''GithubAccessTokenSpec defines the desired state to generate a GitHub access token.
+
         :schema: ClusterGeneratorSpecGenerator#githubAccessTokenSpec
         '''
         result = self._values.get("github_access_token_spec")
@@ -1559,7 +1573,8 @@ class ClusterGeneratorSpecGenerator:
     def quay_access_token_spec(
         self,
     ) -> typing.Optional["ClusterGeneratorSpecGeneratorQuayAccessTokenSpec"]:
-        '''
+        '''QuayAccessTokenSpec defines the desired state to generate a Quay access token.
+
         :schema: ClusterGeneratorSpecGenerator#quayAccessTokenSpec
         '''
         result = self._values.get("quay_access_token_spec")
@@ -1580,7 +1595,8 @@ class ClusterGeneratorSpecGenerator:
     def sts_session_token_spec(
         self,
     ) -> typing.Optional["ClusterGeneratorSpecGeneratorStsSessionTokenSpec"]:
-        '''
+        '''STSSessionTokenSpec defines the desired state to generate an AWS STS session token.
+
         :schema: ClusterGeneratorSpecGenerator#stsSessionTokenSpec
         '''
         result = self._values.get("sts_session_token_spec")
@@ -1599,7 +1615,8 @@ class ClusterGeneratorSpecGenerator:
     def vault_dynamic_secret_spec(
         self,
     ) -> typing.Optional["ClusterGeneratorSpecGeneratorVaultDynamicSecretSpec"]:
-        '''
+        '''VaultDynamicSecretSpec defines the desired spec of VaultDynamicSecret.
+
         :schema: ClusterGeneratorSpecGenerator#vaultDynamicSecretSpec
         '''
         result = self._values.get("vault_dynamic_secret_spec")
@@ -1653,9 +1670,9 @@ class ClusterGeneratorSpecGeneratorAcrAccessTokenSpec:
     ) -> None:
         '''ACRAccessTokenSpec defines how to generate the access token e.g. how to authenticate and which registry to use. see: https://github.com/Azure/acr/blob/main/docs/AAD-OAuth.md#overview.
 
-        :param auth: 
+        :param auth: ACRAuth defines the authentication methods for Azure Container Registry.
         :param registry: the domain name of the ACR registry e.g. foobarexample.azurecr.io.
-        :param environment_type: EnvironmentType specifies the Azure cloud environment endpoints to use for connecting and authenticating with Azure. By default it points to the public cloud AAD endpoint. The following endpoints are available, also see here: https://github.com/Azure/go-autorest/blob/main/autorest/azure/environments.go#L152 PublicCloud, USGovernmentCloud, ChinaCloud, GermanCloud
+        :param environment_type: EnvironmentType specifies the Azure cloud environment endpoints to use for connecting and authenticating with Azure. By default, it points to the public cloud AAD endpoint. The following endpoints are available, also see here: https://github.com/Azure/go-autorest/blob/main/autorest/azure/environments.go#L152 PublicCloud, USGovernmentCloud, ChinaCloud, GermanCloud
         :param scope: Define the scope for the access token, e.g. pull/push access for a repository. if not provided it will return a refresh token that has full scope. Note: you need to pin it down to the repository level, there is no wildcard available. examples: repository:my-repository:pull,push repository:my-repository:pull see docs for details: https://docs.docker.com/registry/spec/auth/scope/
         :param tenant_id: TenantID configures the Azure Tenant to send requests to. Required for ServicePrincipal auth type.
 
@@ -1683,7 +1700,8 @@ class ClusterGeneratorSpecGeneratorAcrAccessTokenSpec:
 
     @builtins.property
     def auth(self) -> "ClusterGeneratorSpecGeneratorAcrAccessTokenSpecAuth":
-        '''
+        '''ACRAuth defines the authentication methods for Azure Container Registry.
+
         :schema: ClusterGeneratorSpecGeneratorAcrAccessTokenSpec#auth
         '''
         result = self._values.get("auth")
@@ -1706,7 +1724,7 @@ class ClusterGeneratorSpecGeneratorAcrAccessTokenSpec:
     ) -> typing.Optional["ClusterGeneratorSpecGeneratorAcrAccessTokenSpecEnvironmentType"]:
         '''EnvironmentType specifies the Azure cloud environment endpoints to use for connecting and authenticating with Azure.
 
-        By default it points to the public cloud AAD endpoint.
+        By default, it points to the public cloud AAD endpoint.
         The following endpoints are available, also see here: https://github.com/Azure/go-autorest/blob/main/autorest/azure/environments.go#L152
         PublicCloud, USGovernmentCloud, ChinaCloud, GermanCloud
 
@@ -1770,7 +1788,8 @@ class ClusterGeneratorSpecGeneratorAcrAccessTokenSpecAuth:
         service_principal: typing.Optional[typing.Union["ClusterGeneratorSpecGeneratorAcrAccessTokenSpecAuthServicePrincipal", typing.Dict[builtins.str, typing.Any]]] = None,
         workload_identity: typing.Optional[typing.Union["ClusterGeneratorSpecGeneratorAcrAccessTokenSpecAuthWorkloadIdentity", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
+        '''ACRAuth defines the authentication methods for Azure Container Registry.
+
         :param managed_identity: ManagedIdentity uses Azure Managed Identity to authenticate with Azure.
         :param service_principal: ServicePrincipal uses Azure Service Principal credentials to authenticate with Azure.
         :param workload_identity: WorkloadIdentity uses Azure Workload Identity to authenticate with Azure.
@@ -1895,7 +1914,7 @@ class ClusterGeneratorSpecGeneratorAcrAccessTokenSpecAuthServicePrincipal:
     ) -> None:
         '''ServicePrincipal uses Azure Service Principal credentials to authenticate with Azure.
 
-        :param secret_ref: Configuration used to authenticate with Azure using static credentials stored in a Kind=Secret.
+        :param secret_ref: AzureACRServicePrincipalAuthSecretRef defines the secret references for Azure Service Principal authentication. It uses static credentials stored in a Kind=Secret.
 
         :schema: ClusterGeneratorSpecGeneratorAcrAccessTokenSpecAuthServicePrincipal
         '''
@@ -1912,7 +1931,9 @@ class ClusterGeneratorSpecGeneratorAcrAccessTokenSpecAuthServicePrincipal:
     def secret_ref(
         self,
     ) -> "ClusterGeneratorSpecGeneratorAcrAccessTokenSpecAuthServicePrincipalSecretRef":
-        '''Configuration used to authenticate with Azure using static credentials stored in a Kind=Secret.
+        '''AzureACRServicePrincipalAuthSecretRef defines the secret references for Azure Service Principal authentication.
+
+        It uses static credentials stored in a Kind=Secret.
 
         :schema: ClusterGeneratorSpecGeneratorAcrAccessTokenSpecAuthServicePrincipal#secretRef
         '''
@@ -1944,7 +1965,9 @@ class ClusterGeneratorSpecGeneratorAcrAccessTokenSpecAuthServicePrincipalSecretR
         client_id: typing.Optional[typing.Union["ClusterGeneratorSpecGeneratorAcrAccessTokenSpecAuthServicePrincipalSecretRefClientId", typing.Dict[builtins.str, typing.Any]]] = None,
         client_secret: typing.Optional[typing.Union["ClusterGeneratorSpecGeneratorAcrAccessTokenSpecAuthServicePrincipalSecretRefClientSecret", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''Configuration used to authenticate with Azure using static credentials stored in a Kind=Secret.
+        '''AzureACRServicePrincipalAuthSecretRef defines the secret references for Azure Service Principal authentication.
+
+        It uses static credentials stored in a Kind=Secret.
 
         :param client_id: The Azure clientId of the service principle used for authentication.
         :param client_secret: The Azure ClientSecret of the service principle used for authentication.
@@ -2284,7 +2307,7 @@ class ClusterGeneratorSpecGeneratorAcrAccessTokenSpecAuthWorkloadIdentityService
 class ClusterGeneratorSpecGeneratorAcrAccessTokenSpecEnvironmentType(enum.Enum):
     '''EnvironmentType specifies the Azure cloud environment endpoints to use for connecting and authenticating with Azure.
 
-    By default it points to the public cloud AAD endpoint.
+    By default, it points to the public cloud AAD endpoint.
     The following endpoints are available, also see here: https://github.com/Azure/go-autorest/blob/main/autorest/azure/environments.go#L152
     PublicCloud, USGovernmentCloud, ChinaCloud, GermanCloud
 
@@ -2322,7 +2345,8 @@ class ClusterGeneratorSpecGeneratorCloudsmithAccessTokenSpec:
         service_slug: builtins.str,
         api_url: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''
+        '''CloudsmithAccessTokenSpec defines the configuration for generating a Cloudsmith access token using OIDC authentication.
+
         :param org_slug: OrgSlug is the organization slug in Cloudsmith.
         :param service_account_ref: Name of the service account you are federating with.
         :param service_slug: ServiceSlug is the service slug in Cloudsmith for OIDC authentication.
@@ -2498,7 +2522,8 @@ class ClusterGeneratorSpecGeneratorEcrAuthorizationTokenSpec:
         role: typing.Optional[builtins.str] = None,
         scope: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''
+        '''ECRAuthorizationTokenSpec defines the desired state to generate an AWS ECR authorization token.
+
         :param region: Region specifies the region to operate in.
         :param auth: Auth defines how to authenticate with AWS.
         :param role: You can assume a role before making calls to the desired AWS service.
@@ -2591,7 +2616,7 @@ class ClusterGeneratorSpecGeneratorEcrAuthorizationTokenSpecAuth:
     ) -> None:
         '''Auth defines how to authenticate with AWS.
 
-        :param jwt: Authenticate against AWS using service account tokens.
+        :param jwt: AWSJWTAuth provides configuration to authenticate against AWS using service account tokens.
         :param secret_ref: AWSAuthSecretRef holds secret references for AWS credentials both AccessKeyID and SecretAccessKey must be defined in order to properly authenticate.
 
         :schema: ClusterGeneratorSpecGeneratorEcrAuthorizationTokenSpecAuth
@@ -2614,7 +2639,7 @@ class ClusterGeneratorSpecGeneratorEcrAuthorizationTokenSpecAuth:
     def jwt(
         self,
     ) -> typing.Optional["ClusterGeneratorSpecGeneratorEcrAuthorizationTokenSpecAuthJwt"]:
-        '''Authenticate against AWS using service account tokens.
+        '''AWSJWTAuth provides configuration to authenticate against AWS using service account tokens.
 
         :schema: ClusterGeneratorSpecGeneratorEcrAuthorizationTokenSpecAuth#jwt
         '''
@@ -2655,9 +2680,9 @@ class ClusterGeneratorSpecGeneratorEcrAuthorizationTokenSpecAuthJwt:
         *,
         service_account_ref: typing.Optional[typing.Union["ClusterGeneratorSpecGeneratorEcrAuthorizationTokenSpecAuthJwtServiceAccountRef", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''Authenticate against AWS using service account tokens.
+        '''AWSJWTAuth provides configuration to authenticate against AWS using service account tokens.
 
-        :param service_account_ref: A reference to a ServiceAccount resource.
+        :param service_account_ref: ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :schema: ClusterGeneratorSpecGeneratorEcrAuthorizationTokenSpecAuthJwt
         '''
@@ -2674,7 +2699,7 @@ class ClusterGeneratorSpecGeneratorEcrAuthorizationTokenSpecAuthJwt:
     def service_account_ref(
         self,
     ) -> typing.Optional["ClusterGeneratorSpecGeneratorEcrAuthorizationTokenSpecAuthJwtServiceAccountRef"]:
-        '''A reference to a ServiceAccount resource.
+        '''ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :schema: ClusterGeneratorSpecGeneratorEcrAuthorizationTokenSpecAuthJwt#serviceAccountRef
         '''
@@ -2706,7 +2731,7 @@ class ClusterGeneratorSpecGeneratorEcrAuthorizationTokenSpecAuthJwtServiceAccoun
         audiences: typing.Optional[typing.Sequence[builtins.str]] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a ServiceAccount resource.
+        '''ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :param name: The name of the ServiceAccount resource being referred to.
         :param audiences: Audience specifies the ``aud`` claim for the service account token If the service account uses a well-known annotation for e.g. IRSA or GCP Workload Identity then this audiences will be appended to the list.
@@ -3160,7 +3185,8 @@ class ClusterGeneratorSpecGeneratorGcrAccessTokenSpec:
         auth: typing.Union["ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuth", typing.Dict[builtins.str, typing.Any]],
         project_id: builtins.str,
     ) -> None:
-        '''
+        '''GCRAccessTokenSpec defines the desired state to generate a Google Container Registry access token.
+
         :param auth: Auth defines the means for authenticating with GCP.
         :param project_id: ProjectID defines which project to use to authenticate with.
 
@@ -3228,8 +3254,8 @@ class ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuth:
     ) -> None:
         '''Auth defines the means for authenticating with GCP.
 
-        :param secret_ref: 
-        :param workload_identity: 
+        :param secret_ref: GCPSMAuthSecretRef defines the reference to a secret containing Google Cloud Platform credentials.
+        :param workload_identity: GCPWorkloadIdentity defines the configuration for using GCP Workload Identity authentication.
         :param workload_identity_federation: GCPWorkloadIdentityFederation holds the configurations required for generating federated access tokens.
 
         :schema: ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuth
@@ -3257,7 +3283,8 @@ class ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuth:
     def secret_ref(
         self,
     ) -> typing.Optional["ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthSecretRef"]:
-        '''
+        '''GCPSMAuthSecretRef defines the reference to a secret containing Google Cloud Platform credentials.
+
         :schema: ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuth#secretRef
         '''
         result = self._values.get("secret_ref")
@@ -3267,7 +3294,8 @@ class ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuth:
     def workload_identity(
         self,
     ) -> typing.Optional["ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentity"]:
-        '''
+        '''GCPWorkloadIdentity defines the configuration for using GCP Workload Identity authentication.
+
         :schema: ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuth#workloadIdentity
         '''
         result = self._values.get("workload_identity")
@@ -3307,7 +3335,8 @@ class ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthSecretRef:
         *,
         secret_access_key_secret_ref: typing.Optional[typing.Union["ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthSecretRefSecretAccessKeySecretRef", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
+        '''GCPSMAuthSecretRef defines the reference to a secret containing Google Cloud Platform credentials.
+
         :param secret_access_key_secret_ref: The SecretAccessKey is used for authentication.
 
         :schema: ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthSecretRef
@@ -3440,10 +3469,11 @@ class ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentity:
         service_account_ref: typing.Union["ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityServiceAccountRef", typing.Dict[builtins.str, typing.Any]],
         cluster_project_id: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''
+        '''GCPWorkloadIdentity defines the configuration for using GCP Workload Identity authentication.
+
         :param cluster_location: 
         :param cluster_name: 
-        :param service_account_ref: A reference to a ServiceAccount resource.
+        :param service_account_ref: ServiceAccountSelector is a reference to a ServiceAccount resource.
         :param cluster_project_id: 
 
         :schema: ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentity
@@ -3486,7 +3516,7 @@ class ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentity:
     def service_account_ref(
         self,
     ) -> "ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityServiceAccountRef":
-        '''A reference to a ServiceAccount resource.
+        '''ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :schema: ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentity#serviceAccountRef
         '''
@@ -3948,7 +3978,7 @@ class ClusterGeneratorSpecGeneratorGcrAccessTokenSpecAuthWorkloadIdentityService
         audiences: typing.Optional[typing.Sequence[builtins.str]] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a ServiceAccount resource.
+        '''ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :param name: The name of the ServiceAccount resource being referred to.
         :param audiences: Audience specifies the ``aud`` claim for the service account token If the service account uses a well-known annotation for e.g. IRSA or GCP Workload Identity then this audiences will be appended to the list.
@@ -4034,13 +4064,14 @@ class ClusterGeneratorSpecGeneratorGithubAccessTokenSpec:
         repositories: typing.Optional[typing.Sequence[builtins.str]] = None,
         url: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''
+        '''GithubAccessTokenSpec defines the desired state to generate a GitHub access token.
+
         :param app_id: 
         :param auth: Auth configures how ESO authenticates with a Github instance.
         :param install_id: 
         :param permissions: Map of permissions the token will have. If omitted, defaults to all permissions the GitHub App has.
         :param repositories: List of repositories the token will have access to. If omitted, defaults to all repositories the GitHub App is installed to.
-        :param url: URL configures the Github instance URL. Defaults to https://github.com/. Default: https://github.com/.
+        :param url: URL configures the GitHub instance URL. Defaults to https://github.com/. Default: https://github.com/.
 
         :schema: ClusterGeneratorSpecGeneratorGithubAccessTokenSpec
         '''
@@ -4121,7 +4152,7 @@ class ClusterGeneratorSpecGeneratorGithubAccessTokenSpec:
 
     @builtins.property
     def url(self) -> typing.Optional[builtins.str]:
-        '''URL configures the Github instance URL.
+        '''URL configures the GitHub instance URL.
 
         Defaults to https://github.com/.
 
@@ -4157,7 +4188,7 @@ class ClusterGeneratorSpecGeneratorGithubAccessTokenSpecAuth:
     ) -> None:
         '''Auth configures how ESO authenticates with a Github instance.
 
-        :param private_key: 
+        :param private_key: GithubSecretRef references a secret containing GitHub credentials.
 
         :schema: ClusterGeneratorSpecGeneratorGithubAccessTokenSpecAuth
         '''
@@ -4174,7 +4205,8 @@ class ClusterGeneratorSpecGeneratorGithubAccessTokenSpecAuth:
     def private_key(
         self,
     ) -> "ClusterGeneratorSpecGeneratorGithubAccessTokenSpecAuthPrivateKey":
-        '''
+        '''GithubSecretRef references a secret containing GitHub credentials.
+
         :schema: ClusterGeneratorSpecGeneratorGithubAccessTokenSpecAuth#privateKey
         '''
         result = self._values.get("private_key")
@@ -4204,8 +4236,9 @@ class ClusterGeneratorSpecGeneratorGithubAccessTokenSpecAuthPrivateKey:
         *,
         secret_ref: typing.Union["ClusterGeneratorSpecGeneratorGithubAccessTokenSpecAuthPrivateKeySecretRef", typing.Dict[builtins.str, typing.Any]],
     ) -> None:
-        '''
-        :param secret_ref: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        '''GithubSecretRef references a secret containing GitHub credentials.
+
+        :param secret_ref: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: ClusterGeneratorSpecGeneratorGithubAccessTokenSpecAuthPrivateKey
         '''
@@ -4222,7 +4255,7 @@ class ClusterGeneratorSpecGeneratorGithubAccessTokenSpecAuthPrivateKey:
     def secret_ref(
         self,
     ) -> "ClusterGeneratorSpecGeneratorGithubAccessTokenSpecAuthPrivateKeySecretRef":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -4257,7 +4290,7 @@ class ClusterGeneratorSpecGeneratorGithubAccessTokenSpecAuthPrivateKeySecretRef:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -5125,7 +5158,8 @@ class ClusterGeneratorSpecGeneratorQuayAccessTokenSpec:
         service_account_ref: typing.Union["ClusterGeneratorSpecGeneratorQuayAccessTokenSpecServiceAccountRef", typing.Dict[builtins.str, typing.Any]],
         url: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''
+        '''QuayAccessTokenSpec defines the desired state to generate a Quay access token.
+
         :param robot_account: Name of the robot account you are federating with.
         :param service_account_ref: Name of the service account you are federating with.
         :param url: URL configures the Quay instance URL. Defaults to quay.io. Default: quay.io.
@@ -5285,8 +5319,8 @@ class ClusterGeneratorSpecGeneratorSshKeySpec:
         '''SSHKeySpec controls the behavior of the ssh key generator.
 
         :param comment: Comment specifies an optional comment for the SSH key.
-        :param key_size: KeySize specifies the key size for RSA keys (default: 2048) For RSA keys: 2048, 3072, 4096 Ignored for ed25519 keys.
-        :param key_type: KeyType specifies the SSH key type (rsa, ed25519).
+        :param key_size: KeySize specifies the key size for RSA keys (default: 2048) and ECDSA keys (default: 256). For RSA keys: 2048, 3072, 4096 For ECDSA keys: 256, 384, 521 Ignored for ed25519 keys
+        :param key_type: KeyType specifies the SSH key type (rsa, ecdsa, ed25519).
 
         :schema: ClusterGeneratorSpecGeneratorSshKeySpec
         '''
@@ -5314,7 +5348,11 @@ class ClusterGeneratorSpecGeneratorSshKeySpec:
 
     @builtins.property
     def key_size(self) -> typing.Optional[jsii.Number]:
-        '''KeySize specifies the key size for RSA keys (default: 2048) For RSA keys: 2048, 3072, 4096 Ignored for ed25519 keys.
+        '''KeySize specifies the key size for RSA keys (default: 2048) and ECDSA keys (default: 256).
+
+        For RSA keys: 2048, 3072, 4096
+        For ECDSA keys: 256, 384, 521
+        Ignored for ed25519 keys
 
         :schema: ClusterGeneratorSpecGeneratorSshKeySpec#keySize
         '''
@@ -5325,7 +5363,7 @@ class ClusterGeneratorSpecGeneratorSshKeySpec:
     def key_type(
         self,
     ) -> typing.Optional["ClusterGeneratorSpecGeneratorSshKeySpecKeyType"]:
-        '''KeyType specifies the SSH key type (rsa, ed25519).
+        '''KeyType specifies the SSH key type (rsa, ecdsa, ed25519).
 
         :schema: ClusterGeneratorSpecGeneratorSshKeySpec#keyType
         '''
@@ -5348,13 +5386,15 @@ class ClusterGeneratorSpecGeneratorSshKeySpec:
     jsii_type="ioexternal-secretsgenerators.ClusterGeneratorSpecGeneratorSshKeySpecKeyType"
 )
 class ClusterGeneratorSpecGeneratorSshKeySpecKeyType(enum.Enum):
-    '''KeyType specifies the SSH key type (rsa, ed25519).
+    '''KeyType specifies the SSH key type (rsa, ecdsa, ed25519).
 
     :schema: ClusterGeneratorSpecGeneratorSshKeySpecKeyType
     '''
 
     RSA = "RSA"
     '''rsa.'''
+    ECDSA = "ECDSA"
+    '''ecdsa.'''
     ED25519 = "ED25519"
     '''ed25519.'''
 
@@ -5378,7 +5418,8 @@ class ClusterGeneratorSpecGeneratorStsSessionTokenSpec:
         request_parameters: typing.Optional[typing.Union["ClusterGeneratorSpecGeneratorStsSessionTokenSpecRequestParameters", typing.Dict[builtins.str, typing.Any]]] = None,
         role: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''
+        '''STSSessionTokenSpec defines the desired state to generate an AWS STS session token.
+
         :param region: Region specifies the region to operate in.
         :param auth: Auth defines how to authenticate with AWS.
         :param request_parameters: RequestParameters contains parameters that can be passed to the STS service.
@@ -5473,7 +5514,7 @@ class ClusterGeneratorSpecGeneratorStsSessionTokenSpecAuth:
     ) -> None:
         '''Auth defines how to authenticate with AWS.
 
-        :param jwt: Authenticate against AWS using service account tokens.
+        :param jwt: AWSJWTAuth provides configuration to authenticate against AWS using service account tokens.
         :param secret_ref: AWSAuthSecretRef holds secret references for AWS credentials both AccessKeyID and SecretAccessKey must be defined in order to properly authenticate.
 
         :schema: ClusterGeneratorSpecGeneratorStsSessionTokenSpecAuth
@@ -5496,7 +5537,7 @@ class ClusterGeneratorSpecGeneratorStsSessionTokenSpecAuth:
     def jwt(
         self,
     ) -> typing.Optional["ClusterGeneratorSpecGeneratorStsSessionTokenSpecAuthJwt"]:
-        '''Authenticate against AWS using service account tokens.
+        '''AWSJWTAuth provides configuration to authenticate against AWS using service account tokens.
 
         :schema: ClusterGeneratorSpecGeneratorStsSessionTokenSpecAuth#jwt
         '''
@@ -5537,9 +5578,9 @@ class ClusterGeneratorSpecGeneratorStsSessionTokenSpecAuthJwt:
         *,
         service_account_ref: typing.Optional[typing.Union["ClusterGeneratorSpecGeneratorStsSessionTokenSpecAuthJwtServiceAccountRef", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''Authenticate against AWS using service account tokens.
+        '''AWSJWTAuth provides configuration to authenticate against AWS using service account tokens.
 
-        :param service_account_ref: A reference to a ServiceAccount resource.
+        :param service_account_ref: ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :schema: ClusterGeneratorSpecGeneratorStsSessionTokenSpecAuthJwt
         '''
@@ -5556,7 +5597,7 @@ class ClusterGeneratorSpecGeneratorStsSessionTokenSpecAuthJwt:
     def service_account_ref(
         self,
     ) -> typing.Optional["ClusterGeneratorSpecGeneratorStsSessionTokenSpecAuthJwtServiceAccountRef"]:
-        '''A reference to a ServiceAccount resource.
+        '''ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :schema: ClusterGeneratorSpecGeneratorStsSessionTokenSpecAuthJwt#serviceAccountRef
         '''
@@ -5588,7 +5629,7 @@ class ClusterGeneratorSpecGeneratorStsSessionTokenSpecAuthJwtServiceAccountRef:
         audiences: typing.Optional[typing.Sequence[builtins.str]] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a ServiceAccount resource.
+        '''ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :param name: The name of the ServiceAccount resource being referred to.
         :param audiences: Audience specifies the ``aud`` claim for the service account token If the service account uses a well-known annotation for e.g. IRSA or GCP Workload Identity then this audiences will be appended to the list.
@@ -6077,14 +6118,15 @@ class ClusterGeneratorSpecGeneratorVaultDynamicSecretSpec:
         result_type: typing.Optional["ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecResultType"] = None,
         retry_settings: typing.Optional[typing.Union["ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecRetrySettings", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
+        '''VaultDynamicSecretSpec defines the desired spec of VaultDynamicSecret.
+
         :param path: Vault path to obtain the dynamic secret from.
         :param provider: Vault provider common spec.
         :param allow_empty_response: Do not fail if no secrets are found. Useful for requests where no data is expected.
         :param controller: Used to select the correct ESO controller (think: ingress.ingressClassName) The ESO controller is instantiated with a specific controller name and filters VDS based on this property.
         :param method: Vault API method to use (GET/POST/other).
         :param parameters: Parameters to pass to Vault write (for non-GET methods).
-        :param result_type: Result type defines which data is returned from the generator. By default it is the "data" section of the Vault API response. When using e.g. /auth/token/create the "data" section is empty but the "auth" section contains the generated token. Please refer to the vault docs regarding the result data structure. Additionally, accessing the raw response is possibly by using "Raw" result type.
+        :param result_type: Result type defines which data is returned from the generator. By default, it is the "data" section of the Vault API response. When using e.g. /auth/token/create the "data" section is empty but the "auth" section contains the generated token. Please refer to the vault docs regarding the result data structure. Additionally, accessing the raw response is possibly by using "Raw" result type.
         :param retry_settings: Used to configure http retries if failed.
 
         :schema: ClusterGeneratorSpecGeneratorVaultDynamicSecretSpec
@@ -6184,7 +6226,7 @@ class ClusterGeneratorSpecGeneratorVaultDynamicSecretSpec:
     ) -> typing.Optional["ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecResultType"]:
         '''Result type defines which data is returned from the generator.
 
-        By default it is the "data" section of the Vault API response.
+        By default, it is the "data" section of the Vault API response.
         When using e.g. /auth/token/create the "data" section is empty but
         the "auth" section contains the generated token.
         Please refer to the vault docs regarding the result data structure.
@@ -7365,7 +7407,7 @@ class ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderAuthIamJwt:
     ) -> None:
         '''Specify a service account with IRSA enabled.
 
-        :param service_account_ref: A reference to a ServiceAccount resource.
+        :param service_account_ref: ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :schema: ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderAuthIamJwt
         '''
@@ -7382,7 +7424,7 @@ class ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderAuthIamJwt:
     def service_account_ref(
         self,
     ) -> typing.Optional["ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderAuthIamJwtServiceAccountRef"]:
-        '''A reference to a ServiceAccount resource.
+        '''ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :schema: ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderAuthIamJwt#serviceAccountRef
         '''
@@ -7414,7 +7456,7 @@ class ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderAuthIamJwtServi
         audiences: typing.Optional[typing.Sequence[builtins.str]] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a ServiceAccount resource.
+        '''ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :param name: The name of the ServiceAccount resource being referred to.
         :param audiences: Audience specifies the ``aud`` claim for the service account token If the service account uses a well-known annotation for e.g. IRSA or GCP Workload Identity then this audiences will be appended to the list.
@@ -9224,7 +9266,7 @@ class ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderVersion(enum.En
 class ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecResultType(enum.Enum):
     '''Result type defines which data is returned from the generator.
 
-    By default it is the "data" section of the Vault API response.
+    By default, it is the "data" section of the Vault API response.
     When using e.g. /auth/token/create the "data" section is empty but
     the "auth" section contains the generated token.
     Please refer to the vault docs regarding the result data structure.
@@ -9568,8 +9610,8 @@ class ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlm:
     ) -> None:
         '''NTLMProtocol configures the store to use NTLM for auth.
 
-        :param password_secret: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param username_secret: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param password_secret: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param username_secret: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlm
         '''
@@ -9590,7 +9632,7 @@ class ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlm:
     def password_secret(
         self,
     ) -> "ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlmPasswordSecret":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -9604,7 +9646,7 @@ class ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlm:
     def username_secret(
         self,
     ) -> "ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlmUsernameSecret":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -9639,7 +9681,7 @@ class ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlmPasswordSecret:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -9718,7 +9760,7 @@ class ClusterGeneratorSpecGeneratorWebhookSpecAuthNtlmUsernameSecret:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -9945,7 +9987,8 @@ class ClusterGeneratorSpecGeneratorWebhookSpecSecrets:
         name: builtins.str,
         secret_ref: typing.Union["ClusterGeneratorSpecGeneratorWebhookSpecSecretsSecretRef", typing.Dict[builtins.str, typing.Any]],
     ) -> None:
-        '''
+        '''WebhookSecret defines a secret reference that will be used in webhook templates.
+
         :param name: Name of this secret in templates.
         :param secret_ref: Secret ref to fill in credentials.
 
@@ -10095,7 +10138,7 @@ class EcrAuthorizationToken(
     metaclass=jsii.JSIIMeta,
     jsii_type="ioexternal-secretsgenerators.EcrAuthorizationToken",
 ):
-    '''ECRAuthorizationTokenSpec uses the GetAuthorizationToken API to retrieve an authorization token.
+    '''ECRAuthorizationToken uses the GetAuthorizationToken API to retrieve an authorization token.
 
     The authorization token is valid for 12 hours.
     The authorizationToken returned is a base64 encoded string that can be decoded
@@ -10118,7 +10161,7 @@ class EcrAuthorizationToken(
         :param scope: the scope in which to define this object.
         :param id: a scope-local name for the object.
         :param metadata: 
-        :param spec: 
+        :param spec: ECRAuthorizationTokenSpec defines the desired state to generate an AWS ECR authorization token.
         '''
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__e71cfb104a01494a1528bff38caa7ed42d6867f4d83a50d779a8e249dea7183a)
@@ -10141,7 +10184,7 @@ class EcrAuthorizationToken(
         This can be used to inline resource manifests inside other objects (e.g. as templates).
 
         :param metadata: 
-        :param spec: 
+        :param spec: ECRAuthorizationTokenSpec defines the desired state to generate an AWS ECR authorization token.
         '''
         props = EcrAuthorizationTokenProps(metadata=metadata, spec=spec)
 
@@ -10171,7 +10214,7 @@ class EcrAuthorizationTokenProps:
         metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["EcrAuthorizationTokenSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''ECRAuthorizationTokenSpec uses the GetAuthorizationToken API to retrieve an authorization token.
+        '''ECRAuthorizationToken uses the GetAuthorizationToken API to retrieve an authorization token.
 
         The authorization token is valid for 12 hours.
         The authorizationToken returned is a base64 encoded string that can be decoded
@@ -10179,7 +10222,7 @@ class EcrAuthorizationTokenProps:
         For more information, see Registry authentication (https://docs.aws.amazon.com/AmazonECR/latest/userguide/Registries.html#registry_auth) in the Amazon Elastic Container Registry User Guide.
 
         :param metadata: 
-        :param spec: 
+        :param spec: ECRAuthorizationTokenSpec defines the desired state to generate an AWS ECR authorization token.
 
         :schema: ECRAuthorizationToken
         '''
@@ -10207,7 +10250,8 @@ class EcrAuthorizationTokenProps:
 
     @builtins.property
     def spec(self) -> typing.Optional["EcrAuthorizationTokenSpec"]:
-        '''
+        '''ECRAuthorizationTokenSpec defines the desired state to generate an AWS ECR authorization token.
+
         :schema: ECRAuthorizationToken#spec
         '''
         result = self._values.get("spec")
@@ -10244,7 +10288,8 @@ class EcrAuthorizationTokenSpec:
         role: typing.Optional[builtins.str] = None,
         scope: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''
+        '''ECRAuthorizationTokenSpec defines the desired state to generate an AWS ECR authorization token.
+
         :param region: Region specifies the region to operate in.
         :param auth: Auth defines how to authenticate with AWS.
         :param role: You can assume a role before making calls to the desired AWS service.
@@ -10335,7 +10380,7 @@ class EcrAuthorizationTokenSpecAuth:
     ) -> None:
         '''Auth defines how to authenticate with AWS.
 
-        :param jwt: Authenticate against AWS using service account tokens.
+        :param jwt: AWSJWTAuth provides configuration to authenticate against AWS using service account tokens.
         :param secret_ref: AWSAuthSecretRef holds secret references for AWS credentials both AccessKeyID and SecretAccessKey must be defined in order to properly authenticate.
 
         :schema: EcrAuthorizationTokenSpecAuth
@@ -10356,7 +10401,7 @@ class EcrAuthorizationTokenSpecAuth:
 
     @builtins.property
     def jwt(self) -> typing.Optional["EcrAuthorizationTokenSpecAuthJwt"]:
-        '''Authenticate against AWS using service account tokens.
+        '''AWSJWTAuth provides configuration to authenticate against AWS using service account tokens.
 
         :schema: EcrAuthorizationTokenSpecAuth#jwt
         '''
@@ -10395,9 +10440,9 @@ class EcrAuthorizationTokenSpecAuthJwt:
         *,
         service_account_ref: typing.Optional[typing.Union["EcrAuthorizationTokenSpecAuthJwtServiceAccountRef", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''Authenticate against AWS using service account tokens.
+        '''AWSJWTAuth provides configuration to authenticate against AWS using service account tokens.
 
-        :param service_account_ref: A reference to a ServiceAccount resource.
+        :param service_account_ref: ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :schema: EcrAuthorizationTokenSpecAuthJwt
         '''
@@ -10414,7 +10459,7 @@ class EcrAuthorizationTokenSpecAuthJwt:
     def service_account_ref(
         self,
     ) -> typing.Optional["EcrAuthorizationTokenSpecAuthJwtServiceAccountRef"]:
-        '''A reference to a ServiceAccount resource.
+        '''ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :schema: EcrAuthorizationTokenSpecAuthJwt#serviceAccountRef
         '''
@@ -10446,7 +10491,7 @@ class EcrAuthorizationTokenSpecAuthJwtServiceAccountRef:
         audiences: typing.Optional[typing.Sequence[builtins.str]] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a ServiceAccount resource.
+        '''ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :param name: The name of the ServiceAccount resource being referred to.
         :param audiences: Audience specifies the ``aud`` claim for the service account token If the service account uses a well-known annotation for e.g. IRSA or GCP Workload Identity then this audiences will be appended to the list.
@@ -11043,7 +11088,7 @@ class GcrAccessToken(
         :param scope: the scope in which to define this object.
         :param id: a scope-local name for the object.
         :param metadata: 
-        :param spec: 
+        :param spec: GCRAccessTokenSpec defines the desired state to generate a Google Container Registry access token.
         '''
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__b80007d0392365dc569ce8bd4015fe900acd943c3d36aa66178ec2ac84597b7f)
@@ -11066,7 +11111,7 @@ class GcrAccessToken(
         This can be used to inline resource manifests inside other objects (e.g. as templates).
 
         :param metadata: 
-        :param spec: 
+        :param spec: GCRAccessTokenSpec defines the desired state to generate a Google Container Registry access token.
         '''
         props = GcrAccessTokenProps(metadata=metadata, spec=spec)
 
@@ -11099,7 +11144,7 @@ class GcrAccessTokenProps:
         '''GCRAccessToken generates an GCP access token that can be used to authenticate with GCR.
 
         :param metadata: 
-        :param spec: 
+        :param spec: GCRAccessTokenSpec defines the desired state to generate a Google Container Registry access token.
 
         :schema: GCRAccessToken
         '''
@@ -11127,7 +11172,8 @@ class GcrAccessTokenProps:
 
     @builtins.property
     def spec(self) -> typing.Optional["GcrAccessTokenSpec"]:
-        '''
+        '''GCRAccessTokenSpec defines the desired state to generate a Google Container Registry access token.
+
         :schema: GCRAccessToken#spec
         '''
         result = self._values.get("spec")
@@ -11157,7 +11203,8 @@ class GcrAccessTokenSpec:
         auth: typing.Union["GcrAccessTokenSpecAuth", typing.Dict[builtins.str, typing.Any]],
         project_id: builtins.str,
     ) -> None:
-        '''
+        '''GCRAccessTokenSpec defines the desired state to generate a Google Container Registry access token.
+
         :param auth: Auth defines the means for authenticating with GCP.
         :param project_id: ProjectID defines which project to use to authenticate with.
 
@@ -11225,8 +11272,8 @@ class GcrAccessTokenSpecAuth:
     ) -> None:
         '''Auth defines the means for authenticating with GCP.
 
-        :param secret_ref: 
-        :param workload_identity: 
+        :param secret_ref: GCPSMAuthSecretRef defines the reference to a secret containing Google Cloud Platform credentials.
+        :param workload_identity: GCPWorkloadIdentity defines the configuration for using GCP Workload Identity authentication.
         :param workload_identity_federation: GCPWorkloadIdentityFederation holds the configurations required for generating federated access tokens.
 
         :schema: GcrAccessTokenSpecAuth
@@ -11252,7 +11299,8 @@ class GcrAccessTokenSpecAuth:
 
     @builtins.property
     def secret_ref(self) -> typing.Optional["GcrAccessTokenSpecAuthSecretRef"]:
-        '''
+        '''GCPSMAuthSecretRef defines the reference to a secret containing Google Cloud Platform credentials.
+
         :schema: GcrAccessTokenSpecAuth#secretRef
         '''
         result = self._values.get("secret_ref")
@@ -11262,7 +11310,8 @@ class GcrAccessTokenSpecAuth:
     def workload_identity(
         self,
     ) -> typing.Optional["GcrAccessTokenSpecAuthWorkloadIdentity"]:
-        '''
+        '''GCPWorkloadIdentity defines the configuration for using GCP Workload Identity authentication.
+
         :schema: GcrAccessTokenSpecAuth#workloadIdentity
         '''
         result = self._values.get("workload_identity")
@@ -11302,7 +11351,8 @@ class GcrAccessTokenSpecAuthSecretRef:
         *,
         secret_access_key_secret_ref: typing.Optional[typing.Union["GcrAccessTokenSpecAuthSecretRefSecretAccessKeySecretRef", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
+        '''GCPSMAuthSecretRef defines the reference to a secret containing Google Cloud Platform credentials.
+
         :param secret_access_key_secret_ref: The SecretAccessKey is used for authentication.
 
         :schema: GcrAccessTokenSpecAuthSecretRef
@@ -11435,10 +11485,11 @@ class GcrAccessTokenSpecAuthWorkloadIdentity:
         service_account_ref: typing.Union["GcrAccessTokenSpecAuthWorkloadIdentityServiceAccountRef", typing.Dict[builtins.str, typing.Any]],
         cluster_project_id: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''
+        '''GCPWorkloadIdentity defines the configuration for using GCP Workload Identity authentication.
+
         :param cluster_location: 
         :param cluster_name: 
-        :param service_account_ref: A reference to a ServiceAccount resource.
+        :param service_account_ref: ServiceAccountSelector is a reference to a ServiceAccount resource.
         :param cluster_project_id: 
 
         :schema: GcrAccessTokenSpecAuthWorkloadIdentity
@@ -11481,7 +11532,7 @@ class GcrAccessTokenSpecAuthWorkloadIdentity:
     def service_account_ref(
         self,
     ) -> "GcrAccessTokenSpecAuthWorkloadIdentityServiceAccountRef":
-        '''A reference to a ServiceAccount resource.
+        '''ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :schema: GcrAccessTokenSpecAuthWorkloadIdentity#serviceAccountRef
         '''
@@ -11943,7 +11994,7 @@ class GcrAccessTokenSpecAuthWorkloadIdentityServiceAccountRef:
         audiences: typing.Optional[typing.Sequence[builtins.str]] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a ServiceAccount resource.
+        '''ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :param name: The name of the ServiceAccount resource being referred to.
         :param audiences: Audience specifies the ``aud`` claim for the service account token If the service account uses a well-known annotation for e.g. IRSA or GCP Workload Identity then this audiences will be appended to the list.
@@ -12011,7 +12062,8 @@ class GeneratorState(
     metaclass=jsii.JSIIMeta,
     jsii_type="ioexternal-secretsgenerators.GeneratorState",
 ):
-    '''
+    '''GeneratorState represents the state created and managed by a generator resource.
+
     :schema: GeneratorState
     '''
 
@@ -12028,7 +12080,7 @@ class GeneratorState(
         :param scope: the scope in which to define this object.
         :param id: a scope-local name for the object.
         :param metadata: 
-        :param spec: 
+        :param spec: GeneratorStateSpec defines the desired state of a generator state resource.
         '''
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__958486a855120fc7a31aee0ba4cca65a04bf9a182445fbe480e553b98ccd9036)
@@ -12051,7 +12103,7 @@ class GeneratorState(
         This can be used to inline resource manifests inside other objects (e.g. as templates).
 
         :param metadata: 
-        :param spec: 
+        :param spec: GeneratorStateSpec defines the desired state of a generator state resource.
         '''
         props = GeneratorStateProps(metadata=metadata, spec=spec)
 
@@ -12081,9 +12133,10 @@ class GeneratorStateProps:
         metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["GeneratorStateSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
+        '''GeneratorState represents the state created and managed by a generator resource.
+
         :param metadata: 
-        :param spec: 
+        :param spec: GeneratorStateSpec defines the desired state of a generator state resource.
 
         :schema: GeneratorState
         '''
@@ -12111,7 +12164,8 @@ class GeneratorStateProps:
 
     @builtins.property
     def spec(self) -> typing.Optional["GeneratorStateSpec"]:
-        '''
+        '''GeneratorStateSpec defines the desired state of a generator state resource.
+
         :schema: GeneratorState#spec
         '''
         result = self._values.get("spec")
@@ -12146,7 +12200,8 @@ class GeneratorStateSpec:
         state: typing.Any,
         garbage_collection_deadline: typing.Optional[datetime.datetime] = None,
     ) -> None:
-        '''
+        '''GeneratorStateSpec defines the desired state of a generator state resource.
+
         :param resource: Resource is the generator manifest that produced the state. It is a snapshot of the generator manifest at the time the state was produced. This manifest will be used to delete the resource. Any configuration that is referenced in the manifest should be available at the time of garbage collection. If that is not the case deletion will be blocked by a finalizer.
         :param state: State is the state that was produced by the generator implementation.
         :param garbage_collection_deadline: GarbageCollectionDeadline is the time after which the generator state will be deleted. It is set by the controller which creates the generator state and can be set configured by the user. If the garbage collection deadline is not set the generator state will not be deleted.
@@ -12238,7 +12293,7 @@ class GithubAccessToken(
         :param scope: the scope in which to define this object.
         :param id: a scope-local name for the object.
         :param metadata: 
-        :param spec: 
+        :param spec: GithubAccessTokenSpec defines the desired state to generate a GitHub access token.
         '''
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__4a77570c44994c62f1495ca397b0a38a34f7359399b5a5c444421df203d8116b)
@@ -12261,7 +12316,7 @@ class GithubAccessToken(
         This can be used to inline resource manifests inside other objects (e.g. as templates).
 
         :param metadata: 
-        :param spec: 
+        :param spec: GithubAccessTokenSpec defines the desired state to generate a GitHub access token.
         '''
         props = GithubAccessTokenProps(metadata=metadata, spec=spec)
 
@@ -12294,7 +12349,7 @@ class GithubAccessTokenProps:
         '''GithubAccessToken generates ghs_ accessToken.
 
         :param metadata: 
-        :param spec: 
+        :param spec: GithubAccessTokenSpec defines the desired state to generate a GitHub access token.
 
         :schema: GithubAccessToken
         '''
@@ -12322,7 +12377,8 @@ class GithubAccessTokenProps:
 
     @builtins.property
     def spec(self) -> typing.Optional["GithubAccessTokenSpec"]:
-        '''
+        '''GithubAccessTokenSpec defines the desired state to generate a GitHub access token.
+
         :schema: GithubAccessToken#spec
         '''
         result = self._values.get("spec")
@@ -12363,13 +12419,14 @@ class GithubAccessTokenSpec:
         repositories: typing.Optional[typing.Sequence[builtins.str]] = None,
         url: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''
+        '''GithubAccessTokenSpec defines the desired state to generate a GitHub access token.
+
         :param app_id: 
         :param auth: Auth configures how ESO authenticates with a Github instance.
         :param install_id: 
         :param permissions: Map of permissions the token will have. If omitted, defaults to all permissions the GitHub App has.
         :param repositories: List of repositories the token will have access to. If omitted, defaults to all repositories the GitHub App is installed to.
-        :param url: URL configures the Github instance URL. Defaults to https://github.com/. Default: https://github.com/.
+        :param url: URL configures the GitHub instance URL. Defaults to https://github.com/. Default: https://github.com/.
 
         :schema: GithubAccessTokenSpec
         '''
@@ -12450,7 +12507,7 @@ class GithubAccessTokenSpec:
 
     @builtins.property
     def url(self) -> typing.Optional[builtins.str]:
-        '''URL configures the Github instance URL.
+        '''URL configures the GitHub instance URL.
 
         Defaults to https://github.com/.
 
@@ -12486,7 +12543,7 @@ class GithubAccessTokenSpecAuth:
     ) -> None:
         '''Auth configures how ESO authenticates with a Github instance.
 
-        :param private_key: 
+        :param private_key: GithubSecretRef references a secret containing GitHub credentials.
 
         :schema: GithubAccessTokenSpecAuth
         '''
@@ -12501,7 +12558,8 @@ class GithubAccessTokenSpecAuth:
 
     @builtins.property
     def private_key(self) -> "GithubAccessTokenSpecAuthPrivateKey":
-        '''
+        '''GithubSecretRef references a secret containing GitHub credentials.
+
         :schema: GithubAccessTokenSpecAuth#privateKey
         '''
         result = self._values.get("private_key")
@@ -12531,8 +12589,9 @@ class GithubAccessTokenSpecAuthPrivateKey:
         *,
         secret_ref: typing.Union["GithubAccessTokenSpecAuthPrivateKeySecretRef", typing.Dict[builtins.str, typing.Any]],
     ) -> None:
-        '''
-        :param secret_ref: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        '''GithubSecretRef references a secret containing GitHub credentials.
+
+        :param secret_ref: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: GithubAccessTokenSpecAuthPrivateKey
         '''
@@ -12547,7 +12606,7 @@ class GithubAccessTokenSpecAuthPrivateKey:
 
     @builtins.property
     def secret_ref(self) -> "GithubAccessTokenSpecAuthPrivateKeySecretRef":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -12582,7 +12641,7 @@ class GithubAccessTokenSpecAuthPrivateKeySecretRef:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -12653,7 +12712,8 @@ class Grafana(
     metaclass=jsii.JSIIMeta,
     jsii_type="ioexternal-secretsgenerators.Grafana",
 ):
-    '''
+    '''Grafana represents a generator for Grafana service account tokens.
+
     :schema: Grafana
     '''
 
@@ -12723,7 +12783,8 @@ class GrafanaProps:
         metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["GrafanaSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
+        '''Grafana represents a generator for Grafana service account tokens.
+
         :param metadata: 
         :param spec: GrafanaSpec controls the behavior of the grafana generator.
 
@@ -13826,7 +13887,7 @@ class QuayAccessToken(
         :param scope: the scope in which to define this object.
         :param id: a scope-local name for the object.
         :param metadata: 
-        :param spec: 
+        :param spec: QuayAccessTokenSpec defines the desired state to generate a Quay access token.
         '''
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__58971dea6308deeb2631c838ee3c6601a0b25893b80479dc4e945254f22274b6)
@@ -13849,7 +13910,7 @@ class QuayAccessToken(
         This can be used to inline resource manifests inside other objects (e.g. as templates).
 
         :param metadata: 
-        :param spec: 
+        :param spec: QuayAccessTokenSpec defines the desired state to generate a Quay access token.
         '''
         props = QuayAccessTokenProps(metadata=metadata, spec=spec)
 
@@ -13882,7 +13943,7 @@ class QuayAccessTokenProps:
         '''QuayAccessToken generates Quay oauth token for pulling/pushing images.
 
         :param metadata: 
-        :param spec: 
+        :param spec: QuayAccessTokenSpec defines the desired state to generate a Quay access token.
 
         :schema: QuayAccessToken
         '''
@@ -13910,7 +13971,8 @@ class QuayAccessTokenProps:
 
     @builtins.property
     def spec(self) -> typing.Optional["QuayAccessTokenSpec"]:
-        '''
+        '''QuayAccessTokenSpec defines the desired state to generate a Quay access token.
+
         :schema: QuayAccessToken#spec
         '''
         result = self._values.get("spec")
@@ -13945,7 +14007,8 @@ class QuayAccessTokenSpec:
         service_account_ref: typing.Union["QuayAccessTokenSpecServiceAccountRef", typing.Dict[builtins.str, typing.Any]],
         url: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''
+        '''QuayAccessTokenSpec defines the desired state to generate a Quay access token.
+
         :param robot_account: Name of the robot account you are federating with.
         :param service_account_ref: Name of the service account you are federating with.
         :param url: URL configures the Quay instance URL. Defaults to quay.io. Default: quay.io.
@@ -14229,8 +14292,8 @@ class SshKeySpec:
         '''SSHKeySpec controls the behavior of the ssh key generator.
 
         :param comment: Comment specifies an optional comment for the SSH key.
-        :param key_size: KeySize specifies the key size for RSA keys (default: 2048) For RSA keys: 2048, 3072, 4096 Ignored for ed25519 keys.
-        :param key_type: KeyType specifies the SSH key type (rsa, ed25519).
+        :param key_size: KeySize specifies the key size for RSA keys (default: 2048) and ECDSA keys (default: 256). For RSA keys: 2048, 3072, 4096 For ECDSA keys: 256, 384, 521 Ignored for ed25519 keys
+        :param key_type: KeyType specifies the SSH key type (rsa, ecdsa, ed25519).
 
         :schema: SshKeySpec
         '''
@@ -14258,7 +14321,11 @@ class SshKeySpec:
 
     @builtins.property
     def key_size(self) -> typing.Optional[jsii.Number]:
-        '''KeySize specifies the key size for RSA keys (default: 2048) For RSA keys: 2048, 3072, 4096 Ignored for ed25519 keys.
+        '''KeySize specifies the key size for RSA keys (default: 2048) and ECDSA keys (default: 256).
+
+        For RSA keys: 2048, 3072, 4096
+        For ECDSA keys: 256, 384, 521
+        Ignored for ed25519 keys
 
         :schema: SshKeySpec#keySize
         '''
@@ -14267,7 +14334,7 @@ class SshKeySpec:
 
     @builtins.property
     def key_type(self) -> typing.Optional["SshKeySpecKeyType"]:
-        '''KeyType specifies the SSH key type (rsa, ed25519).
+        '''KeyType specifies the SSH key type (rsa, ecdsa, ed25519).
 
         :schema: SshKeySpec#keyType
         '''
@@ -14288,13 +14355,15 @@ class SshKeySpec:
 
 @jsii.enum(jsii_type="ioexternal-secretsgenerators.SshKeySpecKeyType")
 class SshKeySpecKeyType(enum.Enum):
-    '''KeyType specifies the SSH key type (rsa, ed25519).
+    '''KeyType specifies the SSH key type (rsa, ecdsa, ed25519).
 
     :schema: SshKeySpecKeyType
     '''
 
     RSA = "RSA"
     '''rsa.'''
+    ECDSA = "ECDSA"
+    '''ecdsa.'''
     ED25519 = "ED25519"
     '''ed25519.'''
 
@@ -14326,7 +14395,7 @@ class StsSessionToken(
         :param scope: the scope in which to define this object.
         :param id: a scope-local name for the object.
         :param metadata: 
-        :param spec: 
+        :param spec: STSSessionTokenSpec defines the desired state to generate an AWS STS session token.
         '''
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__6d24e2306191a5fd4c09bb6b3eba8a928429a33c1a208b4fa447525d2e6efb8e)
@@ -14349,7 +14418,7 @@ class StsSessionToken(
         This can be used to inline resource manifests inside other objects (e.g. as templates).
 
         :param metadata: 
-        :param spec: 
+        :param spec: STSSessionTokenSpec defines the desired state to generate an AWS STS session token.
         '''
         props = StsSessionTokenProps(metadata=metadata, spec=spec)
 
@@ -14386,7 +14455,7 @@ class StsSessionTokenProps:
         For more information, see GetSessionToken (https://docs.aws.amazon.com/STS/latest/APIReference/API_GetSessionToken.html).
 
         :param metadata: 
-        :param spec: 
+        :param spec: STSSessionTokenSpec defines the desired state to generate an AWS STS session token.
 
         :schema: STSSessionToken
         '''
@@ -14414,7 +14483,8 @@ class StsSessionTokenProps:
 
     @builtins.property
     def spec(self) -> typing.Optional["StsSessionTokenSpec"]:
-        '''
+        '''STSSessionTokenSpec defines the desired state to generate an AWS STS session token.
+
         :schema: STSSessionToken#spec
         '''
         result = self._values.get("spec")
@@ -14451,7 +14521,8 @@ class StsSessionTokenSpec:
         request_parameters: typing.Optional[typing.Union["StsSessionTokenSpecRequestParameters", typing.Dict[builtins.str, typing.Any]]] = None,
         role: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''
+        '''STSSessionTokenSpec defines the desired state to generate an AWS STS session token.
+
         :param region: Region specifies the region to operate in.
         :param auth: Auth defines how to authenticate with AWS.
         :param request_parameters: RequestParameters contains parameters that can be passed to the STS service.
@@ -14544,7 +14615,7 @@ class StsSessionTokenSpecAuth:
     ) -> None:
         '''Auth defines how to authenticate with AWS.
 
-        :param jwt: Authenticate against AWS using service account tokens.
+        :param jwt: AWSJWTAuth provides configuration to authenticate against AWS using service account tokens.
         :param secret_ref: AWSAuthSecretRef holds secret references for AWS credentials both AccessKeyID and SecretAccessKey must be defined in order to properly authenticate.
 
         :schema: StsSessionTokenSpecAuth
@@ -14565,7 +14636,7 @@ class StsSessionTokenSpecAuth:
 
     @builtins.property
     def jwt(self) -> typing.Optional["StsSessionTokenSpecAuthJwt"]:
-        '''Authenticate against AWS using service account tokens.
+        '''AWSJWTAuth provides configuration to authenticate against AWS using service account tokens.
 
         :schema: StsSessionTokenSpecAuth#jwt
         '''
@@ -14604,9 +14675,9 @@ class StsSessionTokenSpecAuthJwt:
         *,
         service_account_ref: typing.Optional[typing.Union["StsSessionTokenSpecAuthJwtServiceAccountRef", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''Authenticate against AWS using service account tokens.
+        '''AWSJWTAuth provides configuration to authenticate against AWS using service account tokens.
 
-        :param service_account_ref: A reference to a ServiceAccount resource.
+        :param service_account_ref: ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :schema: StsSessionTokenSpecAuthJwt
         '''
@@ -14623,7 +14694,7 @@ class StsSessionTokenSpecAuthJwt:
     def service_account_ref(
         self,
     ) -> typing.Optional["StsSessionTokenSpecAuthJwtServiceAccountRef"]:
-        '''A reference to a ServiceAccount resource.
+        '''ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :schema: StsSessionTokenSpecAuthJwt#serviceAccountRef
         '''
@@ -14655,7 +14726,7 @@ class StsSessionTokenSpecAuthJwtServiceAccountRef:
         audiences: typing.Optional[typing.Sequence[builtins.str]] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a ServiceAccount resource.
+        '''ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :param name: The name of the ServiceAccount resource being referred to.
         :param audiences: Audience specifies the ``aud`` claim for the service account token If the service account uses a well-known annotation for e.g. IRSA or GCP Workload Identity then this audiences will be appended to the list.
@@ -15246,7 +15317,8 @@ class VaultDynamicSecret(
     metaclass=jsii.JSIIMeta,
     jsii_type="ioexternal-secretsgenerators.VaultDynamicSecret",
 ):
-    '''
+    '''VaultDynamicSecret represents a generator that can create dynamic secrets from HashiCorp Vault.
+
     :schema: VaultDynamicSecret
     '''
 
@@ -15263,7 +15335,7 @@ class VaultDynamicSecret(
         :param scope: the scope in which to define this object.
         :param id: a scope-local name for the object.
         :param metadata: 
-        :param spec: 
+        :param spec: VaultDynamicSecretSpec defines the desired spec of VaultDynamicSecret.
         '''
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__9de7ad29b743a3478314c6a17debdf2b449820754873f9353e2c8fe6fefb8e48)
@@ -15286,7 +15358,7 @@ class VaultDynamicSecret(
         This can be used to inline resource manifests inside other objects (e.g. as templates).
 
         :param metadata: 
-        :param spec: 
+        :param spec: VaultDynamicSecretSpec defines the desired spec of VaultDynamicSecret.
         '''
         props = VaultDynamicSecretProps(metadata=metadata, spec=spec)
 
@@ -15316,9 +15388,10 @@ class VaultDynamicSecretProps:
         metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["VaultDynamicSecretSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
+        '''VaultDynamicSecret represents a generator that can create dynamic secrets from HashiCorp Vault.
+
         :param metadata: 
-        :param spec: 
+        :param spec: VaultDynamicSecretSpec defines the desired spec of VaultDynamicSecret.
 
         :schema: VaultDynamicSecret
         '''
@@ -15346,7 +15419,8 @@ class VaultDynamicSecretProps:
 
     @builtins.property
     def spec(self) -> typing.Optional["VaultDynamicSecretSpec"]:
-        '''
+        '''VaultDynamicSecretSpec defines the desired spec of VaultDynamicSecret.
+
         :schema: VaultDynamicSecret#spec
         '''
         result = self._values.get("spec")
@@ -15391,14 +15465,15 @@ class VaultDynamicSecretSpec:
         result_type: typing.Optional["VaultDynamicSecretSpecResultType"] = None,
         retry_settings: typing.Optional[typing.Union["VaultDynamicSecretSpecRetrySettings", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
+        '''VaultDynamicSecretSpec defines the desired spec of VaultDynamicSecret.
+
         :param path: Vault path to obtain the dynamic secret from.
         :param provider: Vault provider common spec.
         :param allow_empty_response: Do not fail if no secrets are found. Useful for requests where no data is expected.
         :param controller: Used to select the correct ESO controller (think: ingress.ingressClassName) The ESO controller is instantiated with a specific controller name and filters VDS based on this property.
         :param method: Vault API method to use (GET/POST/other).
         :param parameters: Parameters to pass to Vault write (for non-GET methods).
-        :param result_type: Result type defines which data is returned from the generator. By default it is the "data" section of the Vault API response. When using e.g. /auth/token/create the "data" section is empty but the "auth" section contains the generated token. Please refer to the vault docs regarding the result data structure. Additionally, accessing the raw response is possibly by using "Raw" result type.
+        :param result_type: Result type defines which data is returned from the generator. By default, it is the "data" section of the Vault API response. When using e.g. /auth/token/create the "data" section is empty but the "auth" section contains the generated token. Please refer to the vault docs regarding the result data structure. Additionally, accessing the raw response is possibly by using "Raw" result type.
         :param retry_settings: Used to configure http retries if failed.
 
         :schema: VaultDynamicSecretSpec
@@ -15496,7 +15571,7 @@ class VaultDynamicSecretSpec:
     def result_type(self) -> typing.Optional["VaultDynamicSecretSpecResultType"]:
         '''Result type defines which data is returned from the generator.
 
-        By default it is the "data" section of the Vault API response.
+        By default, it is the "data" section of the Vault API response.
         When using e.g. /auth/token/create the "data" section is empty but
         the "auth" section contains the generated token.
         Please refer to the vault docs regarding the result data structure.
@@ -16655,7 +16730,7 @@ class VaultDynamicSecretSpecProviderAuthIamJwt:
     ) -> None:
         '''Specify a service account with IRSA enabled.
 
-        :param service_account_ref: A reference to a ServiceAccount resource.
+        :param service_account_ref: ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :schema: VaultDynamicSecretSpecProviderAuthIamJwt
         '''
@@ -16672,7 +16747,7 @@ class VaultDynamicSecretSpecProviderAuthIamJwt:
     def service_account_ref(
         self,
     ) -> typing.Optional["VaultDynamicSecretSpecProviderAuthIamJwtServiceAccountRef"]:
-        '''A reference to a ServiceAccount resource.
+        '''ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :schema: VaultDynamicSecretSpecProviderAuthIamJwt#serviceAccountRef
         '''
@@ -16704,7 +16779,7 @@ class VaultDynamicSecretSpecProviderAuthIamJwtServiceAccountRef:
         audiences: typing.Optional[typing.Sequence[builtins.str]] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a ServiceAccount resource.
+        '''ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :param name: The name of the ServiceAccount resource being referred to.
         :param audiences: Audience specifies the ``aud`` claim for the service account token If the service account uses a well-known annotation for e.g. IRSA or GCP Workload Identity then this audiences will be appended to the list.
@@ -18508,7 +18583,7 @@ class VaultDynamicSecretSpecProviderVersion(enum.Enum):
 class VaultDynamicSecretSpecResultType(enum.Enum):
     '''Result type defines which data is returned from the generator.
 
-    By default it is the "data" section of the Vault API response.
+    By default, it is the "data" section of the Vault API response.
     When using e.g. /auth/token/create the "data" section is empty but
     the "auth" section contains the generated token.
     Please refer to the vault docs regarding the result data structure.
@@ -18980,8 +19055,8 @@ class WebhookSpecAuthNtlm:
     ) -> None:
         '''NTLMProtocol configures the store to use NTLM for auth.
 
-        :param password_secret: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param username_secret: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param password_secret: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param username_secret: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: WebhookSpecAuthNtlm
         '''
@@ -19000,7 +19075,7 @@ class WebhookSpecAuthNtlm:
 
     @builtins.property
     def password_secret(self) -> "WebhookSpecAuthNtlmPasswordSecret":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -19012,7 +19087,7 @@ class WebhookSpecAuthNtlm:
 
     @builtins.property
     def username_secret(self) -> "WebhookSpecAuthNtlmUsernameSecret":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -19047,7 +19122,7 @@ class WebhookSpecAuthNtlmPasswordSecret:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -19126,7 +19201,7 @@ class WebhookSpecAuthNtlmUsernameSecret:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -19351,7 +19426,8 @@ class WebhookSpecSecrets:
         name: builtins.str,
         secret_ref: typing.Union["WebhookSpecSecretsSecretRef", typing.Dict[builtins.str, typing.Any]],
     ) -> None:
-        '''
+        '''WebhookSecret defines a secret reference that will be used in webhook templates.
+
         :param name: Name of this secret in templates.
         :param secret_ref: Secret ref to fill in credentials.
 

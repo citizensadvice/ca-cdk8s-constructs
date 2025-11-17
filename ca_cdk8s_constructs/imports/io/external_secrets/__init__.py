@@ -410,7 +410,7 @@ class ClusterExternalSecretSpecExternalSecretSpec:
         :param refresh_interval: RefreshInterval is the amount of time before the values are read again from the SecretStore provider, specified as Golang Duration strings. Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h" Example values: "1h", "2h30m", "10s" May be set to zero to fetch and create it once. Defaults to 1h. Default: 1h.
         :param refresh_policy: RefreshPolicy determines how the ExternalSecret should be refreshed: - CreatedOnce: Creates the Secret only if it does not exist and does not update it thereafter - Periodic: Synchronizes the Secret from the external source at regular intervals specified by refreshInterval. No periodic updates occur if refreshInterval is 0. - OnChange: Only synchronizes the Secret when the ExternalSecret's metadata or specification changes
         :param secret_store_ref: SecretStoreRef defines which SecretStore to fetch the ExternalSecret data.
-        :param target: ExternalSecretTarget defines the Kubernetes Secret to be created There can be only one target per ExternalSecret.
+        :param target: ExternalSecretTarget defines the Kubernetes Secret to be created, there can be only one target per ExternalSecret.
 
         :schema: ClusterExternalSecretSpecExternalSecretSpec
         '''
@@ -507,7 +507,7 @@ class ClusterExternalSecretSpecExternalSecretSpec:
     def target(
         self,
     ) -> typing.Optional["ClusterExternalSecretSpecExternalSecretSpecTarget"]:
-        '''ExternalSecretTarget defines the Kubernetes Secret to be created There can be only one target per ExternalSecret.
+        '''ExternalSecretTarget defines the Kubernetes Secret to be created, there can be only one target per ExternalSecret.
 
         :schema: ClusterExternalSecretSpecExternalSecretSpec#target
         '''
@@ -629,7 +629,8 @@ class ClusterExternalSecretSpecExternalSecretSpecDataFrom:
         rewrite: typing.Optional[typing.Sequence[typing.Union["ClusterExternalSecretSpecExternalSecretSpecDataFromRewrite", typing.Dict[builtins.str, typing.Any]]]] = None,
         source_ref: typing.Optional[typing.Union["ClusterExternalSecretSpecExternalSecretSpecDataFromSourceRef", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
+        '''ExternalSecretDataFromRemoteRef defines the connection between the Kubernetes Secret keys and the Provider data when using DataFrom to fetch multiple values from a Provider.
+
         :param extract: Used to extract multiple key/value pairs from one secret Note: Extract does not support sourceRef.Generator or sourceRef.GeneratorRef.
         :param find: Used to find secrets based on tags or regular expressions Note: Find does not support sourceRef.Generator or sourceRef.GeneratorRef.
         :param rewrite: Used to rewrite secret Keys after getting them from the secret Provider Multiple Rewrite operations can be provided. They are applied in a layered order (first to last)
@@ -1121,7 +1122,8 @@ class ClusterExternalSecretSpecExternalSecretSpecDataFromRewrite:
         regexp: typing.Optional[typing.Union["ClusterExternalSecretSpecExternalSecretSpecDataFromRewriteRegexp", typing.Dict[builtins.str, typing.Any]]] = None,
         transform: typing.Optional[typing.Union["ClusterExternalSecretSpecExternalSecretSpecDataFromRewriteTransform", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
+        '''ExternalSecretRewrite defines how to rewrite secret data values before they are written to the Secret.
+
         :param merge: Used to merge key/values in one single Secret The resulting key will contain all values from the specified secrets.
         :param regexp: Used to rewrite with regular expressions. The resulting key will be the output of a regexp.ReplaceAll operation.
         :param transform: Used to apply string transformation on the secrets. The resulting key will be the output of the template applied by the operation.
@@ -2312,6 +2314,7 @@ class ClusterExternalSecretSpecExternalSecretSpecSecretStoreRefKind(enum.Enum):
         "creation_policy": "creationPolicy",
         "deletion_policy": "deletionPolicy",
         "immutable": "immutable",
+        "manifest": "manifest",
         "name": "name",
         "template": "template",
     },
@@ -2323,19 +2326,23 @@ class ClusterExternalSecretSpecExternalSecretSpecTarget:
         creation_policy: typing.Optional["ClusterExternalSecretSpecExternalSecretSpecTargetCreationPolicy"] = None,
         deletion_policy: typing.Optional["ClusterExternalSecretSpecExternalSecretSpecTargetDeletionPolicy"] = None,
         immutable: typing.Optional[builtins.bool] = None,
+        manifest: typing.Optional[typing.Union["ClusterExternalSecretSpecExternalSecretSpecTargetManifest", typing.Dict[builtins.str, typing.Any]]] = None,
         name: typing.Optional[builtins.str] = None,
         template: typing.Optional[typing.Union["ClusterExternalSecretSpecExternalSecretSpecTargetTemplate", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''ExternalSecretTarget defines the Kubernetes Secret to be created There can be only one target per ExternalSecret.
+        '''ExternalSecretTarget defines the Kubernetes Secret to be created, there can be only one target per ExternalSecret.
 
         :param creation_policy: CreationPolicy defines rules on how to create the resulting Secret. Defaults to "Owner" Default: Owner"
         :param deletion_policy: DeletionPolicy defines rules on how to delete the resulting Secret. Defaults to "Retain" Default: Retain"
         :param immutable: Immutable defines if the final secret will be immutable.
+        :param manifest: Manifest defines a custom Kubernetes resource to create instead of a Secret. When specified, ExternalSecret will create the resource type defined here (e.g., ConfigMap, Custom Resource) instead of a Secret. Warning: Using Generic target. Make sure access policies and encryption are properly configured.
         :param name: The name of the Secret resource to be managed. Defaults to the .metadata.name of the ExternalSecret resource Default: the .metadata.name of the ExternalSecret resource
         :param template: Template defines a blueprint for the created Secret resource.
 
         :schema: ClusterExternalSecretSpecExternalSecretSpecTarget
         '''
+        if isinstance(manifest, dict):
+            manifest = ClusterExternalSecretSpecExternalSecretSpecTargetManifest(**manifest)
         if isinstance(template, dict):
             template = ClusterExternalSecretSpecExternalSecretSpecTargetTemplate(**template)
         if __debug__:
@@ -2343,6 +2350,7 @@ class ClusterExternalSecretSpecExternalSecretSpecTarget:
             check_type(argname="argument creation_policy", value=creation_policy, expected_type=type_hints["creation_policy"])
             check_type(argname="argument deletion_policy", value=deletion_policy, expected_type=type_hints["deletion_policy"])
             check_type(argname="argument immutable", value=immutable, expected_type=type_hints["immutable"])
+            check_type(argname="argument manifest", value=manifest, expected_type=type_hints["manifest"])
             check_type(argname="argument name", value=name, expected_type=type_hints["name"])
             check_type(argname="argument template", value=template, expected_type=type_hints["template"])
         self._values: typing.Dict[builtins.str, typing.Any] = {}
@@ -2352,6 +2360,8 @@ class ClusterExternalSecretSpecExternalSecretSpecTarget:
             self._values["deletion_policy"] = deletion_policy
         if immutable is not None:
             self._values["immutable"] = immutable
+        if manifest is not None:
+            self._values["manifest"] = manifest
         if name is not None:
             self._values["name"] = name
         if template is not None:
@@ -2395,6 +2405,21 @@ class ClusterExternalSecretSpecExternalSecretSpecTarget:
         '''
         result = self._values.get("immutable")
         return typing.cast(typing.Optional[builtins.bool], result)
+
+    @builtins.property
+    def manifest(
+        self,
+    ) -> typing.Optional["ClusterExternalSecretSpecExternalSecretSpecTargetManifest"]:
+        '''Manifest defines a custom Kubernetes resource to create instead of a Secret.
+
+        When specified, ExternalSecret will create the resource type defined here
+        (e.g., ConfigMap, Custom Resource) instead of a Secret.
+        Warning: Using Generic target. Make sure access policies and encryption are properly configured.
+
+        :schema: ClusterExternalSecretSpecExternalSecretSpecTarget#manifest
+        '''
+        result = self._values.get("manifest")
+        return typing.cast(typing.Optional["ClusterExternalSecretSpecExternalSecretSpecTargetManifest"], result)
 
     @builtins.property
     def name(self) -> typing.Optional[builtins.str]:
@@ -2477,6 +2502,65 @@ class ClusterExternalSecretSpecExternalSecretSpecTargetDeletionPolicy(enum.Enum)
 
 
 @jsii.data_type(
+    jsii_type="ioexternal-secrets.ClusterExternalSecretSpecExternalSecretSpecTargetManifest",
+    jsii_struct_bases=[],
+    name_mapping={"api_version": "apiVersion", "kind": "kind"},
+)
+class ClusterExternalSecretSpecExternalSecretSpecTargetManifest:
+    def __init__(self, *, api_version: builtins.str, kind: builtins.str) -> None:
+        '''Manifest defines a custom Kubernetes resource to create instead of a Secret.
+
+        When specified, ExternalSecret will create the resource type defined here
+        (e.g., ConfigMap, Custom Resource) instead of a Secret.
+        Warning: Using Generic target. Make sure access policies and encryption are properly configured.
+
+        :param api_version: APIVersion of the target resource (e.g., "v1" for ConfigMap, "argoproj.io/v1alpha1" for ArgoCD Application).
+        :param kind: Kind of the target resource (e.g., "ConfigMap", "Application").
+
+        :schema: ClusterExternalSecretSpecExternalSecretSpecTargetManifest
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__cb18bef7e992aca27df2137bf28de8bddc383d6530eb77dec4678a9a79951d67)
+            check_type(argname="argument api_version", value=api_version, expected_type=type_hints["api_version"])
+            check_type(argname="argument kind", value=kind, expected_type=type_hints["kind"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "api_version": api_version,
+            "kind": kind,
+        }
+
+    @builtins.property
+    def api_version(self) -> builtins.str:
+        '''APIVersion of the target resource (e.g., "v1" for ConfigMap, "argoproj.io/v1alpha1" for ArgoCD Application).
+
+        :schema: ClusterExternalSecretSpecExternalSecretSpecTargetManifest#apiVersion
+        '''
+        result = self._values.get("api_version")
+        assert result is not None, "Required property 'api_version' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def kind(self) -> builtins.str:
+        '''Kind of the target resource (e.g., "ConfigMap", "Application").
+
+        :schema: ClusterExternalSecretSpecExternalSecretSpecTargetManifest#kind
+        '''
+        result = self._values.get("kind")
+        assert result is not None, "Required property 'kind' is missing"
+        return typing.cast(builtins.str, result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterExternalSecretSpecExternalSecretSpecTargetManifest(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
     jsii_type="ioexternal-secrets.ClusterExternalSecretSpecExternalSecretSpecTargetTemplate",
     jsii_struct_bases=[],
     name_mapping={
@@ -2503,7 +2587,7 @@ class ClusterExternalSecretSpecExternalSecretSpecTargetTemplate:
 
         :param data: 
         :param engine_version: EngineVersion specifies the template engine version that should be used to compile/execute the template specified in .data and .templateFrom[].
-        :param merge_policy: 
+        :param merge_policy: TemplateMergePolicy defines how the rendered template should be merged with the existing Secret data.
         :param metadata: ExternalSecretTemplateMetadata defines metadata fields for the Secret blueprint.
         :param template_from: 
         :param type: 
@@ -2557,7 +2641,8 @@ class ClusterExternalSecretSpecExternalSecretSpecTargetTemplate:
     def merge_policy(
         self,
     ) -> typing.Optional["ClusterExternalSecretSpecExternalSecretSpecTargetTemplateMergePolicy"]:
-        '''
+        '''TemplateMergePolicy defines how the rendered template should be merged with the existing Secret data.
+
         :schema: ClusterExternalSecretSpecExternalSecretSpecTargetTemplate#mergePolicy
         '''
         result = self._values.get("merge_policy")
@@ -2621,7 +2706,8 @@ class ClusterExternalSecretSpecExternalSecretSpecTargetTemplateEngineVersion(enu
     jsii_type="ioexternal-secrets.ClusterExternalSecretSpecExternalSecretSpecTargetTemplateMergePolicy"
 )
 class ClusterExternalSecretSpecExternalSecretSpecTargetTemplateMergePolicy(enum.Enum):
-    '''
+    '''TemplateMergePolicy defines how the rendered template should be merged with the existing Secret data.
+
     :schema: ClusterExternalSecretSpecExternalSecretSpecTargetTemplateMergePolicy
     '''
 
@@ -2724,13 +2810,16 @@ class ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFrom:
         config_map: typing.Optional[typing.Union["ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFromConfigMap", typing.Dict[builtins.str, typing.Any]]] = None,
         literal: typing.Optional[builtins.str] = None,
         secret: typing.Optional[typing.Union["ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFromSecret", typing.Dict[builtins.str, typing.Any]]] = None,
-        target: typing.Optional["ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFromTarget"] = None,
+        target: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''
-        :param config_map: 
+        '''TemplateFrom specifies a source for templates.
+
+        Each item in the list can either reference a ConfigMap or a Secret resource.
+
+        :param config_map: TemplateRef specifies a reference to either a ConfigMap or a Secret resource.
         :param literal: 
-        :param secret: 
-        :param target: 
+        :param secret: TemplateRef specifies a reference to either a ConfigMap or a Secret resource.
+        :param target: Target specifies where to place the template result. For Secret resources, common values are: "Data", "Annotations", "Labels". For custom resources (when spec.target.manifest is set), this supports nested paths like "spec.database.config" or "data".
 
         :schema: ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFrom
         '''
@@ -2758,7 +2847,8 @@ class ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFrom:
     def config_map(
         self,
     ) -> typing.Optional["ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFromConfigMap"]:
-        '''
+        '''TemplateRef specifies a reference to either a ConfigMap or a Secret resource.
+
         :schema: ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFrom#configMap
         '''
         result = self._values.get("config_map")
@@ -2776,21 +2866,25 @@ class ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFrom:
     def secret(
         self,
     ) -> typing.Optional["ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFromSecret"]:
-        '''
+        '''TemplateRef specifies a reference to either a ConfigMap or a Secret resource.
+
         :schema: ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFrom#secret
         '''
         result = self._values.get("secret")
         return typing.cast(typing.Optional["ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFromSecret"], result)
 
     @builtins.property
-    def target(
-        self,
-    ) -> typing.Optional["ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFromTarget"]:
-        '''
+    def target(self) -> typing.Optional[builtins.str]:
+        '''Target specifies where to place the template result.
+
+        For Secret resources, common values are: "Data", "Annotations", "Labels".
+        For custom resources (when spec.target.manifest is set), this supports
+        nested paths like "spec.database.config" or "data".
+
         :schema: ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFrom#target
         '''
         result = self._values.get("target")
-        return typing.cast(typing.Optional["ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFromTarget"], result)
+        return typing.cast(typing.Optional[builtins.str], result)
 
     def __eq__(self, rhs: typing.Any) -> builtins.bool:
         return isinstance(rhs, self.__class__) and rhs._values == self._values
@@ -2816,7 +2910,8 @@ class ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFromConfi
         items: typing.Sequence[typing.Union["ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFromConfigMapItems", typing.Dict[builtins.str, typing.Any]]],
         name: builtins.str,
     ) -> None:
-        '''
+        '''TemplateRef specifies a reference to either a ConfigMap or a Secret resource.
+
         :param items: A list of keys in the ConfigMap/Secret to use as templates for Secret data.
         :param name: The name of the ConfigMap/Secret resource.
 
@@ -2877,9 +2972,10 @@ class ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFromConfi
         key: builtins.str,
         template_as: typing.Optional["ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFromConfigMapItemsTemplateAs"] = None,
     ) -> None:
-        '''
+        '''TemplateRefItem specifies a key in the ConfigMap/Secret to use as a template for Secret data.
+
         :param key: A key in the ConfigMap/Secret.
-        :param template_as: 
+        :param template_as: TemplateScope specifies how the template keys should be interpreted.
 
         :schema: ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFromConfigMapItems
         '''
@@ -2907,7 +3003,8 @@ class ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFromConfi
     def template_as(
         self,
     ) -> typing.Optional["ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFromConfigMapItemsTemplateAs"]:
-        '''
+        '''TemplateScope specifies how the template keys should be interpreted.
+
         :schema: ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFromConfigMapItems#templateAs
         '''
         result = self._values.get("template_as")
@@ -2931,7 +3028,8 @@ class ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFromConfi
 class ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFromConfigMapItemsTemplateAs(
     enum.Enum,
 ):
-    '''
+    '''TemplateScope specifies how the template keys should be interpreted.
+
     :schema: ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFromConfigMapItemsTemplateAs
     '''
 
@@ -2953,7 +3051,8 @@ class ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFromSecre
         items: typing.Sequence[typing.Union["ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFromSecretItems", typing.Dict[builtins.str, typing.Any]]],
         name: builtins.str,
     ) -> None:
-        '''
+        '''TemplateRef specifies a reference to either a ConfigMap or a Secret resource.
+
         :param items: A list of keys in the ConfigMap/Secret to use as templates for Secret data.
         :param name: The name of the ConfigMap/Secret resource.
 
@@ -3014,9 +3113,10 @@ class ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFromSecre
         key: builtins.str,
         template_as: typing.Optional["ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFromSecretItemsTemplateAs"] = None,
     ) -> None:
-        '''
+        '''TemplateRefItem specifies a key in the ConfigMap/Secret to use as a template for Secret data.
+
         :param key: A key in the ConfigMap/Secret.
-        :param template_as: 
+        :param template_as: TemplateScope specifies how the template keys should be interpreted.
 
         :schema: ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFromSecretItems
         '''
@@ -3044,7 +3144,8 @@ class ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFromSecre
     def template_as(
         self,
     ) -> typing.Optional["ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFromSecretItemsTemplateAs"]:
-        '''
+        '''TemplateScope specifies how the template keys should be interpreted.
+
         :schema: ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFromSecretItems#templateAs
         '''
         result = self._values.get("template_as")
@@ -3068,7 +3169,8 @@ class ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFromSecre
 class ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFromSecretItemsTemplateAs(
     enum.Enum,
 ):
-    '''
+    '''TemplateScope specifies how the template keys should be interpreted.
+
     :schema: ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFromSecretItemsTemplateAs
     '''
 
@@ -3076,24 +3178,6 @@ class ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFromSecre
     '''Values.'''
     KEYS_AND_VALUES = "KEYS_AND_VALUES"
     '''KeysAndValues.'''
-
-
-@jsii.enum(
-    jsii_type="ioexternal-secrets.ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFromTarget"
-)
-class ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFromTarget(
-    enum.Enum,
-):
-    '''
-    :schema: ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFromTarget
-    '''
-
-    DATA = "DATA"
-    '''Data.'''
-    ANNOTATIONS = "ANNOTATIONS"
-    '''Annotations.'''
-    LABELS = "LABELS"
-    '''Labels.'''
 
 
 @jsii.data_type(
@@ -3413,7 +3497,7 @@ class ClusterExternalSecretV1Beta1(
     metaclass=jsii.JSIIMeta,
     jsii_type="ioexternal-secrets.ClusterExternalSecretV1Beta1",
 ):
-    '''ClusterExternalSecret is the Schema for the clusterexternalsecrets API.
+    '''ClusterExternalSecret is the schema for the clusterexternalsecrets API.
 
     :schema: ClusterExternalSecretV1Beta1
     '''
@@ -3484,7 +3568,7 @@ class ClusterExternalSecretV1Beta1Props:
         metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["ClusterExternalSecretV1Beta1Spec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''ClusterExternalSecret is the Schema for the clusterexternalsecrets API.
+        '''ClusterExternalSecret is the schema for the clusterexternalsecrets API.
 
         :param metadata: 
         :param spec: ClusterExternalSecretSpec defines the desired state of ClusterExternalSecret.
@@ -4005,7 +4089,8 @@ class ClusterExternalSecretV1Beta1SpecExternalSecretSpecDataFrom:
         rewrite: typing.Optional[typing.Sequence[typing.Union["ClusterExternalSecretV1Beta1SpecExternalSecretSpecDataFromRewrite", typing.Dict[builtins.str, typing.Any]]]] = None,
         source_ref: typing.Optional[typing.Union["ClusterExternalSecretV1Beta1SpecExternalSecretSpecDataFromSourceRef", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
+        '''ExternalSecretDataFromRemoteRef defines a reference to multiple secrets in the provider to be fetched using options.
+
         :param extract: Used to extract multiple key/value pairs from one secret Note: Extract does not support sourceRef.Generator or sourceRef.GeneratorRef.
         :param find: Used to find secrets based on tags or regular expressions Note: Find does not support sourceRef.Generator or sourceRef.GeneratorRef.
         :param rewrite: Used to rewrite secret Keys after getting them from the secret Provider Multiple Rewrite operations can be provided. They are applied in a layered order (first to last)
@@ -4496,7 +4581,8 @@ class ClusterExternalSecretV1Beta1SpecExternalSecretSpecDataFromRewrite:
         regexp: typing.Optional[typing.Union["ClusterExternalSecretV1Beta1SpecExternalSecretSpecDataFromRewriteRegexp", typing.Dict[builtins.str, typing.Any]]] = None,
         transform: typing.Optional[typing.Union["ClusterExternalSecretV1Beta1SpecExternalSecretSpecDataFromRewriteTransform", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
+        '''ExternalSecretRewrite defines rules on how to rewrite secret keys.
+
         :param regexp: Used to rewrite with regular expressions. The resulting key will be the output of a regexp.ReplaceAll operation.
         :param transform: Used to apply string transformation on the secrets. The resulting key will be the output of the template applied by the operation.
 
@@ -5691,7 +5777,7 @@ class ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplate:
 
         :param data: 
         :param engine_version: EngineVersion specifies the template engine version that should be used to compile/execute the template specified in .data and .templateFrom[].
-        :param merge_policy: 
+        :param merge_policy: TemplateMergePolicy defines how template values should be merged when generating a secret.
         :param metadata: ExternalSecretTemplateMetadata defines metadata fields for the Secret blueprint.
         :param template_from: 
         :param type: 
@@ -5745,7 +5831,8 @@ class ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplate:
     def merge_policy(
         self,
     ) -> typing.Optional["ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplateMergePolicy"]:
-        '''
+        '''TemplateMergePolicy defines how template values should be merged when generating a secret.
+
         :schema: ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplate#mergePolicy
         '''
         result = self._values.get("merge_policy")
@@ -5813,7 +5900,8 @@ class ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplateEngineVers
 class ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplateMergePolicy(
     enum.Enum,
 ):
-    '''
+    '''TemplateMergePolicy defines how template values should be merged when generating a secret.
+
     :schema: ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplateMergePolicy
     '''
 
@@ -5901,11 +5989,12 @@ class ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplateTemplateFr
         secret: typing.Optional[typing.Union["ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplateTemplateFromSecret", typing.Dict[builtins.str, typing.Any]]] = None,
         target: typing.Optional["ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplateTemplateFromTarget"] = None,
     ) -> None:
-        '''
-        :param config_map: 
+        '''TemplateFrom defines a source for template data.
+
+        :param config_map: TemplateRef defines a reference to a template source in a ConfigMap or Secret.
         :param literal: 
-        :param secret: 
-        :param target: 
+        :param secret: TemplateRef defines a reference to a template source in a ConfigMap or Secret.
+        :param target: TemplateTarget defines the target field where the template result will be stored.
 
         :schema: ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplateTemplateFrom
         '''
@@ -5933,7 +6022,8 @@ class ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplateTemplateFr
     def config_map(
         self,
     ) -> typing.Optional["ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplateTemplateFromConfigMap"]:
-        '''
+        '''TemplateRef defines a reference to a template source in a ConfigMap or Secret.
+
         :schema: ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplateTemplateFrom#configMap
         '''
         result = self._values.get("config_map")
@@ -5951,7 +6041,8 @@ class ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplateTemplateFr
     def secret(
         self,
     ) -> typing.Optional["ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplateTemplateFromSecret"]:
-        '''
+        '''TemplateRef defines a reference to a template source in a ConfigMap or Secret.
+
         :schema: ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplateTemplateFrom#secret
         '''
         result = self._values.get("secret")
@@ -5961,7 +6052,8 @@ class ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplateTemplateFr
     def target(
         self,
     ) -> typing.Optional["ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplateTemplateFromTarget"]:
-        '''
+        '''TemplateTarget defines the target field where the template result will be stored.
+
         :schema: ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplateTemplateFrom#target
         '''
         result = self._values.get("target")
@@ -5991,7 +6083,8 @@ class ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplateTemplateFr
         items: typing.Sequence[typing.Union["ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplateTemplateFromConfigMapItems", typing.Dict[builtins.str, typing.Any]]],
         name: builtins.str,
     ) -> None:
-        '''
+        '''TemplateRef defines a reference to a template source in a ConfigMap or Secret.
+
         :param items: A list of keys in the ConfigMap/Secret to use as templates for Secret data.
         :param name: The name of the ConfigMap/Secret resource.
 
@@ -6052,9 +6145,10 @@ class ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplateTemplateFr
         key: builtins.str,
         template_as: typing.Optional["ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplateTemplateFromConfigMapItemsTemplateAs"] = None,
     ) -> None:
-        '''
+        '''TemplateRefItem defines which key in the referenced ConfigMap or Secret to use as a template.
+
         :param key: A key in the ConfigMap/Secret.
-        :param template_as: 
+        :param template_as: TemplateScope defines the scope of the template when processing template data.
 
         :schema: ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplateTemplateFromConfigMapItems
         '''
@@ -6082,7 +6176,8 @@ class ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplateTemplateFr
     def template_as(
         self,
     ) -> typing.Optional["ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplateTemplateFromConfigMapItemsTemplateAs"]:
-        '''
+        '''TemplateScope defines the scope of the template when processing template data.
+
         :schema: ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplateTemplateFromConfigMapItems#templateAs
         '''
         result = self._values.get("template_as")
@@ -6106,7 +6201,8 @@ class ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplateTemplateFr
 class ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplateTemplateFromConfigMapItemsTemplateAs(
     enum.Enum,
 ):
-    '''
+    '''TemplateScope defines the scope of the template when processing template data.
+
     :schema: ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplateTemplateFromConfigMapItemsTemplateAs
     '''
 
@@ -6128,7 +6224,8 @@ class ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplateTemplateFr
         items: typing.Sequence[typing.Union["ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplateTemplateFromSecretItems", typing.Dict[builtins.str, typing.Any]]],
         name: builtins.str,
     ) -> None:
-        '''
+        '''TemplateRef defines a reference to a template source in a ConfigMap or Secret.
+
         :param items: A list of keys in the ConfigMap/Secret to use as templates for Secret data.
         :param name: The name of the ConfigMap/Secret resource.
 
@@ -6189,9 +6286,10 @@ class ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplateTemplateFr
         key: builtins.str,
         template_as: typing.Optional["ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplateTemplateFromSecretItemsTemplateAs"] = None,
     ) -> None:
-        '''
+        '''TemplateRefItem defines which key in the referenced ConfigMap or Secret to use as a template.
+
         :param key: A key in the ConfigMap/Secret.
-        :param template_as: 
+        :param template_as: TemplateScope defines the scope of the template when processing template data.
 
         :schema: ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplateTemplateFromSecretItems
         '''
@@ -6219,7 +6317,8 @@ class ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplateTemplateFr
     def template_as(
         self,
     ) -> typing.Optional["ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplateTemplateFromSecretItemsTemplateAs"]:
-        '''
+        '''TemplateScope defines the scope of the template when processing template data.
+
         :schema: ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplateTemplateFromSecretItems#templateAs
         '''
         result = self._values.get("template_as")
@@ -6243,7 +6342,8 @@ class ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplateTemplateFr
 class ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplateTemplateFromSecretItemsTemplateAs(
     enum.Enum,
 ):
-    '''
+    '''TemplateScope defines the scope of the template when processing template data.
+
     :schema: ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplateTemplateFromSecretItemsTemplateAs
     '''
 
@@ -6259,7 +6359,8 @@ class ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplateTemplateFr
 class ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplateTemplateFromTarget(
     enum.Enum,
 ):
-    '''
+    '''TemplateTarget defines the target field where the template result will be stored.
+
     :schema: ClusterExternalSecretV1Beta1SpecExternalSecretSpecTargetTemplateTemplateFromTarget
     '''
 
@@ -6586,7 +6687,8 @@ class ClusterPushSecret(
     metaclass=jsii.JSIIMeta,
     jsii_type="ioexternal-secrets.ClusterPushSecret",
 ):
-    '''
+    '''ClusterPushSecret is the Schema for the ClusterPushSecrets API that enables cluster-wide management of pushing Kubernetes secrets to external providers.
+
     :schema: ClusterPushSecret
     '''
 
@@ -6603,7 +6705,7 @@ class ClusterPushSecret(
         :param scope: the scope in which to define this object.
         :param id: a scope-local name for the object.
         :param metadata: 
-        :param spec: 
+        :param spec: ClusterPushSecretSpec defines the configuration for a ClusterPushSecret resource.
         '''
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__4200f18d18dc7dd057bacf8f67989f2fe50f41f54b23a42a2fb7fb5c92045e21)
@@ -6626,7 +6728,7 @@ class ClusterPushSecret(
         This can be used to inline resource manifests inside other objects (e.g. as templates).
 
         :param metadata: 
-        :param spec: 
+        :param spec: ClusterPushSecretSpec defines the configuration for a ClusterPushSecret resource.
         '''
         props = ClusterPushSecretProps(metadata=metadata, spec=spec)
 
@@ -6656,9 +6758,10 @@ class ClusterPushSecretProps:
         metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["ClusterPushSecretSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
+        '''ClusterPushSecret is the Schema for the ClusterPushSecrets API that enables cluster-wide management of pushing Kubernetes secrets to external providers.
+
         :param metadata: 
-        :param spec: 
+        :param spec: ClusterPushSecretSpec defines the configuration for a ClusterPushSecret resource.
 
         :schema: ClusterPushSecret
         '''
@@ -6686,7 +6789,8 @@ class ClusterPushSecretProps:
 
     @builtins.property
     def spec(self) -> typing.Optional["ClusterPushSecretSpec"]:
-        '''
+        '''ClusterPushSecretSpec defines the configuration for a ClusterPushSecret resource.
+
         :schema: ClusterPushSecret#spec
         '''
         result = self._values.get("spec")
@@ -6725,7 +6829,8 @@ class ClusterPushSecretSpec:
         push_secret_name: typing.Optional[builtins.str] = None,
         refresh_time: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''
+        '''ClusterPushSecretSpec defines the configuration for a ClusterPushSecret resource.
+
         :param push_secret_spec: PushSecretSpec defines what to do with the secrets.
         :param namespace_selectors: A list of labels to select by to find the Namespaces to create the ExternalSecrets in. The selectors are ORed.
         :param push_secret_metadata: The metadata of the external secrets to be created.
@@ -7209,7 +7314,8 @@ class ClusterPushSecretSpecPushSecretSpecData:
         conversion_strategy: typing.Optional["ClusterPushSecretSpecPushSecretSpecDataConversionStrategy"] = None,
         metadata: typing.Any = None,
     ) -> None:
-        '''
+        '''PushSecretData defines data to be pushed to the provider and associated metadata.
+
         :param match: Match a given Secret Key to be pushed to the provider.
         :param conversion_strategy: Used to define a conversion Strategy for the secret keys.
         :param metadata: Metadata is metadata attached to the secret. The structure of metadata is provider specific, please look it up in the provider documentation.
@@ -7440,7 +7546,8 @@ class ClusterPushSecretSpecPushSecretSpecSecretStoreRefs:
         label_selector: typing.Optional[typing.Union["ClusterPushSecretSpecPushSecretSpecSecretStoreRefsLabelSelector", typing.Dict[builtins.str, typing.Any]]] = None,
         name: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''
+        '''PushSecretStoreRef contains a reference on how to sync to a SecretStore.
+
         :param kind: Kind of the SecretStore resource (SecretStore or ClusterSecretStore).
         :param label_selector: Optionally, sync to secret stores with label selector.
         :param name: Optionally, sync to the SecretStore of the given name.
@@ -8102,7 +8209,7 @@ class ClusterPushSecretSpecPushSecretSpecTemplate:
 
         :param data: 
         :param engine_version: EngineVersion specifies the template engine version that should be used to compile/execute the template specified in .data and .templateFrom[].
-        :param merge_policy: 
+        :param merge_policy: TemplateMergePolicy defines how the rendered template should be merged with the existing Secret data.
         :param metadata: ExternalSecretTemplateMetadata defines metadata fields for the Secret blueprint.
         :param template_from: 
         :param type: 
@@ -8156,7 +8263,8 @@ class ClusterPushSecretSpecPushSecretSpecTemplate:
     def merge_policy(
         self,
     ) -> typing.Optional["ClusterPushSecretSpecPushSecretSpecTemplateMergePolicy"]:
-        '''
+        '''TemplateMergePolicy defines how the rendered template should be merged with the existing Secret data.
+
         :schema: ClusterPushSecretSpecPushSecretSpecTemplate#mergePolicy
         '''
         result = self._values.get("merge_policy")
@@ -8220,7 +8328,8 @@ class ClusterPushSecretSpecPushSecretSpecTemplateEngineVersion(enum.Enum):
     jsii_type="ioexternal-secrets.ClusterPushSecretSpecPushSecretSpecTemplateMergePolicy"
 )
 class ClusterPushSecretSpecPushSecretSpecTemplateMergePolicy(enum.Enum):
-    '''
+    '''TemplateMergePolicy defines how the rendered template should be merged with the existing Secret data.
+
     :schema: ClusterPushSecretSpecPushSecretSpecTemplateMergePolicy
     '''
 
@@ -8323,13 +8432,16 @@ class ClusterPushSecretSpecPushSecretSpecTemplateTemplateFrom:
         config_map: typing.Optional[typing.Union["ClusterPushSecretSpecPushSecretSpecTemplateTemplateFromConfigMap", typing.Dict[builtins.str, typing.Any]]] = None,
         literal: typing.Optional[builtins.str] = None,
         secret: typing.Optional[typing.Union["ClusterPushSecretSpecPushSecretSpecTemplateTemplateFromSecret", typing.Dict[builtins.str, typing.Any]]] = None,
-        target: typing.Optional["ClusterPushSecretSpecPushSecretSpecTemplateTemplateFromTarget"] = None,
+        target: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''
-        :param config_map: 
+        '''TemplateFrom specifies a source for templates.
+
+        Each item in the list can either reference a ConfigMap or a Secret resource.
+
+        :param config_map: TemplateRef specifies a reference to either a ConfigMap or a Secret resource.
         :param literal: 
-        :param secret: 
-        :param target: 
+        :param secret: TemplateRef specifies a reference to either a ConfigMap or a Secret resource.
+        :param target: Target specifies where to place the template result. For Secret resources, common values are: "Data", "Annotations", "Labels". For custom resources (when spec.target.manifest is set), this supports nested paths like "spec.database.config" or "data".
 
         :schema: ClusterPushSecretSpecPushSecretSpecTemplateTemplateFrom
         '''
@@ -8357,7 +8469,8 @@ class ClusterPushSecretSpecPushSecretSpecTemplateTemplateFrom:
     def config_map(
         self,
     ) -> typing.Optional["ClusterPushSecretSpecPushSecretSpecTemplateTemplateFromConfigMap"]:
-        '''
+        '''TemplateRef specifies a reference to either a ConfigMap or a Secret resource.
+
         :schema: ClusterPushSecretSpecPushSecretSpecTemplateTemplateFrom#configMap
         '''
         result = self._values.get("config_map")
@@ -8375,21 +8488,25 @@ class ClusterPushSecretSpecPushSecretSpecTemplateTemplateFrom:
     def secret(
         self,
     ) -> typing.Optional["ClusterPushSecretSpecPushSecretSpecTemplateTemplateFromSecret"]:
-        '''
+        '''TemplateRef specifies a reference to either a ConfigMap or a Secret resource.
+
         :schema: ClusterPushSecretSpecPushSecretSpecTemplateTemplateFrom#secret
         '''
         result = self._values.get("secret")
         return typing.cast(typing.Optional["ClusterPushSecretSpecPushSecretSpecTemplateTemplateFromSecret"], result)
 
     @builtins.property
-    def target(
-        self,
-    ) -> typing.Optional["ClusterPushSecretSpecPushSecretSpecTemplateTemplateFromTarget"]:
-        '''
+    def target(self) -> typing.Optional[builtins.str]:
+        '''Target specifies where to place the template result.
+
+        For Secret resources, common values are: "Data", "Annotations", "Labels".
+        For custom resources (when spec.target.manifest is set), this supports
+        nested paths like "spec.database.config" or "data".
+
         :schema: ClusterPushSecretSpecPushSecretSpecTemplateTemplateFrom#target
         '''
         result = self._values.get("target")
-        return typing.cast(typing.Optional["ClusterPushSecretSpecPushSecretSpecTemplateTemplateFromTarget"], result)
+        return typing.cast(typing.Optional[builtins.str], result)
 
     def __eq__(self, rhs: typing.Any) -> builtins.bool:
         return isinstance(rhs, self.__class__) and rhs._values == self._values
@@ -8415,7 +8532,8 @@ class ClusterPushSecretSpecPushSecretSpecTemplateTemplateFromConfigMap:
         items: typing.Sequence[typing.Union["ClusterPushSecretSpecPushSecretSpecTemplateTemplateFromConfigMapItems", typing.Dict[builtins.str, typing.Any]]],
         name: builtins.str,
     ) -> None:
-        '''
+        '''TemplateRef specifies a reference to either a ConfigMap or a Secret resource.
+
         :param items: A list of keys in the ConfigMap/Secret to use as templates for Secret data.
         :param name: The name of the ConfigMap/Secret resource.
 
@@ -8476,9 +8594,10 @@ class ClusterPushSecretSpecPushSecretSpecTemplateTemplateFromConfigMapItems:
         key: builtins.str,
         template_as: typing.Optional["ClusterPushSecretSpecPushSecretSpecTemplateTemplateFromConfigMapItemsTemplateAs"] = None,
     ) -> None:
-        '''
+        '''TemplateRefItem specifies a key in the ConfigMap/Secret to use as a template for Secret data.
+
         :param key: A key in the ConfigMap/Secret.
-        :param template_as: 
+        :param template_as: TemplateScope specifies how the template keys should be interpreted.
 
         :schema: ClusterPushSecretSpecPushSecretSpecTemplateTemplateFromConfigMapItems
         '''
@@ -8506,7 +8625,8 @@ class ClusterPushSecretSpecPushSecretSpecTemplateTemplateFromConfigMapItems:
     def template_as(
         self,
     ) -> typing.Optional["ClusterPushSecretSpecPushSecretSpecTemplateTemplateFromConfigMapItemsTemplateAs"]:
-        '''
+        '''TemplateScope specifies how the template keys should be interpreted.
+
         :schema: ClusterPushSecretSpecPushSecretSpecTemplateTemplateFromConfigMapItems#templateAs
         '''
         result = self._values.get("template_as")
@@ -8530,7 +8650,8 @@ class ClusterPushSecretSpecPushSecretSpecTemplateTemplateFromConfigMapItems:
 class ClusterPushSecretSpecPushSecretSpecTemplateTemplateFromConfigMapItemsTemplateAs(
     enum.Enum,
 ):
-    '''
+    '''TemplateScope specifies how the template keys should be interpreted.
+
     :schema: ClusterPushSecretSpecPushSecretSpecTemplateTemplateFromConfigMapItemsTemplateAs
     '''
 
@@ -8552,7 +8673,8 @@ class ClusterPushSecretSpecPushSecretSpecTemplateTemplateFromSecret:
         items: typing.Sequence[typing.Union["ClusterPushSecretSpecPushSecretSpecTemplateTemplateFromSecretItems", typing.Dict[builtins.str, typing.Any]]],
         name: builtins.str,
     ) -> None:
-        '''
+        '''TemplateRef specifies a reference to either a ConfigMap or a Secret resource.
+
         :param items: A list of keys in the ConfigMap/Secret to use as templates for Secret data.
         :param name: The name of the ConfigMap/Secret resource.
 
@@ -8613,9 +8735,10 @@ class ClusterPushSecretSpecPushSecretSpecTemplateTemplateFromSecretItems:
         key: builtins.str,
         template_as: typing.Optional["ClusterPushSecretSpecPushSecretSpecTemplateTemplateFromSecretItemsTemplateAs"] = None,
     ) -> None:
-        '''
+        '''TemplateRefItem specifies a key in the ConfigMap/Secret to use as a template for Secret data.
+
         :param key: A key in the ConfigMap/Secret.
-        :param template_as: 
+        :param template_as: TemplateScope specifies how the template keys should be interpreted.
 
         :schema: ClusterPushSecretSpecPushSecretSpecTemplateTemplateFromSecretItems
         '''
@@ -8643,7 +8766,8 @@ class ClusterPushSecretSpecPushSecretSpecTemplateTemplateFromSecretItems:
     def template_as(
         self,
     ) -> typing.Optional["ClusterPushSecretSpecPushSecretSpecTemplateTemplateFromSecretItemsTemplateAs"]:
-        '''
+        '''TemplateScope specifies how the template keys should be interpreted.
+
         :schema: ClusterPushSecretSpecPushSecretSpecTemplateTemplateFromSecretItems#templateAs
         '''
         result = self._values.get("template_as")
@@ -8667,7 +8791,8 @@ class ClusterPushSecretSpecPushSecretSpecTemplateTemplateFromSecretItems:
 class ClusterPushSecretSpecPushSecretSpecTemplateTemplateFromSecretItemsTemplateAs(
     enum.Enum,
 ):
-    '''
+    '''TemplateScope specifies how the template keys should be interpreted.
+
     :schema: ClusterPushSecretSpecPushSecretSpecTemplateTemplateFromSecretItemsTemplateAs
     '''
 
@@ -8675,22 +8800,6 @@ class ClusterPushSecretSpecPushSecretSpecTemplateTemplateFromSecretItemsTemplate
     '''Values.'''
     KEYS_AND_VALUES = "KEYS_AND_VALUES"
     '''KeysAndValues.'''
-
-
-@jsii.enum(
-    jsii_type="ioexternal-secrets.ClusterPushSecretSpecPushSecretSpecTemplateTemplateFromTarget"
-)
-class ClusterPushSecretSpecPushSecretSpecTemplateTemplateFromTarget(enum.Enum):
-    '''
-    :schema: ClusterPushSecretSpecPushSecretSpecTemplateTemplateFromTarget
-    '''
-
-    DATA = "DATA"
-    '''Data.'''
-    ANNOTATIONS = "ANNOTATIONS"
-    '''Annotations.'''
-    LABELS = "LABELS"
-    '''Labels.'''
 
 
 @jsii.enum(
@@ -9305,8 +9414,8 @@ class ClusterSecretStoreSpecProvider:
         :param onepassword: OnePassword configures this store to sync secrets using the 1Password Cloud provider.
         :param onepassword_sdk: OnePasswordSDK configures this store to use 1Password's new Go SDK to sync secrets.
         :param oracle: Oracle configures this store to sync secrets using Oracle Vault provider.
-        :param passbolt: 
-        :param passworddepot: Configures a store to sync secrets with a Password Depot instance.
+        :param passbolt: PassboltProvider provides access to Passbolt secrets manager. See: https://www.passbolt.com.
+        :param passworddepot: PasswordDepotProvider configures a store to sync secrets with a Password Depot instance.
         :param previder: Previder configures this store to sync secrets using the Previder provider.
         :param pulumi: Pulumi configures this store to sync secrets using the Pulumi provider.
         :param scaleway: Scaleway.
@@ -9764,7 +9873,10 @@ class ClusterSecretStoreSpecProvider:
 
     @builtins.property
     def passbolt(self) -> typing.Optional["ClusterSecretStoreSpecProviderPassbolt"]:
-        '''
+        '''PassboltProvider provides access to Passbolt secrets manager.
+
+        See: https://www.passbolt.com.
+
         :schema: ClusterSecretStoreSpecProvider#passbolt
         '''
         result = self._values.get("passbolt")
@@ -9774,7 +9886,7 @@ class ClusterSecretStoreSpecProvider:
     def passworddepot(
         self,
     ) -> typing.Optional["ClusterSecretStoreSpecProviderPassworddepot"]:
-        '''Configures a store to sync secrets with a Password Depot instance.
+        '''PasswordDepotProvider configures a store to sync secrets with a Password Depot instance.
 
         :schema: ClusterSecretStoreSpecProvider#passworddepot
         '''
@@ -10351,8 +10463,8 @@ class ClusterSecretStoreSpecProviderAkeylessAuthSecretRefSecretRef:
         '''Reference to a Secret that contains the details to authenticate with Akeyless.
 
         :param access_id: The SecretAccessID is used for authentication.
-        :param access_type: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param access_type_param: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param access_type: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param access_type_param: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: ClusterSecretStoreSpecProviderAkeylessAuthSecretRefSecretRef
         '''
@@ -10390,7 +10502,7 @@ class ClusterSecretStoreSpecProviderAkeylessAuthSecretRefSecretRef:
     def access_type(
         self,
     ) -> typing.Optional["ClusterSecretStoreSpecProviderAkeylessAuthSecretRefSecretRefAccessType"]:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -10403,7 +10515,7 @@ class ClusterSecretStoreSpecProviderAkeylessAuthSecretRefSecretRef:
     def access_type_param(
         self,
     ) -> typing.Optional["ClusterSecretStoreSpecProviderAkeylessAuthSecretRefSecretRefAccessTypeParam"]:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -10514,7 +10626,7 @@ class ClusterSecretStoreSpecProviderAkeylessAuthSecretRefSecretRefAccessType:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -10593,7 +10705,7 @@ class ClusterSecretStoreSpecProviderAkeylessAuthSecretRefSecretRefAccessTypePara
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -10845,7 +10957,7 @@ class ClusterSecretStoreSpecProviderAlibabaAuth:
     ) -> None:
         '''AlibabaAuth contains a secretRef for credentials.
 
-        :param rrsa: Authenticate against Alibaba using RRSA.
+        :param rrsa: AlibabaRRSAAuth authenticates against Alibaba using RRSA.
         :param secret_ref: AlibabaAuthSecretRef holds secret references for Alibaba credentials.
 
         :schema: ClusterSecretStoreSpecProviderAlibabaAuth
@@ -10866,7 +10978,7 @@ class ClusterSecretStoreSpecProviderAlibabaAuth:
 
     @builtins.property
     def rrsa(self) -> typing.Optional["ClusterSecretStoreSpecProviderAlibabaAuthRrsa"]:
-        '''Authenticate against Alibaba using RRSA.
+        '''AlibabaRRSAAuth authenticates against Alibaba using RRSA.
 
         :schema: ClusterSecretStoreSpecProviderAlibabaAuth#rrsa
         '''
@@ -10915,7 +11027,7 @@ class ClusterSecretStoreSpecProviderAlibabaAuthRrsa:
         role_arn: builtins.str,
         session_name: builtins.str,
     ) -> None:
-        '''Authenticate against Alibaba using RRSA.
+        '''AlibabaRRSAAuth authenticates against Alibaba using RRSA.
 
         :param oidc_provider_arn: 
         :param oidc_token_file_path: 
@@ -11417,7 +11529,7 @@ class ClusterSecretStoreSpecProviderAwsAuth:
     ) -> None:
         '''Auth defines the information necessary to authenticate against AWS if not set aws sdk will infer credentials from your environment see: https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/configuring-sdk.html#specifying-credentials.
 
-        :param jwt: Authenticate against AWS using service account tokens.
+        :param jwt: AWSJWTAuth stores reference to Authenticate against AWS using service account tokens.
         :param secret_ref: AWSAuthSecretRef holds secret references for AWS credentials both AccessKeyID and SecretAccessKey must be defined in order to properly authenticate.
 
         :schema: ClusterSecretStoreSpecProviderAwsAuth
@@ -11438,7 +11550,7 @@ class ClusterSecretStoreSpecProviderAwsAuth:
 
     @builtins.property
     def jwt(self) -> typing.Optional["ClusterSecretStoreSpecProviderAwsAuthJwt"]:
-        '''Authenticate against AWS using service account tokens.
+        '''AWSJWTAuth stores reference to Authenticate against AWS using service account tokens.
 
         :schema: ClusterSecretStoreSpecProviderAwsAuth#jwt
         '''
@@ -11479,9 +11591,9 @@ class ClusterSecretStoreSpecProviderAwsAuthJwt:
         *,
         service_account_ref: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderAwsAuthJwtServiceAccountRef", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''Authenticate against AWS using service account tokens.
+        '''AWSJWTAuth stores reference to Authenticate against AWS using service account tokens.
 
-        :param service_account_ref: A reference to a ServiceAccount resource.
+        :param service_account_ref: ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :schema: ClusterSecretStoreSpecProviderAwsAuthJwt
         '''
@@ -11498,7 +11610,7 @@ class ClusterSecretStoreSpecProviderAwsAuthJwt:
     def service_account_ref(
         self,
     ) -> typing.Optional["ClusterSecretStoreSpecProviderAwsAuthJwtServiceAccountRef"]:
-        '''A reference to a ServiceAccount resource.
+        '''ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :schema: ClusterSecretStoreSpecProviderAwsAuthJwt#serviceAccountRef
         '''
@@ -11530,7 +11642,7 @@ class ClusterSecretStoreSpecProviderAwsAuthJwtServiceAccountRef:
         audiences: typing.Optional[typing.Sequence[builtins.str]] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a ServiceAccount resource.
+        '''ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :param name: The name of the ServiceAccount resource being referred to.
         :param audiences: Audience specifies the ``aud`` claim for the service account token If the service account uses a well-known annotation for e.g. IRSA or GCP Workload Identity then this audiences will be appended to the list.
@@ -11931,7 +12043,7 @@ class ClusterSecretStoreSpecProviderAwsSecretsManager:
         '''SecretsManager defines how the provider behaves when interacting with AWS SecretsManager.
 
         :param force_delete_without_recovery: Specifies whether to delete the secret without any recovery window. You can't use both this parameter and RecoveryWindowInDays in the same call. If you don't use either, then by default Secrets Manager uses a 30 day recovery window. see: https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DeleteSecret.html#SecretsManager-DeleteSecret-request-ForceDeleteWithoutRecovery
-        :param recovery_window_in_days: The number of days from 7 to 30 that Secrets Manager waits before permanently deleting the secret. You can't use both this parameter and ForceDeleteWithoutRecovery in the same call. If you don't use either, then by default Secrets Manager uses a 30 day recovery window. see: https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DeleteSecret.html#SecretsManager-DeleteSecret-request-RecoveryWindowInDays
+        :param recovery_window_in_days: The number of days from 7 to 30 that Secrets Manager waits before permanently deleting the secret. You can't use both this parameter and ForceDeleteWithoutRecovery in the same call. If you don't use either, then by default Secrets Manager uses a 30-day recovery window. see: https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DeleteSecret.html#SecretsManager-DeleteSecret-request-RecoveryWindowInDays
 
         :schema: ClusterSecretStoreSpecProviderAwsSecretsManager
         '''
@@ -11966,7 +12078,7 @@ class ClusterSecretStoreSpecProviderAwsSecretsManager:
 
         You can't use both this parameter and
         ForceDeleteWithoutRecovery in the same call. If you don't use either,
-        then by default Secrets Manager uses a 30 day recovery window.
+        then by default Secrets Manager uses a 30-day recovery window.
         see: https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DeleteSecret.html#SecretsManager-DeleteSecret-request-RecoveryWindowInDays
 
         :schema: ClusterSecretStoreSpecProviderAwsSecretsManager#recoveryWindowInDays
@@ -12006,7 +12118,10 @@ class ClusterSecretStoreSpecProviderAwsService(enum.Enum):
 )
 class ClusterSecretStoreSpecProviderAwsSessionTags:
     def __init__(self, *, key: builtins.str, value: builtins.str) -> None:
-        '''
+        '''Tag is a key-value pair that can be attached to an AWS resource.
+
+        see: https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html
+
         :param key: 
         :param value: 
 
@@ -16219,7 +16334,7 @@ class ClusterSecretStoreSpecProviderDevice42Auth:
     ) -> None:
         '''Auth configures how secret-manager authenticates with a Device42 instance.
 
-        :param secret_ref: 
+        :param secret_ref: Device42SecretRef contains the secret reference for accessing the Device42 instance.
 
         :schema: ClusterSecretStoreSpecProviderDevice42Auth
         '''
@@ -16234,7 +16349,8 @@ class ClusterSecretStoreSpecProviderDevice42Auth:
 
     @builtins.property
     def secret_ref(self) -> "ClusterSecretStoreSpecProviderDevice42AuthSecretRef":
-        '''
+        '''Device42SecretRef contains the secret reference for accessing the Device42 instance.
+
         :schema: ClusterSecretStoreSpecProviderDevice42Auth#secretRef
         '''
         result = self._values.get("secret_ref")
@@ -16264,7 +16380,8 @@ class ClusterSecretStoreSpecProviderDevice42AuthSecretRef:
         *,
         credentials: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderDevice42AuthSecretRefCredentials", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
+        '''Device42SecretRef contains the secret reference for accessing the Device42 instance.
+
         :param credentials: Username / Password is used for authentication.
 
         :schema: ClusterSecretStoreSpecProviderDevice42AuthSecretRef
@@ -16503,7 +16620,7 @@ class ClusterSecretStoreSpecProviderDopplerAuth:
     ) -> None:
         '''Auth configures how the Operator authenticates with the Doppler API.
 
-        :param secret_ref: 
+        :param secret_ref: DopplerAuthSecretRef contains the secret reference for accessing the Doppler API.
 
         :schema: ClusterSecretStoreSpecProviderDopplerAuth
         '''
@@ -16518,7 +16635,8 @@ class ClusterSecretStoreSpecProviderDopplerAuth:
 
     @builtins.property
     def secret_ref(self) -> "ClusterSecretStoreSpecProviderDopplerAuthSecretRef":
-        '''
+        '''DopplerAuthSecretRef contains the secret reference for accessing the Doppler API.
+
         :schema: ClusterSecretStoreSpecProviderDopplerAuth#secretRef
         '''
         result = self._values.get("secret_ref")
@@ -16548,7 +16666,8 @@ class ClusterSecretStoreSpecProviderDopplerAuthSecretRef:
         *,
         doppler_token: typing.Union["ClusterSecretStoreSpecProviderDopplerAuthSecretRefDopplerToken", typing.Dict[builtins.str, typing.Any]],
     ) -> None:
-        '''
+        '''DopplerAuthSecretRef contains the secret reference for accessing the Doppler API.
+
         :param doppler_token: The DopplerToken is used for authentication. See https://docs.doppler.com/reference/api#authentication for auth token types. The Key attribute defaults to dopplerToken if not specified.
 
         :schema: ClusterSecretStoreSpecProviderDopplerAuthSecretRef
@@ -16726,7 +16845,7 @@ class ClusterSecretStoreSpecProviderFake:
         '''Fake configures a store with static key/value pairs.
 
         :param data: 
-        :param validation_result: 
+        :param validation_result: ValidationResult is defined type for the number of validation results.
 
         :schema: ClusterSecretStoreSpecProviderFake
         '''
@@ -16751,7 +16870,8 @@ class ClusterSecretStoreSpecProviderFake:
 
     @builtins.property
     def validation_result(self) -> typing.Optional[jsii.Number]:
-        '''
+        '''ValidationResult is defined type for the number of validation results.
+
         :schema: ClusterSecretStoreSpecProviderFake#validationResult
         '''
         result = self._values.get("validation_result")
@@ -16782,7 +16902,8 @@ class ClusterSecretStoreSpecProviderFakeData:
         value: builtins.str,
         version: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''
+        '''FakeProviderData defines a key-value pair with optional version for the fake provider.
+
         :param key: 
         :param value: 
         :param version: 
@@ -17150,8 +17271,8 @@ class ClusterSecretStoreSpecProviderGcpsmAuth:
     ) -> None:
         '''Auth defines the information necessary to authenticate against GCP.
 
-        :param secret_ref: 
-        :param workload_identity: 
+        :param secret_ref: GCPSMAuthSecretRef contains the secret references for GCP Secret Manager authentication.
+        :param workload_identity: GCPWorkloadIdentity defines configuration for workload identity authentication to GCP.
         :param workload_identity_federation: GCPWorkloadIdentityFederation holds the configurations required for generating federated access tokens.
 
         :schema: ClusterSecretStoreSpecProviderGcpsmAuth
@@ -17179,7 +17300,8 @@ class ClusterSecretStoreSpecProviderGcpsmAuth:
     def secret_ref(
         self,
     ) -> typing.Optional["ClusterSecretStoreSpecProviderGcpsmAuthSecretRef"]:
-        '''
+        '''GCPSMAuthSecretRef contains the secret references for GCP Secret Manager authentication.
+
         :schema: ClusterSecretStoreSpecProviderGcpsmAuth#secretRef
         '''
         result = self._values.get("secret_ref")
@@ -17189,7 +17311,8 @@ class ClusterSecretStoreSpecProviderGcpsmAuth:
     def workload_identity(
         self,
     ) -> typing.Optional["ClusterSecretStoreSpecProviderGcpsmAuthWorkloadIdentity"]:
-        '''
+        '''GCPWorkloadIdentity defines configuration for workload identity authentication to GCP.
+
         :schema: ClusterSecretStoreSpecProviderGcpsmAuth#workloadIdentity
         '''
         result = self._values.get("workload_identity")
@@ -17229,7 +17352,8 @@ class ClusterSecretStoreSpecProviderGcpsmAuthSecretRef:
         *,
         secret_access_key_secret_ref: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderGcpsmAuthSecretRefSecretAccessKeySecretRef", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
+        '''GCPSMAuthSecretRef contains the secret references for GCP Secret Manager authentication.
+
         :param secret_access_key_secret_ref: The SecretAccessKey is used for authentication.
 
         :schema: ClusterSecretStoreSpecProviderGcpsmAuthSecretRef
@@ -17362,8 +17486,9 @@ class ClusterSecretStoreSpecProviderGcpsmAuthWorkloadIdentity:
         cluster_name: typing.Optional[builtins.str] = None,
         cluster_project_id: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''
-        :param service_account_ref: A reference to a ServiceAccount resource.
+        '''GCPWorkloadIdentity defines configuration for workload identity authentication to GCP.
+
+        :param service_account_ref: ServiceAccountSelector is a reference to a ServiceAccount resource.
         :param cluster_location: ClusterLocation is the location of the cluster If not specified, it fetches information from the metadata server.
         :param cluster_name: ClusterName is the name of the cluster If not specified, it fetches information from the metadata server.
         :param cluster_project_id: ClusterProjectID is the project ID of the cluster If not specified, it fetches information from the metadata server.
@@ -17392,7 +17517,7 @@ class ClusterSecretStoreSpecProviderGcpsmAuthWorkloadIdentity:
     def service_account_ref(
         self,
     ) -> "ClusterSecretStoreSpecProviderGcpsmAuthWorkloadIdentityServiceAccountRef":
-        '''A reference to a ServiceAccount resource.
+        '''ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :schema: ClusterSecretStoreSpecProviderGcpsmAuthWorkloadIdentity#serviceAccountRef
         '''
@@ -17873,7 +17998,7 @@ class ClusterSecretStoreSpecProviderGcpsmAuthWorkloadIdentityServiceAccountRef:
         audiences: typing.Optional[typing.Sequence[builtins.str]] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a ServiceAccount resource.
+        '''ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :param name: The name of the ServiceAccount resource being referred to.
         :param audiences: Audience specifies the ``aud`` claim for the service account token If the service account uses a well-known annotation for e.g. IRSA or GCP Workload Identity then this audiences will be appended to the list.
@@ -18114,7 +18239,7 @@ class ClusterSecretStoreSpecProviderGithubAuth:
     ) -> None:
         '''auth configures how secret-manager authenticates with a Github instance.
 
-        :param private_key: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param private_key: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: ClusterSecretStoreSpecProviderGithubAuth
         '''
@@ -18129,7 +18254,7 @@ class ClusterSecretStoreSpecProviderGithubAuth:
 
     @builtins.property
     def private_key(self) -> "ClusterSecretStoreSpecProviderGithubAuthPrivateKey":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -18164,7 +18289,7 @@ class ClusterSecretStoreSpecProviderGithubAuthPrivateKey:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -18411,7 +18536,7 @@ class ClusterSecretStoreSpecProviderGitlabAuth:
     ) -> None:
         '''Auth configures how secret-manager authenticates with a GitLab instance.
 
-        :param secret_ref: 
+        :param secret_ref: GitlabSecretRef contains the secret reference for GitLab authentication credentials.
 
         :schema: ClusterSecretStoreSpecProviderGitlabAuth
         '''
@@ -18426,7 +18551,8 @@ class ClusterSecretStoreSpecProviderGitlabAuth:
 
     @builtins.property
     def secret_ref(self) -> "ClusterSecretStoreSpecProviderGitlabAuthSecretRef":
-        '''
+        '''GitlabSecretRef contains the secret reference for GitLab authentication credentials.
+
         :schema: ClusterSecretStoreSpecProviderGitlabAuth#SecretRef
         '''
         result = self._values.get("secret_ref")
@@ -18456,7 +18582,8 @@ class ClusterSecretStoreSpecProviderGitlabAuthSecretRef:
         *,
         access_token: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderGitlabAuthSecretRefAccessToken", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
+        '''GitlabSecretRef contains the secret reference for GitLab authentication credentials.
+
         :param access_token: AccessToken is used for authentication.
 
         :schema: ClusterSecretStoreSpecProviderGitlabAuthSecretRef
@@ -18756,8 +18883,8 @@ class ClusterSecretStoreSpecProviderIbmAuth:
     ) -> None:
         '''Auth configures how secret-manager authenticates with the IBM secrets manager.
 
-        :param container_auth: IBM Container-based auth with IAM Trusted Profile.
-        :param secret_ref: 
+        :param container_auth: IBMAuthContainerAuth defines container-based authentication with IAM Trusted Profile.
+        :param secret_ref: IBMAuthSecretRef contains the secret reference for IBM Cloud API key authentication.
 
         :schema: ClusterSecretStoreSpecProviderIbmAuth
         '''
@@ -18779,7 +18906,7 @@ class ClusterSecretStoreSpecProviderIbmAuth:
     def container_auth(
         self,
     ) -> typing.Optional["ClusterSecretStoreSpecProviderIbmAuthContainerAuth"]:
-        '''IBM Container-based auth with IAM Trusted Profile.
+        '''IBMAuthContainerAuth defines container-based authentication with IAM Trusted Profile.
 
         :schema: ClusterSecretStoreSpecProviderIbmAuth#containerAuth
         '''
@@ -18790,7 +18917,8 @@ class ClusterSecretStoreSpecProviderIbmAuth:
     def secret_ref(
         self,
     ) -> typing.Optional["ClusterSecretStoreSpecProviderIbmAuthSecretRef"]:
-        '''
+        '''IBMAuthSecretRef contains the secret reference for IBM Cloud API key authentication.
+
         :schema: ClusterSecretStoreSpecProviderIbmAuth#secretRef
         '''
         result = self._values.get("secret_ref")
@@ -18825,7 +18953,7 @@ class ClusterSecretStoreSpecProviderIbmAuthContainerAuth:
         iam_endpoint: typing.Optional[builtins.str] = None,
         token_location: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''IBM Container-based auth with IAM Trusted Profile.
+        '''IBMAuthContainerAuth defines container-based authentication with IAM Trusted Profile.
 
         :param profile: the IBM Trusted Profile.
         :param iam_endpoint: 
@@ -18888,15 +19016,21 @@ class ClusterSecretStoreSpecProviderIbmAuthContainerAuth:
 @jsii.data_type(
     jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderIbmAuthSecretRef",
     jsii_struct_bases=[],
-    name_mapping={"secret_api_key_secret_ref": "secretApiKeySecretRef"},
+    name_mapping={
+        "iam_endpoint": "iamEndpoint",
+        "secret_api_key_secret_ref": "secretApiKeySecretRef",
+    },
 )
 class ClusterSecretStoreSpecProviderIbmAuthSecretRef:
     def __init__(
         self,
         *,
+        iam_endpoint: typing.Optional[builtins.str] = None,
         secret_api_key_secret_ref: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderIbmAuthSecretRefSecretApiKeySecretRef", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
+        '''IBMAuthSecretRef contains the secret reference for IBM Cloud API key authentication.
+
+        :param iam_endpoint: The IAM endpoint used to obain a token.
         :param secret_api_key_secret_ref: The SecretAccessKey is used for authentication.
 
         :schema: ClusterSecretStoreSpecProviderIbmAuthSecretRef
@@ -18905,10 +19039,22 @@ class ClusterSecretStoreSpecProviderIbmAuthSecretRef:
             secret_api_key_secret_ref = ClusterSecretStoreSpecProviderIbmAuthSecretRefSecretApiKeySecretRef(**secret_api_key_secret_ref)
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__5d26bdf357d63f5060f85dd85dfff97aea5186ba28331fba88305c92f7bf2bee)
+            check_type(argname="argument iam_endpoint", value=iam_endpoint, expected_type=type_hints["iam_endpoint"])
             check_type(argname="argument secret_api_key_secret_ref", value=secret_api_key_secret_ref, expected_type=type_hints["secret_api_key_secret_ref"])
         self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if iam_endpoint is not None:
+            self._values["iam_endpoint"] = iam_endpoint
         if secret_api_key_secret_ref is not None:
             self._values["secret_api_key_secret_ref"] = secret_api_key_secret_ref
+
+    @builtins.property
+    def iam_endpoint(self) -> typing.Optional[builtins.str]:
+        '''The IAM endpoint used to obain a token.
+
+        :schema: ClusterSecretStoreSpecProviderIbmAuthSecretRef#iamEndpoint
+        '''
+        result = self._values.get("iam_endpoint")
+        return typing.cast(typing.Optional[builtins.str], result)
 
     @builtins.property
     def secret_api_key_secret_ref(
@@ -19127,16 +19273,16 @@ class ClusterSecretStoreSpecProviderInfisicalAuth:
     ) -> None:
         '''Auth configures how the Operator authenticates with the Infisical API.
 
-        :param aws_auth_credentials: 
-        :param azure_auth_credentials: 
-        :param gcp_iam_auth_credentials: 
-        :param gcp_id_token_auth_credentials: 
-        :param jwt_auth_credentials: 
-        :param kubernetes_auth_credentials: 
-        :param ldap_auth_credentials: 
-        :param oci_auth_credentials: 
-        :param token_auth_credentials: 
-        :param universal_auth_credentials: 
+        :param aws_auth_credentials: AwsAuthCredentials represents the credentials for AWS authentication.
+        :param azure_auth_credentials: AzureAuthCredentials represents the credentials for Azure authentication.
+        :param gcp_iam_auth_credentials: GcpIamAuthCredentials represents the credentials for GCP IAM authentication.
+        :param gcp_id_token_auth_credentials: GcpIDTokenAuthCredentials represents the credentials for GCP ID token authentication.
+        :param jwt_auth_credentials: JwtAuthCredentials represents the credentials for JWT authentication.
+        :param kubernetes_auth_credentials: KubernetesAuthCredentials represents the credentials for Kubernetes authentication.
+        :param ldap_auth_credentials: LdapAuthCredentials represents the credentials for LDAP authentication.
+        :param oci_auth_credentials: OciAuthCredentials represents the credentials for OCI authentication.
+        :param token_auth_credentials: TokenAuthCredentials represents the credentials for access token-based authentication.
+        :param universal_auth_credentials: UniversalAuthCredentials represents the client credentials for universal authentication.
 
         :schema: ClusterSecretStoreSpecProviderInfisicalAuth
         '''
@@ -19198,7 +19344,8 @@ class ClusterSecretStoreSpecProviderInfisicalAuth:
     def aws_auth_credentials(
         self,
     ) -> typing.Optional["ClusterSecretStoreSpecProviderInfisicalAuthAwsAuthCredentials"]:
-        '''
+        '''AwsAuthCredentials represents the credentials for AWS authentication.
+
         :schema: ClusterSecretStoreSpecProviderInfisicalAuth#awsAuthCredentials
         '''
         result = self._values.get("aws_auth_credentials")
@@ -19208,7 +19355,8 @@ class ClusterSecretStoreSpecProviderInfisicalAuth:
     def azure_auth_credentials(
         self,
     ) -> typing.Optional["ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentials"]:
-        '''
+        '''AzureAuthCredentials represents the credentials for Azure authentication.
+
         :schema: ClusterSecretStoreSpecProviderInfisicalAuth#azureAuthCredentials
         '''
         result = self._values.get("azure_auth_credentials")
@@ -19218,7 +19366,8 @@ class ClusterSecretStoreSpecProviderInfisicalAuth:
     def gcp_iam_auth_credentials(
         self,
     ) -> typing.Optional["ClusterSecretStoreSpecProviderInfisicalAuthGcpIamAuthCredentials"]:
-        '''
+        '''GcpIamAuthCredentials represents the credentials for GCP IAM authentication.
+
         :schema: ClusterSecretStoreSpecProviderInfisicalAuth#gcpIamAuthCredentials
         '''
         result = self._values.get("gcp_iam_auth_credentials")
@@ -19228,7 +19377,8 @@ class ClusterSecretStoreSpecProviderInfisicalAuth:
     def gcp_id_token_auth_credentials(
         self,
     ) -> typing.Optional["ClusterSecretStoreSpecProviderInfisicalAuthGcpIdTokenAuthCredentials"]:
-        '''
+        '''GcpIDTokenAuthCredentials represents the credentials for GCP ID token authentication.
+
         :schema: ClusterSecretStoreSpecProviderInfisicalAuth#gcpIdTokenAuthCredentials
         '''
         result = self._values.get("gcp_id_token_auth_credentials")
@@ -19238,7 +19388,8 @@ class ClusterSecretStoreSpecProviderInfisicalAuth:
     def jwt_auth_credentials(
         self,
     ) -> typing.Optional["ClusterSecretStoreSpecProviderInfisicalAuthJwtAuthCredentials"]:
-        '''
+        '''JwtAuthCredentials represents the credentials for JWT authentication.
+
         :schema: ClusterSecretStoreSpecProviderInfisicalAuth#jwtAuthCredentials
         '''
         result = self._values.get("jwt_auth_credentials")
@@ -19248,7 +19399,8 @@ class ClusterSecretStoreSpecProviderInfisicalAuth:
     def kubernetes_auth_credentials(
         self,
     ) -> typing.Optional["ClusterSecretStoreSpecProviderInfisicalAuthKubernetesAuthCredentials"]:
-        '''
+        '''KubernetesAuthCredentials represents the credentials for Kubernetes authentication.
+
         :schema: ClusterSecretStoreSpecProviderInfisicalAuth#kubernetesAuthCredentials
         '''
         result = self._values.get("kubernetes_auth_credentials")
@@ -19258,7 +19410,8 @@ class ClusterSecretStoreSpecProviderInfisicalAuth:
     def ldap_auth_credentials(
         self,
     ) -> typing.Optional["ClusterSecretStoreSpecProviderInfisicalAuthLdapAuthCredentials"]:
-        '''
+        '''LdapAuthCredentials represents the credentials for LDAP authentication.
+
         :schema: ClusterSecretStoreSpecProviderInfisicalAuth#ldapAuthCredentials
         '''
         result = self._values.get("ldap_auth_credentials")
@@ -19268,7 +19421,8 @@ class ClusterSecretStoreSpecProviderInfisicalAuth:
     def oci_auth_credentials(
         self,
     ) -> typing.Optional["ClusterSecretStoreSpecProviderInfisicalAuthOciAuthCredentials"]:
-        '''
+        '''OciAuthCredentials represents the credentials for OCI authentication.
+
         :schema: ClusterSecretStoreSpecProviderInfisicalAuth#ociAuthCredentials
         '''
         result = self._values.get("oci_auth_credentials")
@@ -19278,7 +19432,8 @@ class ClusterSecretStoreSpecProviderInfisicalAuth:
     def token_auth_credentials(
         self,
     ) -> typing.Optional["ClusterSecretStoreSpecProviderInfisicalAuthTokenAuthCredentials"]:
-        '''
+        '''TokenAuthCredentials represents the credentials for access token-based authentication.
+
         :schema: ClusterSecretStoreSpecProviderInfisicalAuth#tokenAuthCredentials
         '''
         result = self._values.get("token_auth_credentials")
@@ -19288,7 +19443,8 @@ class ClusterSecretStoreSpecProviderInfisicalAuth:
     def universal_auth_credentials(
         self,
     ) -> typing.Optional["ClusterSecretStoreSpecProviderInfisicalAuthUniversalAuthCredentials"]:
-        '''
+        '''UniversalAuthCredentials represents the client credentials for universal authentication.
+
         :schema: ClusterSecretStoreSpecProviderInfisicalAuth#universalAuthCredentials
         '''
         result = self._values.get("universal_auth_credentials")
@@ -19317,8 +19473,9 @@ class ClusterSecretStoreSpecProviderInfisicalAuthAwsAuthCredentials:
         *,
         identity_id: typing.Union["ClusterSecretStoreSpecProviderInfisicalAuthAwsAuthCredentialsIdentityId", typing.Dict[builtins.str, typing.Any]],
     ) -> None:
-        '''
-        :param identity_id: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        '''AwsAuthCredentials represents the credentials for AWS authentication.
+
+        :param identity_id: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: ClusterSecretStoreSpecProviderInfisicalAuthAwsAuthCredentials
         '''
@@ -19335,7 +19492,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthAwsAuthCredentials:
     def identity_id(
         self,
     ) -> "ClusterSecretStoreSpecProviderInfisicalAuthAwsAuthCredentialsIdentityId":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -19370,7 +19527,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthAwsAuthCredentialsIdentityId:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -19448,9 +19605,10 @@ class ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentials:
         identity_id: typing.Union["ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsIdentityId", typing.Dict[builtins.str, typing.Any]],
         resource: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsResource", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
-        :param identity_id: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param resource: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        '''AzureAuthCredentials represents the credentials for Azure authentication.
+
+        :param identity_id: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param resource: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentials
         '''
@@ -19472,7 +19630,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentials:
     def identity_id(
         self,
     ) -> "ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsIdentityId":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -19486,7 +19644,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentials:
     def resource(
         self,
     ) -> typing.Optional["ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsResource"]:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -19520,7 +19678,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsIdentityId:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -19599,7 +19757,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsResource:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -19680,9 +19838,10 @@ class ClusterSecretStoreSpecProviderInfisicalAuthGcpIamAuthCredentials:
         identity_id: typing.Union["ClusterSecretStoreSpecProviderInfisicalAuthGcpIamAuthCredentialsIdentityId", typing.Dict[builtins.str, typing.Any]],
         service_account_key_file_path: typing.Union["ClusterSecretStoreSpecProviderInfisicalAuthGcpIamAuthCredentialsServiceAccountKeyFilePath", typing.Dict[builtins.str, typing.Any]],
     ) -> None:
-        '''
-        :param identity_id: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param service_account_key_file_path: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        '''GcpIamAuthCredentials represents the credentials for GCP IAM authentication.
+
+        :param identity_id: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param service_account_key_file_path: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: ClusterSecretStoreSpecProviderInfisicalAuthGcpIamAuthCredentials
         '''
@@ -19703,7 +19862,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthGcpIamAuthCredentials:
     def identity_id(
         self,
     ) -> "ClusterSecretStoreSpecProviderInfisicalAuthGcpIamAuthCredentialsIdentityId":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -19717,7 +19876,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthGcpIamAuthCredentials:
     def service_account_key_file_path(
         self,
     ) -> "ClusterSecretStoreSpecProviderInfisicalAuthGcpIamAuthCredentialsServiceAccountKeyFilePath":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -19752,7 +19911,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthGcpIamAuthCredentialsIdentityId
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -19831,7 +19990,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthGcpIamAuthCredentialsServiceAcc
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -19908,8 +20067,9 @@ class ClusterSecretStoreSpecProviderInfisicalAuthGcpIdTokenAuthCredentials:
         *,
         identity_id: typing.Union["ClusterSecretStoreSpecProviderInfisicalAuthGcpIdTokenAuthCredentialsIdentityId", typing.Dict[builtins.str, typing.Any]],
     ) -> None:
-        '''
-        :param identity_id: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        '''GcpIDTokenAuthCredentials represents the credentials for GCP ID token authentication.
+
+        :param identity_id: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: ClusterSecretStoreSpecProviderInfisicalAuthGcpIdTokenAuthCredentials
         '''
@@ -19926,7 +20086,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthGcpIdTokenAuthCredentials:
     def identity_id(
         self,
     ) -> "ClusterSecretStoreSpecProviderInfisicalAuthGcpIdTokenAuthCredentialsIdentityId":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -19961,7 +20121,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthGcpIdTokenAuthCredentialsIdenti
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -20039,9 +20199,10 @@ class ClusterSecretStoreSpecProviderInfisicalAuthJwtAuthCredentials:
         identity_id: typing.Union["ClusterSecretStoreSpecProviderInfisicalAuthJwtAuthCredentialsIdentityId", typing.Dict[builtins.str, typing.Any]],
         jwt: typing.Union["ClusterSecretStoreSpecProviderInfisicalAuthJwtAuthCredentialsJwt", typing.Dict[builtins.str, typing.Any]],
     ) -> None:
-        '''
-        :param identity_id: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param jwt: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        '''JwtAuthCredentials represents the credentials for JWT authentication.
+
+        :param identity_id: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param jwt: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: ClusterSecretStoreSpecProviderInfisicalAuthJwtAuthCredentials
         '''
@@ -20062,7 +20223,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthJwtAuthCredentials:
     def identity_id(
         self,
     ) -> "ClusterSecretStoreSpecProviderInfisicalAuthJwtAuthCredentialsIdentityId":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -20074,7 +20235,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthJwtAuthCredentials:
 
     @builtins.property
     def jwt(self) -> "ClusterSecretStoreSpecProviderInfisicalAuthJwtAuthCredentialsJwt":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -20109,7 +20270,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthJwtAuthCredentialsIdentityId:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -20188,7 +20349,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthJwtAuthCredentialsJwt:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -20269,9 +20430,10 @@ class ClusterSecretStoreSpecProviderInfisicalAuthKubernetesAuthCredentials:
         identity_id: typing.Union["ClusterSecretStoreSpecProviderInfisicalAuthKubernetesAuthCredentialsIdentityId", typing.Dict[builtins.str, typing.Any]],
         service_account_token_path: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderInfisicalAuthKubernetesAuthCredentialsServiceAccountTokenPath", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
-        :param identity_id: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param service_account_token_path: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        '''KubernetesAuthCredentials represents the credentials for Kubernetes authentication.
+
+        :param identity_id: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param service_account_token_path: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: ClusterSecretStoreSpecProviderInfisicalAuthKubernetesAuthCredentials
         '''
@@ -20293,7 +20455,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthKubernetesAuthCredentials:
     def identity_id(
         self,
     ) -> "ClusterSecretStoreSpecProviderInfisicalAuthKubernetesAuthCredentialsIdentityId":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -20307,7 +20469,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthKubernetesAuthCredentials:
     def service_account_token_path(
         self,
     ) -> typing.Optional["ClusterSecretStoreSpecProviderInfisicalAuthKubernetesAuthCredentialsServiceAccountTokenPath"]:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -20341,7 +20503,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthKubernetesAuthCredentialsIdenti
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -20420,7 +20582,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthKubernetesAuthCredentialsServic
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -20503,10 +20665,11 @@ class ClusterSecretStoreSpecProviderInfisicalAuthLdapAuthCredentials:
         ldap_password: typing.Union["ClusterSecretStoreSpecProviderInfisicalAuthLdapAuthCredentialsLdapPassword", typing.Dict[builtins.str, typing.Any]],
         ldap_username: typing.Union["ClusterSecretStoreSpecProviderInfisicalAuthLdapAuthCredentialsLdapUsername", typing.Dict[builtins.str, typing.Any]],
     ) -> None:
-        '''
-        :param identity_id: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param ldap_password: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param ldap_username: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        '''LdapAuthCredentials represents the credentials for LDAP authentication.
+
+        :param identity_id: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param ldap_password: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param ldap_username: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: ClusterSecretStoreSpecProviderInfisicalAuthLdapAuthCredentials
         '''
@@ -20531,7 +20694,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthLdapAuthCredentials:
     def identity_id(
         self,
     ) -> "ClusterSecretStoreSpecProviderInfisicalAuthLdapAuthCredentialsIdentityId":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -20545,7 +20708,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthLdapAuthCredentials:
     def ldap_password(
         self,
     ) -> "ClusterSecretStoreSpecProviderInfisicalAuthLdapAuthCredentialsLdapPassword":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -20559,7 +20722,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthLdapAuthCredentials:
     def ldap_username(
         self,
     ) -> "ClusterSecretStoreSpecProviderInfisicalAuthLdapAuthCredentialsLdapUsername":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -20594,7 +20757,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthLdapAuthCredentialsIdentityId:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -20673,7 +20836,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthLdapAuthCredentialsLdapPassword
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -20752,7 +20915,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthLdapAuthCredentialsLdapUsername
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -20843,14 +21006,15 @@ class ClusterSecretStoreSpecProviderInfisicalAuthOciAuthCredentials:
         user_id: typing.Union["ClusterSecretStoreSpecProviderInfisicalAuthOciAuthCredentialsUserId", typing.Dict[builtins.str, typing.Any]],
         private_key_passphrase: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderInfisicalAuthOciAuthCredentialsPrivateKeyPassphrase", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
-        :param fingerprint: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param identity_id: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param private_key: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param region: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param tenancy_id: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param user_id: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param private_key_passphrase: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        '''OciAuthCredentials represents the credentials for OCI authentication.
+
+        :param fingerprint: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param identity_id: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param private_key: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param region: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param tenancy_id: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param user_id: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param private_key_passphrase: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: ClusterSecretStoreSpecProviderInfisicalAuthOciAuthCredentials
         '''
@@ -20892,7 +21056,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthOciAuthCredentials:
     def fingerprint(
         self,
     ) -> "ClusterSecretStoreSpecProviderInfisicalAuthOciAuthCredentialsFingerprint":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -20906,7 +21070,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthOciAuthCredentials:
     def identity_id(
         self,
     ) -> "ClusterSecretStoreSpecProviderInfisicalAuthOciAuthCredentialsIdentityId":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -20920,7 +21084,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthOciAuthCredentials:
     def private_key(
         self,
     ) -> "ClusterSecretStoreSpecProviderInfisicalAuthOciAuthCredentialsPrivateKey":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -20934,7 +21098,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthOciAuthCredentials:
     def region(
         self,
     ) -> "ClusterSecretStoreSpecProviderInfisicalAuthOciAuthCredentialsRegion":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -20948,7 +21112,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthOciAuthCredentials:
     def tenancy_id(
         self,
     ) -> "ClusterSecretStoreSpecProviderInfisicalAuthOciAuthCredentialsTenancyId":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -20962,7 +21126,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthOciAuthCredentials:
     def user_id(
         self,
     ) -> "ClusterSecretStoreSpecProviderInfisicalAuthOciAuthCredentialsUserId":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -20976,7 +21140,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthOciAuthCredentials:
     def private_key_passphrase(
         self,
     ) -> typing.Optional["ClusterSecretStoreSpecProviderInfisicalAuthOciAuthCredentialsPrivateKeyPassphrase"]:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -21010,7 +21174,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthOciAuthCredentialsFingerprint:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -21089,7 +21253,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthOciAuthCredentialsIdentityId:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -21168,7 +21332,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthOciAuthCredentialsPrivateKey:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -21247,7 +21411,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthOciAuthCredentialsPrivateKeyPas
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -21326,7 +21490,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthOciAuthCredentialsRegion:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -21405,7 +21569,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthOciAuthCredentialsTenancyId:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -21484,7 +21648,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthOciAuthCredentialsUserId:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -21561,8 +21725,9 @@ class ClusterSecretStoreSpecProviderInfisicalAuthTokenAuthCredentials:
         *,
         access_token: typing.Union["ClusterSecretStoreSpecProviderInfisicalAuthTokenAuthCredentialsAccessToken", typing.Dict[builtins.str, typing.Any]],
     ) -> None:
-        '''
-        :param access_token: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        '''TokenAuthCredentials represents the credentials for access token-based authentication.
+
+        :param access_token: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: ClusterSecretStoreSpecProviderInfisicalAuthTokenAuthCredentials
         '''
@@ -21579,7 +21744,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthTokenAuthCredentials:
     def access_token(
         self,
     ) -> "ClusterSecretStoreSpecProviderInfisicalAuthTokenAuthCredentialsAccessToken":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -21614,7 +21779,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthTokenAuthCredentialsAccessToken
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -21692,9 +21857,10 @@ class ClusterSecretStoreSpecProviderInfisicalAuthUniversalAuthCredentials:
         client_id: typing.Union["ClusterSecretStoreSpecProviderInfisicalAuthUniversalAuthCredentialsClientId", typing.Dict[builtins.str, typing.Any]],
         client_secret: typing.Union["ClusterSecretStoreSpecProviderInfisicalAuthUniversalAuthCredentialsClientSecret", typing.Dict[builtins.str, typing.Any]],
     ) -> None:
-        '''
-        :param client_id: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param client_secret: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        '''UniversalAuthCredentials represents the client credentials for universal authentication.
+
+        :param client_id: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param client_secret: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: ClusterSecretStoreSpecProviderInfisicalAuthUniversalAuthCredentials
         '''
@@ -21715,7 +21881,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthUniversalAuthCredentials:
     def client_id(
         self,
     ) -> "ClusterSecretStoreSpecProviderInfisicalAuthUniversalAuthCredentialsClientId":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -21729,7 +21895,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthUniversalAuthCredentials:
     def client_secret(
         self,
     ) -> "ClusterSecretStoreSpecProviderInfisicalAuthUniversalAuthCredentialsClientSecret":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -21764,7 +21930,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthUniversalAuthCredentialsClientI
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -21843,7 +22009,7 @@ class ClusterSecretStoreSpecProviderInfisicalAuthUniversalAuthCredentialsClientS
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -22043,7 +22209,7 @@ class ClusterSecretStoreSpecProviderKeepersecurity:
     ) -> None:
         '''KeeperSecurity configures this store to sync secrets using the KeeperSecurity provider.
 
-        :param auth_ref: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param auth_ref: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
         :param folder_id: 
 
         :schema: ClusterSecretStoreSpecProviderKeepersecurity
@@ -22061,7 +22227,7 @@ class ClusterSecretStoreSpecProviderKeepersecurity:
 
     @builtins.property
     def auth_ref(self) -> "ClusterSecretStoreSpecProviderKeepersecurityAuthRef":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -22105,7 +22271,7 @@ class ClusterSecretStoreSpecProviderKeepersecurityAuthRef:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -22376,8 +22542,8 @@ class ClusterSecretStoreSpecProviderKubernetesAuthCert:
     ) -> None:
         '''has both clientCert and clientKey as secretKeySelector.
 
-        :param client_cert: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param client_key: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param client_cert: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param client_key: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: ClusterSecretStoreSpecProviderKubernetesAuthCert
         '''
@@ -22399,7 +22565,7 @@ class ClusterSecretStoreSpecProviderKubernetesAuthCert:
     def client_cert(
         self,
     ) -> typing.Optional["ClusterSecretStoreSpecProviderKubernetesAuthCertClientCert"]:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -22412,7 +22578,7 @@ class ClusterSecretStoreSpecProviderKubernetesAuthCert:
     def client_key(
         self,
     ) -> typing.Optional["ClusterSecretStoreSpecProviderKubernetesAuthCertClientKey"]:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -22446,7 +22612,7 @@ class ClusterSecretStoreSpecProviderKubernetesAuthCertClientCert:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -22525,7 +22691,7 @@ class ClusterSecretStoreSpecProviderKubernetesAuthCertClientKey:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -22757,7 +22923,7 @@ class ClusterSecretStoreSpecProviderKubernetesAuthToken:
     ) -> None:
         '''use static token to authenticate with.
 
-        :param bearer_token: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param bearer_token: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: ClusterSecretStoreSpecProviderKubernetesAuthToken
         '''
@@ -22774,7 +22940,7 @@ class ClusterSecretStoreSpecProviderKubernetesAuthToken:
     def bearer_token(
         self,
     ) -> typing.Optional["ClusterSecretStoreSpecProviderKubernetesAuthTokenBearerToken"]:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -22808,7 +22974,7 @@ class ClusterSecretStoreSpecProviderKubernetesAuthTokenBearerToken:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -24771,7 +24937,10 @@ class ClusterSecretStoreSpecProviderPassbolt:
         auth: typing.Union["ClusterSecretStoreSpecProviderPassboltAuth", typing.Dict[builtins.str, typing.Any]],
         host: builtins.str,
     ) -> None:
-        '''
+        '''PassboltProvider provides access to Passbolt secrets manager.
+
+        See: https://www.passbolt.com.
+
         :param auth: Auth defines the information necessary to authenticate against Passbolt Server.
         :param host: Host defines the Passbolt Server to connect to.
 
@@ -24837,8 +25006,8 @@ class ClusterSecretStoreSpecProviderPassboltAuth:
     ) -> None:
         '''Auth defines the information necessary to authenticate against Passbolt Server.
 
-        :param password_secret_ref: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param private_key_secret_ref: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param password_secret_ref: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param private_key_secret_ref: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: ClusterSecretStoreSpecProviderPassboltAuth
         '''
@@ -24859,7 +25028,7 @@ class ClusterSecretStoreSpecProviderPassboltAuth:
     def password_secret_ref(
         self,
     ) -> "ClusterSecretStoreSpecProviderPassboltAuthPasswordSecretRef":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -24873,7 +25042,7 @@ class ClusterSecretStoreSpecProviderPassboltAuth:
     def private_key_secret_ref(
         self,
     ) -> "ClusterSecretStoreSpecProviderPassboltAuthPrivateKeySecretRef":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -24908,7 +25077,7 @@ class ClusterSecretStoreSpecProviderPassboltAuthPasswordSecretRef:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -24987,7 +25156,7 @@ class ClusterSecretStoreSpecProviderPassboltAuthPrivateKeySecretRef:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -25066,7 +25235,7 @@ class ClusterSecretStoreSpecProviderPassworddepot:
         database: builtins.str,
         host: builtins.str,
     ) -> None:
-        '''Configures a store to sync secrets with a Password Depot instance.
+        '''PasswordDepotProvider configures a store to sync secrets with a Password Depot instance.
 
         :param auth: Auth configures how secret-manager authenticates with a Password Depot instance.
         :param database: Database to use as source.
@@ -25142,7 +25311,7 @@ class ClusterSecretStoreSpecProviderPassworddepotAuth:
     ) -> None:
         '''Auth configures how secret-manager authenticates with a Password Depot instance.
 
-        :param secret_ref: 
+        :param secret_ref: PasswordDepotSecretRef contains the secret reference for Password Depot authentication.
 
         :schema: ClusterSecretStoreSpecProviderPassworddepotAuth
         '''
@@ -25157,7 +25326,8 @@ class ClusterSecretStoreSpecProviderPassworddepotAuth:
 
     @builtins.property
     def secret_ref(self) -> "ClusterSecretStoreSpecProviderPassworddepotAuthSecretRef":
-        '''
+        '''PasswordDepotSecretRef contains the secret reference for Password Depot authentication.
+
         :schema: ClusterSecretStoreSpecProviderPassworddepotAuth#secretRef
         '''
         result = self._values.get("secret_ref")
@@ -25187,7 +25357,8 @@ class ClusterSecretStoreSpecProviderPassworddepotAuthSecretRef:
         *,
         credentials: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderPassworddepotAuthSecretRefCredentials", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
+        '''PasswordDepotSecretRef contains the secret reference for Password Depot authentication.
+
         :param credentials: Username / Password is used for authentication.
 
         :schema: ClusterSecretStoreSpecProviderPassworddepotAuthSecretRef
@@ -26181,6 +26352,8 @@ class ClusterSecretStoreSpecProviderScalewaySecretKeySecretRef:
         "password": "password",
         "server_url": "serverUrl",
         "username": "username",
+        "ca_bundle": "caBundle",
+        "ca_provider": "caProvider",
         "domain": "domain",
     },
 )
@@ -26191,6 +26364,8 @@ class ClusterSecretStoreSpecProviderSecretserver:
         password: typing.Union["ClusterSecretStoreSpecProviderSecretserverPassword", typing.Dict[builtins.str, typing.Any]],
         server_url: builtins.str,
         username: typing.Union["ClusterSecretStoreSpecProviderSecretserverUsername", typing.Dict[builtins.str, typing.Any]],
+        ca_bundle: typing.Optional[builtins.str] = None,
+        ca_provider: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderSecretserverCaProvider", typing.Dict[builtins.str, typing.Any]]] = None,
         domain: typing.Optional[builtins.str] = None,
     ) -> None:
         '''SecretServer configures this store to sync secrets using SecretServer provider https://docs.delinea.com/online-help/secret-server/start.htm.
@@ -26198,6 +26373,8 @@ class ClusterSecretStoreSpecProviderSecretserver:
         :param password: Password is the secret server account password.
         :param server_url: ServerURL URL to your secret server installation.
         :param username: Username is the secret server account username.
+        :param ca_bundle: PEM/base64 encoded CA bundle used to validate Secret ServerURL. Only used if the ServerURL URL is using HTTPS protocol. If not set the system root certificates are used to validate the TLS connection.
+        :param ca_provider: The provider for the CA bundle to use to validate Secret ServerURL certificate.
         :param domain: Domain is the secret server domain.
 
         :schema: ClusterSecretStoreSpecProviderSecretserver
@@ -26206,17 +26383,25 @@ class ClusterSecretStoreSpecProviderSecretserver:
             password = ClusterSecretStoreSpecProviderSecretserverPassword(**password)
         if isinstance(username, dict):
             username = ClusterSecretStoreSpecProviderSecretserverUsername(**username)
+        if isinstance(ca_provider, dict):
+            ca_provider = ClusterSecretStoreSpecProviderSecretserverCaProvider(**ca_provider)
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__a370534ba47dee2393e2fa141d68fbbdd08db81f3ec55f1db5f713ea03696799)
             check_type(argname="argument password", value=password, expected_type=type_hints["password"])
             check_type(argname="argument server_url", value=server_url, expected_type=type_hints["server_url"])
             check_type(argname="argument username", value=username, expected_type=type_hints["username"])
+            check_type(argname="argument ca_bundle", value=ca_bundle, expected_type=type_hints["ca_bundle"])
+            check_type(argname="argument ca_provider", value=ca_provider, expected_type=type_hints["ca_provider"])
             check_type(argname="argument domain", value=domain, expected_type=type_hints["domain"])
         self._values: typing.Dict[builtins.str, typing.Any] = {
             "password": password,
             "server_url": server_url,
             "username": username,
         }
+        if ca_bundle is not None:
+            self._values["ca_bundle"] = ca_bundle
+        if ca_provider is not None:
+            self._values["ca_provider"] = ca_provider
         if domain is not None:
             self._values["domain"] = domain
 
@@ -26251,6 +26436,30 @@ class ClusterSecretStoreSpecProviderSecretserver:
         return typing.cast("ClusterSecretStoreSpecProviderSecretserverUsername", result)
 
     @builtins.property
+    def ca_bundle(self) -> typing.Optional[builtins.str]:
+        '''PEM/base64 encoded CA bundle used to validate Secret ServerURL.
+
+        Only used
+        if the ServerURL URL is using HTTPS protocol. If not set the system root certificates
+        are used to validate the TLS connection.
+
+        :schema: ClusterSecretStoreSpecProviderSecretserver#caBundle
+        '''
+        result = self._values.get("ca_bundle")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def ca_provider(
+        self,
+    ) -> typing.Optional["ClusterSecretStoreSpecProviderSecretserverCaProvider"]:
+        '''The provider for the CA bundle to use to validate Secret ServerURL certificate.
+
+        :schema: ClusterSecretStoreSpecProviderSecretserver#caProvider
+        '''
+        result = self._values.get("ca_provider")
+        return typing.cast(typing.Optional["ClusterSecretStoreSpecProviderSecretserverCaProvider"], result)
+
+    @builtins.property
     def domain(self) -> typing.Optional[builtins.str]:
         '''Domain is the secret server domain.
 
@@ -26269,6 +26478,116 @@ class ClusterSecretStoreSpecProviderSecretserver:
         return "ClusterSecretStoreSpecProviderSecretserver(%s)" % ", ".join(
             k + "=" + repr(v) for k, v in self._values.items()
         )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderSecretserverCaProvider",
+    jsii_struct_bases=[],
+    name_mapping={
+        "name": "name",
+        "type": "type",
+        "key": "key",
+        "namespace": "namespace",
+    },
+)
+class ClusterSecretStoreSpecProviderSecretserverCaProvider:
+    def __init__(
+        self,
+        *,
+        name: builtins.str,
+        type: "ClusterSecretStoreSpecProviderSecretserverCaProviderType",
+        key: typing.Optional[builtins.str] = None,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''The provider for the CA bundle to use to validate Secret ServerURL certificate.
+
+        :param name: The name of the object located at the provider type.
+        :param type: The type of provider to use such as "Secret", or "ConfigMap".
+        :param key: The key where the CA certificate can be found in the Secret or ConfigMap.
+        :param namespace: The namespace the Provider type is in. Can only be defined when used in a ClusterSecretStore.
+
+        :schema: ClusterSecretStoreSpecProviderSecretserverCaProvider
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__45392c6da6b6ef95a5e6ac7e979f1e5292121bf300d204e76e9b4ba020d700b7)
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument type", value=type, expected_type=type_hints["type"])
+            check_type(argname="argument key", value=key, expected_type=type_hints["key"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "name": name,
+            "type": type,
+        }
+        if key is not None:
+            self._values["key"] = key
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def name(self) -> builtins.str:
+        '''The name of the object located at the provider type.
+
+        :schema: ClusterSecretStoreSpecProviderSecretserverCaProvider#name
+        '''
+        result = self._values.get("name")
+        assert result is not None, "Required property 'name' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def type(self) -> "ClusterSecretStoreSpecProviderSecretserverCaProviderType":
+        '''The type of provider to use such as "Secret", or "ConfigMap".
+
+        :schema: ClusterSecretStoreSpecProviderSecretserverCaProvider#type
+        '''
+        result = self._values.get("type")
+        assert result is not None, "Required property 'type' is missing"
+        return typing.cast("ClusterSecretStoreSpecProviderSecretserverCaProviderType", result)
+
+    @builtins.property
+    def key(self) -> typing.Optional[builtins.str]:
+        '''The key where the CA certificate can be found in the Secret or ConfigMap.
+
+        :schema: ClusterSecretStoreSpecProviderSecretserverCaProvider#key
+        '''
+        result = self._values.get("key")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''The namespace the Provider type is in.
+
+        Can only be defined when used in a ClusterSecretStore.
+
+        :schema: ClusterSecretStoreSpecProviderSecretserverCaProvider#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterSecretStoreSpecProviderSecretserverCaProvider(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.enum(
+    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderSecretserverCaProviderType"
+)
+class ClusterSecretStoreSpecProviderSecretserverCaProviderType(enum.Enum):
+    '''The type of provider to use such as "Secret", or "ConfigMap".
+
+    :schema: ClusterSecretStoreSpecProviderSecretserverCaProviderType
+    '''
+
+    SECRET = "SECRET"
+    '''Secret.'''
+    CONFIG_MAP = "CONFIG_MAP"
+    '''ConfigMap.'''
 
 
 @jsii.data_type(
@@ -26664,7 +26983,7 @@ class ClusterSecretStoreSpecProviderSenhaseguraAuth:
         '''Auth defines parameters to authenticate in senhasegura.
 
         :param client_id: 
-        :param client_secret_secret_ref: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param client_secret_secret_ref: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: ClusterSecretStoreSpecProviderSenhaseguraAuth
         '''
@@ -26692,7 +27011,7 @@ class ClusterSecretStoreSpecProviderSenhaseguraAuth:
     def client_secret_secret_ref(
         self,
     ) -> "ClusterSecretStoreSpecProviderSenhaseguraAuthClientSecretSecretRef":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -26727,7 +27046,7 @@ class ClusterSecretStoreSpecProviderSenhaseguraAuthClientSecretSecretRef:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -27922,7 +28241,7 @@ class ClusterSecretStoreSpecProviderVaultAuthIamJwt:
     ) -> None:
         '''Specify a service account with IRSA enabled.
 
-        :param service_account_ref: A reference to a ServiceAccount resource.
+        :param service_account_ref: ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :schema: ClusterSecretStoreSpecProviderVaultAuthIamJwt
         '''
@@ -27939,7 +28258,7 @@ class ClusterSecretStoreSpecProviderVaultAuthIamJwt:
     def service_account_ref(
         self,
     ) -> typing.Optional["ClusterSecretStoreSpecProviderVaultAuthIamJwtServiceAccountRef"]:
-        '''A reference to a ServiceAccount resource.
+        '''ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :schema: ClusterSecretStoreSpecProviderVaultAuthIamJwt#serviceAccountRef
         '''
@@ -27971,7 +28290,7 @@ class ClusterSecretStoreSpecProviderVaultAuthIamJwtServiceAccountRef:
         audiences: typing.Optional[typing.Sequence[builtins.str]] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a ServiceAccount resource.
+        '''ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :param name: The name of the ServiceAccount resource being referred to.
         :param audiences: Audience specifies the ``aud`` claim for the service account token If the service account uses a well-known annotation for e.g. IRSA or GCP Workload Identity then this audiences will be appended to the list.
@@ -30475,8 +30794,8 @@ class ClusterSecretStoreSpecProviderWebhookAuthNtlm:
     ) -> None:
         '''NTLMProtocol configures the store to use NTLM for auth.
 
-        :param password_secret: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param username_secret: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param password_secret: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param username_secret: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: ClusterSecretStoreSpecProviderWebhookAuthNtlm
         '''
@@ -30497,7 +30816,7 @@ class ClusterSecretStoreSpecProviderWebhookAuthNtlm:
     def password_secret(
         self,
     ) -> "ClusterSecretStoreSpecProviderWebhookAuthNtlmPasswordSecret":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -30511,7 +30830,7 @@ class ClusterSecretStoreSpecProviderWebhookAuthNtlm:
     def username_secret(
         self,
     ) -> "ClusterSecretStoreSpecProviderWebhookAuthNtlmUsernameSecret":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -30546,7 +30865,7 @@ class ClusterSecretStoreSpecProviderWebhookAuthNtlmPasswordSecret:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -30625,7 +30944,7 @@ class ClusterSecretStoreSpecProviderWebhookAuthNtlmUsernameSecret:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -30852,7 +31171,8 @@ class ClusterSecretStoreSpecProviderWebhookSecrets:
         name: builtins.str,
         secret_ref: typing.Union["ClusterSecretStoreSpecProviderWebhookSecretsSecretRef", typing.Dict[builtins.str, typing.Any]],
     ) -> None:
-        '''
+        '''WebhookSecret defines a secret that will be passed to the webhook request.
+
         :param name: Name of this secret in templates.
         :param secret_ref: Secret ref to fill in credentials.
 
@@ -31220,7 +31540,7 @@ class ClusterSecretStoreSpecProviderYandexcertificatemanagerCaProvider:
     ) -> None:
         '''The provider for the CA bundle to use to validate Yandex.Cloud server certificate.
 
-        :param cert_secret_ref: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param cert_secret_ref: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: ClusterSecretStoreSpecProviderYandexcertificatemanagerCaProvider
         '''
@@ -31237,7 +31557,7 @@ class ClusterSecretStoreSpecProviderYandexcertificatemanagerCaProvider:
     def cert_secret_ref(
         self,
     ) -> typing.Optional["ClusterSecretStoreSpecProviderYandexcertificatemanagerCaProviderCertSecretRef"]:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -31271,7 +31591,7 @@ class ClusterSecretStoreSpecProviderYandexcertificatemanagerCaProviderCertSecret
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -31684,7 +32004,7 @@ class ClusterSecretStoreSpecProviderYandexlockboxCaProvider:
     ) -> None:
         '''The provider for the CA bundle to use to validate Yandex.Cloud server certificate.
 
-        :param cert_secret_ref: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param cert_secret_ref: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: ClusterSecretStoreSpecProviderYandexlockboxCaProvider
         '''
@@ -31701,7 +32021,7 @@ class ClusterSecretStoreSpecProviderYandexlockboxCaProvider:
     def cert_secret_ref(
         self,
     ) -> typing.Optional["ClusterSecretStoreSpecProviderYandexlockboxCaProviderCertSecretRef"]:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -31735,7 +32055,7 @@ class ClusterSecretStoreSpecProviderYandexlockboxCaProviderCertSecretRef:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -32554,8 +32874,8 @@ class ClusterSecretStoreV1Beta1SpecProvider:
         :param onboardbase: Onboardbase configures this store to sync secrets using the Onboardbase provider.
         :param onepassword: OnePassword configures this store to sync secrets using the 1Password Cloud provider.
         :param oracle: Oracle configures this store to sync secrets using Oracle Vault provider.
-        :param passbolt: 
-        :param passworddepot: Configures a store to sync secrets with a Password Depot instance.
+        :param passbolt: PassboltProvider defines configuration for the Passbolt provider.
+        :param passworddepot: PasswordDepotProvider configures a store to sync secrets with a Password Depot instance.
         :param previder: Previder configures this store to sync secrets using the Previder provider.
         :param pulumi: Pulumi configures this store to sync secrets using the Pulumi provider.
         :param scaleway: Scaleway.
@@ -32997,7 +33317,8 @@ class ClusterSecretStoreV1Beta1SpecProvider:
     def passbolt(
         self,
     ) -> typing.Optional["ClusterSecretStoreV1Beta1SpecProviderPassbolt"]:
-        '''
+        '''PassboltProvider defines configuration for the Passbolt provider.
+
         :schema: ClusterSecretStoreV1Beta1SpecProvider#passbolt
         '''
         result = self._values.get("passbolt")
@@ -33007,7 +33328,7 @@ class ClusterSecretStoreV1Beta1SpecProvider:
     def passworddepot(
         self,
     ) -> typing.Optional["ClusterSecretStoreV1Beta1SpecProviderPassworddepot"]:
-        '''Configures a store to sync secrets with a Password Depot instance.
+        '''PasswordDepotProvider configures a store to sync secrets with a Password Depot instance.
 
         :schema: ClusterSecretStoreV1Beta1SpecProvider#passworddepot
         '''
@@ -33583,8 +33904,8 @@ class ClusterSecretStoreV1Beta1SpecProviderAkeylessAuthSecretRefSecretRef:
         '''Reference to a Secret that contains the details to authenticate with Akeyless.
 
         :param access_id: The SecretAccessID is used for authentication.
-        :param access_type: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param access_type_param: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param access_type: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param access_type_param: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: ClusterSecretStoreV1Beta1SpecProviderAkeylessAuthSecretRefSecretRef
         '''
@@ -33622,7 +33943,7 @@ class ClusterSecretStoreV1Beta1SpecProviderAkeylessAuthSecretRefSecretRef:
     def access_type(
         self,
     ) -> typing.Optional["ClusterSecretStoreV1Beta1SpecProviderAkeylessAuthSecretRefSecretRefAccessType"]:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -33635,7 +33956,7 @@ class ClusterSecretStoreV1Beta1SpecProviderAkeylessAuthSecretRefSecretRef:
     def access_type_param(
         self,
     ) -> typing.Optional["ClusterSecretStoreV1Beta1SpecProviderAkeylessAuthSecretRefSecretRefAccessTypeParam"]:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -33746,7 +34067,7 @@ class ClusterSecretStoreV1Beta1SpecProviderAkeylessAuthSecretRefSecretRefAccessT
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -33825,7 +34146,7 @@ class ClusterSecretStoreV1Beta1SpecProviderAkeylessAuthSecretRefSecretRefAccessT
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -34077,7 +34398,7 @@ class ClusterSecretStoreV1Beta1SpecProviderAlibabaAuth:
     ) -> None:
         '''AlibabaAuth contains a secretRef for credentials.
 
-        :param rrsa: Authenticate against Alibaba using RRSA.
+        :param rrsa: AlibabaRRSAAuth authenticates against Alibaba using RRSA (Resource-oriented RAM-based Service Authentication).
         :param secret_ref: AlibabaAuthSecretRef holds secret references for Alibaba credentials.
 
         :schema: ClusterSecretStoreV1Beta1SpecProviderAlibabaAuth
@@ -34100,7 +34421,7 @@ class ClusterSecretStoreV1Beta1SpecProviderAlibabaAuth:
     def rrsa(
         self,
     ) -> typing.Optional["ClusterSecretStoreV1Beta1SpecProviderAlibabaAuthRrsa"]:
-        '''Authenticate against Alibaba using RRSA.
+        '''AlibabaRRSAAuth authenticates against Alibaba using RRSA (Resource-oriented RAM-based Service Authentication).
 
         :schema: ClusterSecretStoreV1Beta1SpecProviderAlibabaAuth#rrsa
         '''
@@ -34149,7 +34470,7 @@ class ClusterSecretStoreV1Beta1SpecProviderAlibabaAuthRrsa:
         role_arn: builtins.str,
         session_name: builtins.str,
     ) -> None:
-        '''Authenticate against Alibaba using RRSA.
+        '''AlibabaRRSAAuth authenticates against Alibaba using RRSA (Resource-oriented RAM-based Service Authentication).
 
         :param oidc_provider_arn: 
         :param oidc_token_file_path: 
@@ -34651,7 +34972,7 @@ class ClusterSecretStoreV1Beta1SpecProviderAwsAuth:
     ) -> None:
         '''Auth defines the information necessary to authenticate against AWS if not set aws sdk will infer credentials from your environment see: https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/configuring-sdk.html#specifying-credentials.
 
-        :param jwt: Authenticate against AWS using service account tokens.
+        :param jwt: AWSJWTAuth authenticates against AWS using service account tokens from the Kubernetes cluster.
         :param secret_ref: AWSAuthSecretRef holds secret references for AWS credentials both AccessKeyID and SecretAccessKey must be defined in order to properly authenticate.
 
         :schema: ClusterSecretStoreV1Beta1SpecProviderAwsAuth
@@ -34672,7 +34993,7 @@ class ClusterSecretStoreV1Beta1SpecProviderAwsAuth:
 
     @builtins.property
     def jwt(self) -> typing.Optional["ClusterSecretStoreV1Beta1SpecProviderAwsAuthJwt"]:
-        '''Authenticate against AWS using service account tokens.
+        '''AWSJWTAuth authenticates against AWS using service account tokens from the Kubernetes cluster.
 
         :schema: ClusterSecretStoreV1Beta1SpecProviderAwsAuth#jwt
         '''
@@ -34713,9 +35034,9 @@ class ClusterSecretStoreV1Beta1SpecProviderAwsAuthJwt:
         *,
         service_account_ref: typing.Optional[typing.Union["ClusterSecretStoreV1Beta1SpecProviderAwsAuthJwtServiceAccountRef", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''Authenticate against AWS using service account tokens.
+        '''AWSJWTAuth authenticates against AWS using service account tokens from the Kubernetes cluster.
 
-        :param service_account_ref: A reference to a ServiceAccount resource.
+        :param service_account_ref: ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :schema: ClusterSecretStoreV1Beta1SpecProviderAwsAuthJwt
         '''
@@ -34732,7 +35053,7 @@ class ClusterSecretStoreV1Beta1SpecProviderAwsAuthJwt:
     def service_account_ref(
         self,
     ) -> typing.Optional["ClusterSecretStoreV1Beta1SpecProviderAwsAuthJwtServiceAccountRef"]:
-        '''A reference to a ServiceAccount resource.
+        '''ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :schema: ClusterSecretStoreV1Beta1SpecProviderAwsAuthJwt#serviceAccountRef
         '''
@@ -34764,7 +35085,7 @@ class ClusterSecretStoreV1Beta1SpecProviderAwsAuthJwtServiceAccountRef:
         audiences: typing.Optional[typing.Sequence[builtins.str]] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a ServiceAccount resource.
+        '''ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :param name: The name of the ServiceAccount resource being referred to.
         :param audiences: Audience specifies the ``aud`` claim for the service account token If the service account uses a well-known annotation for e.g. IRSA or GCP Workload Identity then this audiences will be appended to the list.
@@ -35242,7 +35563,8 @@ class ClusterSecretStoreV1Beta1SpecProviderAwsService(enum.Enum):
 )
 class ClusterSecretStoreV1Beta1SpecProviderAwsSessionTags:
     def __init__(self, *, key: builtins.str, value: builtins.str) -> None:
-        '''
+        '''Tag defines a tag key and value for AWS resources.
+
         :param key: 
         :param value: 
 
@@ -39324,7 +39646,7 @@ class ClusterSecretStoreV1Beta1SpecProviderDevice42Auth:
     ) -> None:
         '''Auth configures how secret-manager authenticates with a Device42 instance.
 
-        :param secret_ref: 
+        :param secret_ref: Device42SecretRef defines a reference to a secret containing credentials for the Device42 provider.
 
         :schema: ClusterSecretStoreV1Beta1SpecProviderDevice42Auth
         '''
@@ -39341,7 +39663,8 @@ class ClusterSecretStoreV1Beta1SpecProviderDevice42Auth:
     def secret_ref(
         self,
     ) -> "ClusterSecretStoreV1Beta1SpecProviderDevice42AuthSecretRef":
-        '''
+        '''Device42SecretRef defines a reference to a secret containing credentials for the Device42 provider.
+
         :schema: ClusterSecretStoreV1Beta1SpecProviderDevice42Auth#secretRef
         '''
         result = self._values.get("secret_ref")
@@ -39371,7 +39694,8 @@ class ClusterSecretStoreV1Beta1SpecProviderDevice42AuthSecretRef:
         *,
         credentials: typing.Optional[typing.Union["ClusterSecretStoreV1Beta1SpecProviderDevice42AuthSecretRefCredentials", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
+        '''Device42SecretRef defines a reference to a secret containing credentials for the Device42 provider.
+
         :param credentials: Username / Password is used for authentication.
 
         :schema: ClusterSecretStoreV1Beta1SpecProviderDevice42AuthSecretRef
@@ -39612,7 +39936,7 @@ class ClusterSecretStoreV1Beta1SpecProviderDopplerAuth:
     ) -> None:
         '''Auth configures how the Operator authenticates with the Doppler API.
 
-        :param secret_ref: 
+        :param secret_ref: DopplerAuthSecretRef defines a reference to a secret containing credentials for the Doppler provider.
 
         :schema: ClusterSecretStoreV1Beta1SpecProviderDopplerAuth
         '''
@@ -39627,7 +39951,8 @@ class ClusterSecretStoreV1Beta1SpecProviderDopplerAuth:
 
     @builtins.property
     def secret_ref(self) -> "ClusterSecretStoreV1Beta1SpecProviderDopplerAuthSecretRef":
-        '''
+        '''DopplerAuthSecretRef defines a reference to a secret containing credentials for the Doppler provider.
+
         :schema: ClusterSecretStoreV1Beta1SpecProviderDopplerAuth#secretRef
         '''
         result = self._values.get("secret_ref")
@@ -39657,7 +39982,8 @@ class ClusterSecretStoreV1Beta1SpecProviderDopplerAuthSecretRef:
         *,
         doppler_token: typing.Union["ClusterSecretStoreV1Beta1SpecProviderDopplerAuthSecretRefDopplerToken", typing.Dict[builtins.str, typing.Any]],
     ) -> None:
-        '''
+        '''DopplerAuthSecretRef defines a reference to a secret containing credentials for the Doppler provider.
+
         :param doppler_token: The DopplerToken is used for authentication. See https://docs.doppler.com/reference/api#authentication for auth token types. The Key attribute defaults to dopplerToken if not specified.
 
         :schema: ClusterSecretStoreV1Beta1SpecProviderDopplerAuthSecretRef
@@ -39880,7 +40206,8 @@ class ClusterSecretStoreV1Beta1SpecProviderFakeData:
         value: builtins.str,
         version: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''
+        '''FakeProviderData defines a key-value pair for the fake provider used in testing.
+
         :param key: 
         :param value: 
         :param version: 
@@ -40219,8 +40546,8 @@ class ClusterSecretStoreV1Beta1SpecProviderGcpsmAuth:
     ) -> None:
         '''Auth defines the information necessary to authenticate against GCP.
 
-        :param secret_ref: 
-        :param workload_identity: 
+        :param secret_ref: GCPSMAuthSecretRef defines a reference to a secret containing credentials for the GCP Secret Manager provider.
+        :param workload_identity: GCPWorkloadIdentity defines configuration for using GCP Workload Identity authentication.
 
         :schema: ClusterSecretStoreV1Beta1SpecProviderGcpsmAuth
         '''
@@ -40242,7 +40569,8 @@ class ClusterSecretStoreV1Beta1SpecProviderGcpsmAuth:
     def secret_ref(
         self,
     ) -> typing.Optional["ClusterSecretStoreV1Beta1SpecProviderGcpsmAuthSecretRef"]:
-        '''
+        '''GCPSMAuthSecretRef defines a reference to a secret containing credentials for the GCP Secret Manager provider.
+
         :schema: ClusterSecretStoreV1Beta1SpecProviderGcpsmAuth#secretRef
         '''
         result = self._values.get("secret_ref")
@@ -40252,7 +40580,8 @@ class ClusterSecretStoreV1Beta1SpecProviderGcpsmAuth:
     def workload_identity(
         self,
     ) -> typing.Optional["ClusterSecretStoreV1Beta1SpecProviderGcpsmAuthWorkloadIdentity"]:
-        '''
+        '''GCPWorkloadIdentity defines configuration for using GCP Workload Identity authentication.
+
         :schema: ClusterSecretStoreV1Beta1SpecProviderGcpsmAuth#workloadIdentity
         '''
         result = self._values.get("workload_identity")
@@ -40281,7 +40610,8 @@ class ClusterSecretStoreV1Beta1SpecProviderGcpsmAuthSecretRef:
         *,
         secret_access_key_secret_ref: typing.Optional[typing.Union["ClusterSecretStoreV1Beta1SpecProviderGcpsmAuthSecretRefSecretAccessKeySecretRef", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
+        '''GCPSMAuthSecretRef defines a reference to a secret containing credentials for the GCP Secret Manager provider.
+
         :param secret_access_key_secret_ref: The SecretAccessKey is used for authentication.
 
         :schema: ClusterSecretStoreV1Beta1SpecProviderGcpsmAuthSecretRef
@@ -40414,8 +40744,9 @@ class ClusterSecretStoreV1Beta1SpecProviderGcpsmAuthWorkloadIdentity:
         cluster_name: typing.Optional[builtins.str] = None,
         cluster_project_id: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''
-        :param service_account_ref: A reference to a ServiceAccount resource.
+        '''GCPWorkloadIdentity defines configuration for using GCP Workload Identity authentication.
+
+        :param service_account_ref: ServiceAccountSelector is a reference to a ServiceAccount resource.
         :param cluster_location: ClusterLocation is the location of the cluster If not specified, it fetches information from the metadata server.
         :param cluster_name: ClusterName is the name of the cluster If not specified, it fetches information from the metadata server.
         :param cluster_project_id: ClusterProjectID is the project ID of the cluster If not specified, it fetches information from the metadata server.
@@ -40444,7 +40775,7 @@ class ClusterSecretStoreV1Beta1SpecProviderGcpsmAuthWorkloadIdentity:
     def service_account_ref(
         self,
     ) -> "ClusterSecretStoreV1Beta1SpecProviderGcpsmAuthWorkloadIdentityServiceAccountRef":
-        '''A reference to a ServiceAccount resource.
+        '''ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :schema: ClusterSecretStoreV1Beta1SpecProviderGcpsmAuthWorkloadIdentity#serviceAccountRef
         '''
@@ -40504,7 +40835,7 @@ class ClusterSecretStoreV1Beta1SpecProviderGcpsmAuthWorkloadIdentityServiceAccou
         audiences: typing.Optional[typing.Sequence[builtins.str]] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a ServiceAccount resource.
+        '''ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :param name: The name of the ServiceAccount resource being referred to.
         :param audiences: Audience specifies the ``aud`` claim for the service account token If the service account uses a well-known annotation for e.g. IRSA or GCP Workload Identity then this audiences will be appended to the list.
@@ -40743,7 +41074,7 @@ class ClusterSecretStoreV1Beta1SpecProviderGithubAuth:
     ) -> None:
         '''auth configures how secret-manager authenticates with a Github instance.
 
-        :param private_key: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param private_key: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: ClusterSecretStoreV1Beta1SpecProviderGithubAuth
         '''
@@ -40760,7 +41091,7 @@ class ClusterSecretStoreV1Beta1SpecProviderGithubAuth:
     def private_key(
         self,
     ) -> "ClusterSecretStoreV1Beta1SpecProviderGithubAuthPrivateKey":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -40795,7 +41126,7 @@ class ClusterSecretStoreV1Beta1SpecProviderGithubAuthPrivateKey:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -41042,7 +41373,7 @@ class ClusterSecretStoreV1Beta1SpecProviderGitlabAuth:
     ) -> None:
         '''Auth configures how secret-manager authenticates with a GitLab instance.
 
-        :param secret_ref: 
+        :param secret_ref: GitlabSecretRef defines a reference to a secret containing credentials for the GitLab provider.
 
         :schema: ClusterSecretStoreV1Beta1SpecProviderGitlabAuth
         '''
@@ -41057,7 +41388,8 @@ class ClusterSecretStoreV1Beta1SpecProviderGitlabAuth:
 
     @builtins.property
     def secret_ref(self) -> "ClusterSecretStoreV1Beta1SpecProviderGitlabAuthSecretRef":
-        '''
+        '''GitlabSecretRef defines a reference to a secret containing credentials for the GitLab provider.
+
         :schema: ClusterSecretStoreV1Beta1SpecProviderGitlabAuth#SecretRef
         '''
         result = self._values.get("secret_ref")
@@ -41087,7 +41419,8 @@ class ClusterSecretStoreV1Beta1SpecProviderGitlabAuthSecretRef:
         *,
         access_token: typing.Optional[typing.Union["ClusterSecretStoreV1Beta1SpecProviderGitlabAuthSecretRefAccessToken", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
+        '''GitlabSecretRef defines a reference to a secret containing credentials for the GitLab provider.
+
         :param access_token: AccessToken is used for authentication.
 
         :schema: ClusterSecretStoreV1Beta1SpecProviderGitlabAuthSecretRef
@@ -41387,8 +41720,8 @@ class ClusterSecretStoreV1Beta1SpecProviderIbmAuth:
     ) -> None:
         '''Auth configures how secret-manager authenticates with the IBM secrets manager.
 
-        :param container_auth: IBM Container-based auth with IAM Trusted Profile.
-        :param secret_ref: 
+        :param container_auth: IBMAuthContainerAuth defines authentication using IBM Container-based auth with IAM Trusted Profile.
+        :param secret_ref: IBMAuthSecretRef defines a reference to a secret containing credentials for the IBM provider.
 
         :schema: ClusterSecretStoreV1Beta1SpecProviderIbmAuth
         '''
@@ -41410,7 +41743,7 @@ class ClusterSecretStoreV1Beta1SpecProviderIbmAuth:
     def container_auth(
         self,
     ) -> typing.Optional["ClusterSecretStoreV1Beta1SpecProviderIbmAuthContainerAuth"]:
-        '''IBM Container-based auth with IAM Trusted Profile.
+        '''IBMAuthContainerAuth defines authentication using IBM Container-based auth with IAM Trusted Profile.
 
         :schema: ClusterSecretStoreV1Beta1SpecProviderIbmAuth#containerAuth
         '''
@@ -41421,7 +41754,8 @@ class ClusterSecretStoreV1Beta1SpecProviderIbmAuth:
     def secret_ref(
         self,
     ) -> typing.Optional["ClusterSecretStoreV1Beta1SpecProviderIbmAuthSecretRef"]:
-        '''
+        '''IBMAuthSecretRef defines a reference to a secret containing credentials for the IBM provider.
+
         :schema: ClusterSecretStoreV1Beta1SpecProviderIbmAuth#secretRef
         '''
         result = self._values.get("secret_ref")
@@ -41456,7 +41790,7 @@ class ClusterSecretStoreV1Beta1SpecProviderIbmAuthContainerAuth:
         iam_endpoint: typing.Optional[builtins.str] = None,
         token_location: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''IBM Container-based auth with IAM Trusted Profile.
+        '''IBMAuthContainerAuth defines authentication using IBM Container-based auth with IAM Trusted Profile.
 
         :param profile: the IBM Trusted Profile.
         :param iam_endpoint: 
@@ -41527,7 +41861,8 @@ class ClusterSecretStoreV1Beta1SpecProviderIbmAuthSecretRef:
         *,
         secret_api_key_secret_ref: typing.Optional[typing.Union["ClusterSecretStoreV1Beta1SpecProviderIbmAuthSecretRefSecretApiKeySecretRef", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
+        '''IBMAuthSecretRef defines a reference to a secret containing credentials for the IBM provider.
+
         :param secret_api_key_secret_ref: The SecretAccessKey is used for authentication.
 
         :schema: ClusterSecretStoreV1Beta1SpecProviderIbmAuthSecretRef
@@ -41740,7 +42075,7 @@ class ClusterSecretStoreV1Beta1SpecProviderInfisicalAuth:
     ) -> None:
         '''Auth configures how the Operator authenticates with the Infisical API.
 
-        :param universal_auth_credentials: 
+        :param universal_auth_credentials: UniversalAuthCredentials defines the credentials for Infisical Universal Auth.
 
         :schema: ClusterSecretStoreV1Beta1SpecProviderInfisicalAuth
         '''
@@ -41757,7 +42092,8 @@ class ClusterSecretStoreV1Beta1SpecProviderInfisicalAuth:
     def universal_auth_credentials(
         self,
     ) -> typing.Optional["ClusterSecretStoreV1Beta1SpecProviderInfisicalAuthUniversalAuthCredentials"]:
-        '''
+        '''UniversalAuthCredentials defines the credentials for Infisical Universal Auth.
+
         :schema: ClusterSecretStoreV1Beta1SpecProviderInfisicalAuth#universalAuthCredentials
         '''
         result = self._values.get("universal_auth_credentials")
@@ -41787,9 +42123,10 @@ class ClusterSecretStoreV1Beta1SpecProviderInfisicalAuthUniversalAuthCredentials
         client_id: typing.Union["ClusterSecretStoreV1Beta1SpecProviderInfisicalAuthUniversalAuthCredentialsClientId", typing.Dict[builtins.str, typing.Any]],
         client_secret: typing.Union["ClusterSecretStoreV1Beta1SpecProviderInfisicalAuthUniversalAuthCredentialsClientSecret", typing.Dict[builtins.str, typing.Any]],
     ) -> None:
-        '''
-        :param client_id: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param client_secret: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        '''UniversalAuthCredentials defines the credentials for Infisical Universal Auth.
+
+        :param client_id: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param client_secret: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: ClusterSecretStoreV1Beta1SpecProviderInfisicalAuthUniversalAuthCredentials
         '''
@@ -41810,7 +42147,7 @@ class ClusterSecretStoreV1Beta1SpecProviderInfisicalAuthUniversalAuthCredentials
     def client_id(
         self,
     ) -> "ClusterSecretStoreV1Beta1SpecProviderInfisicalAuthUniversalAuthCredentialsClientId":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -41824,7 +42161,7 @@ class ClusterSecretStoreV1Beta1SpecProviderInfisicalAuthUniversalAuthCredentials
     def client_secret(
         self,
     ) -> "ClusterSecretStoreV1Beta1SpecProviderInfisicalAuthUniversalAuthCredentialsClientSecret":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -41859,7 +42196,7 @@ class ClusterSecretStoreV1Beta1SpecProviderInfisicalAuthUniversalAuthCredentials
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -41938,7 +42275,7 @@ class ClusterSecretStoreV1Beta1SpecProviderInfisicalAuthUniversalAuthCredentials
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -42138,7 +42475,7 @@ class ClusterSecretStoreV1Beta1SpecProviderKeepersecurity:
     ) -> None:
         '''KeeperSecurity configures this store to sync secrets using the KeeperSecurity provider.
 
-        :param auth_ref: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param auth_ref: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
         :param folder_id: 
 
         :schema: ClusterSecretStoreV1Beta1SpecProviderKeepersecurity
@@ -42156,7 +42493,7 @@ class ClusterSecretStoreV1Beta1SpecProviderKeepersecurity:
 
     @builtins.property
     def auth_ref(self) -> "ClusterSecretStoreV1Beta1SpecProviderKeepersecurityAuthRef":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -42200,7 +42537,7 @@ class ClusterSecretStoreV1Beta1SpecProviderKeepersecurityAuthRef:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -42473,8 +42810,8 @@ class ClusterSecretStoreV1Beta1SpecProviderKubernetesAuthCert:
     ) -> None:
         '''has both clientCert and clientKey as secretKeySelector.
 
-        :param client_cert: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param client_key: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param client_cert: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param client_key: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: ClusterSecretStoreV1Beta1SpecProviderKubernetesAuthCert
         '''
@@ -42496,7 +42833,7 @@ class ClusterSecretStoreV1Beta1SpecProviderKubernetesAuthCert:
     def client_cert(
         self,
     ) -> typing.Optional["ClusterSecretStoreV1Beta1SpecProviderKubernetesAuthCertClientCert"]:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -42509,7 +42846,7 @@ class ClusterSecretStoreV1Beta1SpecProviderKubernetesAuthCert:
     def client_key(
         self,
     ) -> typing.Optional["ClusterSecretStoreV1Beta1SpecProviderKubernetesAuthCertClientKey"]:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -42543,7 +42880,7 @@ class ClusterSecretStoreV1Beta1SpecProviderKubernetesAuthCertClientCert:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -42622,7 +42959,7 @@ class ClusterSecretStoreV1Beta1SpecProviderKubernetesAuthCertClientKey:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -42854,7 +43191,7 @@ class ClusterSecretStoreV1Beta1SpecProviderKubernetesAuthToken:
     ) -> None:
         '''use static token to authenticate with.
 
-        :param bearer_token: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param bearer_token: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: ClusterSecretStoreV1Beta1SpecProviderKubernetesAuthToken
         '''
@@ -42871,7 +43208,7 @@ class ClusterSecretStoreV1Beta1SpecProviderKubernetesAuthToken:
     def bearer_token(
         self,
     ) -> typing.Optional["ClusterSecretStoreV1Beta1SpecProviderKubernetesAuthTokenBearerToken"]:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -42905,7 +43242,7 @@ class ClusterSecretStoreV1Beta1SpecProviderKubernetesAuthTokenBearerToken:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -44301,7 +44638,8 @@ class ClusterSecretStoreV1Beta1SpecProviderPassbolt:
         auth: typing.Union["ClusterSecretStoreV1Beta1SpecProviderPassboltAuth", typing.Dict[builtins.str, typing.Any]],
         host: builtins.str,
     ) -> None:
-        '''
+        '''PassboltProvider defines configuration for the Passbolt provider.
+
         :param auth: Auth defines the information necessary to authenticate against Passbolt Server.
         :param host: Host defines the Passbolt Server to connect to.
 
@@ -44367,8 +44705,8 @@ class ClusterSecretStoreV1Beta1SpecProviderPassboltAuth:
     ) -> None:
         '''Auth defines the information necessary to authenticate against Passbolt Server.
 
-        :param password_secret_ref: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param private_key_secret_ref: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param password_secret_ref: PasswordSecretRef is a reference to the secret containing the Passbolt password.
+        :param private_key_secret_ref: PrivateKeySecretRef is a reference to the secret containing the Passbolt private key.
 
         :schema: ClusterSecretStoreV1Beta1SpecProviderPassboltAuth
         '''
@@ -44389,9 +44727,7 @@ class ClusterSecretStoreV1Beta1SpecProviderPassboltAuth:
     def password_secret_ref(
         self,
     ) -> "ClusterSecretStoreV1Beta1SpecProviderPassboltAuthPasswordSecretRef":
-        '''A reference to a specific 'key' within a Secret resource.
-
-        In some instances, ``key`` is a required field.
+        '''PasswordSecretRef is a reference to the secret containing the Passbolt password.
 
         :schema: ClusterSecretStoreV1Beta1SpecProviderPassboltAuth#passwordSecretRef
         '''
@@ -44403,9 +44739,7 @@ class ClusterSecretStoreV1Beta1SpecProviderPassboltAuth:
     def private_key_secret_ref(
         self,
     ) -> "ClusterSecretStoreV1Beta1SpecProviderPassboltAuthPrivateKeySecretRef":
-        '''A reference to a specific 'key' within a Secret resource.
-
-        In some instances, ``key`` is a required field.
+        '''PrivateKeySecretRef is a reference to the secret containing the Passbolt private key.
 
         :schema: ClusterSecretStoreV1Beta1SpecProviderPassboltAuth#privateKeySecretRef
         '''
@@ -44438,9 +44772,7 @@ class ClusterSecretStoreV1Beta1SpecProviderPassboltAuthPasswordSecretRef:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
-
-        In some instances, ``key`` is a required field.
+        '''PasswordSecretRef is a reference to the secret containing the Passbolt password.
 
         :param key: A key in the referenced Secret. Some instances of this field may be defaulted, in others it may be required.
         :param name: The name of the Secret resource being referred to.
@@ -44517,9 +44849,7 @@ class ClusterSecretStoreV1Beta1SpecProviderPassboltAuthPrivateKeySecretRef:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
-
-        In some instances, ``key`` is a required field.
+        '''PrivateKeySecretRef is a reference to the secret containing the Passbolt private key.
 
         :param key: A key in the referenced Secret. Some instances of this field may be defaulted, in others it may be required.
         :param name: The name of the Secret resource being referred to.
@@ -44596,7 +44926,7 @@ class ClusterSecretStoreV1Beta1SpecProviderPassworddepot:
         database: builtins.str,
         host: builtins.str,
     ) -> None:
-        '''Configures a store to sync secrets with a Password Depot instance.
+        '''PasswordDepotProvider configures a store to sync secrets with a Password Depot instance.
 
         :param auth: Auth configures how secret-manager authenticates with a Password Depot instance.
         :param database: Database to use as source.
@@ -44672,7 +45002,7 @@ class ClusterSecretStoreV1Beta1SpecProviderPassworddepotAuth:
     ) -> None:
         '''Auth configures how secret-manager authenticates with a Password Depot instance.
 
-        :param secret_ref: 
+        :param secret_ref: PasswordDepotSecretRef defines a reference to a secret containing credentials for the Password Depot provider.
 
         :schema: ClusterSecretStoreV1Beta1SpecProviderPassworddepotAuth
         '''
@@ -44689,7 +45019,8 @@ class ClusterSecretStoreV1Beta1SpecProviderPassworddepotAuth:
     def secret_ref(
         self,
     ) -> "ClusterSecretStoreV1Beta1SpecProviderPassworddepotAuthSecretRef":
-        '''
+        '''PasswordDepotSecretRef defines a reference to a secret containing credentials for the Password Depot provider.
+
         :schema: ClusterSecretStoreV1Beta1SpecProviderPassworddepotAuth#secretRef
         '''
         result = self._values.get("secret_ref")
@@ -44719,7 +45050,8 @@ class ClusterSecretStoreV1Beta1SpecProviderPassworddepotAuthSecretRef:
         *,
         credentials: typing.Optional[typing.Union["ClusterSecretStoreV1Beta1SpecProviderPassworddepotAuthSecretRefCredentials", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
+        '''PasswordDepotSecretRef defines a reference to a secret containing credentials for the Password Depot provider.
+
         :param credentials: Username / Password is used for authentication.
 
         :schema: ClusterSecretStoreV1Beta1SpecProviderPassworddepotAuthSecretRef
@@ -46181,7 +46513,7 @@ class ClusterSecretStoreV1Beta1SpecProviderSenhaseguraAuth:
         '''Auth defines parameters to authenticate in senhasegura.
 
         :param client_id: 
-        :param client_secret_secret_ref: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param client_secret_secret_ref: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: ClusterSecretStoreV1Beta1SpecProviderSenhaseguraAuth
         '''
@@ -46209,7 +46541,7 @@ class ClusterSecretStoreV1Beta1SpecProviderSenhaseguraAuth:
     def client_secret_secret_ref(
         self,
     ) -> "ClusterSecretStoreV1Beta1SpecProviderSenhaseguraAuthClientSecretSecretRef":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -46244,7 +46576,7 @@ class ClusterSecretStoreV1Beta1SpecProviderSenhaseguraAuthClientSecretSecretRef:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -47413,7 +47745,7 @@ class ClusterSecretStoreV1Beta1SpecProviderVaultAuthIamJwt:
     ) -> None:
         '''Specify a service account with IRSA enabled.
 
-        :param service_account_ref: A reference to a ServiceAccount resource.
+        :param service_account_ref: ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :schema: ClusterSecretStoreV1Beta1SpecProviderVaultAuthIamJwt
         '''
@@ -47430,7 +47762,7 @@ class ClusterSecretStoreV1Beta1SpecProviderVaultAuthIamJwt:
     def service_account_ref(
         self,
     ) -> typing.Optional["ClusterSecretStoreV1Beta1SpecProviderVaultAuthIamJwtServiceAccountRef"]:
-        '''A reference to a ServiceAccount resource.
+        '''ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :schema: ClusterSecretStoreV1Beta1SpecProviderVaultAuthIamJwt#serviceAccountRef
         '''
@@ -47462,7 +47794,7 @@ class ClusterSecretStoreV1Beta1SpecProviderVaultAuthIamJwtServiceAccountRef:
         audiences: typing.Optional[typing.Sequence[builtins.str]] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a ServiceAccount resource.
+        '''ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :param name: The name of the ServiceAccount resource being referred to.
         :param audiences: Audience specifies the ``aud`` claim for the service account token If the service account uses a well-known annotation for e.g. IRSA or GCP Workload Identity then this audiences will be appended to the list.
@@ -49486,8 +49818,8 @@ class ClusterSecretStoreV1Beta1SpecProviderWebhookAuthNtlm:
     ) -> None:
         '''NTLMProtocol configures the store to use NTLM for auth.
 
-        :param password_secret: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param username_secret: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param password_secret: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param username_secret: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: ClusterSecretStoreV1Beta1SpecProviderWebhookAuthNtlm
         '''
@@ -49508,7 +49840,7 @@ class ClusterSecretStoreV1Beta1SpecProviderWebhookAuthNtlm:
     def password_secret(
         self,
     ) -> "ClusterSecretStoreV1Beta1SpecProviderWebhookAuthNtlmPasswordSecret":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -49522,7 +49854,7 @@ class ClusterSecretStoreV1Beta1SpecProviderWebhookAuthNtlm:
     def username_secret(
         self,
     ) -> "ClusterSecretStoreV1Beta1SpecProviderWebhookAuthNtlmUsernameSecret":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -49557,7 +49889,7 @@ class ClusterSecretStoreV1Beta1SpecProviderWebhookAuthNtlmPasswordSecret:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -49636,7 +49968,7 @@ class ClusterSecretStoreV1Beta1SpecProviderWebhookAuthNtlmUsernameSecret:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -49863,7 +50195,8 @@ class ClusterSecretStoreV1Beta1SpecProviderWebhookSecrets:
         name: builtins.str,
         secret_ref: typing.Union["ClusterSecretStoreV1Beta1SpecProviderWebhookSecretsSecretRef", typing.Dict[builtins.str, typing.Any]],
     ) -> None:
-        '''
+        '''WebhookSecret defines a secret to be used in webhook templates.
+
         :param name: Name of this secret in templates.
         :param secret_ref: Secret ref to fill in credentials.
 
@@ -50216,7 +50549,7 @@ class ClusterSecretStoreV1Beta1SpecProviderYandexcertificatemanagerCaProvider:
     ) -> None:
         '''The provider for the CA bundle to use to validate Yandex.Cloud server certificate.
 
-        :param cert_secret_ref: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param cert_secret_ref: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: ClusterSecretStoreV1Beta1SpecProviderYandexcertificatemanagerCaProvider
         '''
@@ -50233,7 +50566,7 @@ class ClusterSecretStoreV1Beta1SpecProviderYandexcertificatemanagerCaProvider:
     def cert_secret_ref(
         self,
     ) -> typing.Optional["ClusterSecretStoreV1Beta1SpecProviderYandexcertificatemanagerCaProviderCertSecretRef"]:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -50267,7 +50600,7 @@ class ClusterSecretStoreV1Beta1SpecProviderYandexcertificatemanagerCaProviderCer
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -50556,7 +50889,7 @@ class ClusterSecretStoreV1Beta1SpecProviderYandexlockboxCaProvider:
     ) -> None:
         '''The provider for the CA bundle to use to validate Yandex.Cloud server certificate.
 
-        :param cert_secret_ref: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param cert_secret_ref: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: ClusterSecretStoreV1Beta1SpecProviderYandexlockboxCaProvider
         '''
@@ -50573,7 +50906,7 @@ class ClusterSecretStoreV1Beta1SpecProviderYandexlockboxCaProvider:
     def cert_secret_ref(
         self,
     ) -> typing.Optional["ClusterSecretStoreV1Beta1SpecProviderYandexlockboxCaProviderCertSecretRef"]:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -50607,7 +50940,7 @@ class ClusterSecretStoreV1Beta1SpecProviderYandexlockboxCaProviderCertSecretRef:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -50687,8 +51020,8 @@ class ClusterSecretStoreV1Beta1SpecRetrySettings:
     ) -> None:
         '''Used to configure http retries if failed.
 
-        :param max_retries: 
-        :param retry_interval: 
+        :param max_retries: MaxRetries is the maximum number of retry attempts.
+        :param retry_interval: RetryInterval is the interval between retry attempts.
 
         :schema: ClusterSecretStoreV1Beta1SpecRetrySettings
         '''
@@ -50704,7 +51037,8 @@ class ClusterSecretStoreV1Beta1SpecRetrySettings:
 
     @builtins.property
     def max_retries(self) -> typing.Optional[jsii.Number]:
-        '''
+        '''MaxRetries is the maximum number of retry attempts.
+
         :schema: ClusterSecretStoreV1Beta1SpecRetrySettings#maxRetries
         '''
         result = self._values.get("max_retries")
@@ -50712,7 +51046,8 @@ class ClusterSecretStoreV1Beta1SpecRetrySettings:
 
     @builtins.property
     def retry_interval(self) -> typing.Optional[builtins.str]:
-        '''
+        '''RetryInterval is the interval between retry attempts.
+
         :schema: ClusterSecretStoreV1Beta1SpecRetrySettings#retryInterval
         '''
         result = self._values.get("retry_interval")
@@ -50736,6 +51071,8 @@ class ExternalSecret(
     jsii_type="ioexternal-secrets.ExternalSecret",
 ):
     '''ExternalSecret is the Schema for the external-secrets API.
+
+    It defines how to fetch data from external APIs and make it available as Kubernetes Secrets.
 
     :schema: ExternalSecret
     '''
@@ -50807,6 +51144,8 @@ class ExternalSecretProps:
         spec: typing.Optional[typing.Union["ExternalSecretSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''ExternalSecret is the Schema for the external-secrets API.
+
+        It defines how to fetch data from external APIs and make it available as Kubernetes Secrets.
 
         :param metadata: 
         :param spec: ExternalSecretSpec defines the desired state of ExternalSecret.
@@ -50886,7 +51225,7 @@ class ExternalSecretSpec:
         :param refresh_interval: RefreshInterval is the amount of time before the values are read again from the SecretStore provider, specified as Golang Duration strings. Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h" Example values: "1h", "2h30m", "10s" May be set to zero to fetch and create it once. Defaults to 1h. Default: 1h.
         :param refresh_policy: RefreshPolicy determines how the ExternalSecret should be refreshed: - CreatedOnce: Creates the Secret only if it does not exist and does not update it thereafter - Periodic: Synchronizes the Secret from the external source at regular intervals specified by refreshInterval. No periodic updates occur if refreshInterval is 0. - OnChange: Only synchronizes the Secret when the ExternalSecret's metadata or specification changes
         :param secret_store_ref: SecretStoreRef defines which SecretStore to fetch the ExternalSecret data.
-        :param target: ExternalSecretTarget defines the Kubernetes Secret to be created There can be only one target per ExternalSecret.
+        :param target: ExternalSecretTarget defines the Kubernetes Secret to be created, there can be only one target per ExternalSecret.
 
         :schema: ExternalSecretSpec
         '''
@@ -50973,7 +51312,7 @@ class ExternalSecretSpec:
 
     @builtins.property
     def target(self) -> typing.Optional["ExternalSecretSpecTarget"]:
-        '''ExternalSecretTarget defines the Kubernetes Secret to be created There can be only one target per ExternalSecret.
+        '''ExternalSecretTarget defines the Kubernetes Secret to be created, there can be only one target per ExternalSecret.
 
         :schema: ExternalSecretSpec#target
         '''
@@ -51093,7 +51432,8 @@ class ExternalSecretSpecDataFrom:
         rewrite: typing.Optional[typing.Sequence[typing.Union["ExternalSecretSpecDataFromRewrite", typing.Dict[builtins.str, typing.Any]]]] = None,
         source_ref: typing.Optional[typing.Union["ExternalSecretSpecDataFromSourceRef", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
+        '''ExternalSecretDataFromRemoteRef defines the connection between the Kubernetes Secret keys and the Provider data when using DataFrom to fetch multiple values from a Provider.
+
         :param extract: Used to extract multiple key/value pairs from one secret Note: Extract does not support sourceRef.Generator or sourceRef.GeneratorRef.
         :param find: Used to find secrets based on tags or regular expressions Note: Find does not support sourceRef.Generator or sourceRef.GeneratorRef.
         :param rewrite: Used to rewrite secret Keys after getting them from the secret Provider Multiple Rewrite operations can be provided. They are applied in a layered order (first to last)
@@ -51567,7 +51907,8 @@ class ExternalSecretSpecDataFromRewrite:
         regexp: typing.Optional[typing.Union["ExternalSecretSpecDataFromRewriteRegexp", typing.Dict[builtins.str, typing.Any]]] = None,
         transform: typing.Optional[typing.Union["ExternalSecretSpecDataFromRewriteTransform", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
+        '''ExternalSecretRewrite defines how to rewrite secret data values before they are written to the Secret.
+
         :param merge: Used to merge key/values in one single Secret The resulting key will contain all values from the specified secrets.
         :param regexp: Used to rewrite with regular expressions. The resulting key will be the output of a regexp.ReplaceAll operation.
         :param transform: Used to apply string transformation on the secrets. The resulting key will be the output of the template applied by the operation.
@@ -52722,6 +53063,7 @@ class ExternalSecretSpecSecretStoreRefKind(enum.Enum):
         "creation_policy": "creationPolicy",
         "deletion_policy": "deletionPolicy",
         "immutable": "immutable",
+        "manifest": "manifest",
         "name": "name",
         "template": "template",
     },
@@ -52733,19 +53075,23 @@ class ExternalSecretSpecTarget:
         creation_policy: typing.Optional["ExternalSecretSpecTargetCreationPolicy"] = None,
         deletion_policy: typing.Optional["ExternalSecretSpecTargetDeletionPolicy"] = None,
         immutable: typing.Optional[builtins.bool] = None,
+        manifest: typing.Optional[typing.Union["ExternalSecretSpecTargetManifest", typing.Dict[builtins.str, typing.Any]]] = None,
         name: typing.Optional[builtins.str] = None,
         template: typing.Optional[typing.Union["ExternalSecretSpecTargetTemplate", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''ExternalSecretTarget defines the Kubernetes Secret to be created There can be only one target per ExternalSecret.
+        '''ExternalSecretTarget defines the Kubernetes Secret to be created, there can be only one target per ExternalSecret.
 
         :param creation_policy: CreationPolicy defines rules on how to create the resulting Secret. Defaults to "Owner" Default: Owner"
         :param deletion_policy: DeletionPolicy defines rules on how to delete the resulting Secret. Defaults to "Retain" Default: Retain"
         :param immutable: Immutable defines if the final secret will be immutable.
+        :param manifest: Manifest defines a custom Kubernetes resource to create instead of a Secret. When specified, ExternalSecret will create the resource type defined here (e.g., ConfigMap, Custom Resource) instead of a Secret. Warning: Using Generic target. Make sure access policies and encryption are properly configured.
         :param name: The name of the Secret resource to be managed. Defaults to the .metadata.name of the ExternalSecret resource Default: the .metadata.name of the ExternalSecret resource
         :param template: Template defines a blueprint for the created Secret resource.
 
         :schema: ExternalSecretSpecTarget
         '''
+        if isinstance(manifest, dict):
+            manifest = ExternalSecretSpecTargetManifest(**manifest)
         if isinstance(template, dict):
             template = ExternalSecretSpecTargetTemplate(**template)
         if __debug__:
@@ -52753,6 +53099,7 @@ class ExternalSecretSpecTarget:
             check_type(argname="argument creation_policy", value=creation_policy, expected_type=type_hints["creation_policy"])
             check_type(argname="argument deletion_policy", value=deletion_policy, expected_type=type_hints["deletion_policy"])
             check_type(argname="argument immutable", value=immutable, expected_type=type_hints["immutable"])
+            check_type(argname="argument manifest", value=manifest, expected_type=type_hints["manifest"])
             check_type(argname="argument name", value=name, expected_type=type_hints["name"])
             check_type(argname="argument template", value=template, expected_type=type_hints["template"])
         self._values: typing.Dict[builtins.str, typing.Any] = {}
@@ -52762,6 +53109,8 @@ class ExternalSecretSpecTarget:
             self._values["deletion_policy"] = deletion_policy
         if immutable is not None:
             self._values["immutable"] = immutable
+        if manifest is not None:
+            self._values["manifest"] = manifest
         if name is not None:
             self._values["name"] = name
         if template is not None:
@@ -52805,6 +53154,19 @@ class ExternalSecretSpecTarget:
         '''
         result = self._values.get("immutable")
         return typing.cast(typing.Optional[builtins.bool], result)
+
+    @builtins.property
+    def manifest(self) -> typing.Optional["ExternalSecretSpecTargetManifest"]:
+        '''Manifest defines a custom Kubernetes resource to create instead of a Secret.
+
+        When specified, ExternalSecret will create the resource type defined here
+        (e.g., ConfigMap, Custom Resource) instead of a Secret.
+        Warning: Using Generic target. Make sure access policies and encryption are properly configured.
+
+        :schema: ExternalSecretSpecTarget#manifest
+        '''
+        result = self._values.get("manifest")
+        return typing.cast(typing.Optional["ExternalSecretSpecTargetManifest"], result)
 
     @builtins.property
     def name(self) -> typing.Optional[builtins.str]:
@@ -52881,6 +53243,65 @@ class ExternalSecretSpecTargetDeletionPolicy(enum.Enum):
 
 
 @jsii.data_type(
+    jsii_type="ioexternal-secrets.ExternalSecretSpecTargetManifest",
+    jsii_struct_bases=[],
+    name_mapping={"api_version": "apiVersion", "kind": "kind"},
+)
+class ExternalSecretSpecTargetManifest:
+    def __init__(self, *, api_version: builtins.str, kind: builtins.str) -> None:
+        '''Manifest defines a custom Kubernetes resource to create instead of a Secret.
+
+        When specified, ExternalSecret will create the resource type defined here
+        (e.g., ConfigMap, Custom Resource) instead of a Secret.
+        Warning: Using Generic target. Make sure access policies and encryption are properly configured.
+
+        :param api_version: APIVersion of the target resource (e.g., "v1" for ConfigMap, "argoproj.io/v1alpha1" for ArgoCD Application).
+        :param kind: Kind of the target resource (e.g., "ConfigMap", "Application").
+
+        :schema: ExternalSecretSpecTargetManifest
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__1f1537c634fadc74d0ebff0dadab1c87af05e2ac7c9474483010bc3e9016fb08)
+            check_type(argname="argument api_version", value=api_version, expected_type=type_hints["api_version"])
+            check_type(argname="argument kind", value=kind, expected_type=type_hints["kind"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "api_version": api_version,
+            "kind": kind,
+        }
+
+    @builtins.property
+    def api_version(self) -> builtins.str:
+        '''APIVersion of the target resource (e.g., "v1" for ConfigMap, "argoproj.io/v1alpha1" for ArgoCD Application).
+
+        :schema: ExternalSecretSpecTargetManifest#apiVersion
+        '''
+        result = self._values.get("api_version")
+        assert result is not None, "Required property 'api_version' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def kind(self) -> builtins.str:
+        '''Kind of the target resource (e.g., "ConfigMap", "Application").
+
+        :schema: ExternalSecretSpecTargetManifest#kind
+        '''
+        result = self._values.get("kind")
+        assert result is not None, "Required property 'kind' is missing"
+        return typing.cast(builtins.str, result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ExternalSecretSpecTargetManifest(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
     jsii_type="ioexternal-secrets.ExternalSecretSpecTargetTemplate",
     jsii_struct_bases=[],
     name_mapping={
@@ -52907,7 +53328,7 @@ class ExternalSecretSpecTargetTemplate:
 
         :param data: 
         :param engine_version: EngineVersion specifies the template engine version that should be used to compile/execute the template specified in .data and .templateFrom[].
-        :param merge_policy: 
+        :param merge_policy: TemplateMergePolicy defines how the rendered template should be merged with the existing Secret data.
         :param metadata: ExternalSecretTemplateMetadata defines metadata fields for the Secret blueprint.
         :param template_from: 
         :param type: 
@@ -52961,7 +53382,8 @@ class ExternalSecretSpecTargetTemplate:
     def merge_policy(
         self,
     ) -> typing.Optional["ExternalSecretSpecTargetTemplateMergePolicy"]:
-        '''
+        '''TemplateMergePolicy defines how the rendered template should be merged with the existing Secret data.
+
         :schema: ExternalSecretSpecTargetTemplate#mergePolicy
         '''
         result = self._values.get("merge_policy")
@@ -53021,7 +53443,8 @@ class ExternalSecretSpecTargetTemplateEngineVersion(enum.Enum):
 
 @jsii.enum(jsii_type="ioexternal-secrets.ExternalSecretSpecTargetTemplateMergePolicy")
 class ExternalSecretSpecTargetTemplateMergePolicy(enum.Enum):
-    '''
+    '''TemplateMergePolicy defines how the rendered template should be merged with the existing Secret data.
+
     :schema: ExternalSecretSpecTargetTemplateMergePolicy
     '''
 
@@ -53124,13 +53547,16 @@ class ExternalSecretSpecTargetTemplateTemplateFrom:
         config_map: typing.Optional[typing.Union["ExternalSecretSpecTargetTemplateTemplateFromConfigMap", typing.Dict[builtins.str, typing.Any]]] = None,
         literal: typing.Optional[builtins.str] = None,
         secret: typing.Optional[typing.Union["ExternalSecretSpecTargetTemplateTemplateFromSecret", typing.Dict[builtins.str, typing.Any]]] = None,
-        target: typing.Optional["ExternalSecretSpecTargetTemplateTemplateFromTarget"] = None,
+        target: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''
-        :param config_map: 
+        '''TemplateFrom specifies a source for templates.
+
+        Each item in the list can either reference a ConfigMap or a Secret resource.
+
+        :param config_map: TemplateRef specifies a reference to either a ConfigMap or a Secret resource.
         :param literal: 
-        :param secret: 
-        :param target: 
+        :param secret: TemplateRef specifies a reference to either a ConfigMap or a Secret resource.
+        :param target: Target specifies where to place the template result. For Secret resources, common values are: "Data", "Annotations", "Labels". For custom resources (when spec.target.manifest is set), this supports nested paths like "spec.database.config" or "data".
 
         :schema: ExternalSecretSpecTargetTemplateTemplateFrom
         '''
@@ -53158,7 +53584,8 @@ class ExternalSecretSpecTargetTemplateTemplateFrom:
     def config_map(
         self,
     ) -> typing.Optional["ExternalSecretSpecTargetTemplateTemplateFromConfigMap"]:
-        '''
+        '''TemplateRef specifies a reference to either a ConfigMap or a Secret resource.
+
         :schema: ExternalSecretSpecTargetTemplateTemplateFrom#configMap
         '''
         result = self._values.get("config_map")
@@ -53176,21 +53603,25 @@ class ExternalSecretSpecTargetTemplateTemplateFrom:
     def secret(
         self,
     ) -> typing.Optional["ExternalSecretSpecTargetTemplateTemplateFromSecret"]:
-        '''
+        '''TemplateRef specifies a reference to either a ConfigMap or a Secret resource.
+
         :schema: ExternalSecretSpecTargetTemplateTemplateFrom#secret
         '''
         result = self._values.get("secret")
         return typing.cast(typing.Optional["ExternalSecretSpecTargetTemplateTemplateFromSecret"], result)
 
     @builtins.property
-    def target(
-        self,
-    ) -> typing.Optional["ExternalSecretSpecTargetTemplateTemplateFromTarget"]:
-        '''
+    def target(self) -> typing.Optional[builtins.str]:
+        '''Target specifies where to place the template result.
+
+        For Secret resources, common values are: "Data", "Annotations", "Labels".
+        For custom resources (when spec.target.manifest is set), this supports
+        nested paths like "spec.database.config" or "data".
+
         :schema: ExternalSecretSpecTargetTemplateTemplateFrom#target
         '''
         result = self._values.get("target")
-        return typing.cast(typing.Optional["ExternalSecretSpecTargetTemplateTemplateFromTarget"], result)
+        return typing.cast(typing.Optional[builtins.str], result)
 
     def __eq__(self, rhs: typing.Any) -> builtins.bool:
         return isinstance(rhs, self.__class__) and rhs._values == self._values
@@ -53216,7 +53647,8 @@ class ExternalSecretSpecTargetTemplateTemplateFromConfigMap:
         items: typing.Sequence[typing.Union["ExternalSecretSpecTargetTemplateTemplateFromConfigMapItems", typing.Dict[builtins.str, typing.Any]]],
         name: builtins.str,
     ) -> None:
-        '''
+        '''TemplateRef specifies a reference to either a ConfigMap or a Secret resource.
+
         :param items: A list of keys in the ConfigMap/Secret to use as templates for Secret data.
         :param name: The name of the ConfigMap/Secret resource.
 
@@ -53277,9 +53709,10 @@ class ExternalSecretSpecTargetTemplateTemplateFromConfigMapItems:
         key: builtins.str,
         template_as: typing.Optional["ExternalSecretSpecTargetTemplateTemplateFromConfigMapItemsTemplateAs"] = None,
     ) -> None:
-        '''
+        '''TemplateRefItem specifies a key in the ConfigMap/Secret to use as a template for Secret data.
+
         :param key: A key in the ConfigMap/Secret.
-        :param template_as: 
+        :param template_as: TemplateScope specifies how the template keys should be interpreted.
 
         :schema: ExternalSecretSpecTargetTemplateTemplateFromConfigMapItems
         '''
@@ -53307,7 +53740,8 @@ class ExternalSecretSpecTargetTemplateTemplateFromConfigMapItems:
     def template_as(
         self,
     ) -> typing.Optional["ExternalSecretSpecTargetTemplateTemplateFromConfigMapItemsTemplateAs"]:
-        '''
+        '''TemplateScope specifies how the template keys should be interpreted.
+
         :schema: ExternalSecretSpecTargetTemplateTemplateFromConfigMapItems#templateAs
         '''
         result = self._values.get("template_as")
@@ -53329,7 +53763,8 @@ class ExternalSecretSpecTargetTemplateTemplateFromConfigMapItems:
     jsii_type="ioexternal-secrets.ExternalSecretSpecTargetTemplateTemplateFromConfigMapItemsTemplateAs"
 )
 class ExternalSecretSpecTargetTemplateTemplateFromConfigMapItemsTemplateAs(enum.Enum):
-    '''
+    '''TemplateScope specifies how the template keys should be interpreted.
+
     :schema: ExternalSecretSpecTargetTemplateTemplateFromConfigMapItemsTemplateAs
     '''
 
@@ -53351,7 +53786,8 @@ class ExternalSecretSpecTargetTemplateTemplateFromSecret:
         items: typing.Sequence[typing.Union["ExternalSecretSpecTargetTemplateTemplateFromSecretItems", typing.Dict[builtins.str, typing.Any]]],
         name: builtins.str,
     ) -> None:
-        '''
+        '''TemplateRef specifies a reference to either a ConfigMap or a Secret resource.
+
         :param items: A list of keys in the ConfigMap/Secret to use as templates for Secret data.
         :param name: The name of the ConfigMap/Secret resource.
 
@@ -53412,9 +53848,10 @@ class ExternalSecretSpecTargetTemplateTemplateFromSecretItems:
         key: builtins.str,
         template_as: typing.Optional["ExternalSecretSpecTargetTemplateTemplateFromSecretItemsTemplateAs"] = None,
     ) -> None:
-        '''
+        '''TemplateRefItem specifies a key in the ConfigMap/Secret to use as a template for Secret data.
+
         :param key: A key in the ConfigMap/Secret.
-        :param template_as: 
+        :param template_as: TemplateScope specifies how the template keys should be interpreted.
 
         :schema: ExternalSecretSpecTargetTemplateTemplateFromSecretItems
         '''
@@ -53442,7 +53879,8 @@ class ExternalSecretSpecTargetTemplateTemplateFromSecretItems:
     def template_as(
         self,
     ) -> typing.Optional["ExternalSecretSpecTargetTemplateTemplateFromSecretItemsTemplateAs"]:
-        '''
+        '''TemplateScope specifies how the template keys should be interpreted.
+
         :schema: ExternalSecretSpecTargetTemplateTemplateFromSecretItems#templateAs
         '''
         result = self._values.get("template_as")
@@ -53464,7 +53902,8 @@ class ExternalSecretSpecTargetTemplateTemplateFromSecretItems:
     jsii_type="ioexternal-secrets.ExternalSecretSpecTargetTemplateTemplateFromSecretItemsTemplateAs"
 )
 class ExternalSecretSpecTargetTemplateTemplateFromSecretItemsTemplateAs(enum.Enum):
-    '''
+    '''TemplateScope specifies how the template keys should be interpreted.
+
     :schema: ExternalSecretSpecTargetTemplateTemplateFromSecretItemsTemplateAs
     '''
 
@@ -53474,28 +53913,12 @@ class ExternalSecretSpecTargetTemplateTemplateFromSecretItemsTemplateAs(enum.Enu
     '''KeysAndValues.'''
 
 
-@jsii.enum(
-    jsii_type="ioexternal-secrets.ExternalSecretSpecTargetTemplateTemplateFromTarget"
-)
-class ExternalSecretSpecTargetTemplateTemplateFromTarget(enum.Enum):
-    '''
-    :schema: ExternalSecretSpecTargetTemplateTemplateFromTarget
-    '''
-
-    DATA = "DATA"
-    '''Data.'''
-    ANNOTATIONS = "ANNOTATIONS"
-    '''Annotations.'''
-    LABELS = "LABELS"
-    '''Labels.'''
-
-
 class ExternalSecretV1Beta1(
     _cdk8s_d3d9af27.ApiObject,
     metaclass=jsii.JSIIMeta,
     jsii_type="ioexternal-secrets.ExternalSecretV1Beta1",
 ):
-    '''ExternalSecret is the Schema for the external-secrets API.
+    '''ExternalSecret is the schema for the external-secrets API.
 
     :schema: ExternalSecretV1Beta1
     '''
@@ -53566,7 +53989,7 @@ class ExternalSecretV1Beta1Props:
         metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["ExternalSecretV1Beta1Spec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''ExternalSecret is the Schema for the external-secrets API.
+        '''ExternalSecret is the schema for the external-secrets API.
 
         :param metadata: 
         :param spec: ExternalSecretSpec defines the desired state of ExternalSecret.
@@ -53859,7 +54282,8 @@ class ExternalSecretV1Beta1SpecDataFrom:
         rewrite: typing.Optional[typing.Sequence[typing.Union["ExternalSecretV1Beta1SpecDataFromRewrite", typing.Dict[builtins.str, typing.Any]]]] = None,
         source_ref: typing.Optional[typing.Union["ExternalSecretV1Beta1SpecDataFromSourceRef", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
+        '''ExternalSecretDataFromRemoteRef defines a reference to multiple secrets in the provider to be fetched using options.
+
         :param extract: Used to extract multiple key/value pairs from one secret Note: Extract does not support sourceRef.Generator or sourceRef.GeneratorRef.
         :param find: Used to find secrets based on tags or regular expressions Note: Find does not support sourceRef.Generator or sourceRef.GeneratorRef.
         :param rewrite: Used to rewrite secret Keys after getting them from the secret Provider Multiple Rewrite operations can be provided. They are applied in a layered order (first to last)
@@ -54334,7 +54758,8 @@ class ExternalSecretV1Beta1SpecDataFromRewrite:
         regexp: typing.Optional[typing.Union["ExternalSecretV1Beta1SpecDataFromRewriteRegexp", typing.Dict[builtins.str, typing.Any]]] = None,
         transform: typing.Optional[typing.Union["ExternalSecretV1Beta1SpecDataFromRewriteTransform", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
+        '''ExternalSecretRewrite defines rules on how to rewrite secret keys.
+
         :param regexp: Used to rewrite with regular expressions. The resulting key will be the output of a regexp.ReplaceAll operation.
         :param transform: Used to apply string transformation on the secrets. The resulting key will be the output of the template applied by the operation.
 
@@ -55503,7 +55928,7 @@ class ExternalSecretV1Beta1SpecTargetTemplate:
 
         :param data: 
         :param engine_version: EngineVersion specifies the template engine version that should be used to compile/execute the template specified in .data and .templateFrom[].
-        :param merge_policy: 
+        :param merge_policy: TemplateMergePolicy defines how template values should be merged when generating a secret.
         :param metadata: ExternalSecretTemplateMetadata defines metadata fields for the Secret blueprint.
         :param template_from: 
         :param type: 
@@ -55557,7 +55982,8 @@ class ExternalSecretV1Beta1SpecTargetTemplate:
     def merge_policy(
         self,
     ) -> typing.Optional["ExternalSecretV1Beta1SpecTargetTemplateMergePolicy"]:
-        '''
+        '''TemplateMergePolicy defines how template values should be merged when generating a secret.
+
         :schema: ExternalSecretV1Beta1SpecTargetTemplate#mergePolicy
         '''
         result = self._values.get("merge_policy")
@@ -55621,7 +56047,8 @@ class ExternalSecretV1Beta1SpecTargetTemplateEngineVersion(enum.Enum):
     jsii_type="ioexternal-secrets.ExternalSecretV1Beta1SpecTargetTemplateMergePolicy"
 )
 class ExternalSecretV1Beta1SpecTargetTemplateMergePolicy(enum.Enum):
-    '''
+    '''TemplateMergePolicy defines how template values should be merged when generating a secret.
+
     :schema: ExternalSecretV1Beta1SpecTargetTemplateMergePolicy
     '''
 
@@ -55709,11 +56136,12 @@ class ExternalSecretV1Beta1SpecTargetTemplateTemplateFrom:
         secret: typing.Optional[typing.Union["ExternalSecretV1Beta1SpecTargetTemplateTemplateFromSecret", typing.Dict[builtins.str, typing.Any]]] = None,
         target: typing.Optional["ExternalSecretV1Beta1SpecTargetTemplateTemplateFromTarget"] = None,
     ) -> None:
-        '''
-        :param config_map: 
+        '''TemplateFrom defines a source for template data.
+
+        :param config_map: TemplateRef defines a reference to a template source in a ConfigMap or Secret.
         :param literal: 
-        :param secret: 
-        :param target: 
+        :param secret: TemplateRef defines a reference to a template source in a ConfigMap or Secret.
+        :param target: TemplateTarget defines the target field where the template result will be stored.
 
         :schema: ExternalSecretV1Beta1SpecTargetTemplateTemplateFrom
         '''
@@ -55741,7 +56169,8 @@ class ExternalSecretV1Beta1SpecTargetTemplateTemplateFrom:
     def config_map(
         self,
     ) -> typing.Optional["ExternalSecretV1Beta1SpecTargetTemplateTemplateFromConfigMap"]:
-        '''
+        '''TemplateRef defines a reference to a template source in a ConfigMap or Secret.
+
         :schema: ExternalSecretV1Beta1SpecTargetTemplateTemplateFrom#configMap
         '''
         result = self._values.get("config_map")
@@ -55759,7 +56188,8 @@ class ExternalSecretV1Beta1SpecTargetTemplateTemplateFrom:
     def secret(
         self,
     ) -> typing.Optional["ExternalSecretV1Beta1SpecTargetTemplateTemplateFromSecret"]:
-        '''
+        '''TemplateRef defines a reference to a template source in a ConfigMap or Secret.
+
         :schema: ExternalSecretV1Beta1SpecTargetTemplateTemplateFrom#secret
         '''
         result = self._values.get("secret")
@@ -55769,7 +56199,8 @@ class ExternalSecretV1Beta1SpecTargetTemplateTemplateFrom:
     def target(
         self,
     ) -> typing.Optional["ExternalSecretV1Beta1SpecTargetTemplateTemplateFromTarget"]:
-        '''
+        '''TemplateTarget defines the target field where the template result will be stored.
+
         :schema: ExternalSecretV1Beta1SpecTargetTemplateTemplateFrom#target
         '''
         result = self._values.get("target")
@@ -55799,7 +56230,8 @@ class ExternalSecretV1Beta1SpecTargetTemplateTemplateFromConfigMap:
         items: typing.Sequence[typing.Union["ExternalSecretV1Beta1SpecTargetTemplateTemplateFromConfigMapItems", typing.Dict[builtins.str, typing.Any]]],
         name: builtins.str,
     ) -> None:
-        '''
+        '''TemplateRef defines a reference to a template source in a ConfigMap or Secret.
+
         :param items: A list of keys in the ConfigMap/Secret to use as templates for Secret data.
         :param name: The name of the ConfigMap/Secret resource.
 
@@ -55860,9 +56292,10 @@ class ExternalSecretV1Beta1SpecTargetTemplateTemplateFromConfigMapItems:
         key: builtins.str,
         template_as: typing.Optional["ExternalSecretV1Beta1SpecTargetTemplateTemplateFromConfigMapItemsTemplateAs"] = None,
     ) -> None:
-        '''
+        '''TemplateRefItem defines which key in the referenced ConfigMap or Secret to use as a template.
+
         :param key: A key in the ConfigMap/Secret.
-        :param template_as: 
+        :param template_as: TemplateScope defines the scope of the template when processing template data.
 
         :schema: ExternalSecretV1Beta1SpecTargetTemplateTemplateFromConfigMapItems
         '''
@@ -55890,7 +56323,8 @@ class ExternalSecretV1Beta1SpecTargetTemplateTemplateFromConfigMapItems:
     def template_as(
         self,
     ) -> typing.Optional["ExternalSecretV1Beta1SpecTargetTemplateTemplateFromConfigMapItemsTemplateAs"]:
-        '''
+        '''TemplateScope defines the scope of the template when processing template data.
+
         :schema: ExternalSecretV1Beta1SpecTargetTemplateTemplateFromConfigMapItems#templateAs
         '''
         result = self._values.get("template_as")
@@ -55914,7 +56348,8 @@ class ExternalSecretV1Beta1SpecTargetTemplateTemplateFromConfigMapItems:
 class ExternalSecretV1Beta1SpecTargetTemplateTemplateFromConfigMapItemsTemplateAs(
     enum.Enum,
 ):
-    '''
+    '''TemplateScope defines the scope of the template when processing template data.
+
     :schema: ExternalSecretV1Beta1SpecTargetTemplateTemplateFromConfigMapItemsTemplateAs
     '''
 
@@ -55936,7 +56371,8 @@ class ExternalSecretV1Beta1SpecTargetTemplateTemplateFromSecret:
         items: typing.Sequence[typing.Union["ExternalSecretV1Beta1SpecTargetTemplateTemplateFromSecretItems", typing.Dict[builtins.str, typing.Any]]],
         name: builtins.str,
     ) -> None:
-        '''
+        '''TemplateRef defines a reference to a template source in a ConfigMap or Secret.
+
         :param items: A list of keys in the ConfigMap/Secret to use as templates for Secret data.
         :param name: The name of the ConfigMap/Secret resource.
 
@@ -55997,9 +56433,10 @@ class ExternalSecretV1Beta1SpecTargetTemplateTemplateFromSecretItems:
         key: builtins.str,
         template_as: typing.Optional["ExternalSecretV1Beta1SpecTargetTemplateTemplateFromSecretItemsTemplateAs"] = None,
     ) -> None:
-        '''
+        '''TemplateRefItem defines which key in the referenced ConfigMap or Secret to use as a template.
+
         :param key: A key in the ConfigMap/Secret.
-        :param template_as: 
+        :param template_as: TemplateScope defines the scope of the template when processing template data.
 
         :schema: ExternalSecretV1Beta1SpecTargetTemplateTemplateFromSecretItems
         '''
@@ -56027,7 +56464,8 @@ class ExternalSecretV1Beta1SpecTargetTemplateTemplateFromSecretItems:
     def template_as(
         self,
     ) -> typing.Optional["ExternalSecretV1Beta1SpecTargetTemplateTemplateFromSecretItemsTemplateAs"]:
-        '''
+        '''TemplateScope defines the scope of the template when processing template data.
+
         :schema: ExternalSecretV1Beta1SpecTargetTemplateTemplateFromSecretItems#templateAs
         '''
         result = self._values.get("template_as")
@@ -56051,7 +56489,8 @@ class ExternalSecretV1Beta1SpecTargetTemplateTemplateFromSecretItems:
 class ExternalSecretV1Beta1SpecTargetTemplateTemplateFromSecretItemsTemplateAs(
     enum.Enum,
 ):
-    '''
+    '''TemplateScope defines the scope of the template when processing template data.
+
     :schema: ExternalSecretV1Beta1SpecTargetTemplateTemplateFromSecretItemsTemplateAs
     '''
 
@@ -56065,7 +56504,8 @@ class ExternalSecretV1Beta1SpecTargetTemplateTemplateFromSecretItemsTemplateAs(
     jsii_type="ioexternal-secrets.ExternalSecretV1Beta1SpecTargetTemplateTemplateFromTarget"
 )
 class ExternalSecretV1Beta1SpecTargetTemplateTemplateFromTarget(enum.Enum):
-    '''
+    '''TemplateTarget defines the target field where the template result will be stored.
+
     :schema: ExternalSecretV1Beta1SpecTargetTemplateTemplateFromTarget
     '''
 
@@ -56082,7 +56522,8 @@ class PushSecret(
     metaclass=jsii.JSIIMeta,
     jsii_type="ioexternal-secrets.PushSecret",
 ):
-    '''
+    '''PushSecret is the Schema for the PushSecrets API that enables pushing Kubernetes secrets to external secret providers.
+
     :schema: PushSecret
     '''
 
@@ -56152,7 +56593,8 @@ class PushSecretProps:
         metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["PushSecretSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
+        '''PushSecret is the Schema for the PushSecrets API that enables pushing Kubernetes secrets to external secret providers.
+
         :param metadata: 
         :param spec: PushSecretSpec configures the behavior of the PushSecret.
 
@@ -56359,7 +56801,8 @@ class PushSecretSpecData:
         conversion_strategy: typing.Optional["PushSecretSpecDataConversionStrategy"] = None,
         metadata: typing.Any = None,
     ) -> None:
-        '''
+        '''PushSecretData defines data to be pushed to the provider and associated metadata.
+
         :param match: Match a given Secret Key to be pushed to the provider.
         :param conversion_strategy: Used to define a conversion Strategy for the secret keys.
         :param metadata: Metadata is metadata attached to the secret. The structure of metadata is provider specific, please look it up in the provider documentation.
@@ -56586,7 +57029,8 @@ class PushSecretSpecSecretStoreRefs:
         label_selector: typing.Optional[typing.Union["PushSecretSpecSecretStoreRefsLabelSelector", typing.Dict[builtins.str, typing.Any]]] = None,
         name: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''
+        '''PushSecretStoreRef contains a reference on how to sync to a SecretStore.
+
         :param kind: Kind of the SecretStore resource (SecretStore or ClusterSecretStore).
         :param label_selector: Optionally, sync to secret stores with label selector.
         :param name: Optionally, sync to the SecretStore of the given name.
@@ -57236,7 +57680,7 @@ class PushSecretSpecTemplate:
 
         :param data: 
         :param engine_version: EngineVersion specifies the template engine version that should be used to compile/execute the template specified in .data and .templateFrom[].
-        :param merge_policy: 
+        :param merge_policy: TemplateMergePolicy defines how the rendered template should be merged with the existing Secret data.
         :param metadata: ExternalSecretTemplateMetadata defines metadata fields for the Secret blueprint.
         :param template_from: 
         :param type: 
@@ -57286,7 +57730,8 @@ class PushSecretSpecTemplate:
 
     @builtins.property
     def merge_policy(self) -> typing.Optional["PushSecretSpecTemplateMergePolicy"]:
-        '''
+        '''TemplateMergePolicy defines how the rendered template should be merged with the existing Secret data.
+
         :schema: PushSecretSpecTemplate#mergePolicy
         '''
         result = self._values.get("merge_policy")
@@ -57344,7 +57789,8 @@ class PushSecretSpecTemplateEngineVersion(enum.Enum):
 
 @jsii.enum(jsii_type="ioexternal-secrets.PushSecretSpecTemplateMergePolicy")
 class PushSecretSpecTemplateMergePolicy(enum.Enum):
-    '''
+    '''TemplateMergePolicy defines how the rendered template should be merged with the existing Secret data.
+
     :schema: PushSecretSpecTemplateMergePolicy
     '''
 
@@ -57447,13 +57893,16 @@ class PushSecretSpecTemplateTemplateFrom:
         config_map: typing.Optional[typing.Union["PushSecretSpecTemplateTemplateFromConfigMap", typing.Dict[builtins.str, typing.Any]]] = None,
         literal: typing.Optional[builtins.str] = None,
         secret: typing.Optional[typing.Union["PushSecretSpecTemplateTemplateFromSecret", typing.Dict[builtins.str, typing.Any]]] = None,
-        target: typing.Optional["PushSecretSpecTemplateTemplateFromTarget"] = None,
+        target: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''
-        :param config_map: 
+        '''TemplateFrom specifies a source for templates.
+
+        Each item in the list can either reference a ConfigMap or a Secret resource.
+
+        :param config_map: TemplateRef specifies a reference to either a ConfigMap or a Secret resource.
         :param literal: 
-        :param secret: 
-        :param target: 
+        :param secret: TemplateRef specifies a reference to either a ConfigMap or a Secret resource.
+        :param target: Target specifies where to place the template result. For Secret resources, common values are: "Data", "Annotations", "Labels". For custom resources (when spec.target.manifest is set), this supports nested paths like "spec.database.config" or "data".
 
         :schema: PushSecretSpecTemplateTemplateFrom
         '''
@@ -57481,7 +57930,8 @@ class PushSecretSpecTemplateTemplateFrom:
     def config_map(
         self,
     ) -> typing.Optional["PushSecretSpecTemplateTemplateFromConfigMap"]:
-        '''
+        '''TemplateRef specifies a reference to either a ConfigMap or a Secret resource.
+
         :schema: PushSecretSpecTemplateTemplateFrom#configMap
         '''
         result = self._values.get("config_map")
@@ -57497,19 +57947,25 @@ class PushSecretSpecTemplateTemplateFrom:
 
     @builtins.property
     def secret(self) -> typing.Optional["PushSecretSpecTemplateTemplateFromSecret"]:
-        '''
+        '''TemplateRef specifies a reference to either a ConfigMap or a Secret resource.
+
         :schema: PushSecretSpecTemplateTemplateFrom#secret
         '''
         result = self._values.get("secret")
         return typing.cast(typing.Optional["PushSecretSpecTemplateTemplateFromSecret"], result)
 
     @builtins.property
-    def target(self) -> typing.Optional["PushSecretSpecTemplateTemplateFromTarget"]:
-        '''
+    def target(self) -> typing.Optional[builtins.str]:
+        '''Target specifies where to place the template result.
+
+        For Secret resources, common values are: "Data", "Annotations", "Labels".
+        For custom resources (when spec.target.manifest is set), this supports
+        nested paths like "spec.database.config" or "data".
+
         :schema: PushSecretSpecTemplateTemplateFrom#target
         '''
         result = self._values.get("target")
-        return typing.cast(typing.Optional["PushSecretSpecTemplateTemplateFromTarget"], result)
+        return typing.cast(typing.Optional[builtins.str], result)
 
     def __eq__(self, rhs: typing.Any) -> builtins.bool:
         return isinstance(rhs, self.__class__) and rhs._values == self._values
@@ -57535,7 +57991,8 @@ class PushSecretSpecTemplateTemplateFromConfigMap:
         items: typing.Sequence[typing.Union["PushSecretSpecTemplateTemplateFromConfigMapItems", typing.Dict[builtins.str, typing.Any]]],
         name: builtins.str,
     ) -> None:
-        '''
+        '''TemplateRef specifies a reference to either a ConfigMap or a Secret resource.
+
         :param items: A list of keys in the ConfigMap/Secret to use as templates for Secret data.
         :param name: The name of the ConfigMap/Secret resource.
 
@@ -57594,9 +58051,10 @@ class PushSecretSpecTemplateTemplateFromConfigMapItems:
         key: builtins.str,
         template_as: typing.Optional["PushSecretSpecTemplateTemplateFromConfigMapItemsTemplateAs"] = None,
     ) -> None:
-        '''
+        '''TemplateRefItem specifies a key in the ConfigMap/Secret to use as a template for Secret data.
+
         :param key: A key in the ConfigMap/Secret.
-        :param template_as: 
+        :param template_as: TemplateScope specifies how the template keys should be interpreted.
 
         :schema: PushSecretSpecTemplateTemplateFromConfigMapItems
         '''
@@ -57624,7 +58082,8 @@ class PushSecretSpecTemplateTemplateFromConfigMapItems:
     def template_as(
         self,
     ) -> typing.Optional["PushSecretSpecTemplateTemplateFromConfigMapItemsTemplateAs"]:
-        '''
+        '''TemplateScope specifies how the template keys should be interpreted.
+
         :schema: PushSecretSpecTemplateTemplateFromConfigMapItems#templateAs
         '''
         result = self._values.get("template_as")
@@ -57646,7 +58105,8 @@ class PushSecretSpecTemplateTemplateFromConfigMapItems:
     jsii_type="ioexternal-secrets.PushSecretSpecTemplateTemplateFromConfigMapItemsTemplateAs"
 )
 class PushSecretSpecTemplateTemplateFromConfigMapItemsTemplateAs(enum.Enum):
-    '''
+    '''TemplateScope specifies how the template keys should be interpreted.
+
     :schema: PushSecretSpecTemplateTemplateFromConfigMapItemsTemplateAs
     '''
 
@@ -57668,7 +58128,8 @@ class PushSecretSpecTemplateTemplateFromSecret:
         items: typing.Sequence[typing.Union["PushSecretSpecTemplateTemplateFromSecretItems", typing.Dict[builtins.str, typing.Any]]],
         name: builtins.str,
     ) -> None:
-        '''
+        '''TemplateRef specifies a reference to either a ConfigMap or a Secret resource.
+
         :param items: A list of keys in the ConfigMap/Secret to use as templates for Secret data.
         :param name: The name of the ConfigMap/Secret resource.
 
@@ -57727,9 +58188,10 @@ class PushSecretSpecTemplateTemplateFromSecretItems:
         key: builtins.str,
         template_as: typing.Optional["PushSecretSpecTemplateTemplateFromSecretItemsTemplateAs"] = None,
     ) -> None:
-        '''
+        '''TemplateRefItem specifies a key in the ConfigMap/Secret to use as a template for Secret data.
+
         :param key: A key in the ConfigMap/Secret.
-        :param template_as: 
+        :param template_as: TemplateScope specifies how the template keys should be interpreted.
 
         :schema: PushSecretSpecTemplateTemplateFromSecretItems
         '''
@@ -57757,7 +58219,8 @@ class PushSecretSpecTemplateTemplateFromSecretItems:
     def template_as(
         self,
     ) -> typing.Optional["PushSecretSpecTemplateTemplateFromSecretItemsTemplateAs"]:
-        '''
+        '''TemplateScope specifies how the template keys should be interpreted.
+
         :schema: PushSecretSpecTemplateTemplateFromSecretItems#templateAs
         '''
         result = self._values.get("template_as")
@@ -57779,7 +58242,8 @@ class PushSecretSpecTemplateTemplateFromSecretItems:
     jsii_type="ioexternal-secrets.PushSecretSpecTemplateTemplateFromSecretItemsTemplateAs"
 )
 class PushSecretSpecTemplateTemplateFromSecretItemsTemplateAs(enum.Enum):
-    '''
+    '''TemplateScope specifies how the template keys should be interpreted.
+
     :schema: PushSecretSpecTemplateTemplateFromSecretItemsTemplateAs
     '''
 
@@ -57787,20 +58251,6 @@ class PushSecretSpecTemplateTemplateFromSecretItemsTemplateAs(enum.Enum):
     '''Values.'''
     KEYS_AND_VALUES = "KEYS_AND_VALUES"
     '''KeysAndValues.'''
-
-
-@jsii.enum(jsii_type="ioexternal-secrets.PushSecretSpecTemplateTemplateFromTarget")
-class PushSecretSpecTemplateTemplateFromTarget(enum.Enum):
-    '''
-    :schema: PushSecretSpecTemplateTemplateFromTarget
-    '''
-
-    DATA = "DATA"
-    '''Data.'''
-    ANNOTATIONS = "ANNOTATIONS"
-    '''Annotations.'''
-    LABELS = "LABELS"
-    '''Labels.'''
 
 
 @jsii.enum(jsii_type="ioexternal-secrets.PushSecretSpecUpdatePolicy")
@@ -58411,8 +58861,8 @@ class SecretStoreSpecProvider:
         :param onepassword: OnePassword configures this store to sync secrets using the 1Password Cloud provider.
         :param onepassword_sdk: OnePasswordSDK configures this store to use 1Password's new Go SDK to sync secrets.
         :param oracle: Oracle configures this store to sync secrets using Oracle Vault provider.
-        :param passbolt: 
-        :param passworddepot: Configures a store to sync secrets with a Password Depot instance.
+        :param passbolt: PassboltProvider provides access to Passbolt secrets manager. See: https://www.passbolt.com.
+        :param passworddepot: PasswordDepotProvider configures a store to sync secrets with a Password Depot instance.
         :param previder: Previder configures this store to sync secrets using the Previder provider.
         :param pulumi: Pulumi configures this store to sync secrets using the Pulumi provider.
         :param scaleway: Scaleway.
@@ -58864,7 +59314,10 @@ class SecretStoreSpecProvider:
 
     @builtins.property
     def passbolt(self) -> typing.Optional["SecretStoreSpecProviderPassbolt"]:
-        '''
+        '''PassboltProvider provides access to Passbolt secrets manager.
+
+        See: https://www.passbolt.com.
+
         :schema: SecretStoreSpecProvider#passbolt
         '''
         result = self._values.get("passbolt")
@@ -58872,7 +59325,7 @@ class SecretStoreSpecProvider:
 
     @builtins.property
     def passworddepot(self) -> typing.Optional["SecretStoreSpecProviderPassworddepot"]:
-        '''Configures a store to sync secrets with a Password Depot instance.
+        '''PasswordDepotProvider configures a store to sync secrets with a Password Depot instance.
 
         :schema: SecretStoreSpecProvider#passworddepot
         '''
@@ -59443,8 +59896,8 @@ class SecretStoreSpecProviderAkeylessAuthSecretRefSecretRef:
         '''Reference to a Secret that contains the details to authenticate with Akeyless.
 
         :param access_id: The SecretAccessID is used for authentication.
-        :param access_type: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param access_type_param: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param access_type: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param access_type_param: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: SecretStoreSpecProviderAkeylessAuthSecretRefSecretRef
         '''
@@ -59482,7 +59935,7 @@ class SecretStoreSpecProviderAkeylessAuthSecretRefSecretRef:
     def access_type(
         self,
     ) -> typing.Optional["SecretStoreSpecProviderAkeylessAuthSecretRefSecretRefAccessType"]:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -59495,7 +59948,7 @@ class SecretStoreSpecProviderAkeylessAuthSecretRefSecretRef:
     def access_type_param(
         self,
     ) -> typing.Optional["SecretStoreSpecProviderAkeylessAuthSecretRefSecretRefAccessTypeParam"]:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -59606,7 +60059,7 @@ class SecretStoreSpecProviderAkeylessAuthSecretRefSecretRefAccessType:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -59685,7 +60138,7 @@ class SecretStoreSpecProviderAkeylessAuthSecretRefSecretRefAccessTypeParam:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -59937,7 +60390,7 @@ class SecretStoreSpecProviderAlibabaAuth:
     ) -> None:
         '''AlibabaAuth contains a secretRef for credentials.
 
-        :param rrsa: Authenticate against Alibaba using RRSA.
+        :param rrsa: AlibabaRRSAAuth authenticates against Alibaba using RRSA.
         :param secret_ref: AlibabaAuthSecretRef holds secret references for Alibaba credentials.
 
         :schema: SecretStoreSpecProviderAlibabaAuth
@@ -59958,7 +60411,7 @@ class SecretStoreSpecProviderAlibabaAuth:
 
     @builtins.property
     def rrsa(self) -> typing.Optional["SecretStoreSpecProviderAlibabaAuthRrsa"]:
-        '''Authenticate against Alibaba using RRSA.
+        '''AlibabaRRSAAuth authenticates against Alibaba using RRSA.
 
         :schema: SecretStoreSpecProviderAlibabaAuth#rrsa
         '''
@@ -60007,7 +60460,7 @@ class SecretStoreSpecProviderAlibabaAuthRrsa:
         role_arn: builtins.str,
         session_name: builtins.str,
     ) -> None:
-        '''Authenticate against Alibaba using RRSA.
+        '''AlibabaRRSAAuth authenticates against Alibaba using RRSA.
 
         :param oidc_provider_arn: 
         :param oidc_token_file_path: 
@@ -60509,7 +60962,7 @@ class SecretStoreSpecProviderAwsAuth:
     ) -> None:
         '''Auth defines the information necessary to authenticate against AWS if not set aws sdk will infer credentials from your environment see: https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/configuring-sdk.html#specifying-credentials.
 
-        :param jwt: Authenticate against AWS using service account tokens.
+        :param jwt: AWSJWTAuth stores reference to Authenticate against AWS using service account tokens.
         :param secret_ref: AWSAuthSecretRef holds secret references for AWS credentials both AccessKeyID and SecretAccessKey must be defined in order to properly authenticate.
 
         :schema: SecretStoreSpecProviderAwsAuth
@@ -60530,7 +60983,7 @@ class SecretStoreSpecProviderAwsAuth:
 
     @builtins.property
     def jwt(self) -> typing.Optional["SecretStoreSpecProviderAwsAuthJwt"]:
-        '''Authenticate against AWS using service account tokens.
+        '''AWSJWTAuth stores reference to Authenticate against AWS using service account tokens.
 
         :schema: SecretStoreSpecProviderAwsAuth#jwt
         '''
@@ -60569,9 +61022,9 @@ class SecretStoreSpecProviderAwsAuthJwt:
         *,
         service_account_ref: typing.Optional[typing.Union["SecretStoreSpecProviderAwsAuthJwtServiceAccountRef", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''Authenticate against AWS using service account tokens.
+        '''AWSJWTAuth stores reference to Authenticate against AWS using service account tokens.
 
-        :param service_account_ref: A reference to a ServiceAccount resource.
+        :param service_account_ref: ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :schema: SecretStoreSpecProviderAwsAuthJwt
         '''
@@ -60588,7 +61041,7 @@ class SecretStoreSpecProviderAwsAuthJwt:
     def service_account_ref(
         self,
     ) -> typing.Optional["SecretStoreSpecProviderAwsAuthJwtServiceAccountRef"]:
-        '''A reference to a ServiceAccount resource.
+        '''ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :schema: SecretStoreSpecProviderAwsAuthJwt#serviceAccountRef
         '''
@@ -60620,7 +61073,7 @@ class SecretStoreSpecProviderAwsAuthJwtServiceAccountRef:
         audiences: typing.Optional[typing.Sequence[builtins.str]] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a ServiceAccount resource.
+        '''ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :param name: The name of the ServiceAccount resource being referred to.
         :param audiences: Audience specifies the ``aud`` claim for the service account token If the service account uses a well-known annotation for e.g. IRSA or GCP Workload Identity then this audiences will be appended to the list.
@@ -61021,7 +61474,7 @@ class SecretStoreSpecProviderAwsSecretsManager:
         '''SecretsManager defines how the provider behaves when interacting with AWS SecretsManager.
 
         :param force_delete_without_recovery: Specifies whether to delete the secret without any recovery window. You can't use both this parameter and RecoveryWindowInDays in the same call. If you don't use either, then by default Secrets Manager uses a 30 day recovery window. see: https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DeleteSecret.html#SecretsManager-DeleteSecret-request-ForceDeleteWithoutRecovery
-        :param recovery_window_in_days: The number of days from 7 to 30 that Secrets Manager waits before permanently deleting the secret. You can't use both this parameter and ForceDeleteWithoutRecovery in the same call. If you don't use either, then by default Secrets Manager uses a 30 day recovery window. see: https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DeleteSecret.html#SecretsManager-DeleteSecret-request-RecoveryWindowInDays
+        :param recovery_window_in_days: The number of days from 7 to 30 that Secrets Manager waits before permanently deleting the secret. You can't use both this parameter and ForceDeleteWithoutRecovery in the same call. If you don't use either, then by default Secrets Manager uses a 30-day recovery window. see: https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DeleteSecret.html#SecretsManager-DeleteSecret-request-RecoveryWindowInDays
 
         :schema: SecretStoreSpecProviderAwsSecretsManager
         '''
@@ -61056,7 +61509,7 @@ class SecretStoreSpecProviderAwsSecretsManager:
 
         You can't use both this parameter and
         ForceDeleteWithoutRecovery in the same call. If you don't use either,
-        then by default Secrets Manager uses a 30 day recovery window.
+        then by default Secrets Manager uses a 30-day recovery window.
         see: https://docs.aws.amazon.com/secretsmanager/latest/apireference/API_DeleteSecret.html#SecretsManager-DeleteSecret-request-RecoveryWindowInDays
 
         :schema: SecretStoreSpecProviderAwsSecretsManager#recoveryWindowInDays
@@ -61096,7 +61549,10 @@ class SecretStoreSpecProviderAwsService(enum.Enum):
 )
 class SecretStoreSpecProviderAwsSessionTags:
     def __init__(self, *, key: builtins.str, value: builtins.str) -> None:
-        '''
+        '''Tag is a key-value pair that can be attached to an AWS resource.
+
+        see: https://docs.aws.amazon.com/general/latest/gr/aws_tagging.html
+
         :param key: 
         :param value: 
 
@@ -65297,7 +65753,7 @@ class SecretStoreSpecProviderDevice42Auth:
     ) -> None:
         '''Auth configures how secret-manager authenticates with a Device42 instance.
 
-        :param secret_ref: 
+        :param secret_ref: Device42SecretRef contains the secret reference for accessing the Device42 instance.
 
         :schema: SecretStoreSpecProviderDevice42Auth
         '''
@@ -65312,7 +65768,8 @@ class SecretStoreSpecProviderDevice42Auth:
 
     @builtins.property
     def secret_ref(self) -> "SecretStoreSpecProviderDevice42AuthSecretRef":
-        '''
+        '''Device42SecretRef contains the secret reference for accessing the Device42 instance.
+
         :schema: SecretStoreSpecProviderDevice42Auth#secretRef
         '''
         result = self._values.get("secret_ref")
@@ -65342,7 +65799,8 @@ class SecretStoreSpecProviderDevice42AuthSecretRef:
         *,
         credentials: typing.Optional[typing.Union["SecretStoreSpecProviderDevice42AuthSecretRefCredentials", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
+        '''Device42SecretRef contains the secret reference for accessing the Device42 instance.
+
         :param credentials: Username / Password is used for authentication.
 
         :schema: SecretStoreSpecProviderDevice42AuthSecretRef
@@ -65581,7 +66039,7 @@ class SecretStoreSpecProviderDopplerAuth:
     ) -> None:
         '''Auth configures how the Operator authenticates with the Doppler API.
 
-        :param secret_ref: 
+        :param secret_ref: DopplerAuthSecretRef contains the secret reference for accessing the Doppler API.
 
         :schema: SecretStoreSpecProviderDopplerAuth
         '''
@@ -65596,7 +66054,8 @@ class SecretStoreSpecProviderDopplerAuth:
 
     @builtins.property
     def secret_ref(self) -> "SecretStoreSpecProviderDopplerAuthSecretRef":
-        '''
+        '''DopplerAuthSecretRef contains the secret reference for accessing the Doppler API.
+
         :schema: SecretStoreSpecProviderDopplerAuth#secretRef
         '''
         result = self._values.get("secret_ref")
@@ -65626,7 +66085,8 @@ class SecretStoreSpecProviderDopplerAuthSecretRef:
         *,
         doppler_token: typing.Union["SecretStoreSpecProviderDopplerAuthSecretRefDopplerToken", typing.Dict[builtins.str, typing.Any]],
     ) -> None:
-        '''
+        '''DopplerAuthSecretRef contains the secret reference for accessing the Doppler API.
+
         :param doppler_token: The DopplerToken is used for authentication. See https://docs.doppler.com/reference/api#authentication for auth token types. The Key attribute defaults to dopplerToken if not specified.
 
         :schema: SecretStoreSpecProviderDopplerAuthSecretRef
@@ -65804,7 +66264,7 @@ class SecretStoreSpecProviderFake:
         '''Fake configures a store with static key/value pairs.
 
         :param data: 
-        :param validation_result: 
+        :param validation_result: ValidationResult is defined type for the number of validation results.
 
         :schema: SecretStoreSpecProviderFake
         '''
@@ -65829,7 +66289,8 @@ class SecretStoreSpecProviderFake:
 
     @builtins.property
     def validation_result(self) -> typing.Optional[jsii.Number]:
-        '''
+        '''ValidationResult is defined type for the number of validation results.
+
         :schema: SecretStoreSpecProviderFake#validationResult
         '''
         result = self._values.get("validation_result")
@@ -65860,7 +66321,8 @@ class SecretStoreSpecProviderFakeData:
         value: builtins.str,
         version: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''
+        '''FakeProviderData defines a key-value pair with optional version for the fake provider.
+
         :param key: 
         :param value: 
         :param version: 
@@ -66226,8 +66688,8 @@ class SecretStoreSpecProviderGcpsmAuth:
     ) -> None:
         '''Auth defines the information necessary to authenticate against GCP.
 
-        :param secret_ref: 
-        :param workload_identity: 
+        :param secret_ref: GCPSMAuthSecretRef contains the secret references for GCP Secret Manager authentication.
+        :param workload_identity: GCPWorkloadIdentity defines configuration for workload identity authentication to GCP.
         :param workload_identity_federation: GCPWorkloadIdentityFederation holds the configurations required for generating federated access tokens.
 
         :schema: SecretStoreSpecProviderGcpsmAuth
@@ -66255,7 +66717,8 @@ class SecretStoreSpecProviderGcpsmAuth:
     def secret_ref(
         self,
     ) -> typing.Optional["SecretStoreSpecProviderGcpsmAuthSecretRef"]:
-        '''
+        '''GCPSMAuthSecretRef contains the secret references for GCP Secret Manager authentication.
+
         :schema: SecretStoreSpecProviderGcpsmAuth#secretRef
         '''
         result = self._values.get("secret_ref")
@@ -66265,7 +66728,8 @@ class SecretStoreSpecProviderGcpsmAuth:
     def workload_identity(
         self,
     ) -> typing.Optional["SecretStoreSpecProviderGcpsmAuthWorkloadIdentity"]:
-        '''
+        '''GCPWorkloadIdentity defines configuration for workload identity authentication to GCP.
+
         :schema: SecretStoreSpecProviderGcpsmAuth#workloadIdentity
         '''
         result = self._values.get("workload_identity")
@@ -66305,7 +66769,8 @@ class SecretStoreSpecProviderGcpsmAuthSecretRef:
         *,
         secret_access_key_secret_ref: typing.Optional[typing.Union["SecretStoreSpecProviderGcpsmAuthSecretRefSecretAccessKeySecretRef", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
+        '''GCPSMAuthSecretRef contains the secret references for GCP Secret Manager authentication.
+
         :param secret_access_key_secret_ref: The SecretAccessKey is used for authentication.
 
         :schema: SecretStoreSpecProviderGcpsmAuthSecretRef
@@ -66438,8 +66903,9 @@ class SecretStoreSpecProviderGcpsmAuthWorkloadIdentity:
         cluster_name: typing.Optional[builtins.str] = None,
         cluster_project_id: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''
-        :param service_account_ref: A reference to a ServiceAccount resource.
+        '''GCPWorkloadIdentity defines configuration for workload identity authentication to GCP.
+
+        :param service_account_ref: ServiceAccountSelector is a reference to a ServiceAccount resource.
         :param cluster_location: ClusterLocation is the location of the cluster If not specified, it fetches information from the metadata server.
         :param cluster_name: ClusterName is the name of the cluster If not specified, it fetches information from the metadata server.
         :param cluster_project_id: ClusterProjectID is the project ID of the cluster If not specified, it fetches information from the metadata server.
@@ -66468,7 +66934,7 @@ class SecretStoreSpecProviderGcpsmAuthWorkloadIdentity:
     def service_account_ref(
         self,
     ) -> "SecretStoreSpecProviderGcpsmAuthWorkloadIdentityServiceAccountRef":
-        '''A reference to a ServiceAccount resource.
+        '''ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :schema: SecretStoreSpecProviderGcpsmAuthWorkloadIdentity#serviceAccountRef
         '''
@@ -66949,7 +67415,7 @@ class SecretStoreSpecProviderGcpsmAuthWorkloadIdentityServiceAccountRef:
         audiences: typing.Optional[typing.Sequence[builtins.str]] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a ServiceAccount resource.
+        '''ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :param name: The name of the ServiceAccount resource being referred to.
         :param audiences: Audience specifies the ``aud`` claim for the service account token If the service account uses a well-known annotation for e.g. IRSA or GCP Workload Identity then this audiences will be appended to the list.
@@ -67190,7 +67656,7 @@ class SecretStoreSpecProviderGithubAuth:
     ) -> None:
         '''auth configures how secret-manager authenticates with a Github instance.
 
-        :param private_key: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param private_key: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: SecretStoreSpecProviderGithubAuth
         '''
@@ -67205,7 +67671,7 @@ class SecretStoreSpecProviderGithubAuth:
 
     @builtins.property
     def private_key(self) -> "SecretStoreSpecProviderGithubAuthPrivateKey":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -67240,7 +67706,7 @@ class SecretStoreSpecProviderGithubAuthPrivateKey:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -67485,7 +67951,7 @@ class SecretStoreSpecProviderGitlabAuth:
     ) -> None:
         '''Auth configures how secret-manager authenticates with a GitLab instance.
 
-        :param secret_ref: 
+        :param secret_ref: GitlabSecretRef contains the secret reference for GitLab authentication credentials.
 
         :schema: SecretStoreSpecProviderGitlabAuth
         '''
@@ -67500,7 +67966,8 @@ class SecretStoreSpecProviderGitlabAuth:
 
     @builtins.property
     def secret_ref(self) -> "SecretStoreSpecProviderGitlabAuthSecretRef":
-        '''
+        '''GitlabSecretRef contains the secret reference for GitLab authentication credentials.
+
         :schema: SecretStoreSpecProviderGitlabAuth#SecretRef
         '''
         result = self._values.get("secret_ref")
@@ -67530,7 +67997,8 @@ class SecretStoreSpecProviderGitlabAuthSecretRef:
         *,
         access_token: typing.Optional[typing.Union["SecretStoreSpecProviderGitlabAuthSecretRefAccessToken", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
+        '''GitlabSecretRef contains the secret reference for GitLab authentication credentials.
+
         :param access_token: AccessToken is used for authentication.
 
         :schema: SecretStoreSpecProviderGitlabAuthSecretRef
@@ -67828,8 +68296,8 @@ class SecretStoreSpecProviderIbmAuth:
     ) -> None:
         '''Auth configures how secret-manager authenticates with the IBM secrets manager.
 
-        :param container_auth: IBM Container-based auth with IAM Trusted Profile.
-        :param secret_ref: 
+        :param container_auth: IBMAuthContainerAuth defines container-based authentication with IAM Trusted Profile.
+        :param secret_ref: IBMAuthSecretRef contains the secret reference for IBM Cloud API key authentication.
 
         :schema: SecretStoreSpecProviderIbmAuth
         '''
@@ -67851,7 +68319,7 @@ class SecretStoreSpecProviderIbmAuth:
     def container_auth(
         self,
     ) -> typing.Optional["SecretStoreSpecProviderIbmAuthContainerAuth"]:
-        '''IBM Container-based auth with IAM Trusted Profile.
+        '''IBMAuthContainerAuth defines container-based authentication with IAM Trusted Profile.
 
         :schema: SecretStoreSpecProviderIbmAuth#containerAuth
         '''
@@ -67860,7 +68328,8 @@ class SecretStoreSpecProviderIbmAuth:
 
     @builtins.property
     def secret_ref(self) -> typing.Optional["SecretStoreSpecProviderIbmAuthSecretRef"]:
-        '''
+        '''IBMAuthSecretRef contains the secret reference for IBM Cloud API key authentication.
+
         :schema: SecretStoreSpecProviderIbmAuth#secretRef
         '''
         result = self._values.get("secret_ref")
@@ -67895,7 +68364,7 @@ class SecretStoreSpecProviderIbmAuthContainerAuth:
         iam_endpoint: typing.Optional[builtins.str] = None,
         token_location: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''IBM Container-based auth with IAM Trusted Profile.
+        '''IBMAuthContainerAuth defines container-based authentication with IAM Trusted Profile.
 
         :param profile: the IBM Trusted Profile.
         :param iam_endpoint: 
@@ -67958,15 +68427,21 @@ class SecretStoreSpecProviderIbmAuthContainerAuth:
 @jsii.data_type(
     jsii_type="ioexternal-secrets.SecretStoreSpecProviderIbmAuthSecretRef",
     jsii_struct_bases=[],
-    name_mapping={"secret_api_key_secret_ref": "secretApiKeySecretRef"},
+    name_mapping={
+        "iam_endpoint": "iamEndpoint",
+        "secret_api_key_secret_ref": "secretApiKeySecretRef",
+    },
 )
 class SecretStoreSpecProviderIbmAuthSecretRef:
     def __init__(
         self,
         *,
+        iam_endpoint: typing.Optional[builtins.str] = None,
         secret_api_key_secret_ref: typing.Optional[typing.Union["SecretStoreSpecProviderIbmAuthSecretRefSecretApiKeySecretRef", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
+        '''IBMAuthSecretRef contains the secret reference for IBM Cloud API key authentication.
+
+        :param iam_endpoint: The IAM endpoint used to obain a token.
         :param secret_api_key_secret_ref: The SecretAccessKey is used for authentication.
 
         :schema: SecretStoreSpecProviderIbmAuthSecretRef
@@ -67975,10 +68450,22 @@ class SecretStoreSpecProviderIbmAuthSecretRef:
             secret_api_key_secret_ref = SecretStoreSpecProviderIbmAuthSecretRefSecretApiKeySecretRef(**secret_api_key_secret_ref)
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__07e5284d9a003aeaf572246b0e4192e0b1555336a7526ede354d24b2bfa9117d)
+            check_type(argname="argument iam_endpoint", value=iam_endpoint, expected_type=type_hints["iam_endpoint"])
             check_type(argname="argument secret_api_key_secret_ref", value=secret_api_key_secret_ref, expected_type=type_hints["secret_api_key_secret_ref"])
         self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if iam_endpoint is not None:
+            self._values["iam_endpoint"] = iam_endpoint
         if secret_api_key_secret_ref is not None:
             self._values["secret_api_key_secret_ref"] = secret_api_key_secret_ref
+
+    @builtins.property
+    def iam_endpoint(self) -> typing.Optional[builtins.str]:
+        '''The IAM endpoint used to obain a token.
+
+        :schema: SecretStoreSpecProviderIbmAuthSecretRef#iamEndpoint
+        '''
+        result = self._values.get("iam_endpoint")
+        return typing.cast(typing.Optional[builtins.str], result)
 
     @builtins.property
     def secret_api_key_secret_ref(
@@ -68197,16 +68684,16 @@ class SecretStoreSpecProviderInfisicalAuth:
     ) -> None:
         '''Auth configures how the Operator authenticates with the Infisical API.
 
-        :param aws_auth_credentials: 
-        :param azure_auth_credentials: 
-        :param gcp_iam_auth_credentials: 
-        :param gcp_id_token_auth_credentials: 
-        :param jwt_auth_credentials: 
-        :param kubernetes_auth_credentials: 
-        :param ldap_auth_credentials: 
-        :param oci_auth_credentials: 
-        :param token_auth_credentials: 
-        :param universal_auth_credentials: 
+        :param aws_auth_credentials: AwsAuthCredentials represents the credentials for AWS authentication.
+        :param azure_auth_credentials: AzureAuthCredentials represents the credentials for Azure authentication.
+        :param gcp_iam_auth_credentials: GcpIamAuthCredentials represents the credentials for GCP IAM authentication.
+        :param gcp_id_token_auth_credentials: GcpIDTokenAuthCredentials represents the credentials for GCP ID token authentication.
+        :param jwt_auth_credentials: JwtAuthCredentials represents the credentials for JWT authentication.
+        :param kubernetes_auth_credentials: KubernetesAuthCredentials represents the credentials for Kubernetes authentication.
+        :param ldap_auth_credentials: LdapAuthCredentials represents the credentials for LDAP authentication.
+        :param oci_auth_credentials: OciAuthCredentials represents the credentials for OCI authentication.
+        :param token_auth_credentials: TokenAuthCredentials represents the credentials for access token-based authentication.
+        :param universal_auth_credentials: UniversalAuthCredentials represents the client credentials for universal authentication.
 
         :schema: SecretStoreSpecProviderInfisicalAuth
         '''
@@ -68268,7 +68755,8 @@ class SecretStoreSpecProviderInfisicalAuth:
     def aws_auth_credentials(
         self,
     ) -> typing.Optional["SecretStoreSpecProviderInfisicalAuthAwsAuthCredentials"]:
-        '''
+        '''AwsAuthCredentials represents the credentials for AWS authentication.
+
         :schema: SecretStoreSpecProviderInfisicalAuth#awsAuthCredentials
         '''
         result = self._values.get("aws_auth_credentials")
@@ -68278,7 +68766,8 @@ class SecretStoreSpecProviderInfisicalAuth:
     def azure_auth_credentials(
         self,
     ) -> typing.Optional["SecretStoreSpecProviderInfisicalAuthAzureAuthCredentials"]:
-        '''
+        '''AzureAuthCredentials represents the credentials for Azure authentication.
+
         :schema: SecretStoreSpecProviderInfisicalAuth#azureAuthCredentials
         '''
         result = self._values.get("azure_auth_credentials")
@@ -68288,7 +68777,8 @@ class SecretStoreSpecProviderInfisicalAuth:
     def gcp_iam_auth_credentials(
         self,
     ) -> typing.Optional["SecretStoreSpecProviderInfisicalAuthGcpIamAuthCredentials"]:
-        '''
+        '''GcpIamAuthCredentials represents the credentials for GCP IAM authentication.
+
         :schema: SecretStoreSpecProviderInfisicalAuth#gcpIamAuthCredentials
         '''
         result = self._values.get("gcp_iam_auth_credentials")
@@ -68298,7 +68788,8 @@ class SecretStoreSpecProviderInfisicalAuth:
     def gcp_id_token_auth_credentials(
         self,
     ) -> typing.Optional["SecretStoreSpecProviderInfisicalAuthGcpIdTokenAuthCredentials"]:
-        '''
+        '''GcpIDTokenAuthCredentials represents the credentials for GCP ID token authentication.
+
         :schema: SecretStoreSpecProviderInfisicalAuth#gcpIdTokenAuthCredentials
         '''
         result = self._values.get("gcp_id_token_auth_credentials")
@@ -68308,7 +68799,8 @@ class SecretStoreSpecProviderInfisicalAuth:
     def jwt_auth_credentials(
         self,
     ) -> typing.Optional["SecretStoreSpecProviderInfisicalAuthJwtAuthCredentials"]:
-        '''
+        '''JwtAuthCredentials represents the credentials for JWT authentication.
+
         :schema: SecretStoreSpecProviderInfisicalAuth#jwtAuthCredentials
         '''
         result = self._values.get("jwt_auth_credentials")
@@ -68318,7 +68810,8 @@ class SecretStoreSpecProviderInfisicalAuth:
     def kubernetes_auth_credentials(
         self,
     ) -> typing.Optional["SecretStoreSpecProviderInfisicalAuthKubernetesAuthCredentials"]:
-        '''
+        '''KubernetesAuthCredentials represents the credentials for Kubernetes authentication.
+
         :schema: SecretStoreSpecProviderInfisicalAuth#kubernetesAuthCredentials
         '''
         result = self._values.get("kubernetes_auth_credentials")
@@ -68328,7 +68821,8 @@ class SecretStoreSpecProviderInfisicalAuth:
     def ldap_auth_credentials(
         self,
     ) -> typing.Optional["SecretStoreSpecProviderInfisicalAuthLdapAuthCredentials"]:
-        '''
+        '''LdapAuthCredentials represents the credentials for LDAP authentication.
+
         :schema: SecretStoreSpecProviderInfisicalAuth#ldapAuthCredentials
         '''
         result = self._values.get("ldap_auth_credentials")
@@ -68338,7 +68832,8 @@ class SecretStoreSpecProviderInfisicalAuth:
     def oci_auth_credentials(
         self,
     ) -> typing.Optional["SecretStoreSpecProviderInfisicalAuthOciAuthCredentials"]:
-        '''
+        '''OciAuthCredentials represents the credentials for OCI authentication.
+
         :schema: SecretStoreSpecProviderInfisicalAuth#ociAuthCredentials
         '''
         result = self._values.get("oci_auth_credentials")
@@ -68348,7 +68843,8 @@ class SecretStoreSpecProviderInfisicalAuth:
     def token_auth_credentials(
         self,
     ) -> typing.Optional["SecretStoreSpecProviderInfisicalAuthTokenAuthCredentials"]:
-        '''
+        '''TokenAuthCredentials represents the credentials for access token-based authentication.
+
         :schema: SecretStoreSpecProviderInfisicalAuth#tokenAuthCredentials
         '''
         result = self._values.get("token_auth_credentials")
@@ -68358,7 +68854,8 @@ class SecretStoreSpecProviderInfisicalAuth:
     def universal_auth_credentials(
         self,
     ) -> typing.Optional["SecretStoreSpecProviderInfisicalAuthUniversalAuthCredentials"]:
-        '''
+        '''UniversalAuthCredentials represents the client credentials for universal authentication.
+
         :schema: SecretStoreSpecProviderInfisicalAuth#universalAuthCredentials
         '''
         result = self._values.get("universal_auth_credentials")
@@ -68387,8 +68884,9 @@ class SecretStoreSpecProviderInfisicalAuthAwsAuthCredentials:
         *,
         identity_id: typing.Union["SecretStoreSpecProviderInfisicalAuthAwsAuthCredentialsIdentityId", typing.Dict[builtins.str, typing.Any]],
     ) -> None:
-        '''
-        :param identity_id: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        '''AwsAuthCredentials represents the credentials for AWS authentication.
+
+        :param identity_id: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: SecretStoreSpecProviderInfisicalAuthAwsAuthCredentials
         '''
@@ -68405,7 +68903,7 @@ class SecretStoreSpecProviderInfisicalAuthAwsAuthCredentials:
     def identity_id(
         self,
     ) -> "SecretStoreSpecProviderInfisicalAuthAwsAuthCredentialsIdentityId":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -68440,7 +68938,7 @@ class SecretStoreSpecProviderInfisicalAuthAwsAuthCredentialsIdentityId:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -68518,9 +69016,10 @@ class SecretStoreSpecProviderInfisicalAuthAzureAuthCredentials:
         identity_id: typing.Union["SecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsIdentityId", typing.Dict[builtins.str, typing.Any]],
         resource: typing.Optional[typing.Union["SecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsResource", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
-        :param identity_id: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param resource: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        '''AzureAuthCredentials represents the credentials for Azure authentication.
+
+        :param identity_id: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param resource: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: SecretStoreSpecProviderInfisicalAuthAzureAuthCredentials
         '''
@@ -68542,7 +69041,7 @@ class SecretStoreSpecProviderInfisicalAuthAzureAuthCredentials:
     def identity_id(
         self,
     ) -> "SecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsIdentityId":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -68556,7 +69055,7 @@ class SecretStoreSpecProviderInfisicalAuthAzureAuthCredentials:
     def resource(
         self,
     ) -> typing.Optional["SecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsResource"]:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -68590,7 +69089,7 @@ class SecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsIdentityId:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -68669,7 +69168,7 @@ class SecretStoreSpecProviderInfisicalAuthAzureAuthCredentialsResource:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -68750,9 +69249,10 @@ class SecretStoreSpecProviderInfisicalAuthGcpIamAuthCredentials:
         identity_id: typing.Union["SecretStoreSpecProviderInfisicalAuthGcpIamAuthCredentialsIdentityId", typing.Dict[builtins.str, typing.Any]],
         service_account_key_file_path: typing.Union["SecretStoreSpecProviderInfisicalAuthGcpIamAuthCredentialsServiceAccountKeyFilePath", typing.Dict[builtins.str, typing.Any]],
     ) -> None:
-        '''
-        :param identity_id: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param service_account_key_file_path: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        '''GcpIamAuthCredentials represents the credentials for GCP IAM authentication.
+
+        :param identity_id: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param service_account_key_file_path: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: SecretStoreSpecProviderInfisicalAuthGcpIamAuthCredentials
         '''
@@ -68773,7 +69273,7 @@ class SecretStoreSpecProviderInfisicalAuthGcpIamAuthCredentials:
     def identity_id(
         self,
     ) -> "SecretStoreSpecProviderInfisicalAuthGcpIamAuthCredentialsIdentityId":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -68787,7 +69287,7 @@ class SecretStoreSpecProviderInfisicalAuthGcpIamAuthCredentials:
     def service_account_key_file_path(
         self,
     ) -> "SecretStoreSpecProviderInfisicalAuthGcpIamAuthCredentialsServiceAccountKeyFilePath":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -68822,7 +69322,7 @@ class SecretStoreSpecProviderInfisicalAuthGcpIamAuthCredentialsIdentityId:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -68901,7 +69401,7 @@ class SecretStoreSpecProviderInfisicalAuthGcpIamAuthCredentialsServiceAccountKey
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -68978,8 +69478,9 @@ class SecretStoreSpecProviderInfisicalAuthGcpIdTokenAuthCredentials:
         *,
         identity_id: typing.Union["SecretStoreSpecProviderInfisicalAuthGcpIdTokenAuthCredentialsIdentityId", typing.Dict[builtins.str, typing.Any]],
     ) -> None:
-        '''
-        :param identity_id: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        '''GcpIDTokenAuthCredentials represents the credentials for GCP ID token authentication.
+
+        :param identity_id: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: SecretStoreSpecProviderInfisicalAuthGcpIdTokenAuthCredentials
         '''
@@ -68996,7 +69497,7 @@ class SecretStoreSpecProviderInfisicalAuthGcpIdTokenAuthCredentials:
     def identity_id(
         self,
     ) -> "SecretStoreSpecProviderInfisicalAuthGcpIdTokenAuthCredentialsIdentityId":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -69031,7 +69532,7 @@ class SecretStoreSpecProviderInfisicalAuthGcpIdTokenAuthCredentialsIdentityId:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -69109,9 +69610,10 @@ class SecretStoreSpecProviderInfisicalAuthJwtAuthCredentials:
         identity_id: typing.Union["SecretStoreSpecProviderInfisicalAuthJwtAuthCredentialsIdentityId", typing.Dict[builtins.str, typing.Any]],
         jwt: typing.Union["SecretStoreSpecProviderInfisicalAuthJwtAuthCredentialsJwt", typing.Dict[builtins.str, typing.Any]],
     ) -> None:
-        '''
-        :param identity_id: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param jwt: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        '''JwtAuthCredentials represents the credentials for JWT authentication.
+
+        :param identity_id: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param jwt: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: SecretStoreSpecProviderInfisicalAuthJwtAuthCredentials
         '''
@@ -69132,7 +69634,7 @@ class SecretStoreSpecProviderInfisicalAuthJwtAuthCredentials:
     def identity_id(
         self,
     ) -> "SecretStoreSpecProviderInfisicalAuthJwtAuthCredentialsIdentityId":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -69144,7 +69646,7 @@ class SecretStoreSpecProviderInfisicalAuthJwtAuthCredentials:
 
     @builtins.property
     def jwt(self) -> "SecretStoreSpecProviderInfisicalAuthJwtAuthCredentialsJwt":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -69179,7 +69681,7 @@ class SecretStoreSpecProviderInfisicalAuthJwtAuthCredentialsIdentityId:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -69258,7 +69760,7 @@ class SecretStoreSpecProviderInfisicalAuthJwtAuthCredentialsJwt:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -69339,9 +69841,10 @@ class SecretStoreSpecProviderInfisicalAuthKubernetesAuthCredentials:
         identity_id: typing.Union["SecretStoreSpecProviderInfisicalAuthKubernetesAuthCredentialsIdentityId", typing.Dict[builtins.str, typing.Any]],
         service_account_token_path: typing.Optional[typing.Union["SecretStoreSpecProviderInfisicalAuthKubernetesAuthCredentialsServiceAccountTokenPath", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
-        :param identity_id: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param service_account_token_path: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        '''KubernetesAuthCredentials represents the credentials for Kubernetes authentication.
+
+        :param identity_id: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param service_account_token_path: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: SecretStoreSpecProviderInfisicalAuthKubernetesAuthCredentials
         '''
@@ -69363,7 +69866,7 @@ class SecretStoreSpecProviderInfisicalAuthKubernetesAuthCredentials:
     def identity_id(
         self,
     ) -> "SecretStoreSpecProviderInfisicalAuthKubernetesAuthCredentialsIdentityId":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -69377,7 +69880,7 @@ class SecretStoreSpecProviderInfisicalAuthKubernetesAuthCredentials:
     def service_account_token_path(
         self,
     ) -> typing.Optional["SecretStoreSpecProviderInfisicalAuthKubernetesAuthCredentialsServiceAccountTokenPath"]:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -69411,7 +69914,7 @@ class SecretStoreSpecProviderInfisicalAuthKubernetesAuthCredentialsIdentityId:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -69490,7 +69993,7 @@ class SecretStoreSpecProviderInfisicalAuthKubernetesAuthCredentialsServiceAccoun
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -69573,10 +70076,11 @@ class SecretStoreSpecProviderInfisicalAuthLdapAuthCredentials:
         ldap_password: typing.Union["SecretStoreSpecProviderInfisicalAuthLdapAuthCredentialsLdapPassword", typing.Dict[builtins.str, typing.Any]],
         ldap_username: typing.Union["SecretStoreSpecProviderInfisicalAuthLdapAuthCredentialsLdapUsername", typing.Dict[builtins.str, typing.Any]],
     ) -> None:
-        '''
-        :param identity_id: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param ldap_password: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param ldap_username: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        '''LdapAuthCredentials represents the credentials for LDAP authentication.
+
+        :param identity_id: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param ldap_password: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param ldap_username: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: SecretStoreSpecProviderInfisicalAuthLdapAuthCredentials
         '''
@@ -69601,7 +70105,7 @@ class SecretStoreSpecProviderInfisicalAuthLdapAuthCredentials:
     def identity_id(
         self,
     ) -> "SecretStoreSpecProviderInfisicalAuthLdapAuthCredentialsIdentityId":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -69615,7 +70119,7 @@ class SecretStoreSpecProviderInfisicalAuthLdapAuthCredentials:
     def ldap_password(
         self,
     ) -> "SecretStoreSpecProviderInfisicalAuthLdapAuthCredentialsLdapPassword":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -69629,7 +70133,7 @@ class SecretStoreSpecProviderInfisicalAuthLdapAuthCredentials:
     def ldap_username(
         self,
     ) -> "SecretStoreSpecProviderInfisicalAuthLdapAuthCredentialsLdapUsername":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -69664,7 +70168,7 @@ class SecretStoreSpecProviderInfisicalAuthLdapAuthCredentialsIdentityId:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -69743,7 +70247,7 @@ class SecretStoreSpecProviderInfisicalAuthLdapAuthCredentialsLdapPassword:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -69822,7 +70326,7 @@ class SecretStoreSpecProviderInfisicalAuthLdapAuthCredentialsLdapUsername:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -69913,14 +70417,15 @@ class SecretStoreSpecProviderInfisicalAuthOciAuthCredentials:
         user_id: typing.Union["SecretStoreSpecProviderInfisicalAuthOciAuthCredentialsUserId", typing.Dict[builtins.str, typing.Any]],
         private_key_passphrase: typing.Optional[typing.Union["SecretStoreSpecProviderInfisicalAuthOciAuthCredentialsPrivateKeyPassphrase", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
-        :param fingerprint: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param identity_id: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param private_key: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param region: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param tenancy_id: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param user_id: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param private_key_passphrase: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        '''OciAuthCredentials represents the credentials for OCI authentication.
+
+        :param fingerprint: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param identity_id: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param private_key: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param region: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param tenancy_id: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param user_id: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param private_key_passphrase: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: SecretStoreSpecProviderInfisicalAuthOciAuthCredentials
         '''
@@ -69962,7 +70467,7 @@ class SecretStoreSpecProviderInfisicalAuthOciAuthCredentials:
     def fingerprint(
         self,
     ) -> "SecretStoreSpecProviderInfisicalAuthOciAuthCredentialsFingerprint":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -69976,7 +70481,7 @@ class SecretStoreSpecProviderInfisicalAuthOciAuthCredentials:
     def identity_id(
         self,
     ) -> "SecretStoreSpecProviderInfisicalAuthOciAuthCredentialsIdentityId":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -69990,7 +70495,7 @@ class SecretStoreSpecProviderInfisicalAuthOciAuthCredentials:
     def private_key(
         self,
     ) -> "SecretStoreSpecProviderInfisicalAuthOciAuthCredentialsPrivateKey":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -70002,7 +70507,7 @@ class SecretStoreSpecProviderInfisicalAuthOciAuthCredentials:
 
     @builtins.property
     def region(self) -> "SecretStoreSpecProviderInfisicalAuthOciAuthCredentialsRegion":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -70016,7 +70521,7 @@ class SecretStoreSpecProviderInfisicalAuthOciAuthCredentials:
     def tenancy_id(
         self,
     ) -> "SecretStoreSpecProviderInfisicalAuthOciAuthCredentialsTenancyId":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -70028,7 +70533,7 @@ class SecretStoreSpecProviderInfisicalAuthOciAuthCredentials:
 
     @builtins.property
     def user_id(self) -> "SecretStoreSpecProviderInfisicalAuthOciAuthCredentialsUserId":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -70042,7 +70547,7 @@ class SecretStoreSpecProviderInfisicalAuthOciAuthCredentials:
     def private_key_passphrase(
         self,
     ) -> typing.Optional["SecretStoreSpecProviderInfisicalAuthOciAuthCredentialsPrivateKeyPassphrase"]:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -70076,7 +70581,7 @@ class SecretStoreSpecProviderInfisicalAuthOciAuthCredentialsFingerprint:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -70155,7 +70660,7 @@ class SecretStoreSpecProviderInfisicalAuthOciAuthCredentialsIdentityId:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -70234,7 +70739,7 @@ class SecretStoreSpecProviderInfisicalAuthOciAuthCredentialsPrivateKey:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -70313,7 +70818,7 @@ class SecretStoreSpecProviderInfisicalAuthOciAuthCredentialsPrivateKeyPassphrase
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -70392,7 +70897,7 @@ class SecretStoreSpecProviderInfisicalAuthOciAuthCredentialsRegion:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -70471,7 +70976,7 @@ class SecretStoreSpecProviderInfisicalAuthOciAuthCredentialsTenancyId:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -70550,7 +71055,7 @@ class SecretStoreSpecProviderInfisicalAuthOciAuthCredentialsUserId:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -70627,8 +71132,9 @@ class SecretStoreSpecProviderInfisicalAuthTokenAuthCredentials:
         *,
         access_token: typing.Union["SecretStoreSpecProviderInfisicalAuthTokenAuthCredentialsAccessToken", typing.Dict[builtins.str, typing.Any]],
     ) -> None:
-        '''
-        :param access_token: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        '''TokenAuthCredentials represents the credentials for access token-based authentication.
+
+        :param access_token: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: SecretStoreSpecProviderInfisicalAuthTokenAuthCredentials
         '''
@@ -70645,7 +71151,7 @@ class SecretStoreSpecProviderInfisicalAuthTokenAuthCredentials:
     def access_token(
         self,
     ) -> "SecretStoreSpecProviderInfisicalAuthTokenAuthCredentialsAccessToken":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -70680,7 +71186,7 @@ class SecretStoreSpecProviderInfisicalAuthTokenAuthCredentialsAccessToken:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -70758,9 +71264,10 @@ class SecretStoreSpecProviderInfisicalAuthUniversalAuthCredentials:
         client_id: typing.Union["SecretStoreSpecProviderInfisicalAuthUniversalAuthCredentialsClientId", typing.Dict[builtins.str, typing.Any]],
         client_secret: typing.Union["SecretStoreSpecProviderInfisicalAuthUniversalAuthCredentialsClientSecret", typing.Dict[builtins.str, typing.Any]],
     ) -> None:
-        '''
-        :param client_id: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param client_secret: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        '''UniversalAuthCredentials represents the client credentials for universal authentication.
+
+        :param client_id: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param client_secret: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: SecretStoreSpecProviderInfisicalAuthUniversalAuthCredentials
         '''
@@ -70781,7 +71288,7 @@ class SecretStoreSpecProviderInfisicalAuthUniversalAuthCredentials:
     def client_id(
         self,
     ) -> "SecretStoreSpecProviderInfisicalAuthUniversalAuthCredentialsClientId":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -70795,7 +71302,7 @@ class SecretStoreSpecProviderInfisicalAuthUniversalAuthCredentials:
     def client_secret(
         self,
     ) -> "SecretStoreSpecProviderInfisicalAuthUniversalAuthCredentialsClientSecret":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -70830,7 +71337,7 @@ class SecretStoreSpecProviderInfisicalAuthUniversalAuthCredentialsClientId:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -70909,7 +71416,7 @@ class SecretStoreSpecProviderInfisicalAuthUniversalAuthCredentialsClientSecret:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -71109,7 +71616,7 @@ class SecretStoreSpecProviderKeepersecurity:
     ) -> None:
         '''KeeperSecurity configures this store to sync secrets using the KeeperSecurity provider.
 
-        :param auth_ref: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param auth_ref: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
         :param folder_id: 
 
         :schema: SecretStoreSpecProviderKeepersecurity
@@ -71127,7 +71634,7 @@ class SecretStoreSpecProviderKeepersecurity:
 
     @builtins.property
     def auth_ref(self) -> "SecretStoreSpecProviderKeepersecurityAuthRef":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -71171,7 +71678,7 @@ class SecretStoreSpecProviderKeepersecurityAuthRef:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -71434,8 +71941,8 @@ class SecretStoreSpecProviderKubernetesAuthCert:
     ) -> None:
         '''has both clientCert and clientKey as secretKeySelector.
 
-        :param client_cert: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param client_key: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param client_cert: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param client_key: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: SecretStoreSpecProviderKubernetesAuthCert
         '''
@@ -71457,7 +71964,7 @@ class SecretStoreSpecProviderKubernetesAuthCert:
     def client_cert(
         self,
     ) -> typing.Optional["SecretStoreSpecProviderKubernetesAuthCertClientCert"]:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -71470,7 +71977,7 @@ class SecretStoreSpecProviderKubernetesAuthCert:
     def client_key(
         self,
     ) -> typing.Optional["SecretStoreSpecProviderKubernetesAuthCertClientKey"]:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -71504,7 +72011,7 @@ class SecretStoreSpecProviderKubernetesAuthCertClientCert:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -71583,7 +72090,7 @@ class SecretStoreSpecProviderKubernetesAuthCertClientKey:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -71815,7 +72322,7 @@ class SecretStoreSpecProviderKubernetesAuthToken:
     ) -> None:
         '''use static token to authenticate with.
 
-        :param bearer_token: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param bearer_token: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: SecretStoreSpecProviderKubernetesAuthToken
         '''
@@ -71832,7 +72339,7 @@ class SecretStoreSpecProviderKubernetesAuthToken:
     def bearer_token(
         self,
     ) -> typing.Optional["SecretStoreSpecProviderKubernetesAuthTokenBearerToken"]:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -71866,7 +72373,7 @@ class SecretStoreSpecProviderKubernetesAuthTokenBearerToken:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -73819,7 +74326,10 @@ class SecretStoreSpecProviderPassbolt:
         auth: typing.Union["SecretStoreSpecProviderPassboltAuth", typing.Dict[builtins.str, typing.Any]],
         host: builtins.str,
     ) -> None:
-        '''
+        '''PassboltProvider provides access to Passbolt secrets manager.
+
+        See: https://www.passbolt.com.
+
         :param auth: Auth defines the information necessary to authenticate against Passbolt Server.
         :param host: Host defines the Passbolt Server to connect to.
 
@@ -73885,8 +74395,8 @@ class SecretStoreSpecProviderPassboltAuth:
     ) -> None:
         '''Auth defines the information necessary to authenticate against Passbolt Server.
 
-        :param password_secret_ref: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param private_key_secret_ref: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param password_secret_ref: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param private_key_secret_ref: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: SecretStoreSpecProviderPassboltAuth
         '''
@@ -73907,7 +74417,7 @@ class SecretStoreSpecProviderPassboltAuth:
     def password_secret_ref(
         self,
     ) -> "SecretStoreSpecProviderPassboltAuthPasswordSecretRef":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -73921,7 +74431,7 @@ class SecretStoreSpecProviderPassboltAuth:
     def private_key_secret_ref(
         self,
     ) -> "SecretStoreSpecProviderPassboltAuthPrivateKeySecretRef":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -73956,7 +74466,7 @@ class SecretStoreSpecProviderPassboltAuthPasswordSecretRef:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -74035,7 +74545,7 @@ class SecretStoreSpecProviderPassboltAuthPrivateKeySecretRef:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -74114,7 +74624,7 @@ class SecretStoreSpecProviderPassworddepot:
         database: builtins.str,
         host: builtins.str,
     ) -> None:
-        '''Configures a store to sync secrets with a Password Depot instance.
+        '''PasswordDepotProvider configures a store to sync secrets with a Password Depot instance.
 
         :param auth: Auth configures how secret-manager authenticates with a Password Depot instance.
         :param database: Database to use as source.
@@ -74190,7 +74700,7 @@ class SecretStoreSpecProviderPassworddepotAuth:
     ) -> None:
         '''Auth configures how secret-manager authenticates with a Password Depot instance.
 
-        :param secret_ref: 
+        :param secret_ref: PasswordDepotSecretRef contains the secret reference for Password Depot authentication.
 
         :schema: SecretStoreSpecProviderPassworddepotAuth
         '''
@@ -74205,7 +74715,8 @@ class SecretStoreSpecProviderPassworddepotAuth:
 
     @builtins.property
     def secret_ref(self) -> "SecretStoreSpecProviderPassworddepotAuthSecretRef":
-        '''
+        '''PasswordDepotSecretRef contains the secret reference for Password Depot authentication.
+
         :schema: SecretStoreSpecProviderPassworddepotAuth#secretRef
         '''
         result = self._values.get("secret_ref")
@@ -74235,7 +74746,8 @@ class SecretStoreSpecProviderPassworddepotAuthSecretRef:
         *,
         credentials: typing.Optional[typing.Union["SecretStoreSpecProviderPassworddepotAuthSecretRefCredentials", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
+        '''PasswordDepotSecretRef contains the secret reference for Password Depot authentication.
+
         :param credentials: Username / Password is used for authentication.
 
         :schema: SecretStoreSpecProviderPassworddepotAuthSecretRef
@@ -75227,6 +75739,8 @@ class SecretStoreSpecProviderScalewaySecretKeySecretRef:
         "password": "password",
         "server_url": "serverUrl",
         "username": "username",
+        "ca_bundle": "caBundle",
+        "ca_provider": "caProvider",
         "domain": "domain",
     },
 )
@@ -75237,6 +75751,8 @@ class SecretStoreSpecProviderSecretserver:
         password: typing.Union["SecretStoreSpecProviderSecretserverPassword", typing.Dict[builtins.str, typing.Any]],
         server_url: builtins.str,
         username: typing.Union["SecretStoreSpecProviderSecretserverUsername", typing.Dict[builtins.str, typing.Any]],
+        ca_bundle: typing.Optional[builtins.str] = None,
+        ca_provider: typing.Optional[typing.Union["SecretStoreSpecProviderSecretserverCaProvider", typing.Dict[builtins.str, typing.Any]]] = None,
         domain: typing.Optional[builtins.str] = None,
     ) -> None:
         '''SecretServer configures this store to sync secrets using SecretServer provider https://docs.delinea.com/online-help/secret-server/start.htm.
@@ -75244,6 +75760,8 @@ class SecretStoreSpecProviderSecretserver:
         :param password: Password is the secret server account password.
         :param server_url: ServerURL URL to your secret server installation.
         :param username: Username is the secret server account username.
+        :param ca_bundle: PEM/base64 encoded CA bundle used to validate Secret ServerURL. Only used if the ServerURL URL is using HTTPS protocol. If not set the system root certificates are used to validate the TLS connection.
+        :param ca_provider: The provider for the CA bundle to use to validate Secret ServerURL certificate.
         :param domain: Domain is the secret server domain.
 
         :schema: SecretStoreSpecProviderSecretserver
@@ -75252,17 +75770,25 @@ class SecretStoreSpecProviderSecretserver:
             password = SecretStoreSpecProviderSecretserverPassword(**password)
         if isinstance(username, dict):
             username = SecretStoreSpecProviderSecretserverUsername(**username)
+        if isinstance(ca_provider, dict):
+            ca_provider = SecretStoreSpecProviderSecretserverCaProvider(**ca_provider)
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__0ac9fe40c03516854b447953e3823341be23519557752c4bfb690b4ee8a1e9bc)
             check_type(argname="argument password", value=password, expected_type=type_hints["password"])
             check_type(argname="argument server_url", value=server_url, expected_type=type_hints["server_url"])
             check_type(argname="argument username", value=username, expected_type=type_hints["username"])
+            check_type(argname="argument ca_bundle", value=ca_bundle, expected_type=type_hints["ca_bundle"])
+            check_type(argname="argument ca_provider", value=ca_provider, expected_type=type_hints["ca_provider"])
             check_type(argname="argument domain", value=domain, expected_type=type_hints["domain"])
         self._values: typing.Dict[builtins.str, typing.Any] = {
             "password": password,
             "server_url": server_url,
             "username": username,
         }
+        if ca_bundle is not None:
+            self._values["ca_bundle"] = ca_bundle
+        if ca_provider is not None:
+            self._values["ca_provider"] = ca_provider
         if domain is not None:
             self._values["domain"] = domain
 
@@ -75297,6 +75823,30 @@ class SecretStoreSpecProviderSecretserver:
         return typing.cast("SecretStoreSpecProviderSecretserverUsername", result)
 
     @builtins.property
+    def ca_bundle(self) -> typing.Optional[builtins.str]:
+        '''PEM/base64 encoded CA bundle used to validate Secret ServerURL.
+
+        Only used
+        if the ServerURL URL is using HTTPS protocol. If not set the system root certificates
+        are used to validate the TLS connection.
+
+        :schema: SecretStoreSpecProviderSecretserver#caBundle
+        '''
+        result = self._values.get("ca_bundle")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def ca_provider(
+        self,
+    ) -> typing.Optional["SecretStoreSpecProviderSecretserverCaProvider"]:
+        '''The provider for the CA bundle to use to validate Secret ServerURL certificate.
+
+        :schema: SecretStoreSpecProviderSecretserver#caProvider
+        '''
+        result = self._values.get("ca_provider")
+        return typing.cast(typing.Optional["SecretStoreSpecProviderSecretserverCaProvider"], result)
+
+    @builtins.property
     def domain(self) -> typing.Optional[builtins.str]:
         '''Domain is the secret server domain.
 
@@ -75315,6 +75865,116 @@ class SecretStoreSpecProviderSecretserver:
         return "SecretStoreSpecProviderSecretserver(%s)" % ", ".join(
             k + "=" + repr(v) for k, v in self._values.items()
         )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.SecretStoreSpecProviderSecretserverCaProvider",
+    jsii_struct_bases=[],
+    name_mapping={
+        "name": "name",
+        "type": "type",
+        "key": "key",
+        "namespace": "namespace",
+    },
+)
+class SecretStoreSpecProviderSecretserverCaProvider:
+    def __init__(
+        self,
+        *,
+        name: builtins.str,
+        type: "SecretStoreSpecProviderSecretserverCaProviderType",
+        key: typing.Optional[builtins.str] = None,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''The provider for the CA bundle to use to validate Secret ServerURL certificate.
+
+        :param name: The name of the object located at the provider type.
+        :param type: The type of provider to use such as "Secret", or "ConfigMap".
+        :param key: The key where the CA certificate can be found in the Secret or ConfigMap.
+        :param namespace: The namespace the Provider type is in. Can only be defined when used in a ClusterSecretStore.
+
+        :schema: SecretStoreSpecProviderSecretserverCaProvider
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__50e46e61f742a4ac94c81f2c9da239aa91ccfd8663734625ac9594b0f9bcd1ca)
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument type", value=type, expected_type=type_hints["type"])
+            check_type(argname="argument key", value=key, expected_type=type_hints["key"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "name": name,
+            "type": type,
+        }
+        if key is not None:
+            self._values["key"] = key
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def name(self) -> builtins.str:
+        '''The name of the object located at the provider type.
+
+        :schema: SecretStoreSpecProviderSecretserverCaProvider#name
+        '''
+        result = self._values.get("name")
+        assert result is not None, "Required property 'name' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def type(self) -> "SecretStoreSpecProviderSecretserverCaProviderType":
+        '''The type of provider to use such as "Secret", or "ConfigMap".
+
+        :schema: SecretStoreSpecProviderSecretserverCaProvider#type
+        '''
+        result = self._values.get("type")
+        assert result is not None, "Required property 'type' is missing"
+        return typing.cast("SecretStoreSpecProviderSecretserverCaProviderType", result)
+
+    @builtins.property
+    def key(self) -> typing.Optional[builtins.str]:
+        '''The key where the CA certificate can be found in the Secret or ConfigMap.
+
+        :schema: SecretStoreSpecProviderSecretserverCaProvider#key
+        '''
+        result = self._values.get("key")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''The namespace the Provider type is in.
+
+        Can only be defined when used in a ClusterSecretStore.
+
+        :schema: SecretStoreSpecProviderSecretserverCaProvider#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "SecretStoreSpecProviderSecretserverCaProvider(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.enum(
+    jsii_type="ioexternal-secrets.SecretStoreSpecProviderSecretserverCaProviderType"
+)
+class SecretStoreSpecProviderSecretserverCaProviderType(enum.Enum):
+    '''The type of provider to use such as "Secret", or "ConfigMap".
+
+    :schema: SecretStoreSpecProviderSecretserverCaProviderType
+    '''
+
+    SECRET = "SECRET"
+    '''Secret.'''
+    CONFIG_MAP = "CONFIG_MAP"
+    '''ConfigMap.'''
 
 
 @jsii.data_type(
@@ -75710,7 +76370,7 @@ class SecretStoreSpecProviderSenhaseguraAuth:
         '''Auth defines parameters to authenticate in senhasegura.
 
         :param client_id: 
-        :param client_secret_secret_ref: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param client_secret_secret_ref: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: SecretStoreSpecProviderSenhaseguraAuth
         '''
@@ -75738,7 +76398,7 @@ class SecretStoreSpecProviderSenhaseguraAuth:
     def client_secret_secret_ref(
         self,
     ) -> "SecretStoreSpecProviderSenhaseguraAuthClientSecretSecretRef":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -75773,7 +76433,7 @@ class SecretStoreSpecProviderSenhaseguraAuthClientSecretSecretRef:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -76962,7 +77622,7 @@ class SecretStoreSpecProviderVaultAuthIamJwt:
     ) -> None:
         '''Specify a service account with IRSA enabled.
 
-        :param service_account_ref: A reference to a ServiceAccount resource.
+        :param service_account_ref: ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :schema: SecretStoreSpecProviderVaultAuthIamJwt
         '''
@@ -76979,7 +77639,7 @@ class SecretStoreSpecProviderVaultAuthIamJwt:
     def service_account_ref(
         self,
     ) -> typing.Optional["SecretStoreSpecProviderVaultAuthIamJwtServiceAccountRef"]:
-        '''A reference to a ServiceAccount resource.
+        '''ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :schema: SecretStoreSpecProviderVaultAuthIamJwt#serviceAccountRef
         '''
@@ -77011,7 +77671,7 @@ class SecretStoreSpecProviderVaultAuthIamJwtServiceAccountRef:
         audiences: typing.Optional[typing.Sequence[builtins.str]] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a ServiceAccount resource.
+        '''ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :param name: The name of the ServiceAccount resource being referred to.
         :param audiences: Audience specifies the ``aud`` claim for the service account token If the service account uses a well-known annotation for e.g. IRSA or GCP Workload Identity then this audiences will be appended to the list.
@@ -79513,8 +80173,8 @@ class SecretStoreSpecProviderWebhookAuthNtlm:
     ) -> None:
         '''NTLMProtocol configures the store to use NTLM for auth.
 
-        :param password_secret: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param username_secret: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param password_secret: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param username_secret: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: SecretStoreSpecProviderWebhookAuthNtlm
         '''
@@ -79533,7 +80193,7 @@ class SecretStoreSpecProviderWebhookAuthNtlm:
 
     @builtins.property
     def password_secret(self) -> "SecretStoreSpecProviderWebhookAuthNtlmPasswordSecret":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -79545,7 +80205,7 @@ class SecretStoreSpecProviderWebhookAuthNtlm:
 
     @builtins.property
     def username_secret(self) -> "SecretStoreSpecProviderWebhookAuthNtlmUsernameSecret":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -79580,7 +80240,7 @@ class SecretStoreSpecProviderWebhookAuthNtlmPasswordSecret:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -79659,7 +80319,7 @@ class SecretStoreSpecProviderWebhookAuthNtlmUsernameSecret:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -79884,7 +80544,8 @@ class SecretStoreSpecProviderWebhookSecrets:
         name: builtins.str,
         secret_ref: typing.Union["SecretStoreSpecProviderWebhookSecretsSecretRef", typing.Dict[builtins.str, typing.Any]],
     ) -> None:
-        '''
+        '''WebhookSecret defines a secret that will be passed to the webhook request.
+
         :param name: Name of this secret in templates.
         :param secret_ref: Secret ref to fill in credentials.
 
@@ -80252,7 +80913,7 @@ class SecretStoreSpecProviderYandexcertificatemanagerCaProvider:
     ) -> None:
         '''The provider for the CA bundle to use to validate Yandex.Cloud server certificate.
 
-        :param cert_secret_ref: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param cert_secret_ref: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: SecretStoreSpecProviderYandexcertificatemanagerCaProvider
         '''
@@ -80269,7 +80930,7 @@ class SecretStoreSpecProviderYandexcertificatemanagerCaProvider:
     def cert_secret_ref(
         self,
     ) -> typing.Optional["SecretStoreSpecProviderYandexcertificatemanagerCaProviderCertSecretRef"]:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -80303,7 +80964,7 @@ class SecretStoreSpecProviderYandexcertificatemanagerCaProviderCertSecretRef:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -80716,7 +81377,7 @@ class SecretStoreSpecProviderYandexlockboxCaProvider:
     ) -> None:
         '''The provider for the CA bundle to use to validate Yandex.Cloud server certificate.
 
-        :param cert_secret_ref: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param cert_secret_ref: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: SecretStoreSpecProviderYandexlockboxCaProvider
         '''
@@ -80733,7 +81394,7 @@ class SecretStoreSpecProviderYandexlockboxCaProvider:
     def cert_secret_ref(
         self,
     ) -> typing.Optional["SecretStoreSpecProviderYandexlockboxCaProviderCertSecretRef"]:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -80767,7 +81428,7 @@ class SecretStoreSpecProviderYandexlockboxCaProviderCertSecretRef:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -81584,8 +82245,8 @@ class SecretStoreV1Beta1SpecProvider:
         :param onboardbase: Onboardbase configures this store to sync secrets using the Onboardbase provider.
         :param onepassword: OnePassword configures this store to sync secrets using the 1Password Cloud provider.
         :param oracle: Oracle configures this store to sync secrets using Oracle Vault provider.
-        :param passbolt: 
-        :param passworddepot: Configures a store to sync secrets with a Password Depot instance.
+        :param passbolt: PassboltProvider defines configuration for the Passbolt provider.
+        :param passworddepot: PasswordDepotProvider configures a store to sync secrets with a Password Depot instance.
         :param previder: Previder configures this store to sync secrets using the Previder provider.
         :param pulumi: Pulumi configures this store to sync secrets using the Pulumi provider.
         :param scaleway: Scaleway.
@@ -82005,7 +82666,8 @@ class SecretStoreV1Beta1SpecProvider:
 
     @builtins.property
     def passbolt(self) -> typing.Optional["SecretStoreV1Beta1SpecProviderPassbolt"]:
-        '''
+        '''PassboltProvider defines configuration for the Passbolt provider.
+
         :schema: SecretStoreV1Beta1SpecProvider#passbolt
         '''
         result = self._values.get("passbolt")
@@ -82015,7 +82677,7 @@ class SecretStoreV1Beta1SpecProvider:
     def passworddepot(
         self,
     ) -> typing.Optional["SecretStoreV1Beta1SpecProviderPassworddepot"]:
-        '''Configures a store to sync secrets with a Password Depot instance.
+        '''PasswordDepotProvider configures a store to sync secrets with a Password Depot instance.
 
         :schema: SecretStoreV1Beta1SpecProvider#passworddepot
         '''
@@ -82583,8 +83245,8 @@ class SecretStoreV1Beta1SpecProviderAkeylessAuthSecretRefSecretRef:
         '''Reference to a Secret that contains the details to authenticate with Akeyless.
 
         :param access_id: The SecretAccessID is used for authentication.
-        :param access_type: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param access_type_param: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param access_type: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param access_type_param: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: SecretStoreV1Beta1SpecProviderAkeylessAuthSecretRefSecretRef
         '''
@@ -82622,7 +83284,7 @@ class SecretStoreV1Beta1SpecProviderAkeylessAuthSecretRefSecretRef:
     def access_type(
         self,
     ) -> typing.Optional["SecretStoreV1Beta1SpecProviderAkeylessAuthSecretRefSecretRefAccessType"]:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -82635,7 +83297,7 @@ class SecretStoreV1Beta1SpecProviderAkeylessAuthSecretRefSecretRef:
     def access_type_param(
         self,
     ) -> typing.Optional["SecretStoreV1Beta1SpecProviderAkeylessAuthSecretRefSecretRefAccessTypeParam"]:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -82746,7 +83408,7 @@ class SecretStoreV1Beta1SpecProviderAkeylessAuthSecretRefSecretRefAccessType:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -82825,7 +83487,7 @@ class SecretStoreV1Beta1SpecProviderAkeylessAuthSecretRefSecretRefAccessTypePara
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -83077,7 +83739,7 @@ class SecretStoreV1Beta1SpecProviderAlibabaAuth:
     ) -> None:
         '''AlibabaAuth contains a secretRef for credentials.
 
-        :param rrsa: Authenticate against Alibaba using RRSA.
+        :param rrsa: AlibabaRRSAAuth authenticates against Alibaba using RRSA (Resource-oriented RAM-based Service Authentication).
         :param secret_ref: AlibabaAuthSecretRef holds secret references for Alibaba credentials.
 
         :schema: SecretStoreV1Beta1SpecProviderAlibabaAuth
@@ -83098,7 +83760,7 @@ class SecretStoreV1Beta1SpecProviderAlibabaAuth:
 
     @builtins.property
     def rrsa(self) -> typing.Optional["SecretStoreV1Beta1SpecProviderAlibabaAuthRrsa"]:
-        '''Authenticate against Alibaba using RRSA.
+        '''AlibabaRRSAAuth authenticates against Alibaba using RRSA (Resource-oriented RAM-based Service Authentication).
 
         :schema: SecretStoreV1Beta1SpecProviderAlibabaAuth#rrsa
         '''
@@ -83147,7 +83809,7 @@ class SecretStoreV1Beta1SpecProviderAlibabaAuthRrsa:
         role_arn: builtins.str,
         session_name: builtins.str,
     ) -> None:
-        '''Authenticate against Alibaba using RRSA.
+        '''AlibabaRRSAAuth authenticates against Alibaba using RRSA (Resource-oriented RAM-based Service Authentication).
 
         :param oidc_provider_arn: 
         :param oidc_token_file_path: 
@@ -83649,7 +84311,7 @@ class SecretStoreV1Beta1SpecProviderAwsAuth:
     ) -> None:
         '''Auth defines the information necessary to authenticate against AWS if not set aws sdk will infer credentials from your environment see: https://docs.aws.amazon.com/sdk-for-go/v1/developer-guide/configuring-sdk.html#specifying-credentials.
 
-        :param jwt: Authenticate against AWS using service account tokens.
+        :param jwt: AWSJWTAuth authenticates against AWS using service account tokens from the Kubernetes cluster.
         :param secret_ref: AWSAuthSecretRef holds secret references for AWS credentials both AccessKeyID and SecretAccessKey must be defined in order to properly authenticate.
 
         :schema: SecretStoreV1Beta1SpecProviderAwsAuth
@@ -83670,7 +84332,7 @@ class SecretStoreV1Beta1SpecProviderAwsAuth:
 
     @builtins.property
     def jwt(self) -> typing.Optional["SecretStoreV1Beta1SpecProviderAwsAuthJwt"]:
-        '''Authenticate against AWS using service account tokens.
+        '''AWSJWTAuth authenticates against AWS using service account tokens from the Kubernetes cluster.
 
         :schema: SecretStoreV1Beta1SpecProviderAwsAuth#jwt
         '''
@@ -83711,9 +84373,9 @@ class SecretStoreV1Beta1SpecProviderAwsAuthJwt:
         *,
         service_account_ref: typing.Optional[typing.Union["SecretStoreV1Beta1SpecProviderAwsAuthJwtServiceAccountRef", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''Authenticate against AWS using service account tokens.
+        '''AWSJWTAuth authenticates against AWS using service account tokens from the Kubernetes cluster.
 
-        :param service_account_ref: A reference to a ServiceAccount resource.
+        :param service_account_ref: ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :schema: SecretStoreV1Beta1SpecProviderAwsAuthJwt
         '''
@@ -83730,7 +84392,7 @@ class SecretStoreV1Beta1SpecProviderAwsAuthJwt:
     def service_account_ref(
         self,
     ) -> typing.Optional["SecretStoreV1Beta1SpecProviderAwsAuthJwtServiceAccountRef"]:
-        '''A reference to a ServiceAccount resource.
+        '''ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :schema: SecretStoreV1Beta1SpecProviderAwsAuthJwt#serviceAccountRef
         '''
@@ -83762,7 +84424,7 @@ class SecretStoreV1Beta1SpecProviderAwsAuthJwtServiceAccountRef:
         audiences: typing.Optional[typing.Sequence[builtins.str]] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a ServiceAccount resource.
+        '''ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :param name: The name of the ServiceAccount resource being referred to.
         :param audiences: Audience specifies the ``aud`` claim for the service account token If the service account uses a well-known annotation for e.g. IRSA or GCP Workload Identity then this audiences will be appended to the list.
@@ -84238,7 +84900,8 @@ class SecretStoreV1Beta1SpecProviderAwsService(enum.Enum):
 )
 class SecretStoreV1Beta1SpecProviderAwsSessionTags:
     def __init__(self, *, key: builtins.str, value: builtins.str) -> None:
-        '''
+        '''Tag defines a tag key and value for AWS resources.
+
         :param key: 
         :param value: 
 
@@ -88308,7 +88971,7 @@ class SecretStoreV1Beta1SpecProviderDevice42Auth:
     ) -> None:
         '''Auth configures how secret-manager authenticates with a Device42 instance.
 
-        :param secret_ref: 
+        :param secret_ref: Device42SecretRef defines a reference to a secret containing credentials for the Device42 provider.
 
         :schema: SecretStoreV1Beta1SpecProviderDevice42Auth
         '''
@@ -88323,7 +88986,8 @@ class SecretStoreV1Beta1SpecProviderDevice42Auth:
 
     @builtins.property
     def secret_ref(self) -> "SecretStoreV1Beta1SpecProviderDevice42AuthSecretRef":
-        '''
+        '''Device42SecretRef defines a reference to a secret containing credentials for the Device42 provider.
+
         :schema: SecretStoreV1Beta1SpecProviderDevice42Auth#secretRef
         '''
         result = self._values.get("secret_ref")
@@ -88353,7 +89017,8 @@ class SecretStoreV1Beta1SpecProviderDevice42AuthSecretRef:
         *,
         credentials: typing.Optional[typing.Union["SecretStoreV1Beta1SpecProviderDevice42AuthSecretRefCredentials", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
+        '''Device42SecretRef defines a reference to a secret containing credentials for the Device42 provider.
+
         :param credentials: Username / Password is used for authentication.
 
         :schema: SecretStoreV1Beta1SpecProviderDevice42AuthSecretRef
@@ -88592,7 +89257,7 @@ class SecretStoreV1Beta1SpecProviderDopplerAuth:
     ) -> None:
         '''Auth configures how the Operator authenticates with the Doppler API.
 
-        :param secret_ref: 
+        :param secret_ref: DopplerAuthSecretRef defines a reference to a secret containing credentials for the Doppler provider.
 
         :schema: SecretStoreV1Beta1SpecProviderDopplerAuth
         '''
@@ -88607,7 +89272,8 @@ class SecretStoreV1Beta1SpecProviderDopplerAuth:
 
     @builtins.property
     def secret_ref(self) -> "SecretStoreV1Beta1SpecProviderDopplerAuthSecretRef":
-        '''
+        '''DopplerAuthSecretRef defines a reference to a secret containing credentials for the Doppler provider.
+
         :schema: SecretStoreV1Beta1SpecProviderDopplerAuth#secretRef
         '''
         result = self._values.get("secret_ref")
@@ -88637,7 +89303,8 @@ class SecretStoreV1Beta1SpecProviderDopplerAuthSecretRef:
         *,
         doppler_token: typing.Union["SecretStoreV1Beta1SpecProviderDopplerAuthSecretRefDopplerToken", typing.Dict[builtins.str, typing.Any]],
     ) -> None:
-        '''
+        '''DopplerAuthSecretRef defines a reference to a secret containing credentials for the Doppler provider.
+
         :param doppler_token: The DopplerToken is used for authentication. See https://docs.doppler.com/reference/api#authentication for auth token types. The Key attribute defaults to dopplerToken if not specified.
 
         :schema: SecretStoreV1Beta1SpecProviderDopplerAuthSecretRef
@@ -88858,7 +89525,8 @@ class SecretStoreV1Beta1SpecProviderFakeData:
         value: builtins.str,
         version: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''
+        '''FakeProviderData defines a key-value pair for the fake provider used in testing.
+
         :param key: 
         :param value: 
         :param version: 
@@ -89197,8 +89865,8 @@ class SecretStoreV1Beta1SpecProviderGcpsmAuth:
     ) -> None:
         '''Auth defines the information necessary to authenticate against GCP.
 
-        :param secret_ref: 
-        :param workload_identity: 
+        :param secret_ref: GCPSMAuthSecretRef defines a reference to a secret containing credentials for the GCP Secret Manager provider.
+        :param workload_identity: GCPWorkloadIdentity defines configuration for using GCP Workload Identity authentication.
 
         :schema: SecretStoreV1Beta1SpecProviderGcpsmAuth
         '''
@@ -89220,7 +89888,8 @@ class SecretStoreV1Beta1SpecProviderGcpsmAuth:
     def secret_ref(
         self,
     ) -> typing.Optional["SecretStoreV1Beta1SpecProviderGcpsmAuthSecretRef"]:
-        '''
+        '''GCPSMAuthSecretRef defines a reference to a secret containing credentials for the GCP Secret Manager provider.
+
         :schema: SecretStoreV1Beta1SpecProviderGcpsmAuth#secretRef
         '''
         result = self._values.get("secret_ref")
@@ -89230,7 +89899,8 @@ class SecretStoreV1Beta1SpecProviderGcpsmAuth:
     def workload_identity(
         self,
     ) -> typing.Optional["SecretStoreV1Beta1SpecProviderGcpsmAuthWorkloadIdentity"]:
-        '''
+        '''GCPWorkloadIdentity defines configuration for using GCP Workload Identity authentication.
+
         :schema: SecretStoreV1Beta1SpecProviderGcpsmAuth#workloadIdentity
         '''
         result = self._values.get("workload_identity")
@@ -89259,7 +89929,8 @@ class SecretStoreV1Beta1SpecProviderGcpsmAuthSecretRef:
         *,
         secret_access_key_secret_ref: typing.Optional[typing.Union["SecretStoreV1Beta1SpecProviderGcpsmAuthSecretRefSecretAccessKeySecretRef", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
+        '''GCPSMAuthSecretRef defines a reference to a secret containing credentials for the GCP Secret Manager provider.
+
         :param secret_access_key_secret_ref: The SecretAccessKey is used for authentication.
 
         :schema: SecretStoreV1Beta1SpecProviderGcpsmAuthSecretRef
@@ -89392,8 +90063,9 @@ class SecretStoreV1Beta1SpecProviderGcpsmAuthWorkloadIdentity:
         cluster_name: typing.Optional[builtins.str] = None,
         cluster_project_id: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''
-        :param service_account_ref: A reference to a ServiceAccount resource.
+        '''GCPWorkloadIdentity defines configuration for using GCP Workload Identity authentication.
+
+        :param service_account_ref: ServiceAccountSelector is a reference to a ServiceAccount resource.
         :param cluster_location: ClusterLocation is the location of the cluster If not specified, it fetches information from the metadata server.
         :param cluster_name: ClusterName is the name of the cluster If not specified, it fetches information from the metadata server.
         :param cluster_project_id: ClusterProjectID is the project ID of the cluster If not specified, it fetches information from the metadata server.
@@ -89422,7 +90094,7 @@ class SecretStoreV1Beta1SpecProviderGcpsmAuthWorkloadIdentity:
     def service_account_ref(
         self,
     ) -> "SecretStoreV1Beta1SpecProviderGcpsmAuthWorkloadIdentityServiceAccountRef":
-        '''A reference to a ServiceAccount resource.
+        '''ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :schema: SecretStoreV1Beta1SpecProviderGcpsmAuthWorkloadIdentity#serviceAccountRef
         '''
@@ -89482,7 +90154,7 @@ class SecretStoreV1Beta1SpecProviderGcpsmAuthWorkloadIdentityServiceAccountRef:
         audiences: typing.Optional[typing.Sequence[builtins.str]] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a ServiceAccount resource.
+        '''ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :param name: The name of the ServiceAccount resource being referred to.
         :param audiences: Audience specifies the ``aud`` claim for the service account token If the service account uses a well-known annotation for e.g. IRSA or GCP Workload Identity then this audiences will be appended to the list.
@@ -89721,7 +90393,7 @@ class SecretStoreV1Beta1SpecProviderGithubAuth:
     ) -> None:
         '''auth configures how secret-manager authenticates with a Github instance.
 
-        :param private_key: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param private_key: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: SecretStoreV1Beta1SpecProviderGithubAuth
         '''
@@ -89736,7 +90408,7 @@ class SecretStoreV1Beta1SpecProviderGithubAuth:
 
     @builtins.property
     def private_key(self) -> "SecretStoreV1Beta1SpecProviderGithubAuthPrivateKey":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -89771,7 +90443,7 @@ class SecretStoreV1Beta1SpecProviderGithubAuthPrivateKey:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -90018,7 +90690,7 @@ class SecretStoreV1Beta1SpecProviderGitlabAuth:
     ) -> None:
         '''Auth configures how secret-manager authenticates with a GitLab instance.
 
-        :param secret_ref: 
+        :param secret_ref: GitlabSecretRef defines a reference to a secret containing credentials for the GitLab provider.
 
         :schema: SecretStoreV1Beta1SpecProviderGitlabAuth
         '''
@@ -90033,7 +90705,8 @@ class SecretStoreV1Beta1SpecProviderGitlabAuth:
 
     @builtins.property
     def secret_ref(self) -> "SecretStoreV1Beta1SpecProviderGitlabAuthSecretRef":
-        '''
+        '''GitlabSecretRef defines a reference to a secret containing credentials for the GitLab provider.
+
         :schema: SecretStoreV1Beta1SpecProviderGitlabAuth#SecretRef
         '''
         result = self._values.get("secret_ref")
@@ -90063,7 +90736,8 @@ class SecretStoreV1Beta1SpecProviderGitlabAuthSecretRef:
         *,
         access_token: typing.Optional[typing.Union["SecretStoreV1Beta1SpecProviderGitlabAuthSecretRefAccessToken", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
+        '''GitlabSecretRef defines a reference to a secret containing credentials for the GitLab provider.
+
         :param access_token: AccessToken is used for authentication.
 
         :schema: SecretStoreV1Beta1SpecProviderGitlabAuthSecretRef
@@ -90363,8 +91037,8 @@ class SecretStoreV1Beta1SpecProviderIbmAuth:
     ) -> None:
         '''Auth configures how secret-manager authenticates with the IBM secrets manager.
 
-        :param container_auth: IBM Container-based auth with IAM Trusted Profile.
-        :param secret_ref: 
+        :param container_auth: IBMAuthContainerAuth defines authentication using IBM Container-based auth with IAM Trusted Profile.
+        :param secret_ref: IBMAuthSecretRef defines a reference to a secret containing credentials for the IBM provider.
 
         :schema: SecretStoreV1Beta1SpecProviderIbmAuth
         '''
@@ -90386,7 +91060,7 @@ class SecretStoreV1Beta1SpecProviderIbmAuth:
     def container_auth(
         self,
     ) -> typing.Optional["SecretStoreV1Beta1SpecProviderIbmAuthContainerAuth"]:
-        '''IBM Container-based auth with IAM Trusted Profile.
+        '''IBMAuthContainerAuth defines authentication using IBM Container-based auth with IAM Trusted Profile.
 
         :schema: SecretStoreV1Beta1SpecProviderIbmAuth#containerAuth
         '''
@@ -90397,7 +91071,8 @@ class SecretStoreV1Beta1SpecProviderIbmAuth:
     def secret_ref(
         self,
     ) -> typing.Optional["SecretStoreV1Beta1SpecProviderIbmAuthSecretRef"]:
-        '''
+        '''IBMAuthSecretRef defines a reference to a secret containing credentials for the IBM provider.
+
         :schema: SecretStoreV1Beta1SpecProviderIbmAuth#secretRef
         '''
         result = self._values.get("secret_ref")
@@ -90432,7 +91107,7 @@ class SecretStoreV1Beta1SpecProviderIbmAuthContainerAuth:
         iam_endpoint: typing.Optional[builtins.str] = None,
         token_location: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''IBM Container-based auth with IAM Trusted Profile.
+        '''IBMAuthContainerAuth defines authentication using IBM Container-based auth with IAM Trusted Profile.
 
         :param profile: the IBM Trusted Profile.
         :param iam_endpoint: 
@@ -90503,7 +91178,8 @@ class SecretStoreV1Beta1SpecProviderIbmAuthSecretRef:
         *,
         secret_api_key_secret_ref: typing.Optional[typing.Union["SecretStoreV1Beta1SpecProviderIbmAuthSecretRefSecretApiKeySecretRef", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
+        '''IBMAuthSecretRef defines a reference to a secret containing credentials for the IBM provider.
+
         :param secret_api_key_secret_ref: The SecretAccessKey is used for authentication.
 
         :schema: SecretStoreV1Beta1SpecProviderIbmAuthSecretRef
@@ -90714,7 +91390,7 @@ class SecretStoreV1Beta1SpecProviderInfisicalAuth:
     ) -> None:
         '''Auth configures how the Operator authenticates with the Infisical API.
 
-        :param universal_auth_credentials: 
+        :param universal_auth_credentials: UniversalAuthCredentials defines the credentials for Infisical Universal Auth.
 
         :schema: SecretStoreV1Beta1SpecProviderInfisicalAuth
         '''
@@ -90731,7 +91407,8 @@ class SecretStoreV1Beta1SpecProviderInfisicalAuth:
     def universal_auth_credentials(
         self,
     ) -> typing.Optional["SecretStoreV1Beta1SpecProviderInfisicalAuthUniversalAuthCredentials"]:
-        '''
+        '''UniversalAuthCredentials defines the credentials for Infisical Universal Auth.
+
         :schema: SecretStoreV1Beta1SpecProviderInfisicalAuth#universalAuthCredentials
         '''
         result = self._values.get("universal_auth_credentials")
@@ -90761,9 +91438,10 @@ class SecretStoreV1Beta1SpecProviderInfisicalAuthUniversalAuthCredentials:
         client_id: typing.Union["SecretStoreV1Beta1SpecProviderInfisicalAuthUniversalAuthCredentialsClientId", typing.Dict[builtins.str, typing.Any]],
         client_secret: typing.Union["SecretStoreV1Beta1SpecProviderInfisicalAuthUniversalAuthCredentialsClientSecret", typing.Dict[builtins.str, typing.Any]],
     ) -> None:
-        '''
-        :param client_id: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param client_secret: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        '''UniversalAuthCredentials defines the credentials for Infisical Universal Auth.
+
+        :param client_id: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param client_secret: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: SecretStoreV1Beta1SpecProviderInfisicalAuthUniversalAuthCredentials
         '''
@@ -90784,7 +91462,7 @@ class SecretStoreV1Beta1SpecProviderInfisicalAuthUniversalAuthCredentials:
     def client_id(
         self,
     ) -> "SecretStoreV1Beta1SpecProviderInfisicalAuthUniversalAuthCredentialsClientId":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -90798,7 +91476,7 @@ class SecretStoreV1Beta1SpecProviderInfisicalAuthUniversalAuthCredentials:
     def client_secret(
         self,
     ) -> "SecretStoreV1Beta1SpecProviderInfisicalAuthUniversalAuthCredentialsClientSecret":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -90833,7 +91511,7 @@ class SecretStoreV1Beta1SpecProviderInfisicalAuthUniversalAuthCredentialsClientI
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -90912,7 +91590,7 @@ class SecretStoreV1Beta1SpecProviderInfisicalAuthUniversalAuthCredentialsClientS
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -91112,7 +91790,7 @@ class SecretStoreV1Beta1SpecProviderKeepersecurity:
     ) -> None:
         '''KeeperSecurity configures this store to sync secrets using the KeeperSecurity provider.
 
-        :param auth_ref: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param auth_ref: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
         :param folder_id: 
 
         :schema: SecretStoreV1Beta1SpecProviderKeepersecurity
@@ -91130,7 +91808,7 @@ class SecretStoreV1Beta1SpecProviderKeepersecurity:
 
     @builtins.property
     def auth_ref(self) -> "SecretStoreV1Beta1SpecProviderKeepersecurityAuthRef":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -91174,7 +91852,7 @@ class SecretStoreV1Beta1SpecProviderKeepersecurityAuthRef:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -91445,8 +92123,8 @@ class SecretStoreV1Beta1SpecProviderKubernetesAuthCert:
     ) -> None:
         '''has both clientCert and clientKey as secretKeySelector.
 
-        :param client_cert: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param client_key: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param client_cert: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param client_key: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: SecretStoreV1Beta1SpecProviderKubernetesAuthCert
         '''
@@ -91468,7 +92146,7 @@ class SecretStoreV1Beta1SpecProviderKubernetesAuthCert:
     def client_cert(
         self,
     ) -> typing.Optional["SecretStoreV1Beta1SpecProviderKubernetesAuthCertClientCert"]:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -91481,7 +92159,7 @@ class SecretStoreV1Beta1SpecProviderKubernetesAuthCert:
     def client_key(
         self,
     ) -> typing.Optional["SecretStoreV1Beta1SpecProviderKubernetesAuthCertClientKey"]:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -91515,7 +92193,7 @@ class SecretStoreV1Beta1SpecProviderKubernetesAuthCertClientCert:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -91594,7 +92272,7 @@ class SecretStoreV1Beta1SpecProviderKubernetesAuthCertClientKey:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -91826,7 +92504,7 @@ class SecretStoreV1Beta1SpecProviderKubernetesAuthToken:
     ) -> None:
         '''use static token to authenticate with.
 
-        :param bearer_token: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param bearer_token: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: SecretStoreV1Beta1SpecProviderKubernetesAuthToken
         '''
@@ -91843,7 +92521,7 @@ class SecretStoreV1Beta1SpecProviderKubernetesAuthToken:
     def bearer_token(
         self,
     ) -> typing.Optional["SecretStoreV1Beta1SpecProviderKubernetesAuthTokenBearerToken"]:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -91877,7 +92555,7 @@ class SecretStoreV1Beta1SpecProviderKubernetesAuthTokenBearerToken:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -93265,7 +93943,8 @@ class SecretStoreV1Beta1SpecProviderPassbolt:
         auth: typing.Union["SecretStoreV1Beta1SpecProviderPassboltAuth", typing.Dict[builtins.str, typing.Any]],
         host: builtins.str,
     ) -> None:
-        '''
+        '''PassboltProvider defines configuration for the Passbolt provider.
+
         :param auth: Auth defines the information necessary to authenticate against Passbolt Server.
         :param host: Host defines the Passbolt Server to connect to.
 
@@ -93331,8 +94010,8 @@ class SecretStoreV1Beta1SpecProviderPassboltAuth:
     ) -> None:
         '''Auth defines the information necessary to authenticate against Passbolt Server.
 
-        :param password_secret_ref: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param private_key_secret_ref: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param password_secret_ref: PasswordSecretRef is a reference to the secret containing the Passbolt password.
+        :param private_key_secret_ref: PrivateKeySecretRef is a reference to the secret containing the Passbolt private key.
 
         :schema: SecretStoreV1Beta1SpecProviderPassboltAuth
         '''
@@ -93353,9 +94032,7 @@ class SecretStoreV1Beta1SpecProviderPassboltAuth:
     def password_secret_ref(
         self,
     ) -> "SecretStoreV1Beta1SpecProviderPassboltAuthPasswordSecretRef":
-        '''A reference to a specific 'key' within a Secret resource.
-
-        In some instances, ``key`` is a required field.
+        '''PasswordSecretRef is a reference to the secret containing the Passbolt password.
 
         :schema: SecretStoreV1Beta1SpecProviderPassboltAuth#passwordSecretRef
         '''
@@ -93367,9 +94044,7 @@ class SecretStoreV1Beta1SpecProviderPassboltAuth:
     def private_key_secret_ref(
         self,
     ) -> "SecretStoreV1Beta1SpecProviderPassboltAuthPrivateKeySecretRef":
-        '''A reference to a specific 'key' within a Secret resource.
-
-        In some instances, ``key`` is a required field.
+        '''PrivateKeySecretRef is a reference to the secret containing the Passbolt private key.
 
         :schema: SecretStoreV1Beta1SpecProviderPassboltAuth#privateKeySecretRef
         '''
@@ -93402,9 +94077,7 @@ class SecretStoreV1Beta1SpecProviderPassboltAuthPasswordSecretRef:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
-
-        In some instances, ``key`` is a required field.
+        '''PasswordSecretRef is a reference to the secret containing the Passbolt password.
 
         :param key: A key in the referenced Secret. Some instances of this field may be defaulted, in others it may be required.
         :param name: The name of the Secret resource being referred to.
@@ -93481,9 +94154,7 @@ class SecretStoreV1Beta1SpecProviderPassboltAuthPrivateKeySecretRef:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
-
-        In some instances, ``key`` is a required field.
+        '''PrivateKeySecretRef is a reference to the secret containing the Passbolt private key.
 
         :param key: A key in the referenced Secret. Some instances of this field may be defaulted, in others it may be required.
         :param name: The name of the Secret resource being referred to.
@@ -93560,7 +94231,7 @@ class SecretStoreV1Beta1SpecProviderPassworddepot:
         database: builtins.str,
         host: builtins.str,
     ) -> None:
-        '''Configures a store to sync secrets with a Password Depot instance.
+        '''PasswordDepotProvider configures a store to sync secrets with a Password Depot instance.
 
         :param auth: Auth configures how secret-manager authenticates with a Password Depot instance.
         :param database: Database to use as source.
@@ -93636,7 +94307,7 @@ class SecretStoreV1Beta1SpecProviderPassworddepotAuth:
     ) -> None:
         '''Auth configures how secret-manager authenticates with a Password Depot instance.
 
-        :param secret_ref: 
+        :param secret_ref: PasswordDepotSecretRef defines a reference to a secret containing credentials for the Password Depot provider.
 
         :schema: SecretStoreV1Beta1SpecProviderPassworddepotAuth
         '''
@@ -93651,7 +94322,8 @@ class SecretStoreV1Beta1SpecProviderPassworddepotAuth:
 
     @builtins.property
     def secret_ref(self) -> "SecretStoreV1Beta1SpecProviderPassworddepotAuthSecretRef":
-        '''
+        '''PasswordDepotSecretRef defines a reference to a secret containing credentials for the Password Depot provider.
+
         :schema: SecretStoreV1Beta1SpecProviderPassworddepotAuth#secretRef
         '''
         result = self._values.get("secret_ref")
@@ -93681,7 +94353,8 @@ class SecretStoreV1Beta1SpecProviderPassworddepotAuthSecretRef:
         *,
         credentials: typing.Optional[typing.Union["SecretStoreV1Beta1SpecProviderPassworddepotAuthSecretRefCredentials", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''
+        '''PasswordDepotSecretRef defines a reference to a secret containing credentials for the Password Depot provider.
+
         :param credentials: Username / Password is used for authentication.
 
         :schema: SecretStoreV1Beta1SpecProviderPassworddepotAuthSecretRef
@@ -95143,7 +95816,7 @@ class SecretStoreV1Beta1SpecProviderSenhaseguraAuth:
         '''Auth defines parameters to authenticate in senhasegura.
 
         :param client_id: 
-        :param client_secret_secret_ref: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param client_secret_secret_ref: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: SecretStoreV1Beta1SpecProviderSenhaseguraAuth
         '''
@@ -95171,7 +95844,7 @@ class SecretStoreV1Beta1SpecProviderSenhaseguraAuth:
     def client_secret_secret_ref(
         self,
     ) -> "SecretStoreV1Beta1SpecProviderSenhaseguraAuthClientSecretSecretRef":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -95206,7 +95879,7 @@ class SecretStoreV1Beta1SpecProviderSenhaseguraAuthClientSecretSecretRef:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -96361,7 +97034,7 @@ class SecretStoreV1Beta1SpecProviderVaultAuthIamJwt:
     ) -> None:
         '''Specify a service account with IRSA enabled.
 
-        :param service_account_ref: A reference to a ServiceAccount resource.
+        :param service_account_ref: ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :schema: SecretStoreV1Beta1SpecProviderVaultAuthIamJwt
         '''
@@ -96378,7 +97051,7 @@ class SecretStoreV1Beta1SpecProviderVaultAuthIamJwt:
     def service_account_ref(
         self,
     ) -> typing.Optional["SecretStoreV1Beta1SpecProviderVaultAuthIamJwtServiceAccountRef"]:
-        '''A reference to a ServiceAccount resource.
+        '''ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :schema: SecretStoreV1Beta1SpecProviderVaultAuthIamJwt#serviceAccountRef
         '''
@@ -96410,7 +97083,7 @@ class SecretStoreV1Beta1SpecProviderVaultAuthIamJwtServiceAccountRef:
         audiences: typing.Optional[typing.Sequence[builtins.str]] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a ServiceAccount resource.
+        '''ServiceAccountSelector is a reference to a ServiceAccount resource.
 
         :param name: The name of the ServiceAccount resource being referred to.
         :param audiences: Audience specifies the ``aud`` claim for the service account token If the service account uses a well-known annotation for e.g. IRSA or GCP Workload Identity then this audiences will be appended to the list.
@@ -98428,8 +99101,8 @@ class SecretStoreV1Beta1SpecProviderWebhookAuthNtlm:
     ) -> None:
         '''NTLMProtocol configures the store to use NTLM for auth.
 
-        :param password_secret: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
-        :param username_secret: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param password_secret: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param username_secret: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: SecretStoreV1Beta1SpecProviderWebhookAuthNtlm
         '''
@@ -98450,7 +99123,7 @@ class SecretStoreV1Beta1SpecProviderWebhookAuthNtlm:
     def password_secret(
         self,
     ) -> "SecretStoreV1Beta1SpecProviderWebhookAuthNtlmPasswordSecret":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -98464,7 +99137,7 @@ class SecretStoreV1Beta1SpecProviderWebhookAuthNtlm:
     def username_secret(
         self,
     ) -> "SecretStoreV1Beta1SpecProviderWebhookAuthNtlmUsernameSecret":
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -98499,7 +99172,7 @@ class SecretStoreV1Beta1SpecProviderWebhookAuthNtlmPasswordSecret:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -98578,7 +99251,7 @@ class SecretStoreV1Beta1SpecProviderWebhookAuthNtlmUsernameSecret:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -98805,7 +99478,8 @@ class SecretStoreV1Beta1SpecProviderWebhookSecrets:
         name: builtins.str,
         secret_ref: typing.Union["SecretStoreV1Beta1SpecProviderWebhookSecretsSecretRef", typing.Dict[builtins.str, typing.Any]],
     ) -> None:
-        '''
+        '''WebhookSecret defines a secret to be used in webhook templates.
+
         :param name: Name of this secret in templates.
         :param secret_ref: Secret ref to fill in credentials.
 
@@ -99154,7 +99828,7 @@ class SecretStoreV1Beta1SpecProviderYandexcertificatemanagerCaProvider:
     ) -> None:
         '''The provider for the CA bundle to use to validate Yandex.Cloud server certificate.
 
-        :param cert_secret_ref: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param cert_secret_ref: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: SecretStoreV1Beta1SpecProviderYandexcertificatemanagerCaProvider
         '''
@@ -99171,7 +99845,7 @@ class SecretStoreV1Beta1SpecProviderYandexcertificatemanagerCaProvider:
     def cert_secret_ref(
         self,
     ) -> typing.Optional["SecretStoreV1Beta1SpecProviderYandexcertificatemanagerCaProviderCertSecretRef"]:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -99205,7 +99879,7 @@ class SecretStoreV1Beta1SpecProviderYandexcertificatemanagerCaProviderCertSecret
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -99494,7 +100168,7 @@ class SecretStoreV1Beta1SpecProviderYandexlockboxCaProvider:
     ) -> None:
         '''The provider for the CA bundle to use to validate Yandex.Cloud server certificate.
 
-        :param cert_secret_ref: A reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param cert_secret_ref: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
 
         :schema: SecretStoreV1Beta1SpecProviderYandexlockboxCaProvider
         '''
@@ -99511,7 +100185,7 @@ class SecretStoreV1Beta1SpecProviderYandexlockboxCaProvider:
     def cert_secret_ref(
         self,
     ) -> typing.Optional["SecretStoreV1Beta1SpecProviderYandexlockboxCaProviderCertSecretRef"]:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -99545,7 +100219,7 @@ class SecretStoreV1Beta1SpecProviderYandexlockboxCaProviderCertSecretRef:
         name: typing.Optional[builtins.str] = None,
         namespace: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''A reference to a specific 'key' within a Secret resource.
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
 
         In some instances, ``key`` is a required field.
 
@@ -99625,8 +100299,8 @@ class SecretStoreV1Beta1SpecRetrySettings:
     ) -> None:
         '''Used to configure http retries if failed.
 
-        :param max_retries: 
-        :param retry_interval: 
+        :param max_retries: MaxRetries is the maximum number of retry attempts.
+        :param retry_interval: RetryInterval is the interval between retry attempts.
 
         :schema: SecretStoreV1Beta1SpecRetrySettings
         '''
@@ -99642,7 +100316,8 @@ class SecretStoreV1Beta1SpecRetrySettings:
 
     @builtins.property
     def max_retries(self) -> typing.Optional[jsii.Number]:
-        '''
+        '''MaxRetries is the maximum number of retry attempts.
+
         :schema: SecretStoreV1Beta1SpecRetrySettings#maxRetries
         '''
         result = self._values.get("max_retries")
@@ -99650,7 +100325,8 @@ class SecretStoreV1Beta1SpecRetrySettings:
 
     @builtins.property
     def retry_interval(self) -> typing.Optional[builtins.str]:
-        '''
+        '''RetryInterval is the interval between retry attempts.
+
         :schema: SecretStoreV1Beta1SpecRetrySettings#retryInterval
         '''
         result = self._values.get("retry_interval")
@@ -99711,6 +100387,7 @@ __all__ = [
     "ClusterExternalSecretSpecExternalSecretSpecTarget",
     "ClusterExternalSecretSpecExternalSecretSpecTargetCreationPolicy",
     "ClusterExternalSecretSpecExternalSecretSpecTargetDeletionPolicy",
+    "ClusterExternalSecretSpecExternalSecretSpecTargetManifest",
     "ClusterExternalSecretSpecExternalSecretSpecTargetTemplate",
     "ClusterExternalSecretSpecExternalSecretSpecTargetTemplateEngineVersion",
     "ClusterExternalSecretSpecExternalSecretSpecTargetTemplateMergePolicy",
@@ -99722,7 +100399,6 @@ __all__ = [
     "ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFromSecret",
     "ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFromSecretItems",
     "ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFromSecretItemsTemplateAs",
-    "ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFromTarget",
     "ClusterExternalSecretSpecNamespaceSelector",
     "ClusterExternalSecretSpecNamespaceSelectorMatchExpressions",
     "ClusterExternalSecretSpecNamespaceSelectors",
@@ -99814,7 +100490,6 @@ __all__ = [
     "ClusterPushSecretSpecPushSecretSpecTemplateTemplateFromSecret",
     "ClusterPushSecretSpecPushSecretSpecTemplateTemplateFromSecretItems",
     "ClusterPushSecretSpecPushSecretSpecTemplateTemplateFromSecretItemsTemplateAs",
-    "ClusterPushSecretSpecPushSecretSpecTemplateTemplateFromTarget",
     "ClusterPushSecretSpecPushSecretSpecUpdatePolicy",
     "ClusterSecretStore",
     "ClusterSecretStoreProps",
@@ -100039,6 +100714,8 @@ __all__ = [
     "ClusterSecretStoreSpecProviderScalewaySecretKey",
     "ClusterSecretStoreSpecProviderScalewaySecretKeySecretRef",
     "ClusterSecretStoreSpecProviderSecretserver",
+    "ClusterSecretStoreSpecProviderSecretserverCaProvider",
+    "ClusterSecretStoreSpecProviderSecretserverCaProviderType",
     "ClusterSecretStoreSpecProviderSecretserverPassword",
     "ClusterSecretStoreSpecProviderSecretserverPasswordSecretRef",
     "ClusterSecretStoreSpecProviderSecretserverUsername",
@@ -100390,6 +101067,7 @@ __all__ = [
     "ExternalSecretSpecTarget",
     "ExternalSecretSpecTargetCreationPolicy",
     "ExternalSecretSpecTargetDeletionPolicy",
+    "ExternalSecretSpecTargetManifest",
     "ExternalSecretSpecTargetTemplate",
     "ExternalSecretSpecTargetTemplateEngineVersion",
     "ExternalSecretSpecTargetTemplateMergePolicy",
@@ -100401,7 +101079,6 @@ __all__ = [
     "ExternalSecretSpecTargetTemplateTemplateFromSecret",
     "ExternalSecretSpecTargetTemplateTemplateFromSecretItems",
     "ExternalSecretSpecTargetTemplateTemplateFromSecretItemsTemplateAs",
-    "ExternalSecretSpecTargetTemplateTemplateFromTarget",
     "ExternalSecretV1Beta1",
     "ExternalSecretV1Beta1Props",
     "ExternalSecretV1Beta1Spec",
@@ -100479,7 +101156,6 @@ __all__ = [
     "PushSecretSpecTemplateTemplateFromSecret",
     "PushSecretSpecTemplateTemplateFromSecretItems",
     "PushSecretSpecTemplateTemplateFromSecretItemsTemplateAs",
-    "PushSecretSpecTemplateTemplateFromTarget",
     "PushSecretSpecUpdatePolicy",
     "SecretStore",
     "SecretStoreProps",
@@ -100704,6 +101380,8 @@ __all__ = [
     "SecretStoreSpecProviderScalewaySecretKey",
     "SecretStoreSpecProviderScalewaySecretKeySecretRef",
     "SecretStoreSpecProviderSecretserver",
+    "SecretStoreSpecProviderSecretserverCaProvider",
+    "SecretStoreSpecProviderSecretserverCaProviderType",
     "SecretStoreSpecProviderSecretserverPassword",
     "SecretStoreSpecProviderSecretserverPasswordSecretRef",
     "SecretStoreSpecProviderSecretserverUsername",
@@ -101229,8 +101907,17 @@ def _typecheckingstub__d7d283c53e5807e3a14479debfe5a62ad7d33bbe1884db78b4005c97d
     creation_policy: typing.Optional[ClusterExternalSecretSpecExternalSecretSpecTargetCreationPolicy] = None,
     deletion_policy: typing.Optional[ClusterExternalSecretSpecExternalSecretSpecTargetDeletionPolicy] = None,
     immutable: typing.Optional[builtins.bool] = None,
+    manifest: typing.Optional[typing.Union[ClusterExternalSecretSpecExternalSecretSpecTargetManifest, typing.Dict[builtins.str, typing.Any]]] = None,
     name: typing.Optional[builtins.str] = None,
     template: typing.Optional[typing.Union[ClusterExternalSecretSpecExternalSecretSpecTargetTemplate, typing.Dict[builtins.str, typing.Any]]] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__cb18bef7e992aca27df2137bf28de8bddc383d6530eb77dec4678a9a79951d67(
+    *,
+    api_version: builtins.str,
+    kind: builtins.str,
 ) -> None:
     """Type checking stubs"""
     pass
@@ -101261,7 +101948,7 @@ def _typecheckingstub__6afaa4c609906e7626220c4fddf4bc3a8fcc807598ec8beb344f6b9de
     config_map: typing.Optional[typing.Union[ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFromConfigMap, typing.Dict[builtins.str, typing.Any]]] = None,
     literal: typing.Optional[builtins.str] = None,
     secret: typing.Optional[typing.Union[ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFromSecret, typing.Dict[builtins.str, typing.Any]]] = None,
-    target: typing.Optional[ClusterExternalSecretSpecExternalSecretSpecTargetTemplateTemplateFromTarget] = None,
+    target: typing.Optional[builtins.str] = None,
 ) -> None:
     """Type checking stubs"""
     pass
@@ -101818,7 +102505,7 @@ def _typecheckingstub__59c17669e91018a0a4ff6fd7333d3e938da152a551d47431f7e273c11
     config_map: typing.Optional[typing.Union[ClusterPushSecretSpecPushSecretSpecTemplateTemplateFromConfigMap, typing.Dict[builtins.str, typing.Any]]] = None,
     literal: typing.Optional[builtins.str] = None,
     secret: typing.Optional[typing.Union[ClusterPushSecretSpecPushSecretSpecTemplateTemplateFromSecret, typing.Dict[builtins.str, typing.Any]]] = None,
-    target: typing.Optional[ClusterPushSecretSpecPushSecretSpecTemplateTemplateFromTarget] = None,
+    target: typing.Optional[builtins.str] = None,
 ) -> None:
     """Type checking stubs"""
     pass
@@ -102944,6 +103631,7 @@ def _typecheckingstub__03d725002a43e209ee5f755a66ff56c2ca94a198f710fd6b5e085a82b
 
 def _typecheckingstub__5d26bdf357d63f5060f85dd85dfff97aea5186ba28331fba88305c92f7bf2bee(
     *,
+    iam_endpoint: typing.Optional[builtins.str] = None,
     secret_api_key_secret_ref: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderIbmAuthSecretRefSecretApiKeySecretRef, typing.Dict[builtins.str, typing.Any]]] = None,
 ) -> None:
     """Type checking stubs"""
@@ -103770,7 +104458,19 @@ def _typecheckingstub__a370534ba47dee2393e2fa141d68fbbdd08db81f3ec55f1db5f713ea0
     password: typing.Union[ClusterSecretStoreSpecProviderSecretserverPassword, typing.Dict[builtins.str, typing.Any]],
     server_url: builtins.str,
     username: typing.Union[ClusterSecretStoreSpecProviderSecretserverUsername, typing.Dict[builtins.str, typing.Any]],
+    ca_bundle: typing.Optional[builtins.str] = None,
+    ca_provider: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderSecretserverCaProvider, typing.Dict[builtins.str, typing.Any]]] = None,
     domain: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__45392c6da6b6ef95a5e6ac7e979f1e5292121bf300d204e76e9b4ba020d700b7(
+    *,
+    name: builtins.str,
+    type: ClusterSecretStoreSpecProviderSecretserverCaProviderType,
+    key: typing.Optional[builtins.str] = None,
+    namespace: typing.Optional[builtins.str] = None,
 ) -> None:
     """Type checking stubs"""
     pass
@@ -106631,8 +107331,17 @@ def _typecheckingstub__827bc50a1daa2c072beabe447d39f5aa425b2533370b434284005378a
     creation_policy: typing.Optional[ExternalSecretSpecTargetCreationPolicy] = None,
     deletion_policy: typing.Optional[ExternalSecretSpecTargetDeletionPolicy] = None,
     immutable: typing.Optional[builtins.bool] = None,
+    manifest: typing.Optional[typing.Union[ExternalSecretSpecTargetManifest, typing.Dict[builtins.str, typing.Any]]] = None,
     name: typing.Optional[builtins.str] = None,
     template: typing.Optional[typing.Union[ExternalSecretSpecTargetTemplate, typing.Dict[builtins.str, typing.Any]]] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__1f1537c634fadc74d0ebff0dadab1c87af05e2ac7c9474483010bc3e9016fb08(
+    *,
+    api_version: builtins.str,
+    kind: builtins.str,
 ) -> None:
     """Type checking stubs"""
     pass
@@ -106663,7 +107372,7 @@ def _typecheckingstub__31faa86a5c98b99d6ee0e61c7febcb6d057f4f2d66a77088ff59e58fd
     config_map: typing.Optional[typing.Union[ExternalSecretSpecTargetTemplateTemplateFromConfigMap, typing.Dict[builtins.str, typing.Any]]] = None,
     literal: typing.Optional[builtins.str] = None,
     secret: typing.Optional[typing.Union[ExternalSecretSpecTargetTemplateTemplateFromSecret, typing.Dict[builtins.str, typing.Any]]] = None,
-    target: typing.Optional[ExternalSecretSpecTargetTemplateTemplateFromTarget] = None,
+    target: typing.Optional[builtins.str] = None,
 ) -> None:
     """Type checking stubs"""
     pass
@@ -107095,7 +107804,7 @@ def _typecheckingstub__f4a614224c0c7c641288cae1b707047dac305041493dfd9c87bbabace
     config_map: typing.Optional[typing.Union[PushSecretSpecTemplateTemplateFromConfigMap, typing.Dict[builtins.str, typing.Any]]] = None,
     literal: typing.Optional[builtins.str] = None,
     secret: typing.Optional[typing.Union[PushSecretSpecTemplateTemplateFromSecret, typing.Dict[builtins.str, typing.Any]]] = None,
-    target: typing.Optional[PushSecretSpecTemplateTemplateFromTarget] = None,
+    target: typing.Optional[builtins.str] = None,
 ) -> None:
     """Type checking stubs"""
     pass
@@ -108221,6 +108930,7 @@ def _typecheckingstub__fd82ca61a2a07d8376cbfddce72d91cf5a2b99acd157dfd1a646676de
 
 def _typecheckingstub__07e5284d9a003aeaf572246b0e4192e0b1555336a7526ede354d24b2bfa9117d(
     *,
+    iam_endpoint: typing.Optional[builtins.str] = None,
     secret_api_key_secret_ref: typing.Optional[typing.Union[SecretStoreSpecProviderIbmAuthSecretRefSecretApiKeySecretRef, typing.Dict[builtins.str, typing.Any]]] = None,
 ) -> None:
     """Type checking stubs"""
@@ -109047,7 +109757,19 @@ def _typecheckingstub__0ac9fe40c03516854b447953e3823341be23519557752c4bfb690b4ee
     password: typing.Union[SecretStoreSpecProviderSecretserverPassword, typing.Dict[builtins.str, typing.Any]],
     server_url: builtins.str,
     username: typing.Union[SecretStoreSpecProviderSecretserverUsername, typing.Dict[builtins.str, typing.Any]],
+    ca_bundle: typing.Optional[builtins.str] = None,
+    ca_provider: typing.Optional[typing.Union[SecretStoreSpecProviderSecretserverCaProvider, typing.Dict[builtins.str, typing.Any]]] = None,
     domain: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__50e46e61f742a4ac94c81f2c9da239aa91ccfd8663734625ac9594b0f9bcd1ca(
+    *,
+    name: builtins.str,
+    type: SecretStoreSpecProviderSecretserverCaProviderType,
+    key: typing.Optional[builtins.str] = None,
+    namespace: typing.Optional[builtins.str] = None,
 ) -> None:
     """Type checking stubs"""
     pass
