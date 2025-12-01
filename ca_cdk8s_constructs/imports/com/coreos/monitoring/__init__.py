@@ -182,7 +182,9 @@ class ProbeProps:
         "basic_auth": "basicAuth",
         "bearer_token_secret": "bearerTokenSecret",
         "convert_classic_histograms_to_nhcb": "convertClassicHistogramsToNhcb",
+        "enable_http2": "enableHttp2",
         "fallback_scrape_protocol": "fallbackScrapeProtocol",
+        "follow_redirects": "followRedirects",
         "interval": "interval",
         "job_name": "jobName",
         "keep_dropped_targets": "keepDroppedTargets",
@@ -214,7 +216,9 @@ class ProbeSpec:
         basic_auth: typing.Optional[typing.Union["ProbeSpecBasicAuth", typing.Dict[builtins.str, typing.Any]]] = None,
         bearer_token_secret: typing.Optional[typing.Union["ProbeSpecBearerTokenSecret", typing.Dict[builtins.str, typing.Any]]] = None,
         convert_classic_histograms_to_nhcb: typing.Optional[builtins.bool] = None,
+        enable_http2: typing.Optional[builtins.bool] = None,
         fallback_scrape_protocol: typing.Optional["ProbeSpecFallbackScrapeProtocol"] = None,
+        follow_redirects: typing.Optional[builtins.bool] = None,
         interval: typing.Optional[builtins.str] = None,
         job_name: typing.Optional[builtins.str] = None,
         keep_dropped_targets: typing.Optional[jsii.Number] = None,
@@ -239,11 +243,13 @@ class ProbeSpec:
     ) -> None:
         '''spec defines the specification of desired Ingress selection for target discovery by Prometheus.
 
-        :param authorization: authorization section for this endpoint.
-        :param basic_auth: basicAuth allow an endpoint to authenticate over basic authentication. More info: https://prometheus.io/docs/operating/configuration/#endpoint
-        :param bearer_token_secret: bearerTokenSecret defines the secret to mount to read bearer token for scraping targets. The secret needs to be in the same namespace as the probe and accessible by the Prometheus Operator.
+        :param authorization: authorization configures the Authorization header credentials used by the client. Cannot be set at the same time as ``basicAuth``, ``bearerTokenSecret`` or ``oauth2``.
+        :param basic_auth: basicAuth defines the Basic Authentication credentials used by the client. Cannot be set at the same time as ``authorization``, ``bearerTokenSecret`` or ``oauth2``.
+        :param bearer_token_secret: bearerTokenSecret defines a key of a Secret containing the bearer token used by the client for authentication. The secret needs to be in the same namespace as the custom resource and readable by the Prometheus Operator. Cannot be set at the same time as ``authorization``, ``basicAuth`` or ``oauth2``. Deprecated: use ``authorization`` instead.
         :param convert_classic_histograms_to_nhcb: convertClassicHistogramsToNHCB defines whether to convert all scraped classic histograms into a native histogram with custom buckets. It requires Prometheus >= v3.0.0.
+        :param enable_http2: enableHttp2 can be used to disable HTTP2.
         :param fallback_scrape_protocol: fallbackScrapeProtocol defines the protocol to use if a scrape returns blank, unparseable, or otherwise invalid Content-Type. It requires Prometheus >= v3.0.0.
+        :param follow_redirects: followRedirects defines whether the client should follow HTTP 3xx redirects.
         :param interval: interval at which targets are probed using the configured prober. If not specified Prometheus' global scrape interval is used.
         :param job_name: jobName assigned to scraped metrics by default.
         :param keep_dropped_targets: keepDroppedTargets defines the per-scrape limit on the number of targets dropped by relabeling that will be kept in memory. 0 means no limit. It requires Prometheus >= v2.47.0.
@@ -254,7 +260,7 @@ class ProbeSpec:
         :param module: module to use for probing specifying how to probe the target. Example module configuring in the blackbox exporter: https://github.com/prometheus/blackbox_exporter/blob/master/example.yml
         :param native_histogram_bucket_limit: nativeHistogramBucketLimit defines ff there are more than this many buckets in a native histogram, buckets will be merged to stay within the limit. It requires Prometheus >= v2.45.0.
         :param native_histogram_min_bucket_factor: nativeHistogramMinBucketFactor defines if the growth factor of one bucket to the next is smaller than this, buckets will be merged to increase the factor sufficiently. It requires Prometheus >= v2.50.0.
-        :param oauth2: oauth2 for the URL. Only valid in Prometheus versions 2.27.0 and newer.
+        :param oauth2: oauth2 defines the OAuth2 settings used by the client. It requires Prometheus >= 2.27.0. Cannot be set at the same time as ``authorization``, ``basicAuth`` or ``bearerTokenSecret``.
         :param params: params defines the list of HTTP query parameters for the scrape. Please note that the ``.spec.module`` field takes precedence over the ``module`` parameter from this list when both are defined. The module name must be added using Module under ProbeSpec.
         :param prober: prober defines the specification for the prober to use for probing targets. The prober.URL parameter is required. Targets cannot be probed if left empty.
         :param sample_limit: sampleLimit defines per-scrape limit on number of scraped samples that will be accepted.
@@ -264,7 +270,7 @@ class ProbeSpec:
         :param scrape_timeout: scrapeTimeout defines the timeout for scraping metrics from the Prometheus exporter. If not specified, the Prometheus global scrape timeout is used. The value cannot be greater than the scrape interval otherwise the operator will reject the resource.
         :param target_limit: targetLimit defines a limit on the number of scraped targets that will be accepted.
         :param targets: targets defines a set of static or dynamically discovered targets to probe.
-        :param tls_config: tlsConfig defines the TLS configuration to use when scraping the endpoint.
+        :param tls_config: tlsConfig defines the TLS configuration used by the client.
 
         :schema: ProbeSpec
         '''
@@ -288,7 +294,9 @@ class ProbeSpec:
             check_type(argname="argument basic_auth", value=basic_auth, expected_type=type_hints["basic_auth"])
             check_type(argname="argument bearer_token_secret", value=bearer_token_secret, expected_type=type_hints["bearer_token_secret"])
             check_type(argname="argument convert_classic_histograms_to_nhcb", value=convert_classic_histograms_to_nhcb, expected_type=type_hints["convert_classic_histograms_to_nhcb"])
+            check_type(argname="argument enable_http2", value=enable_http2, expected_type=type_hints["enable_http2"])
             check_type(argname="argument fallback_scrape_protocol", value=fallback_scrape_protocol, expected_type=type_hints["fallback_scrape_protocol"])
+            check_type(argname="argument follow_redirects", value=follow_redirects, expected_type=type_hints["follow_redirects"])
             check_type(argname="argument interval", value=interval, expected_type=type_hints["interval"])
             check_type(argname="argument job_name", value=job_name, expected_type=type_hints["job_name"])
             check_type(argname="argument keep_dropped_targets", value=keep_dropped_targets, expected_type=type_hints["keep_dropped_targets"])
@@ -319,8 +327,12 @@ class ProbeSpec:
             self._values["bearer_token_secret"] = bearer_token_secret
         if convert_classic_histograms_to_nhcb is not None:
             self._values["convert_classic_histograms_to_nhcb"] = convert_classic_histograms_to_nhcb
+        if enable_http2 is not None:
+            self._values["enable_http2"] = enable_http2
         if fallback_scrape_protocol is not None:
             self._values["fallback_scrape_protocol"] = fallback_scrape_protocol
+        if follow_redirects is not None:
+            self._values["follow_redirects"] = follow_redirects
         if interval is not None:
             self._values["interval"] = interval
         if job_name is not None:
@@ -366,7 +378,9 @@ class ProbeSpec:
 
     @builtins.property
     def authorization(self) -> typing.Optional["ProbeSpecAuthorization"]:
-        '''authorization section for this endpoint.
+        '''authorization configures the Authorization header credentials used by the client.
+
+        Cannot be set at the same time as ``basicAuth``, ``bearerTokenSecret`` or ``oauth2``.
 
         :schema: ProbeSpec#authorization
         '''
@@ -375,9 +389,9 @@ class ProbeSpec:
 
     @builtins.property
     def basic_auth(self) -> typing.Optional["ProbeSpecBasicAuth"]:
-        '''basicAuth allow an endpoint to authenticate over basic authentication.
+        '''basicAuth defines the Basic Authentication credentials used by the client.
 
-        More info: https://prometheus.io/docs/operating/configuration/#endpoint
+        Cannot be set at the same time as ``authorization``, ``bearerTokenSecret`` or ``oauth2``.
 
         :schema: ProbeSpec#basicAuth
         '''
@@ -386,11 +400,15 @@ class ProbeSpec:
 
     @builtins.property
     def bearer_token_secret(self) -> typing.Optional["ProbeSpecBearerTokenSecret"]:
-        '''bearerTokenSecret defines the secret to mount to read bearer token for scraping targets.
+        '''bearerTokenSecret defines a key of a Secret containing the bearer token used by the client for authentication.
 
-        The secret
-        needs to be in the same namespace as the probe and accessible by
-        the Prometheus Operator.
+        The secret needs to be in the
+        same namespace as the custom resource and readable by the Prometheus
+        Operator.
+
+        Cannot be set at the same time as ``authorization``, ``basicAuth`` or ``oauth2``.
+
+        Deprecated: use ``authorization`` instead.
 
         :schema: ProbeSpec#bearerTokenSecret
         '''
@@ -409,6 +427,15 @@ class ProbeSpec:
         return typing.cast(typing.Optional[builtins.bool], result)
 
     @builtins.property
+    def enable_http2(self) -> typing.Optional[builtins.bool]:
+        '''enableHttp2 can be used to disable HTTP2.
+
+        :schema: ProbeSpec#enableHttp2
+        '''
+        result = self._values.get("enable_http2")
+        return typing.cast(typing.Optional[builtins.bool], result)
+
+    @builtins.property
     def fallback_scrape_protocol(
         self,
     ) -> typing.Optional["ProbeSpecFallbackScrapeProtocol"]:
@@ -420,6 +447,15 @@ class ProbeSpec:
         '''
         result = self._values.get("fallback_scrape_protocol")
         return typing.cast(typing.Optional["ProbeSpecFallbackScrapeProtocol"], result)
+
+    @builtins.property
+    def follow_redirects(self) -> typing.Optional[builtins.bool]:
+        '''followRedirects defines whether the client should follow HTTP 3xx redirects.
+
+        :schema: ProbeSpec#followRedirects
+        '''
+        result = self._values.get("follow_redirects")
+        return typing.cast(typing.Optional[builtins.bool], result)
 
     @builtins.property
     def interval(self) -> typing.Optional[builtins.str]:
@@ -536,9 +572,11 @@ class ProbeSpec:
 
     @builtins.property
     def oauth2(self) -> typing.Optional["ProbeSpecOauth2"]:
-        '''oauth2 for the URL.
+        '''oauth2 defines the OAuth2 settings used by the client.
 
-        Only valid in Prometheus versions 2.27.0 and newer.
+        It requires Prometheus >= 2.27.0.
+
+        Cannot be set at the same time as ``authorization``, ``basicAuth`` or ``bearerTokenSecret``.
 
         :schema: ProbeSpec#oauth2
         '''
@@ -649,7 +687,7 @@ class ProbeSpec:
 
     @builtins.property
     def tls_config(self) -> typing.Optional["ProbeSpecTlsConfig"]:
-        '''tlsConfig defines the TLS configuration to use when scraping the endpoint.
+        '''tlsConfig defines the TLS configuration used by the client.
 
         :schema: ProbeSpec#tlsConfig
         '''
@@ -680,7 +718,9 @@ class ProbeSpecAuthorization:
         credentials: typing.Optional[typing.Union["ProbeSpecAuthorizationCredentials", typing.Dict[builtins.str, typing.Any]]] = None,
         type: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''authorization section for this endpoint.
+        '''authorization configures the Authorization header credentials used by the client.
+
+        Cannot be set at the same time as ``basicAuth``, ``bearerTokenSecret`` or ``oauth2``.
 
         :param credentials: credentials defines a key of a Secret in the namespace that contains the credentials for authentication.
         :param type: type defines the authentication type. The value is case-insensitive. "Basic" is not a supported value. Default: "Bearer"
@@ -826,9 +866,9 @@ class ProbeSpecBasicAuth:
         password: typing.Optional[typing.Union["ProbeSpecBasicAuthPassword", typing.Dict[builtins.str, typing.Any]]] = None,
         username: typing.Optional[typing.Union["ProbeSpecBasicAuthUsername", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''basicAuth allow an endpoint to authenticate over basic authentication.
+        '''basicAuth defines the Basic Authentication credentials used by the client.
 
-        More info: https://prometheus.io/docs/operating/configuration/#endpoint
+        Cannot be set at the same time as ``authorization``, ``bearerTokenSecret`` or ``oauth2``.
 
         :param password: password defines a key of a Secret containing the password for authentication.
         :param username: username defines a key of a Secret containing the username for authentication.
@@ -1054,11 +1094,15 @@ class ProbeSpecBearerTokenSecret:
         name: typing.Optional[builtins.str] = None,
         optional: typing.Optional[builtins.bool] = None,
     ) -> None:
-        '''bearerTokenSecret defines the secret to mount to read bearer token for scraping targets.
+        '''bearerTokenSecret defines a key of a Secret containing the bearer token used by the client for authentication.
 
-        The secret
-        needs to be in the same namespace as the probe and accessible by
-        the Prometheus Operator.
+        The secret needs to be in the
+        same namespace as the custom resource and readable by the Prometheus
+        Operator.
+
+        Cannot be set at the same time as ``authorization``, ``basicAuth`` or ``oauth2``.
+
+        Deprecated: use ``authorization`` instead.
 
         :param key: The key of the secret to select from. Must be a valid secret key.
         :param name: Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
@@ -1416,9 +1460,11 @@ class ProbeSpecOauth2:
         scopes: typing.Optional[typing.Sequence[builtins.str]] = None,
         tls_config: typing.Optional[typing.Union["ProbeSpecOauth2TlsConfig", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
-        '''oauth2 for the URL.
+        '''oauth2 defines the OAuth2 settings used by the client.
 
-        Only valid in Prometheus versions 2.27.0 and newer.
+        It requires Prometheus >= 2.27.0.
+
+        Cannot be set at the same time as ``authorization``, ``basicAuth`` or ``bearerTokenSecret``.
 
         :param client_id: clientId defines a key of a Secret or ConfigMap containing the OAuth2 client's ID.
         :param client_secret: clientSecret defines a key of a Secret containing the OAuth2 client's secret.
@@ -3906,7 +3952,7 @@ class ProbeSpecTlsConfig:
         min_version: typing.Optional["ProbeSpecTlsConfigMinVersion"] = None,
         server_name: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''tlsConfig defines the TLS configuration to use when scraping the endpoint.
+        '''tlsConfig defines the TLS configuration used by the client.
 
         :param ca: ca defines the Certificate authority used when verifying server certificates.
         :param cert: cert defines the Client certificate to present when doing client-authentication.
@@ -4676,7 +4722,9 @@ def _typecheckingstub__4da9453333edbc627c631d6c0043f58d9dc9b96a470aabc5bda67f045
     basic_auth: typing.Optional[typing.Union[ProbeSpecBasicAuth, typing.Dict[builtins.str, typing.Any]]] = None,
     bearer_token_secret: typing.Optional[typing.Union[ProbeSpecBearerTokenSecret, typing.Dict[builtins.str, typing.Any]]] = None,
     convert_classic_histograms_to_nhcb: typing.Optional[builtins.bool] = None,
+    enable_http2: typing.Optional[builtins.bool] = None,
     fallback_scrape_protocol: typing.Optional[ProbeSpecFallbackScrapeProtocol] = None,
+    follow_redirects: typing.Optional[builtins.bool] = None,
     interval: typing.Optional[builtins.str] = None,
     job_name: typing.Optional[builtins.str] = None,
     keep_dropped_targets: typing.Optional[jsii.Number] = None,

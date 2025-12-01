@@ -27370,6 +27370,7 @@ class ClusterSecretStoreSpecProviderVault:
     name_mapping={
         "app_role": "appRole",
         "cert": "cert",
+        "gcp": "gcp",
         "iam": "iam",
         "jwt": "jwt",
         "kubernetes": "kubernetes",
@@ -27385,6 +27386,7 @@ class ClusterSecretStoreSpecProviderVaultAuth:
         *,
         app_role: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderVaultAuthAppRole", typing.Dict[builtins.str, typing.Any]]] = None,
         cert: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderVaultAuthCert", typing.Dict[builtins.str, typing.Any]]] = None,
+        gcp: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderVaultAuthGcp", typing.Dict[builtins.str, typing.Any]]] = None,
         iam: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderVaultAuthIam", typing.Dict[builtins.str, typing.Any]]] = None,
         jwt: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderVaultAuthJwt", typing.Dict[builtins.str, typing.Any]]] = None,
         kubernetes: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderVaultAuthKubernetes", typing.Dict[builtins.str, typing.Any]]] = None,
@@ -27397,6 +27399,7 @@ class ClusterSecretStoreSpecProviderVaultAuth:
 
         :param app_role: AppRole authenticates with Vault using the App Role auth mechanism, with the role and secret stored in a Kubernetes Secret resource.
         :param cert: Cert authenticates with TLS Certificates by passing client certificate, private key and ca certificate Cert authentication method.
+        :param gcp: Gcp authenticates with Vault using Google Cloud Platform authentication method GCP authentication method.
         :param iam: Iam authenticates with vault by passing a special AWS request signed with AWS IAM credentials AWS IAM authentication method.
         :param jwt: Jwt authenticates with Vault by passing role and JWT token using the JWT/OIDC authentication method.
         :param kubernetes: Kubernetes authenticates with Vault by passing the ServiceAccount token stored in the named Secret resource to the Vault server.
@@ -27411,6 +27414,8 @@ class ClusterSecretStoreSpecProviderVaultAuth:
             app_role = ClusterSecretStoreSpecProviderVaultAuthAppRole(**app_role)
         if isinstance(cert, dict):
             cert = ClusterSecretStoreSpecProviderVaultAuthCert(**cert)
+        if isinstance(gcp, dict):
+            gcp = ClusterSecretStoreSpecProviderVaultAuthGcp(**gcp)
         if isinstance(iam, dict):
             iam = ClusterSecretStoreSpecProviderVaultAuthIam(**iam)
         if isinstance(jwt, dict):
@@ -27427,6 +27432,7 @@ class ClusterSecretStoreSpecProviderVaultAuth:
             type_hints = typing.get_type_hints(_typecheckingstub__edca367d70e999e0f4d8dd93f60480965022b2731a2804bfea499b897354fe2e)
             check_type(argname="argument app_role", value=app_role, expected_type=type_hints["app_role"])
             check_type(argname="argument cert", value=cert, expected_type=type_hints["cert"])
+            check_type(argname="argument gcp", value=gcp, expected_type=type_hints["gcp"])
             check_type(argname="argument iam", value=iam, expected_type=type_hints["iam"])
             check_type(argname="argument jwt", value=jwt, expected_type=type_hints["jwt"])
             check_type(argname="argument kubernetes", value=kubernetes, expected_type=type_hints["kubernetes"])
@@ -27439,6 +27445,8 @@ class ClusterSecretStoreSpecProviderVaultAuth:
             self._values["app_role"] = app_role
         if cert is not None:
             self._values["cert"] = cert
+        if gcp is not None:
+            self._values["gcp"] = gcp
         if iam is not None:
             self._values["iam"] = iam
         if jwt is not None:
@@ -27473,6 +27481,15 @@ class ClusterSecretStoreSpecProviderVaultAuth:
         '''
         result = self._values.get("cert")
         return typing.cast(typing.Optional["ClusterSecretStoreSpecProviderVaultAuthCert"], result)
+
+    @builtins.property
+    def gcp(self) -> typing.Optional["ClusterSecretStoreSpecProviderVaultAuthGcp"]:
+        '''Gcp authenticates with Vault using Google Cloud Platform authentication method GCP authentication method.
+
+        :schema: ClusterSecretStoreSpecProviderVaultAuth#gcp
+        '''
+        result = self._values.get("gcp")
+        return typing.cast(typing.Optional["ClusterSecretStoreSpecProviderVaultAuthGcp"], result)
 
     @builtins.property
     def iam(self) -> typing.Optional["ClusterSecretStoreSpecProviderVaultAuthIam"]:
@@ -28061,6 +28078,533 @@ class ClusterSecretStoreSpecProviderVaultAuthCertSecretRef:
 
     def __repr__(self) -> str:
         return "ClusterSecretStoreSpecProviderVaultAuthCertSecretRef(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderVaultAuthGcp",
+    jsii_struct_bases=[],
+    name_mapping={
+        "role": "role",
+        "location": "location",
+        "path": "path",
+        "project_id": "projectId",
+        "secret_ref": "secretRef",
+        "service_account_ref": "serviceAccountRef",
+        "workload_identity": "workloadIdentity",
+    },
+)
+class ClusterSecretStoreSpecProviderVaultAuthGcp:
+    def __init__(
+        self,
+        *,
+        role: builtins.str,
+        location: typing.Optional[builtins.str] = None,
+        path: typing.Optional[builtins.str] = None,
+        project_id: typing.Optional[builtins.str] = None,
+        secret_ref: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderVaultAuthGcpSecretRef", typing.Dict[builtins.str, typing.Any]]] = None,
+        service_account_ref: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderVaultAuthGcpServiceAccountRef", typing.Dict[builtins.str, typing.Any]]] = None,
+        workload_identity: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderVaultAuthGcpWorkloadIdentity", typing.Dict[builtins.str, typing.Any]]] = None,
+    ) -> None:
+        '''Gcp authenticates with Vault using Google Cloud Platform authentication method GCP authentication method.
+
+        :param role: Vault Role. In Vault, a role describes an identity with a set of permissions, groups, or policies you want to attach to a user of the secrets engine.
+        :param location: Location optionally defines a location/region for the secret.
+        :param path: Path where the GCP auth method is enabled in Vault, e.g: "gcp".
+        :param project_id: Project ID of the Google Cloud Platform project.
+        :param secret_ref: Specify credentials in a Secret object.
+        :param service_account_ref: ServiceAccountRef to a service account for impersonation.
+        :param workload_identity: Specify a service account with Workload Identity.
+
+        :schema: ClusterSecretStoreSpecProviderVaultAuthGcp
+        '''
+        if isinstance(secret_ref, dict):
+            secret_ref = ClusterSecretStoreSpecProviderVaultAuthGcpSecretRef(**secret_ref)
+        if isinstance(service_account_ref, dict):
+            service_account_ref = ClusterSecretStoreSpecProviderVaultAuthGcpServiceAccountRef(**service_account_ref)
+        if isinstance(workload_identity, dict):
+            workload_identity = ClusterSecretStoreSpecProviderVaultAuthGcpWorkloadIdentity(**workload_identity)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__926195af0d841bb3e9c80fb1d8695c9cb77151122de17e7afa4c4968b9b55d64)
+            check_type(argname="argument role", value=role, expected_type=type_hints["role"])
+            check_type(argname="argument location", value=location, expected_type=type_hints["location"])
+            check_type(argname="argument path", value=path, expected_type=type_hints["path"])
+            check_type(argname="argument project_id", value=project_id, expected_type=type_hints["project_id"])
+            check_type(argname="argument secret_ref", value=secret_ref, expected_type=type_hints["secret_ref"])
+            check_type(argname="argument service_account_ref", value=service_account_ref, expected_type=type_hints["service_account_ref"])
+            check_type(argname="argument workload_identity", value=workload_identity, expected_type=type_hints["workload_identity"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "role": role,
+        }
+        if location is not None:
+            self._values["location"] = location
+        if path is not None:
+            self._values["path"] = path
+        if project_id is not None:
+            self._values["project_id"] = project_id
+        if secret_ref is not None:
+            self._values["secret_ref"] = secret_ref
+        if service_account_ref is not None:
+            self._values["service_account_ref"] = service_account_ref
+        if workload_identity is not None:
+            self._values["workload_identity"] = workload_identity
+
+    @builtins.property
+    def role(self) -> builtins.str:
+        '''Vault Role.
+
+        In Vault, a role describes an identity with a set of permissions, groups, or policies you want to attach to a user of the secrets engine.
+
+        :schema: ClusterSecretStoreSpecProviderVaultAuthGcp#role
+        '''
+        result = self._values.get("role")
+        assert result is not None, "Required property 'role' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def location(self) -> typing.Optional[builtins.str]:
+        '''Location optionally defines a location/region for the secret.
+
+        :schema: ClusterSecretStoreSpecProviderVaultAuthGcp#location
+        '''
+        result = self._values.get("location")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def path(self) -> typing.Optional[builtins.str]:
+        '''Path where the GCP auth method is enabled in Vault, e.g: "gcp".
+
+        :schema: ClusterSecretStoreSpecProviderVaultAuthGcp#path
+        '''
+        result = self._values.get("path")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def project_id(self) -> typing.Optional[builtins.str]:
+        '''Project ID of the Google Cloud Platform project.
+
+        :schema: ClusterSecretStoreSpecProviderVaultAuthGcp#projectID
+        '''
+        result = self._values.get("project_id")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def secret_ref(
+        self,
+    ) -> typing.Optional["ClusterSecretStoreSpecProviderVaultAuthGcpSecretRef"]:
+        '''Specify credentials in a Secret object.
+
+        :schema: ClusterSecretStoreSpecProviderVaultAuthGcp#secretRef
+        '''
+        result = self._values.get("secret_ref")
+        return typing.cast(typing.Optional["ClusterSecretStoreSpecProviderVaultAuthGcpSecretRef"], result)
+
+    @builtins.property
+    def service_account_ref(
+        self,
+    ) -> typing.Optional["ClusterSecretStoreSpecProviderVaultAuthGcpServiceAccountRef"]:
+        '''ServiceAccountRef to a service account for impersonation.
+
+        :schema: ClusterSecretStoreSpecProviderVaultAuthGcp#serviceAccountRef
+        '''
+        result = self._values.get("service_account_ref")
+        return typing.cast(typing.Optional["ClusterSecretStoreSpecProviderVaultAuthGcpServiceAccountRef"], result)
+
+    @builtins.property
+    def workload_identity(
+        self,
+    ) -> typing.Optional["ClusterSecretStoreSpecProviderVaultAuthGcpWorkloadIdentity"]:
+        '''Specify a service account with Workload Identity.
+
+        :schema: ClusterSecretStoreSpecProviderVaultAuthGcp#workloadIdentity
+        '''
+        result = self._values.get("workload_identity")
+        return typing.cast(typing.Optional["ClusterSecretStoreSpecProviderVaultAuthGcpWorkloadIdentity"], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterSecretStoreSpecProviderVaultAuthGcp(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderVaultAuthGcpSecretRef",
+    jsii_struct_bases=[],
+    name_mapping={"secret_access_key_secret_ref": "secretAccessKeySecretRef"},
+)
+class ClusterSecretStoreSpecProviderVaultAuthGcpSecretRef:
+    def __init__(
+        self,
+        *,
+        secret_access_key_secret_ref: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderVaultAuthGcpSecretRefSecretAccessKeySecretRef", typing.Dict[builtins.str, typing.Any]]] = None,
+    ) -> None:
+        '''Specify credentials in a Secret object.
+
+        :param secret_access_key_secret_ref: The SecretAccessKey is used for authentication.
+
+        :schema: ClusterSecretStoreSpecProviderVaultAuthGcpSecretRef
+        '''
+        if isinstance(secret_access_key_secret_ref, dict):
+            secret_access_key_secret_ref = ClusterSecretStoreSpecProviderVaultAuthGcpSecretRefSecretAccessKeySecretRef(**secret_access_key_secret_ref)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__b08788a3e9bb767323faeac804fdb24367194578d3eac3f3729a9313a956df11)
+            check_type(argname="argument secret_access_key_secret_ref", value=secret_access_key_secret_ref, expected_type=type_hints["secret_access_key_secret_ref"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if secret_access_key_secret_ref is not None:
+            self._values["secret_access_key_secret_ref"] = secret_access_key_secret_ref
+
+    @builtins.property
+    def secret_access_key_secret_ref(
+        self,
+    ) -> typing.Optional["ClusterSecretStoreSpecProviderVaultAuthGcpSecretRefSecretAccessKeySecretRef"]:
+        '''The SecretAccessKey is used for authentication.
+
+        :schema: ClusterSecretStoreSpecProviderVaultAuthGcpSecretRef#secretAccessKeySecretRef
+        '''
+        result = self._values.get("secret_access_key_secret_ref")
+        return typing.cast(typing.Optional["ClusterSecretStoreSpecProviderVaultAuthGcpSecretRefSecretAccessKeySecretRef"], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterSecretStoreSpecProviderVaultAuthGcpSecretRef(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderVaultAuthGcpSecretRefSecretAccessKeySecretRef",
+    jsii_struct_bases=[],
+    name_mapping={"key": "key", "name": "name", "namespace": "namespace"},
+)
+class ClusterSecretStoreSpecProviderVaultAuthGcpSecretRefSecretAccessKeySecretRef:
+    def __init__(
+        self,
+        *,
+        key: typing.Optional[builtins.str] = None,
+        name: typing.Optional[builtins.str] = None,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''The SecretAccessKey is used for authentication.
+
+        :param key: A key in the referenced Secret. Some instances of this field may be defaulted, in others it may be required.
+        :param name: The name of the Secret resource being referred to.
+        :param namespace: The namespace of the Secret resource being referred to. Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: ClusterSecretStoreSpecProviderVaultAuthGcpSecretRefSecretAccessKeySecretRef
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__3593ad64c1e401af2e5632026704b84672cc8f092a551fac76c8ede1e61388e6)
+            check_type(argname="argument key", value=key, expected_type=type_hints["key"])
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if key is not None:
+            self._values["key"] = key
+        if name is not None:
+            self._values["name"] = name
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def key(self) -> typing.Optional[builtins.str]:
+        '''A key in the referenced Secret.
+
+        Some instances of this field may be defaulted, in others it may be required.
+
+        :schema: ClusterSecretStoreSpecProviderVaultAuthGcpSecretRefSecretAccessKeySecretRef#key
+        '''
+        result = self._values.get("key")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def name(self) -> typing.Optional[builtins.str]:
+        '''The name of the Secret resource being referred to.
+
+        :schema: ClusterSecretStoreSpecProviderVaultAuthGcpSecretRefSecretAccessKeySecretRef#name
+        '''
+        result = self._values.get("name")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''The namespace of the Secret resource being referred to.
+
+        Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: ClusterSecretStoreSpecProviderVaultAuthGcpSecretRefSecretAccessKeySecretRef#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterSecretStoreSpecProviderVaultAuthGcpSecretRefSecretAccessKeySecretRef(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderVaultAuthGcpServiceAccountRef",
+    jsii_struct_bases=[],
+    name_mapping={"name": "name", "audiences": "audiences", "namespace": "namespace"},
+)
+class ClusterSecretStoreSpecProviderVaultAuthGcpServiceAccountRef:
+    def __init__(
+        self,
+        *,
+        name: builtins.str,
+        audiences: typing.Optional[typing.Sequence[builtins.str]] = None,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''ServiceAccountRef to a service account for impersonation.
+
+        :param name: The name of the ServiceAccount resource being referred to.
+        :param audiences: Audience specifies the ``aud`` claim for the service account token If the service account uses a well-known annotation for e.g. IRSA or GCP Workload Identity then this audiences will be appended to the list.
+        :param namespace: Namespace of the resource being referred to. Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: ClusterSecretStoreSpecProviderVaultAuthGcpServiceAccountRef
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__798334b5a78646403c54082f12ca0982752adf74ac3171c9561fa501fd3496b7)
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument audiences", value=audiences, expected_type=type_hints["audiences"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "name": name,
+        }
+        if audiences is not None:
+            self._values["audiences"] = audiences
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def name(self) -> builtins.str:
+        '''The name of the ServiceAccount resource being referred to.
+
+        :schema: ClusterSecretStoreSpecProviderVaultAuthGcpServiceAccountRef#name
+        '''
+        result = self._values.get("name")
+        assert result is not None, "Required property 'name' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def audiences(self) -> typing.Optional[typing.List[builtins.str]]:
+        '''Audience specifies the ``aud`` claim for the service account token If the service account uses a well-known annotation for e.g. IRSA or GCP Workload Identity then this audiences will be appended to the list.
+
+        :schema: ClusterSecretStoreSpecProviderVaultAuthGcpServiceAccountRef#audiences
+        '''
+        result = self._values.get("audiences")
+        return typing.cast(typing.Optional[typing.List[builtins.str]], result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''Namespace of the resource being referred to.
+
+        Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: ClusterSecretStoreSpecProviderVaultAuthGcpServiceAccountRef#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterSecretStoreSpecProviderVaultAuthGcpServiceAccountRef(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderVaultAuthGcpWorkloadIdentity",
+    jsii_struct_bases=[],
+    name_mapping={
+        "service_account_ref": "serviceAccountRef",
+        "cluster_location": "clusterLocation",
+        "cluster_name": "clusterName",
+        "cluster_project_id": "clusterProjectId",
+    },
+)
+class ClusterSecretStoreSpecProviderVaultAuthGcpWorkloadIdentity:
+    def __init__(
+        self,
+        *,
+        service_account_ref: typing.Union["ClusterSecretStoreSpecProviderVaultAuthGcpWorkloadIdentityServiceAccountRef", typing.Dict[builtins.str, typing.Any]],
+        cluster_location: typing.Optional[builtins.str] = None,
+        cluster_name: typing.Optional[builtins.str] = None,
+        cluster_project_id: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''Specify a service account with Workload Identity.
+
+        :param service_account_ref: ServiceAccountSelector is a reference to a ServiceAccount resource.
+        :param cluster_location: ClusterLocation is the location of the cluster If not specified, it fetches information from the metadata server.
+        :param cluster_name: ClusterName is the name of the cluster If not specified, it fetches information from the metadata server.
+        :param cluster_project_id: ClusterProjectID is the project ID of the cluster If not specified, it fetches information from the metadata server.
+
+        :schema: ClusterSecretStoreSpecProviderVaultAuthGcpWorkloadIdentity
+        '''
+        if isinstance(service_account_ref, dict):
+            service_account_ref = ClusterSecretStoreSpecProviderVaultAuthGcpWorkloadIdentityServiceAccountRef(**service_account_ref)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__607bfffe903bb568a72a967798316ec615b131ef4f5911bd4ad4d1421f987bc9)
+            check_type(argname="argument service_account_ref", value=service_account_ref, expected_type=type_hints["service_account_ref"])
+            check_type(argname="argument cluster_location", value=cluster_location, expected_type=type_hints["cluster_location"])
+            check_type(argname="argument cluster_name", value=cluster_name, expected_type=type_hints["cluster_name"])
+            check_type(argname="argument cluster_project_id", value=cluster_project_id, expected_type=type_hints["cluster_project_id"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "service_account_ref": service_account_ref,
+        }
+        if cluster_location is not None:
+            self._values["cluster_location"] = cluster_location
+        if cluster_name is not None:
+            self._values["cluster_name"] = cluster_name
+        if cluster_project_id is not None:
+            self._values["cluster_project_id"] = cluster_project_id
+
+    @builtins.property
+    def service_account_ref(
+        self,
+    ) -> "ClusterSecretStoreSpecProviderVaultAuthGcpWorkloadIdentityServiceAccountRef":
+        '''ServiceAccountSelector is a reference to a ServiceAccount resource.
+
+        :schema: ClusterSecretStoreSpecProviderVaultAuthGcpWorkloadIdentity#serviceAccountRef
+        '''
+        result = self._values.get("service_account_ref")
+        assert result is not None, "Required property 'service_account_ref' is missing"
+        return typing.cast("ClusterSecretStoreSpecProviderVaultAuthGcpWorkloadIdentityServiceAccountRef", result)
+
+    @builtins.property
+    def cluster_location(self) -> typing.Optional[builtins.str]:
+        '''ClusterLocation is the location of the cluster If not specified, it fetches information from the metadata server.
+
+        :schema: ClusterSecretStoreSpecProviderVaultAuthGcpWorkloadIdentity#clusterLocation
+        '''
+        result = self._values.get("cluster_location")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def cluster_name(self) -> typing.Optional[builtins.str]:
+        '''ClusterName is the name of the cluster If not specified, it fetches information from the metadata server.
+
+        :schema: ClusterSecretStoreSpecProviderVaultAuthGcpWorkloadIdentity#clusterName
+        '''
+        result = self._values.get("cluster_name")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def cluster_project_id(self) -> typing.Optional[builtins.str]:
+        '''ClusterProjectID is the project ID of the cluster If not specified, it fetches information from the metadata server.
+
+        :schema: ClusterSecretStoreSpecProviderVaultAuthGcpWorkloadIdentity#clusterProjectID
+        '''
+        result = self._values.get("cluster_project_id")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterSecretStoreSpecProviderVaultAuthGcpWorkloadIdentity(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderVaultAuthGcpWorkloadIdentityServiceAccountRef",
+    jsii_struct_bases=[],
+    name_mapping={"name": "name", "audiences": "audiences", "namespace": "namespace"},
+)
+class ClusterSecretStoreSpecProviderVaultAuthGcpWorkloadIdentityServiceAccountRef:
+    def __init__(
+        self,
+        *,
+        name: builtins.str,
+        audiences: typing.Optional[typing.Sequence[builtins.str]] = None,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''ServiceAccountSelector is a reference to a ServiceAccount resource.
+
+        :param name: The name of the ServiceAccount resource being referred to.
+        :param audiences: Audience specifies the ``aud`` claim for the service account token If the service account uses a well-known annotation for e.g. IRSA or GCP Workload Identity then this audiences will be appended to the list.
+        :param namespace: Namespace of the resource being referred to. Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: ClusterSecretStoreSpecProviderVaultAuthGcpWorkloadIdentityServiceAccountRef
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__d8ec4c8907798e36bf05ac25e039eac8f019c1c522e167be1ca793273dab1518)
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument audiences", value=audiences, expected_type=type_hints["audiences"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "name": name,
+        }
+        if audiences is not None:
+            self._values["audiences"] = audiences
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def name(self) -> builtins.str:
+        '''The name of the ServiceAccount resource being referred to.
+
+        :schema: ClusterSecretStoreSpecProviderVaultAuthGcpWorkloadIdentityServiceAccountRef#name
+        '''
+        result = self._values.get("name")
+        assert result is not None, "Required property 'name' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def audiences(self) -> typing.Optional[typing.List[builtins.str]]:
+        '''Audience specifies the ``aud`` claim for the service account token If the service account uses a well-known annotation for e.g. IRSA or GCP Workload Identity then this audiences will be appended to the list.
+
+        :schema: ClusterSecretStoreSpecProviderVaultAuthGcpWorkloadIdentityServiceAccountRef#audiences
+        '''
+        result = self._values.get("audiences")
+        return typing.cast(typing.Optional[typing.List[builtins.str]], result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''Namespace of the resource being referred to.
+
+        Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: ClusterSecretStoreSpecProviderVaultAuthGcpWorkloadIdentityServiceAccountRef#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterSecretStoreSpecProviderVaultAuthGcpWorkloadIdentityServiceAccountRef(%s)" % ", ".join(
             k + "=" + repr(v) for k, v in self._values.items()
         )
 
@@ -76755,6 +77299,7 @@ class SecretStoreSpecProviderVault:
     name_mapping={
         "app_role": "appRole",
         "cert": "cert",
+        "gcp": "gcp",
         "iam": "iam",
         "jwt": "jwt",
         "kubernetes": "kubernetes",
@@ -76770,6 +77315,7 @@ class SecretStoreSpecProviderVaultAuth:
         *,
         app_role: typing.Optional[typing.Union["SecretStoreSpecProviderVaultAuthAppRole", typing.Dict[builtins.str, typing.Any]]] = None,
         cert: typing.Optional[typing.Union["SecretStoreSpecProviderVaultAuthCert", typing.Dict[builtins.str, typing.Any]]] = None,
+        gcp: typing.Optional[typing.Union["SecretStoreSpecProviderVaultAuthGcp", typing.Dict[builtins.str, typing.Any]]] = None,
         iam: typing.Optional[typing.Union["SecretStoreSpecProviderVaultAuthIam", typing.Dict[builtins.str, typing.Any]]] = None,
         jwt: typing.Optional[typing.Union["SecretStoreSpecProviderVaultAuthJwt", typing.Dict[builtins.str, typing.Any]]] = None,
         kubernetes: typing.Optional[typing.Union["SecretStoreSpecProviderVaultAuthKubernetes", typing.Dict[builtins.str, typing.Any]]] = None,
@@ -76782,6 +77328,7 @@ class SecretStoreSpecProviderVaultAuth:
 
         :param app_role: AppRole authenticates with Vault using the App Role auth mechanism, with the role and secret stored in a Kubernetes Secret resource.
         :param cert: Cert authenticates with TLS Certificates by passing client certificate, private key and ca certificate Cert authentication method.
+        :param gcp: Gcp authenticates with Vault using Google Cloud Platform authentication method GCP authentication method.
         :param iam: Iam authenticates with vault by passing a special AWS request signed with AWS IAM credentials AWS IAM authentication method.
         :param jwt: Jwt authenticates with Vault by passing role and JWT token using the JWT/OIDC authentication method.
         :param kubernetes: Kubernetes authenticates with Vault by passing the ServiceAccount token stored in the named Secret resource to the Vault server.
@@ -76796,6 +77343,8 @@ class SecretStoreSpecProviderVaultAuth:
             app_role = SecretStoreSpecProviderVaultAuthAppRole(**app_role)
         if isinstance(cert, dict):
             cert = SecretStoreSpecProviderVaultAuthCert(**cert)
+        if isinstance(gcp, dict):
+            gcp = SecretStoreSpecProviderVaultAuthGcp(**gcp)
         if isinstance(iam, dict):
             iam = SecretStoreSpecProviderVaultAuthIam(**iam)
         if isinstance(jwt, dict):
@@ -76812,6 +77361,7 @@ class SecretStoreSpecProviderVaultAuth:
             type_hints = typing.get_type_hints(_typecheckingstub__a906da5a2a53f521d3aa7cb2ceff2f87f28a7ec0f7ac71cdcd6107bccdff2daa)
             check_type(argname="argument app_role", value=app_role, expected_type=type_hints["app_role"])
             check_type(argname="argument cert", value=cert, expected_type=type_hints["cert"])
+            check_type(argname="argument gcp", value=gcp, expected_type=type_hints["gcp"])
             check_type(argname="argument iam", value=iam, expected_type=type_hints["iam"])
             check_type(argname="argument jwt", value=jwt, expected_type=type_hints["jwt"])
             check_type(argname="argument kubernetes", value=kubernetes, expected_type=type_hints["kubernetes"])
@@ -76824,6 +77374,8 @@ class SecretStoreSpecProviderVaultAuth:
             self._values["app_role"] = app_role
         if cert is not None:
             self._values["cert"] = cert
+        if gcp is not None:
+            self._values["gcp"] = gcp
         if iam is not None:
             self._values["iam"] = iam
         if jwt is not None:
@@ -76856,6 +77408,15 @@ class SecretStoreSpecProviderVaultAuth:
         '''
         result = self._values.get("cert")
         return typing.cast(typing.Optional["SecretStoreSpecProviderVaultAuthCert"], result)
+
+    @builtins.property
+    def gcp(self) -> typing.Optional["SecretStoreSpecProviderVaultAuthGcp"]:
+        '''Gcp authenticates with Vault using Google Cloud Platform authentication method GCP authentication method.
+
+        :schema: SecretStoreSpecProviderVaultAuth#gcp
+        '''
+        result = self._values.get("gcp")
+        return typing.cast(typing.Optional["SecretStoreSpecProviderVaultAuthGcp"], result)
 
     @builtins.property
     def iam(self) -> typing.Optional["SecretStoreSpecProviderVaultAuthIam"]:
@@ -77442,6 +78003,533 @@ class SecretStoreSpecProviderVaultAuthCertSecretRef:
 
     def __repr__(self) -> str:
         return "SecretStoreSpecProviderVaultAuthCertSecretRef(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.SecretStoreSpecProviderVaultAuthGcp",
+    jsii_struct_bases=[],
+    name_mapping={
+        "role": "role",
+        "location": "location",
+        "path": "path",
+        "project_id": "projectId",
+        "secret_ref": "secretRef",
+        "service_account_ref": "serviceAccountRef",
+        "workload_identity": "workloadIdentity",
+    },
+)
+class SecretStoreSpecProviderVaultAuthGcp:
+    def __init__(
+        self,
+        *,
+        role: builtins.str,
+        location: typing.Optional[builtins.str] = None,
+        path: typing.Optional[builtins.str] = None,
+        project_id: typing.Optional[builtins.str] = None,
+        secret_ref: typing.Optional[typing.Union["SecretStoreSpecProviderVaultAuthGcpSecretRef", typing.Dict[builtins.str, typing.Any]]] = None,
+        service_account_ref: typing.Optional[typing.Union["SecretStoreSpecProviderVaultAuthGcpServiceAccountRef", typing.Dict[builtins.str, typing.Any]]] = None,
+        workload_identity: typing.Optional[typing.Union["SecretStoreSpecProviderVaultAuthGcpWorkloadIdentity", typing.Dict[builtins.str, typing.Any]]] = None,
+    ) -> None:
+        '''Gcp authenticates with Vault using Google Cloud Platform authentication method GCP authentication method.
+
+        :param role: Vault Role. In Vault, a role describes an identity with a set of permissions, groups, or policies you want to attach to a user of the secrets engine.
+        :param location: Location optionally defines a location/region for the secret.
+        :param path: Path where the GCP auth method is enabled in Vault, e.g: "gcp".
+        :param project_id: Project ID of the Google Cloud Platform project.
+        :param secret_ref: Specify credentials in a Secret object.
+        :param service_account_ref: ServiceAccountRef to a service account for impersonation.
+        :param workload_identity: Specify a service account with Workload Identity.
+
+        :schema: SecretStoreSpecProviderVaultAuthGcp
+        '''
+        if isinstance(secret_ref, dict):
+            secret_ref = SecretStoreSpecProviderVaultAuthGcpSecretRef(**secret_ref)
+        if isinstance(service_account_ref, dict):
+            service_account_ref = SecretStoreSpecProviderVaultAuthGcpServiceAccountRef(**service_account_ref)
+        if isinstance(workload_identity, dict):
+            workload_identity = SecretStoreSpecProviderVaultAuthGcpWorkloadIdentity(**workload_identity)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__3435527ffba792c3584ea95955b8b19382dff5bb57eb55e431ca06264bbc4061)
+            check_type(argname="argument role", value=role, expected_type=type_hints["role"])
+            check_type(argname="argument location", value=location, expected_type=type_hints["location"])
+            check_type(argname="argument path", value=path, expected_type=type_hints["path"])
+            check_type(argname="argument project_id", value=project_id, expected_type=type_hints["project_id"])
+            check_type(argname="argument secret_ref", value=secret_ref, expected_type=type_hints["secret_ref"])
+            check_type(argname="argument service_account_ref", value=service_account_ref, expected_type=type_hints["service_account_ref"])
+            check_type(argname="argument workload_identity", value=workload_identity, expected_type=type_hints["workload_identity"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "role": role,
+        }
+        if location is not None:
+            self._values["location"] = location
+        if path is not None:
+            self._values["path"] = path
+        if project_id is not None:
+            self._values["project_id"] = project_id
+        if secret_ref is not None:
+            self._values["secret_ref"] = secret_ref
+        if service_account_ref is not None:
+            self._values["service_account_ref"] = service_account_ref
+        if workload_identity is not None:
+            self._values["workload_identity"] = workload_identity
+
+    @builtins.property
+    def role(self) -> builtins.str:
+        '''Vault Role.
+
+        In Vault, a role describes an identity with a set of permissions, groups, or policies you want to attach to a user of the secrets engine.
+
+        :schema: SecretStoreSpecProviderVaultAuthGcp#role
+        '''
+        result = self._values.get("role")
+        assert result is not None, "Required property 'role' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def location(self) -> typing.Optional[builtins.str]:
+        '''Location optionally defines a location/region for the secret.
+
+        :schema: SecretStoreSpecProviderVaultAuthGcp#location
+        '''
+        result = self._values.get("location")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def path(self) -> typing.Optional[builtins.str]:
+        '''Path where the GCP auth method is enabled in Vault, e.g: "gcp".
+
+        :schema: SecretStoreSpecProviderVaultAuthGcp#path
+        '''
+        result = self._values.get("path")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def project_id(self) -> typing.Optional[builtins.str]:
+        '''Project ID of the Google Cloud Platform project.
+
+        :schema: SecretStoreSpecProviderVaultAuthGcp#projectID
+        '''
+        result = self._values.get("project_id")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def secret_ref(
+        self,
+    ) -> typing.Optional["SecretStoreSpecProviderVaultAuthGcpSecretRef"]:
+        '''Specify credentials in a Secret object.
+
+        :schema: SecretStoreSpecProviderVaultAuthGcp#secretRef
+        '''
+        result = self._values.get("secret_ref")
+        return typing.cast(typing.Optional["SecretStoreSpecProviderVaultAuthGcpSecretRef"], result)
+
+    @builtins.property
+    def service_account_ref(
+        self,
+    ) -> typing.Optional["SecretStoreSpecProviderVaultAuthGcpServiceAccountRef"]:
+        '''ServiceAccountRef to a service account for impersonation.
+
+        :schema: SecretStoreSpecProviderVaultAuthGcp#serviceAccountRef
+        '''
+        result = self._values.get("service_account_ref")
+        return typing.cast(typing.Optional["SecretStoreSpecProviderVaultAuthGcpServiceAccountRef"], result)
+
+    @builtins.property
+    def workload_identity(
+        self,
+    ) -> typing.Optional["SecretStoreSpecProviderVaultAuthGcpWorkloadIdentity"]:
+        '''Specify a service account with Workload Identity.
+
+        :schema: SecretStoreSpecProviderVaultAuthGcp#workloadIdentity
+        '''
+        result = self._values.get("workload_identity")
+        return typing.cast(typing.Optional["SecretStoreSpecProviderVaultAuthGcpWorkloadIdentity"], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "SecretStoreSpecProviderVaultAuthGcp(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.SecretStoreSpecProviderVaultAuthGcpSecretRef",
+    jsii_struct_bases=[],
+    name_mapping={"secret_access_key_secret_ref": "secretAccessKeySecretRef"},
+)
+class SecretStoreSpecProviderVaultAuthGcpSecretRef:
+    def __init__(
+        self,
+        *,
+        secret_access_key_secret_ref: typing.Optional[typing.Union["SecretStoreSpecProviderVaultAuthGcpSecretRefSecretAccessKeySecretRef", typing.Dict[builtins.str, typing.Any]]] = None,
+    ) -> None:
+        '''Specify credentials in a Secret object.
+
+        :param secret_access_key_secret_ref: The SecretAccessKey is used for authentication.
+
+        :schema: SecretStoreSpecProviderVaultAuthGcpSecretRef
+        '''
+        if isinstance(secret_access_key_secret_ref, dict):
+            secret_access_key_secret_ref = SecretStoreSpecProviderVaultAuthGcpSecretRefSecretAccessKeySecretRef(**secret_access_key_secret_ref)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__6eb2e0de96ec0a5175c77388361ccaa084e1d7185ab9a0aa98b1a0c309b777a9)
+            check_type(argname="argument secret_access_key_secret_ref", value=secret_access_key_secret_ref, expected_type=type_hints["secret_access_key_secret_ref"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if secret_access_key_secret_ref is not None:
+            self._values["secret_access_key_secret_ref"] = secret_access_key_secret_ref
+
+    @builtins.property
+    def secret_access_key_secret_ref(
+        self,
+    ) -> typing.Optional["SecretStoreSpecProviderVaultAuthGcpSecretRefSecretAccessKeySecretRef"]:
+        '''The SecretAccessKey is used for authentication.
+
+        :schema: SecretStoreSpecProviderVaultAuthGcpSecretRef#secretAccessKeySecretRef
+        '''
+        result = self._values.get("secret_access_key_secret_ref")
+        return typing.cast(typing.Optional["SecretStoreSpecProviderVaultAuthGcpSecretRefSecretAccessKeySecretRef"], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "SecretStoreSpecProviderVaultAuthGcpSecretRef(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.SecretStoreSpecProviderVaultAuthGcpSecretRefSecretAccessKeySecretRef",
+    jsii_struct_bases=[],
+    name_mapping={"key": "key", "name": "name", "namespace": "namespace"},
+)
+class SecretStoreSpecProviderVaultAuthGcpSecretRefSecretAccessKeySecretRef:
+    def __init__(
+        self,
+        *,
+        key: typing.Optional[builtins.str] = None,
+        name: typing.Optional[builtins.str] = None,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''The SecretAccessKey is used for authentication.
+
+        :param key: A key in the referenced Secret. Some instances of this field may be defaulted, in others it may be required.
+        :param name: The name of the Secret resource being referred to.
+        :param namespace: The namespace of the Secret resource being referred to. Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: SecretStoreSpecProviderVaultAuthGcpSecretRefSecretAccessKeySecretRef
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__bc1f14c919e8257909393d82f23c791431d9eb4d3e5123a7f9e2d84f11e9e4cb)
+            check_type(argname="argument key", value=key, expected_type=type_hints["key"])
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if key is not None:
+            self._values["key"] = key
+        if name is not None:
+            self._values["name"] = name
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def key(self) -> typing.Optional[builtins.str]:
+        '''A key in the referenced Secret.
+
+        Some instances of this field may be defaulted, in others it may be required.
+
+        :schema: SecretStoreSpecProviderVaultAuthGcpSecretRefSecretAccessKeySecretRef#key
+        '''
+        result = self._values.get("key")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def name(self) -> typing.Optional[builtins.str]:
+        '''The name of the Secret resource being referred to.
+
+        :schema: SecretStoreSpecProviderVaultAuthGcpSecretRefSecretAccessKeySecretRef#name
+        '''
+        result = self._values.get("name")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''The namespace of the Secret resource being referred to.
+
+        Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: SecretStoreSpecProviderVaultAuthGcpSecretRefSecretAccessKeySecretRef#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "SecretStoreSpecProviderVaultAuthGcpSecretRefSecretAccessKeySecretRef(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.SecretStoreSpecProviderVaultAuthGcpServiceAccountRef",
+    jsii_struct_bases=[],
+    name_mapping={"name": "name", "audiences": "audiences", "namespace": "namespace"},
+)
+class SecretStoreSpecProviderVaultAuthGcpServiceAccountRef:
+    def __init__(
+        self,
+        *,
+        name: builtins.str,
+        audiences: typing.Optional[typing.Sequence[builtins.str]] = None,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''ServiceAccountRef to a service account for impersonation.
+
+        :param name: The name of the ServiceAccount resource being referred to.
+        :param audiences: Audience specifies the ``aud`` claim for the service account token If the service account uses a well-known annotation for e.g. IRSA or GCP Workload Identity then this audiences will be appended to the list.
+        :param namespace: Namespace of the resource being referred to. Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: SecretStoreSpecProviderVaultAuthGcpServiceAccountRef
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__9c085d865feb899316300f41a524a418bc7dc9ec1316d4f8eb302e61c9d6c072)
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument audiences", value=audiences, expected_type=type_hints["audiences"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "name": name,
+        }
+        if audiences is not None:
+            self._values["audiences"] = audiences
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def name(self) -> builtins.str:
+        '''The name of the ServiceAccount resource being referred to.
+
+        :schema: SecretStoreSpecProviderVaultAuthGcpServiceAccountRef#name
+        '''
+        result = self._values.get("name")
+        assert result is not None, "Required property 'name' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def audiences(self) -> typing.Optional[typing.List[builtins.str]]:
+        '''Audience specifies the ``aud`` claim for the service account token If the service account uses a well-known annotation for e.g. IRSA or GCP Workload Identity then this audiences will be appended to the list.
+
+        :schema: SecretStoreSpecProviderVaultAuthGcpServiceAccountRef#audiences
+        '''
+        result = self._values.get("audiences")
+        return typing.cast(typing.Optional[typing.List[builtins.str]], result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''Namespace of the resource being referred to.
+
+        Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: SecretStoreSpecProviderVaultAuthGcpServiceAccountRef#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "SecretStoreSpecProviderVaultAuthGcpServiceAccountRef(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.SecretStoreSpecProviderVaultAuthGcpWorkloadIdentity",
+    jsii_struct_bases=[],
+    name_mapping={
+        "service_account_ref": "serviceAccountRef",
+        "cluster_location": "clusterLocation",
+        "cluster_name": "clusterName",
+        "cluster_project_id": "clusterProjectId",
+    },
+)
+class SecretStoreSpecProviderVaultAuthGcpWorkloadIdentity:
+    def __init__(
+        self,
+        *,
+        service_account_ref: typing.Union["SecretStoreSpecProviderVaultAuthGcpWorkloadIdentityServiceAccountRef", typing.Dict[builtins.str, typing.Any]],
+        cluster_location: typing.Optional[builtins.str] = None,
+        cluster_name: typing.Optional[builtins.str] = None,
+        cluster_project_id: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''Specify a service account with Workload Identity.
+
+        :param service_account_ref: ServiceAccountSelector is a reference to a ServiceAccount resource.
+        :param cluster_location: ClusterLocation is the location of the cluster If not specified, it fetches information from the metadata server.
+        :param cluster_name: ClusterName is the name of the cluster If not specified, it fetches information from the metadata server.
+        :param cluster_project_id: ClusterProjectID is the project ID of the cluster If not specified, it fetches information from the metadata server.
+
+        :schema: SecretStoreSpecProviderVaultAuthGcpWorkloadIdentity
+        '''
+        if isinstance(service_account_ref, dict):
+            service_account_ref = SecretStoreSpecProviderVaultAuthGcpWorkloadIdentityServiceAccountRef(**service_account_ref)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__e7072cd5726736c1c13e66fda06cc6877e1df5377d23842cbb7a5311087e79cb)
+            check_type(argname="argument service_account_ref", value=service_account_ref, expected_type=type_hints["service_account_ref"])
+            check_type(argname="argument cluster_location", value=cluster_location, expected_type=type_hints["cluster_location"])
+            check_type(argname="argument cluster_name", value=cluster_name, expected_type=type_hints["cluster_name"])
+            check_type(argname="argument cluster_project_id", value=cluster_project_id, expected_type=type_hints["cluster_project_id"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "service_account_ref": service_account_ref,
+        }
+        if cluster_location is not None:
+            self._values["cluster_location"] = cluster_location
+        if cluster_name is not None:
+            self._values["cluster_name"] = cluster_name
+        if cluster_project_id is not None:
+            self._values["cluster_project_id"] = cluster_project_id
+
+    @builtins.property
+    def service_account_ref(
+        self,
+    ) -> "SecretStoreSpecProviderVaultAuthGcpWorkloadIdentityServiceAccountRef":
+        '''ServiceAccountSelector is a reference to a ServiceAccount resource.
+
+        :schema: SecretStoreSpecProviderVaultAuthGcpWorkloadIdentity#serviceAccountRef
+        '''
+        result = self._values.get("service_account_ref")
+        assert result is not None, "Required property 'service_account_ref' is missing"
+        return typing.cast("SecretStoreSpecProviderVaultAuthGcpWorkloadIdentityServiceAccountRef", result)
+
+    @builtins.property
+    def cluster_location(self) -> typing.Optional[builtins.str]:
+        '''ClusterLocation is the location of the cluster If not specified, it fetches information from the metadata server.
+
+        :schema: SecretStoreSpecProviderVaultAuthGcpWorkloadIdentity#clusterLocation
+        '''
+        result = self._values.get("cluster_location")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def cluster_name(self) -> typing.Optional[builtins.str]:
+        '''ClusterName is the name of the cluster If not specified, it fetches information from the metadata server.
+
+        :schema: SecretStoreSpecProviderVaultAuthGcpWorkloadIdentity#clusterName
+        '''
+        result = self._values.get("cluster_name")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def cluster_project_id(self) -> typing.Optional[builtins.str]:
+        '''ClusterProjectID is the project ID of the cluster If not specified, it fetches information from the metadata server.
+
+        :schema: SecretStoreSpecProviderVaultAuthGcpWorkloadIdentity#clusterProjectID
+        '''
+        result = self._values.get("cluster_project_id")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "SecretStoreSpecProviderVaultAuthGcpWorkloadIdentity(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.SecretStoreSpecProviderVaultAuthGcpWorkloadIdentityServiceAccountRef",
+    jsii_struct_bases=[],
+    name_mapping={"name": "name", "audiences": "audiences", "namespace": "namespace"},
+)
+class SecretStoreSpecProviderVaultAuthGcpWorkloadIdentityServiceAccountRef:
+    def __init__(
+        self,
+        *,
+        name: builtins.str,
+        audiences: typing.Optional[typing.Sequence[builtins.str]] = None,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''ServiceAccountSelector is a reference to a ServiceAccount resource.
+
+        :param name: The name of the ServiceAccount resource being referred to.
+        :param audiences: Audience specifies the ``aud`` claim for the service account token If the service account uses a well-known annotation for e.g. IRSA or GCP Workload Identity then this audiences will be appended to the list.
+        :param namespace: Namespace of the resource being referred to. Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: SecretStoreSpecProviderVaultAuthGcpWorkloadIdentityServiceAccountRef
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__1c3ff0b5319d7857c208403054f664eaf34b7390ccbae63c237bb67fd38e91cc)
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument audiences", value=audiences, expected_type=type_hints["audiences"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "name": name,
+        }
+        if audiences is not None:
+            self._values["audiences"] = audiences
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def name(self) -> builtins.str:
+        '''The name of the ServiceAccount resource being referred to.
+
+        :schema: SecretStoreSpecProviderVaultAuthGcpWorkloadIdentityServiceAccountRef#name
+        '''
+        result = self._values.get("name")
+        assert result is not None, "Required property 'name' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def audiences(self) -> typing.Optional[typing.List[builtins.str]]:
+        '''Audience specifies the ``aud`` claim for the service account token If the service account uses a well-known annotation for e.g. IRSA or GCP Workload Identity then this audiences will be appended to the list.
+
+        :schema: SecretStoreSpecProviderVaultAuthGcpWorkloadIdentityServiceAccountRef#audiences
+        '''
+        result = self._values.get("audiences")
+        return typing.cast(typing.Optional[typing.List[builtins.str]], result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''Namespace of the resource being referred to.
+
+        Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: SecretStoreSpecProviderVaultAuthGcpWorkloadIdentityServiceAccountRef#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "SecretStoreSpecProviderVaultAuthGcpWorkloadIdentityServiceAccountRef(%s)" % ", ".join(
             k + "=" + repr(v) for k, v in self._values.items()
         )
 
@@ -100731,6 +101819,12 @@ __all__ = [
     "ClusterSecretStoreSpecProviderVaultAuthCert",
     "ClusterSecretStoreSpecProviderVaultAuthCertClientCert",
     "ClusterSecretStoreSpecProviderVaultAuthCertSecretRef",
+    "ClusterSecretStoreSpecProviderVaultAuthGcp",
+    "ClusterSecretStoreSpecProviderVaultAuthGcpSecretRef",
+    "ClusterSecretStoreSpecProviderVaultAuthGcpSecretRefSecretAccessKeySecretRef",
+    "ClusterSecretStoreSpecProviderVaultAuthGcpServiceAccountRef",
+    "ClusterSecretStoreSpecProviderVaultAuthGcpWorkloadIdentity",
+    "ClusterSecretStoreSpecProviderVaultAuthGcpWorkloadIdentityServiceAccountRef",
     "ClusterSecretStoreSpecProviderVaultAuthIam",
     "ClusterSecretStoreSpecProviderVaultAuthIamJwt",
     "ClusterSecretStoreSpecProviderVaultAuthIamJwtServiceAccountRef",
@@ -101397,6 +102491,12 @@ __all__ = [
     "SecretStoreSpecProviderVaultAuthCert",
     "SecretStoreSpecProviderVaultAuthCertClientCert",
     "SecretStoreSpecProviderVaultAuthCertSecretRef",
+    "SecretStoreSpecProviderVaultAuthGcp",
+    "SecretStoreSpecProviderVaultAuthGcpSecretRef",
+    "SecretStoreSpecProviderVaultAuthGcpSecretRefSecretAccessKeySecretRef",
+    "SecretStoreSpecProviderVaultAuthGcpServiceAccountRef",
+    "SecretStoreSpecProviderVaultAuthGcpWorkloadIdentity",
+    "SecretStoreSpecProviderVaultAuthGcpWorkloadIdentityServiceAccountRef",
     "SecretStoreSpecProviderVaultAuthIam",
     "SecretStoreSpecProviderVaultAuthIamJwt",
     "SecretStoreSpecProviderVaultAuthIamJwtServiceAccountRef",
@@ -104558,6 +105658,7 @@ def _typecheckingstub__edca367d70e999e0f4d8dd93f60480965022b2731a2804bfea499b897
     *,
     app_role: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderVaultAuthAppRole, typing.Dict[builtins.str, typing.Any]]] = None,
     cert: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderVaultAuthCert, typing.Dict[builtins.str, typing.Any]]] = None,
+    gcp: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderVaultAuthGcp, typing.Dict[builtins.str, typing.Any]]] = None,
     iam: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderVaultAuthIam, typing.Dict[builtins.str, typing.Any]]] = None,
     jwt: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderVaultAuthJwt, typing.Dict[builtins.str, typing.Any]]] = None,
     kubernetes: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderVaultAuthKubernetes, typing.Dict[builtins.str, typing.Any]]] = None,
@@ -104619,6 +105720,63 @@ def _typecheckingstub__297cfe9ec7b6f0ff6acb7be39420d3c9df2218f1bf1753129109b58cb
     *,
     key: typing.Optional[builtins.str] = None,
     name: typing.Optional[builtins.str] = None,
+    namespace: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__926195af0d841bb3e9c80fb1d8695c9cb77151122de17e7afa4c4968b9b55d64(
+    *,
+    role: builtins.str,
+    location: typing.Optional[builtins.str] = None,
+    path: typing.Optional[builtins.str] = None,
+    project_id: typing.Optional[builtins.str] = None,
+    secret_ref: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderVaultAuthGcpSecretRef, typing.Dict[builtins.str, typing.Any]]] = None,
+    service_account_ref: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderVaultAuthGcpServiceAccountRef, typing.Dict[builtins.str, typing.Any]]] = None,
+    workload_identity: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderVaultAuthGcpWorkloadIdentity, typing.Dict[builtins.str, typing.Any]]] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__b08788a3e9bb767323faeac804fdb24367194578d3eac3f3729a9313a956df11(
+    *,
+    secret_access_key_secret_ref: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderVaultAuthGcpSecretRefSecretAccessKeySecretRef, typing.Dict[builtins.str, typing.Any]]] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__3593ad64c1e401af2e5632026704b84672cc8f092a551fac76c8ede1e61388e6(
+    *,
+    key: typing.Optional[builtins.str] = None,
+    name: typing.Optional[builtins.str] = None,
+    namespace: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__798334b5a78646403c54082f12ca0982752adf74ac3171c9561fa501fd3496b7(
+    *,
+    name: builtins.str,
+    audiences: typing.Optional[typing.Sequence[builtins.str]] = None,
+    namespace: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__607bfffe903bb568a72a967798316ec615b131ef4f5911bd4ad4d1421f987bc9(
+    *,
+    service_account_ref: typing.Union[ClusterSecretStoreSpecProviderVaultAuthGcpWorkloadIdentityServiceAccountRef, typing.Dict[builtins.str, typing.Any]],
+    cluster_location: typing.Optional[builtins.str] = None,
+    cluster_name: typing.Optional[builtins.str] = None,
+    cluster_project_id: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__d8ec4c8907798e36bf05ac25e039eac8f019c1c522e167be1ca793273dab1518(
+    *,
+    name: builtins.str,
+    audiences: typing.Optional[typing.Sequence[builtins.str]] = None,
     namespace: typing.Optional[builtins.str] = None,
 ) -> None:
     """Type checking stubs"""
@@ -109857,6 +111015,7 @@ def _typecheckingstub__a906da5a2a53f521d3aa7cb2ceff2f87f28a7ec0f7ac71cdcd6107bcc
     *,
     app_role: typing.Optional[typing.Union[SecretStoreSpecProviderVaultAuthAppRole, typing.Dict[builtins.str, typing.Any]]] = None,
     cert: typing.Optional[typing.Union[SecretStoreSpecProviderVaultAuthCert, typing.Dict[builtins.str, typing.Any]]] = None,
+    gcp: typing.Optional[typing.Union[SecretStoreSpecProviderVaultAuthGcp, typing.Dict[builtins.str, typing.Any]]] = None,
     iam: typing.Optional[typing.Union[SecretStoreSpecProviderVaultAuthIam, typing.Dict[builtins.str, typing.Any]]] = None,
     jwt: typing.Optional[typing.Union[SecretStoreSpecProviderVaultAuthJwt, typing.Dict[builtins.str, typing.Any]]] = None,
     kubernetes: typing.Optional[typing.Union[SecretStoreSpecProviderVaultAuthKubernetes, typing.Dict[builtins.str, typing.Any]]] = None,
@@ -109918,6 +111077,63 @@ def _typecheckingstub__8f69eeab4ca0ffa1bd204d31e5ed09f8168d70e5803d92d9f822a900f
     *,
     key: typing.Optional[builtins.str] = None,
     name: typing.Optional[builtins.str] = None,
+    namespace: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__3435527ffba792c3584ea95955b8b19382dff5bb57eb55e431ca06264bbc4061(
+    *,
+    role: builtins.str,
+    location: typing.Optional[builtins.str] = None,
+    path: typing.Optional[builtins.str] = None,
+    project_id: typing.Optional[builtins.str] = None,
+    secret_ref: typing.Optional[typing.Union[SecretStoreSpecProviderVaultAuthGcpSecretRef, typing.Dict[builtins.str, typing.Any]]] = None,
+    service_account_ref: typing.Optional[typing.Union[SecretStoreSpecProviderVaultAuthGcpServiceAccountRef, typing.Dict[builtins.str, typing.Any]]] = None,
+    workload_identity: typing.Optional[typing.Union[SecretStoreSpecProviderVaultAuthGcpWorkloadIdentity, typing.Dict[builtins.str, typing.Any]]] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__6eb2e0de96ec0a5175c77388361ccaa084e1d7185ab9a0aa98b1a0c309b777a9(
+    *,
+    secret_access_key_secret_ref: typing.Optional[typing.Union[SecretStoreSpecProviderVaultAuthGcpSecretRefSecretAccessKeySecretRef, typing.Dict[builtins.str, typing.Any]]] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__bc1f14c919e8257909393d82f23c791431d9eb4d3e5123a7f9e2d84f11e9e4cb(
+    *,
+    key: typing.Optional[builtins.str] = None,
+    name: typing.Optional[builtins.str] = None,
+    namespace: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__9c085d865feb899316300f41a524a418bc7dc9ec1316d4f8eb302e61c9d6c072(
+    *,
+    name: builtins.str,
+    audiences: typing.Optional[typing.Sequence[builtins.str]] = None,
+    namespace: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__e7072cd5726736c1c13e66fda06cc6877e1df5377d23842cbb7a5311087e79cb(
+    *,
+    service_account_ref: typing.Union[SecretStoreSpecProviderVaultAuthGcpWorkloadIdentityServiceAccountRef, typing.Dict[builtins.str, typing.Any]],
+    cluster_location: typing.Optional[builtins.str] = None,
+    cluster_name: typing.Optional[builtins.str] = None,
+    cluster_project_id: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__1c3ff0b5319d7857c208403054f664eaf34b7390ccbae63c237bb67fd38e91cc(
+    *,
+    name: builtins.str,
+    audiences: typing.Optional[typing.Sequence[builtins.str]] = None,
     namespace: typing.Optional[builtins.str] = None,
 ) -> None:
     """Type checking stubs"""
