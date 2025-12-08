@@ -4965,6 +4965,7 @@ class ClusterGeneratorSpecGeneratorMfaSpecSecret:
         "no_upper": "noUpper",
         "digits": "digits",
         "encoding": "encoding",
+        "secret_keys": "secretKeys",
         "symbol_characters": "symbolCharacters",
         "symbols": "symbols",
     },
@@ -4978,6 +4979,7 @@ class ClusterGeneratorSpecGeneratorPasswordSpec:
         no_upper: builtins.bool,
         digits: typing.Optional[jsii.Number] = None,
         encoding: typing.Optional["ClusterGeneratorSpecGeneratorPasswordSpecEncoding"] = None,
+        secret_keys: typing.Optional[typing.Sequence[builtins.str]] = None,
         symbol_characters: typing.Optional[builtins.str] = None,
         symbols: typing.Optional[jsii.Number] = None,
     ) -> None:
@@ -4988,6 +4990,7 @@ class ClusterGeneratorSpecGeneratorPasswordSpec:
         :param no_upper: Set NoUpper to disable uppercase characters.
         :param digits: Digits specifies the number of digits in the generated password. If omitted it defaults to 25% of the length of the password
         :param encoding: Encoding specifies the encoding of the generated password. Valid values are: - "raw" (default): no encoding - "base64": standard base64 encoding - "base64url": base64url encoding - "base32": base32 encoding - "hex": hexadecimal encoding
+        :param secret_keys: SecretKeys defines the keys that will be populated with generated passwords. Defaults to "password" when not set. Default: password" when not set.
         :param symbol_characters: SymbolCharacters specifies the special characters that should be used in the generated password.
         :param symbols: Symbols specifies the number of symbol characters in the generated password. If omitted it defaults to 25% of the length of the password
 
@@ -5000,6 +5003,7 @@ class ClusterGeneratorSpecGeneratorPasswordSpec:
             check_type(argname="argument no_upper", value=no_upper, expected_type=type_hints["no_upper"])
             check_type(argname="argument digits", value=digits, expected_type=type_hints["digits"])
             check_type(argname="argument encoding", value=encoding, expected_type=type_hints["encoding"])
+            check_type(argname="argument secret_keys", value=secret_keys, expected_type=type_hints["secret_keys"])
             check_type(argname="argument symbol_characters", value=symbol_characters, expected_type=type_hints["symbol_characters"])
             check_type(argname="argument symbols", value=symbols, expected_type=type_hints["symbols"])
         self._values: typing.Dict[builtins.str, typing.Any] = {
@@ -5011,6 +5015,8 @@ class ClusterGeneratorSpecGeneratorPasswordSpec:
             self._values["digits"] = digits
         if encoding is not None:
             self._values["encoding"] = encoding
+        if secret_keys is not None:
+            self._values["secret_keys"] = secret_keys
         if symbol_characters is not None:
             self._values["symbol_characters"] = symbol_characters
         if symbols is not None:
@@ -5079,6 +5085,19 @@ class ClusterGeneratorSpecGeneratorPasswordSpec:
         '''
         result = self._values.get("encoding")
         return typing.cast(typing.Optional["ClusterGeneratorSpecGeneratorPasswordSpecEncoding"], result)
+
+    @builtins.property
+    def secret_keys(self) -> typing.Optional[typing.List[builtins.str]]:
+        '''SecretKeys defines the keys that will be populated with generated passwords.
+
+        Defaults to "password" when not set.
+
+        :default: password" when not set.
+
+        :schema: ClusterGeneratorSpecGeneratorPasswordSpec#secretKeys
+        '''
+        result = self._values.get("secret_keys")
+        return typing.cast(typing.Optional[typing.List[builtins.str]], result)
 
     @builtins.property
     def symbol_characters(self) -> typing.Optional[builtins.str]:
@@ -14238,6 +14257,7 @@ class PasswordProps:
         "no_upper": "noUpper",
         "digits": "digits",
         "encoding": "encoding",
+        "secret_keys": "secretKeys",
         "symbol_characters": "symbolCharacters",
         "symbols": "symbols",
     },
@@ -14251,6 +14271,7 @@ class PasswordSpec:
         no_upper: builtins.bool,
         digits: typing.Optional[jsii.Number] = None,
         encoding: typing.Optional["PasswordSpecEncoding"] = None,
+        secret_keys: typing.Optional[typing.Sequence[builtins.str]] = None,
         symbol_characters: typing.Optional[builtins.str] = None,
         symbols: typing.Optional[jsii.Number] = None,
     ) -> None:
@@ -14261,6 +14282,7 @@ class PasswordSpec:
         :param no_upper: Set NoUpper to disable uppercase characters.
         :param digits: Digits specifies the number of digits in the generated password. If omitted it defaults to 25% of the length of the password
         :param encoding: Encoding specifies the encoding of the generated password. Valid values are: - "raw" (default): no encoding - "base64": standard base64 encoding - "base64url": base64url encoding - "base32": base32 encoding - "hex": hexadecimal encoding
+        :param secret_keys: SecretKeys defines the keys that will be populated with generated passwords. Defaults to "password" when not set. Default: password" when not set.
         :param symbol_characters: SymbolCharacters specifies the special characters that should be used in the generated password.
         :param symbols: Symbols specifies the number of symbol characters in the generated password. If omitted it defaults to 25% of the length of the password
 
@@ -14273,6 +14295,7 @@ class PasswordSpec:
             check_type(argname="argument no_upper", value=no_upper, expected_type=type_hints["no_upper"])
             check_type(argname="argument digits", value=digits, expected_type=type_hints["digits"])
             check_type(argname="argument encoding", value=encoding, expected_type=type_hints["encoding"])
+            check_type(argname="argument secret_keys", value=secret_keys, expected_type=type_hints["secret_keys"])
             check_type(argname="argument symbol_characters", value=symbol_characters, expected_type=type_hints["symbol_characters"])
             check_type(argname="argument symbols", value=symbols, expected_type=type_hints["symbols"])
         self._values: typing.Dict[builtins.str, typing.Any] = {
@@ -14284,6 +14307,8 @@ class PasswordSpec:
             self._values["digits"] = digits
         if encoding is not None:
             self._values["encoding"] = encoding
+        if secret_keys is not None:
+            self._values["secret_keys"] = secret_keys
         if symbol_characters is not None:
             self._values["symbol_characters"] = symbol_characters
         if symbols is not None:
@@ -14350,6 +14375,19 @@ class PasswordSpec:
         '''
         result = self._values.get("encoding")
         return typing.cast(typing.Optional["PasswordSpecEncoding"], result)
+
+    @builtins.property
+    def secret_keys(self) -> typing.Optional[typing.List[builtins.str]]:
+        '''SecretKeys defines the keys that will be populated with generated passwords.
+
+        Defaults to "password" when not set.
+
+        :default: password" when not set.
+
+        :schema: PasswordSpec#secretKeys
+        '''
+        result = self._values.get("secret_keys")
+        return typing.cast(typing.Optional[typing.List[builtins.str]], result)
 
     @builtins.property
     def symbol_characters(self) -> typing.Optional[builtins.str]:
@@ -21451,6 +21489,7 @@ def _typecheckingstub__6b3ec65a0916fa97e69ec9837c4c6798e17e81eb424563cc5bd5349de
     no_upper: builtins.bool,
     digits: typing.Optional[jsii.Number] = None,
     encoding: typing.Optional[ClusterGeneratorSpecGeneratorPasswordSpecEncoding] = None,
+    secret_keys: typing.Optional[typing.Sequence[builtins.str]] = None,
     symbol_characters: typing.Optional[builtins.str] = None,
     symbols: typing.Optional[jsii.Number] = None,
 ) -> None:
@@ -22471,6 +22510,7 @@ def _typecheckingstub__b4393f1aed12b90dce27cf67a339b9404fe1de87a2e6dc07a755ffa39
     no_upper: builtins.bool,
     digits: typing.Optional[jsii.Number] = None,
     encoding: typing.Optional[PasswordSpecEncoding] = None,
+    secret_keys: typing.Optional[typing.Sequence[builtins.str]] = None,
     symbol_characters: typing.Optional[builtins.str] = None,
     symbols: typing.Optional[jsii.Number] = None,
 ) -> None:
