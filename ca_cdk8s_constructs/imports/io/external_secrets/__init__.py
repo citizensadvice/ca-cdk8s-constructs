@@ -407,7 +407,7 @@ class ClusterExternalSecretSpecExternalSecretSpec:
 
         :param data: Data defines the connection between the Kubernetes Secret keys and the Provider data.
         :param data_from: DataFrom is used to fetch all properties from a specific Provider data If multiple entries are specified, the Secret keys are merged in the specified order.
-        :param refresh_interval: RefreshInterval is the amount of time before the values are read again from the SecretStore provider, specified as Golang Duration strings. Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h" Example values: "1h", "2h30m", "10s" May be set to zero to fetch and create it once. Defaults to 1h. Default: 1h.
+        :param refresh_interval: RefreshInterval is the amount of time before the values are read again from the SecretStore provider, specified as Golang Duration strings. Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h" Example values: "1h0m0s", "2h30m0s", "10m0s" May be set to "0s" to fetch and create it once. Defaults to 1h0m0s. Default: 1h0m0s.
         :param refresh_policy: RefreshPolicy determines how the ExternalSecret should be refreshed: - CreatedOnce: Creates the Secret only if it does not exist and does not update it thereafter - Periodic: Synchronizes the Secret from the external source at regular intervals specified by refreshInterval. No periodic updates occur if refreshInterval is 0. - OnChange: Only synchronizes the Secret when the ExternalSecret's metadata or specification changes
         :param secret_store_ref: SecretStoreRef defines which SecretStore to fetch the ExternalSecret data.
         :param target: ExternalSecretTarget defines the Kubernetes Secret to be created, there can be only one target per ExternalSecret.
@@ -467,10 +467,10 @@ class ClusterExternalSecretSpecExternalSecretSpec:
         '''RefreshInterval is the amount of time before the values are read again from the SecretStore provider, specified as Golang Duration strings.
 
         Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h"
-        Example values: "1h", "2h30m", "10s"
-        May be set to zero to fetch and create it once. Defaults to 1h.
+        Example values: "1h0m0s", "2h30m0s", "10m0s"
+        May be set to "0s" to fetch and create it once. Defaults to 1h0m0s.
 
-        :default: 1h.
+        :default: 1h0m0s.
 
         :schema: ClusterExternalSecretSpecExternalSecretSpec#refreshInterval
         '''
@@ -3865,7 +3865,7 @@ class ClusterExternalSecretV1Beta1SpecExternalSecretSpec:
 
         :param data: Data defines the connection between the Kubernetes Secret keys and the Provider data.
         :param data_from: DataFrom is used to fetch all properties from a specific Provider data If multiple entries are specified, the Secret keys are merged in the specified order.
-        :param refresh_interval: RefreshInterval is the amount of time before the values are read again from the SecretStore provider, specified as Golang Duration strings. Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h" Example values: "1h", "2h30m", "10s" May be set to zero to fetch and create it once. Defaults to 1h. Default: 1h.
+        :param refresh_interval: RefreshInterval is the amount of time before the values are read again from the SecretStore provider, specified as Golang Duration strings. Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h" Example values: "1h0m0s", "2h30m0s", "10m0s" May be set to "0s" to fetch and create it once. Defaults to 1h0m0s. Default: 1h0m0s.
         :param refresh_policy: RefreshPolicy determines how the ExternalSecret should be refreshed: - CreatedOnce: Creates the Secret only if it does not exist and does not update it thereafter - Periodic: Synchronizes the Secret from the external source at regular intervals specified by refreshInterval. No periodic updates occur if refreshInterval is 0. - OnChange: Only synchronizes the Secret when the ExternalSecret's metadata or specification changes
         :param secret_store_ref: SecretStoreRef defines which SecretStore to fetch the ExternalSecret data.
         :param target: ExternalSecretTarget defines the Kubernetes Secret to be created There can be only one target per ExternalSecret.
@@ -3925,10 +3925,10 @@ class ClusterExternalSecretV1Beta1SpecExternalSecretSpec:
         '''RefreshInterval is the amount of time before the values are read again from the SecretStore provider, specified as Golang Duration strings.
 
         Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h"
-        Example values: "1h", "2h30m", "10s"
-        May be set to zero to fetch and create it once. Defaults to 1h.
+        Example values: "1h0m0s", "2h30m0s", "10m0s"
+        May be set to "0s" to fetch and create it once. Defaults to 1h0m0s.
 
-        :default: 1h.
+        :default: 1h0m0s.
 
         :schema: ClusterExternalSecretV1Beta1SpecExternalSecretSpec#refreshInterval
         '''
@@ -9305,6 +9305,7 @@ class ClusterSecretStoreSpecConditionsNamespaceSelectorMatchExpressions:
         "alibaba": "alibaba",
         "aws": "aws",
         "azurekv": "azurekv",
+        "barbican": "barbican",
         "beyondtrust": "beyondtrust",
         "bitwardensecretsmanager": "bitwardensecretsmanager",
         "chef": "chef",
@@ -9349,6 +9350,7 @@ class ClusterSecretStoreSpecProvider:
         alibaba: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderAlibaba", typing.Dict[builtins.str, typing.Any]]] = None,
         aws: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderAws", typing.Dict[builtins.str, typing.Any]]] = None,
         azurekv: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderAzurekv", typing.Dict[builtins.str, typing.Any]]] = None,
+        barbican: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderBarbican", typing.Dict[builtins.str, typing.Any]]] = None,
         beyondtrust: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderBeyondtrust", typing.Dict[builtins.str, typing.Any]]] = None,
         bitwardensecretsmanager: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderBitwardensecretsmanager", typing.Dict[builtins.str, typing.Any]]] = None,
         chef: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderChef", typing.Dict[builtins.str, typing.Any]]] = None,
@@ -9392,6 +9394,7 @@ class ClusterSecretStoreSpecProvider:
         :param alibaba: Alibaba configures this store to sync secrets using Alibaba Cloud provider.
         :param aws: AWS configures this store to sync secrets using AWS Secret Manager provider.
         :param azurekv: AzureKV configures this store to sync secrets using Azure Key Vault provider.
+        :param barbican: Barbican configures this store to sync secrets using the OpenStack Barbican provider.
         :param beyondtrust: Beyondtrust configures this store to sync secrets using Password Safe provider.
         :param bitwardensecretsmanager: BitwardenSecretsManager configures this store to sync secrets using BitwardenSecretsManager provider.
         :param chef: Chef configures this store to sync secrets with chef server.
@@ -9437,6 +9440,8 @@ class ClusterSecretStoreSpecProvider:
             aws = ClusterSecretStoreSpecProviderAws(**aws)
         if isinstance(azurekv, dict):
             azurekv = ClusterSecretStoreSpecProviderAzurekv(**azurekv)
+        if isinstance(barbican, dict):
+            barbican = ClusterSecretStoreSpecProviderBarbican(**barbican)
         if isinstance(beyondtrust, dict):
             beyondtrust = ClusterSecretStoreSpecProviderBeyondtrust(**beyondtrust)
         if isinstance(bitwardensecretsmanager, dict):
@@ -9511,6 +9516,7 @@ class ClusterSecretStoreSpecProvider:
             check_type(argname="argument alibaba", value=alibaba, expected_type=type_hints["alibaba"])
             check_type(argname="argument aws", value=aws, expected_type=type_hints["aws"])
             check_type(argname="argument azurekv", value=azurekv, expected_type=type_hints["azurekv"])
+            check_type(argname="argument barbican", value=barbican, expected_type=type_hints["barbican"])
             check_type(argname="argument beyondtrust", value=beyondtrust, expected_type=type_hints["beyondtrust"])
             check_type(argname="argument bitwardensecretsmanager", value=bitwardensecretsmanager, expected_type=type_hints["bitwardensecretsmanager"])
             check_type(argname="argument chef", value=chef, expected_type=type_hints["chef"])
@@ -9554,6 +9560,8 @@ class ClusterSecretStoreSpecProvider:
             self._values["aws"] = aws
         if azurekv is not None:
             self._values["azurekv"] = azurekv
+        if barbican is not None:
+            self._values["barbican"] = barbican
         if beyondtrust is not None:
             self._values["beyondtrust"] = beyondtrust
         if bitwardensecretsmanager is not None:
@@ -9658,6 +9666,15 @@ class ClusterSecretStoreSpecProvider:
         '''
         result = self._values.get("azurekv")
         return typing.cast(typing.Optional["ClusterSecretStoreSpecProviderAzurekv"], result)
+
+    @builtins.property
+    def barbican(self) -> typing.Optional["ClusterSecretStoreSpecProviderBarbican"]:
+        '''Barbican configures this store to sync secrets using the OpenStack Barbican provider.
+
+        :schema: ClusterSecretStoreSpecProvider#barbican
+        '''
+        result = self._values.get("barbican")
+        return typing.cast(typing.Optional["ClusterSecretStoreSpecProviderBarbican"], result)
 
     @builtins.property
     def beyondtrust(
@@ -13007,6 +13024,450 @@ class ClusterSecretStoreSpecProviderAzurekvServiceAccountRef:
 
     def __repr__(self) -> str:
         return "ClusterSecretStoreSpecProviderAzurekvServiceAccountRef(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderBarbican",
+    jsii_struct_bases=[],
+    name_mapping={
+        "auth": "auth",
+        "auth_url": "authUrl",
+        "domain_name": "domainName",
+        "region": "region",
+        "tenant_name": "tenantName",
+    },
+)
+class ClusterSecretStoreSpecProviderBarbican:
+    def __init__(
+        self,
+        *,
+        auth: typing.Union["ClusterSecretStoreSpecProviderBarbicanAuth", typing.Dict[builtins.str, typing.Any]],
+        auth_url: typing.Optional[builtins.str] = None,
+        domain_name: typing.Optional[builtins.str] = None,
+        region: typing.Optional[builtins.str] = None,
+        tenant_name: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''Barbican configures this store to sync secrets using the OpenStack Barbican provider.
+
+        :param auth: BarbicanAuth contains the authentication information for Barbican.
+        :param auth_url: 
+        :param domain_name: 
+        :param region: 
+        :param tenant_name: 
+
+        :schema: ClusterSecretStoreSpecProviderBarbican
+        '''
+        if isinstance(auth, dict):
+            auth = ClusterSecretStoreSpecProviderBarbicanAuth(**auth)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__a75333dbfe62c25a8c24042fb7138906e895e98f48a3233ca97dd3316bcdf433)
+            check_type(argname="argument auth", value=auth, expected_type=type_hints["auth"])
+            check_type(argname="argument auth_url", value=auth_url, expected_type=type_hints["auth_url"])
+            check_type(argname="argument domain_name", value=domain_name, expected_type=type_hints["domain_name"])
+            check_type(argname="argument region", value=region, expected_type=type_hints["region"])
+            check_type(argname="argument tenant_name", value=tenant_name, expected_type=type_hints["tenant_name"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "auth": auth,
+        }
+        if auth_url is not None:
+            self._values["auth_url"] = auth_url
+        if domain_name is not None:
+            self._values["domain_name"] = domain_name
+        if region is not None:
+            self._values["region"] = region
+        if tenant_name is not None:
+            self._values["tenant_name"] = tenant_name
+
+    @builtins.property
+    def auth(self) -> "ClusterSecretStoreSpecProviderBarbicanAuth":
+        '''BarbicanAuth contains the authentication information for Barbican.
+
+        :schema: ClusterSecretStoreSpecProviderBarbican#auth
+        '''
+        result = self._values.get("auth")
+        assert result is not None, "Required property 'auth' is missing"
+        return typing.cast("ClusterSecretStoreSpecProviderBarbicanAuth", result)
+
+    @builtins.property
+    def auth_url(self) -> typing.Optional[builtins.str]:
+        '''
+        :schema: ClusterSecretStoreSpecProviderBarbican#authURL
+        '''
+        result = self._values.get("auth_url")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def domain_name(self) -> typing.Optional[builtins.str]:
+        '''
+        :schema: ClusterSecretStoreSpecProviderBarbican#domainName
+        '''
+        result = self._values.get("domain_name")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def region(self) -> typing.Optional[builtins.str]:
+        '''
+        :schema: ClusterSecretStoreSpecProviderBarbican#region
+        '''
+        result = self._values.get("region")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def tenant_name(self) -> typing.Optional[builtins.str]:
+        '''
+        :schema: ClusterSecretStoreSpecProviderBarbican#tenantName
+        '''
+        result = self._values.get("tenant_name")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterSecretStoreSpecProviderBarbican(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderBarbicanAuth",
+    jsii_struct_bases=[],
+    name_mapping={"password": "password", "username": "username"},
+)
+class ClusterSecretStoreSpecProviderBarbicanAuth:
+    def __init__(
+        self,
+        *,
+        password: typing.Union["ClusterSecretStoreSpecProviderBarbicanAuthPassword", typing.Dict[builtins.str, typing.Any]],
+        username: typing.Union["ClusterSecretStoreSpecProviderBarbicanAuthUsername", typing.Dict[builtins.str, typing.Any]],
+    ) -> None:
+        '''BarbicanAuth contains the authentication information for Barbican.
+
+        :param password: BarbicanProviderPasswordRef defines a reference to a secret containing password for the Barbican provider.
+        :param username: BarbicanProviderUsernameRef defines a reference to a secret containing username for the Barbican provider.
+
+        :schema: ClusterSecretStoreSpecProviderBarbicanAuth
+        '''
+        if isinstance(password, dict):
+            password = ClusterSecretStoreSpecProviderBarbicanAuthPassword(**password)
+        if isinstance(username, dict):
+            username = ClusterSecretStoreSpecProviderBarbicanAuthUsername(**username)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__b1a686a2c06e788c75b12c0518e3362c7cf0dd0f0432f32e06bdad4d11ab2c12)
+            check_type(argname="argument password", value=password, expected_type=type_hints["password"])
+            check_type(argname="argument username", value=username, expected_type=type_hints["username"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "password": password,
+            "username": username,
+        }
+
+    @builtins.property
+    def password(self) -> "ClusterSecretStoreSpecProviderBarbicanAuthPassword":
+        '''BarbicanProviderPasswordRef defines a reference to a secret containing password for the Barbican provider.
+
+        :schema: ClusterSecretStoreSpecProviderBarbicanAuth#password
+        '''
+        result = self._values.get("password")
+        assert result is not None, "Required property 'password' is missing"
+        return typing.cast("ClusterSecretStoreSpecProviderBarbicanAuthPassword", result)
+
+    @builtins.property
+    def username(self) -> "ClusterSecretStoreSpecProviderBarbicanAuthUsername":
+        '''BarbicanProviderUsernameRef defines a reference to a secret containing username for the Barbican provider.
+
+        :schema: ClusterSecretStoreSpecProviderBarbicanAuth#username
+        '''
+        result = self._values.get("username")
+        assert result is not None, "Required property 'username' is missing"
+        return typing.cast("ClusterSecretStoreSpecProviderBarbicanAuthUsername", result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterSecretStoreSpecProviderBarbicanAuth(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderBarbicanAuthPassword",
+    jsii_struct_bases=[],
+    name_mapping={"secret_ref": "secretRef"},
+)
+class ClusterSecretStoreSpecProviderBarbicanAuthPassword:
+    def __init__(
+        self,
+        *,
+        secret_ref: typing.Union["ClusterSecretStoreSpecProviderBarbicanAuthPasswordSecretRef", typing.Dict[builtins.str, typing.Any]],
+    ) -> None:
+        '''BarbicanProviderPasswordRef defines a reference to a secret containing password for the Barbican provider.
+
+        :param secret_ref: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+
+        :schema: ClusterSecretStoreSpecProviderBarbicanAuthPassword
+        '''
+        if isinstance(secret_ref, dict):
+            secret_ref = ClusterSecretStoreSpecProviderBarbicanAuthPasswordSecretRef(**secret_ref)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__1b6c0ccf64fc42e52096d5d6df45a6fbc0bf8e03463115a26ef07a8846ffad5b)
+            check_type(argname="argument secret_ref", value=secret_ref, expected_type=type_hints["secret_ref"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "secret_ref": secret_ref,
+        }
+
+    @builtins.property
+    def secret_ref(
+        self,
+    ) -> "ClusterSecretStoreSpecProviderBarbicanAuthPasswordSecretRef":
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
+
+        In some instances, ``key`` is a required field.
+
+        :schema: ClusterSecretStoreSpecProviderBarbicanAuthPassword#secretRef
+        '''
+        result = self._values.get("secret_ref")
+        assert result is not None, "Required property 'secret_ref' is missing"
+        return typing.cast("ClusterSecretStoreSpecProviderBarbicanAuthPasswordSecretRef", result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterSecretStoreSpecProviderBarbicanAuthPassword(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderBarbicanAuthPasswordSecretRef",
+    jsii_struct_bases=[],
+    name_mapping={"key": "key", "name": "name", "namespace": "namespace"},
+)
+class ClusterSecretStoreSpecProviderBarbicanAuthPasswordSecretRef:
+    def __init__(
+        self,
+        *,
+        key: typing.Optional[builtins.str] = None,
+        name: typing.Optional[builtins.str] = None,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
+
+        In some instances, ``key`` is a required field.
+
+        :param key: A key in the referenced Secret. Some instances of this field may be defaulted, in others it may be required.
+        :param name: The name of the Secret resource being referred to.
+        :param namespace: The namespace of the Secret resource being referred to. Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: ClusterSecretStoreSpecProviderBarbicanAuthPasswordSecretRef
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__656437d4ed65e4dcf7b8b4e780648827e1fe25f6cacacef378a1da52c0f47721)
+            check_type(argname="argument key", value=key, expected_type=type_hints["key"])
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if key is not None:
+            self._values["key"] = key
+        if name is not None:
+            self._values["name"] = name
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def key(self) -> typing.Optional[builtins.str]:
+        '''A key in the referenced Secret.
+
+        Some instances of this field may be defaulted, in others it may be required.
+
+        :schema: ClusterSecretStoreSpecProviderBarbicanAuthPasswordSecretRef#key
+        '''
+        result = self._values.get("key")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def name(self) -> typing.Optional[builtins.str]:
+        '''The name of the Secret resource being referred to.
+
+        :schema: ClusterSecretStoreSpecProviderBarbicanAuthPasswordSecretRef#name
+        '''
+        result = self._values.get("name")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''The namespace of the Secret resource being referred to.
+
+        Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: ClusterSecretStoreSpecProviderBarbicanAuthPasswordSecretRef#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterSecretStoreSpecProviderBarbicanAuthPasswordSecretRef(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderBarbicanAuthUsername",
+    jsii_struct_bases=[],
+    name_mapping={"secret_ref": "secretRef", "value": "value"},
+)
+class ClusterSecretStoreSpecProviderBarbicanAuthUsername:
+    def __init__(
+        self,
+        *,
+        secret_ref: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderBarbicanAuthUsernameSecretRef", typing.Dict[builtins.str, typing.Any]]] = None,
+        value: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''BarbicanProviderUsernameRef defines a reference to a secret containing username for the Barbican provider.
+
+        :param secret_ref: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param value: 
+
+        :schema: ClusterSecretStoreSpecProviderBarbicanAuthUsername
+        '''
+        if isinstance(secret_ref, dict):
+            secret_ref = ClusterSecretStoreSpecProviderBarbicanAuthUsernameSecretRef(**secret_ref)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__1b17920c7a1b7ed74b5395d8f3c36a922c83cb764ad0a5a3ef50ddacbd700206)
+            check_type(argname="argument secret_ref", value=secret_ref, expected_type=type_hints["secret_ref"])
+            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if secret_ref is not None:
+            self._values["secret_ref"] = secret_ref
+        if value is not None:
+            self._values["value"] = value
+
+    @builtins.property
+    def secret_ref(
+        self,
+    ) -> typing.Optional["ClusterSecretStoreSpecProviderBarbicanAuthUsernameSecretRef"]:
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
+
+        In some instances, ``key`` is a required field.
+
+        :schema: ClusterSecretStoreSpecProviderBarbicanAuthUsername#secretRef
+        '''
+        result = self._values.get("secret_ref")
+        return typing.cast(typing.Optional["ClusterSecretStoreSpecProviderBarbicanAuthUsernameSecretRef"], result)
+
+    @builtins.property
+    def value(self) -> typing.Optional[builtins.str]:
+        '''
+        :schema: ClusterSecretStoreSpecProviderBarbicanAuthUsername#value
+        '''
+        result = self._values.get("value")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterSecretStoreSpecProviderBarbicanAuthUsername(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderBarbicanAuthUsernameSecretRef",
+    jsii_struct_bases=[],
+    name_mapping={"key": "key", "name": "name", "namespace": "namespace"},
+)
+class ClusterSecretStoreSpecProviderBarbicanAuthUsernameSecretRef:
+    def __init__(
+        self,
+        *,
+        key: typing.Optional[builtins.str] = None,
+        name: typing.Optional[builtins.str] = None,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
+
+        In some instances, ``key`` is a required field.
+
+        :param key: A key in the referenced Secret. Some instances of this field may be defaulted, in others it may be required.
+        :param name: The name of the Secret resource being referred to.
+        :param namespace: The namespace of the Secret resource being referred to. Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: ClusterSecretStoreSpecProviderBarbicanAuthUsernameSecretRef
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__413a2cee039f434bba77513d2c1278b99a24ba76f8e378f354b9d69888f5dc60)
+            check_type(argname="argument key", value=key, expected_type=type_hints["key"])
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if key is not None:
+            self._values["key"] = key
+        if name is not None:
+            self._values["name"] = name
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def key(self) -> typing.Optional[builtins.str]:
+        '''A key in the referenced Secret.
+
+        Some instances of this field may be defaulted, in others it may be required.
+
+        :schema: ClusterSecretStoreSpecProviderBarbicanAuthUsernameSecretRef#key
+        '''
+        result = self._values.get("key")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def name(self) -> typing.Optional[builtins.str]:
+        '''The name of the Secret resource being referred to.
+
+        :schema: ClusterSecretStoreSpecProviderBarbicanAuthUsernameSecretRef#name
+        '''
+        result = self._values.get("name")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''The namespace of the Secret resource being referred to.
+
+        Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: ClusterSecretStoreSpecProviderBarbicanAuthUsernameSecretRef#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterSecretStoreSpecProviderBarbicanAuthUsernameSecretRef(%s)" % ", ".join(
             k + "=" + repr(v) for k, v in self._values.items()
         )
 
@@ -51766,7 +52227,7 @@ class ExternalSecretSpec:
 
         :param data: Data defines the connection between the Kubernetes Secret keys and the Provider data.
         :param data_from: DataFrom is used to fetch all properties from a specific Provider data If multiple entries are specified, the Secret keys are merged in the specified order.
-        :param refresh_interval: RefreshInterval is the amount of time before the values are read again from the SecretStore provider, specified as Golang Duration strings. Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h" Example values: "1h", "2h30m", "10s" May be set to zero to fetch and create it once. Defaults to 1h. Default: 1h.
+        :param refresh_interval: RefreshInterval is the amount of time before the values are read again from the SecretStore provider, specified as Golang Duration strings. Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h" Example values: "1h0m0s", "2h30m0s", "10m0s" May be set to "0s" to fetch and create it once. Defaults to 1h0m0s. Default: 1h0m0s.
         :param refresh_policy: RefreshPolicy determines how the ExternalSecret should be refreshed: - CreatedOnce: Creates the Secret only if it does not exist and does not update it thereafter - Periodic: Synchronizes the Secret from the external source at regular intervals specified by refreshInterval. No periodic updates occur if refreshInterval is 0. - OnChange: Only synchronizes the Secret when the ExternalSecret's metadata or specification changes
         :param secret_store_ref: SecretStoreRef defines which SecretStore to fetch the ExternalSecret data.
         :param target: ExternalSecretTarget defines the Kubernetes Secret to be created, there can be only one target per ExternalSecret.
@@ -51822,10 +52283,10 @@ class ExternalSecretSpec:
         '''RefreshInterval is the amount of time before the values are read again from the SecretStore provider, specified as Golang Duration strings.
 
         Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h"
-        Example values: "1h", "2h30m", "10s"
-        May be set to zero to fetch and create it once. Defaults to 1h.
+        Example values: "1h0m0s", "2h30m0s", "10m0s"
+        May be set to "0s" to fetch and create it once. Defaults to 1h0m0s.
 
-        :default: 1h.
+        :default: 1h0m0s.
 
         :schema: ExternalSecretSpec#refreshInterval
         '''
@@ -54610,7 +55071,7 @@ class ExternalSecretV1Beta1Spec:
 
         :param data: Data defines the connection between the Kubernetes Secret keys and the Provider data.
         :param data_from: DataFrom is used to fetch all properties from a specific Provider data If multiple entries are specified, the Secret keys are merged in the specified order.
-        :param refresh_interval: RefreshInterval is the amount of time before the values are read again from the SecretStore provider, specified as Golang Duration strings. Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h" Example values: "1h", "2h30m", "10s" May be set to zero to fetch and create it once. Defaults to 1h. Default: 1h.
+        :param refresh_interval: RefreshInterval is the amount of time before the values are read again from the SecretStore provider, specified as Golang Duration strings. Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h" Example values: "1h0m0s", "2h30m0s", "10m0s" May be set to "0s" to fetch and create it once. Defaults to 1h0m0s. Default: 1h0m0s.
         :param refresh_policy: RefreshPolicy determines how the ExternalSecret should be refreshed: - CreatedOnce: Creates the Secret only if it does not exist and does not update it thereafter - Periodic: Synchronizes the Secret from the external source at regular intervals specified by refreshInterval. No periodic updates occur if refreshInterval is 0. - OnChange: Only synchronizes the Secret when the ExternalSecret's metadata or specification changes
         :param secret_store_ref: SecretStoreRef defines which SecretStore to fetch the ExternalSecret data.
         :param target: ExternalSecretTarget defines the Kubernetes Secret to be created There can be only one target per ExternalSecret.
@@ -54668,10 +55129,10 @@ class ExternalSecretV1Beta1Spec:
         '''RefreshInterval is the amount of time before the values are read again from the SecretStore provider, specified as Golang Duration strings.
 
         Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h"
-        Example values: "1h", "2h30m", "10s"
-        May be set to zero to fetch and create it once. Defaults to 1h.
+        Example values: "1h0m0s", "2h30m0s", "10m0s"
+        May be set to "0s" to fetch and create it once. Defaults to 1h0m0s.
 
-        :default: 1h.
+        :default: 1h0m0s.
 
         :schema: ExternalSecretV1Beta1Spec#refreshInterval
         '''
@@ -59296,6 +59757,7 @@ class SecretStoreSpecConditionsNamespaceSelectorMatchExpressions:
         "alibaba": "alibaba",
         "aws": "aws",
         "azurekv": "azurekv",
+        "barbican": "barbican",
         "beyondtrust": "beyondtrust",
         "bitwardensecretsmanager": "bitwardensecretsmanager",
         "chef": "chef",
@@ -59340,6 +59802,7 @@ class SecretStoreSpecProvider:
         alibaba: typing.Optional[typing.Union["SecretStoreSpecProviderAlibaba", typing.Dict[builtins.str, typing.Any]]] = None,
         aws: typing.Optional[typing.Union["SecretStoreSpecProviderAws", typing.Dict[builtins.str, typing.Any]]] = None,
         azurekv: typing.Optional[typing.Union["SecretStoreSpecProviderAzurekv", typing.Dict[builtins.str, typing.Any]]] = None,
+        barbican: typing.Optional[typing.Union["SecretStoreSpecProviderBarbican", typing.Dict[builtins.str, typing.Any]]] = None,
         beyondtrust: typing.Optional[typing.Union["SecretStoreSpecProviderBeyondtrust", typing.Dict[builtins.str, typing.Any]]] = None,
         bitwardensecretsmanager: typing.Optional[typing.Union["SecretStoreSpecProviderBitwardensecretsmanager", typing.Dict[builtins.str, typing.Any]]] = None,
         chef: typing.Optional[typing.Union["SecretStoreSpecProviderChef", typing.Dict[builtins.str, typing.Any]]] = None,
@@ -59383,6 +59846,7 @@ class SecretStoreSpecProvider:
         :param alibaba: Alibaba configures this store to sync secrets using Alibaba Cloud provider.
         :param aws: AWS configures this store to sync secrets using AWS Secret Manager provider.
         :param azurekv: AzureKV configures this store to sync secrets using Azure Key Vault provider.
+        :param barbican: Barbican configures this store to sync secrets using the OpenStack Barbican provider.
         :param beyondtrust: Beyondtrust configures this store to sync secrets using Password Safe provider.
         :param bitwardensecretsmanager: BitwardenSecretsManager configures this store to sync secrets using BitwardenSecretsManager provider.
         :param chef: Chef configures this store to sync secrets with chef server.
@@ -59428,6 +59892,8 @@ class SecretStoreSpecProvider:
             aws = SecretStoreSpecProviderAws(**aws)
         if isinstance(azurekv, dict):
             azurekv = SecretStoreSpecProviderAzurekv(**azurekv)
+        if isinstance(barbican, dict):
+            barbican = SecretStoreSpecProviderBarbican(**barbican)
         if isinstance(beyondtrust, dict):
             beyondtrust = SecretStoreSpecProviderBeyondtrust(**beyondtrust)
         if isinstance(bitwardensecretsmanager, dict):
@@ -59502,6 +59968,7 @@ class SecretStoreSpecProvider:
             check_type(argname="argument alibaba", value=alibaba, expected_type=type_hints["alibaba"])
             check_type(argname="argument aws", value=aws, expected_type=type_hints["aws"])
             check_type(argname="argument azurekv", value=azurekv, expected_type=type_hints["azurekv"])
+            check_type(argname="argument barbican", value=barbican, expected_type=type_hints["barbican"])
             check_type(argname="argument beyondtrust", value=beyondtrust, expected_type=type_hints["beyondtrust"])
             check_type(argname="argument bitwardensecretsmanager", value=bitwardensecretsmanager, expected_type=type_hints["bitwardensecretsmanager"])
             check_type(argname="argument chef", value=chef, expected_type=type_hints["chef"])
@@ -59545,6 +60012,8 @@ class SecretStoreSpecProvider:
             self._values["aws"] = aws
         if azurekv is not None:
             self._values["azurekv"] = azurekv
+        if barbican is not None:
+            self._values["barbican"] = barbican
         if beyondtrust is not None:
             self._values["beyondtrust"] = beyondtrust
         if bitwardensecretsmanager is not None:
@@ -59649,6 +60118,15 @@ class SecretStoreSpecProvider:
         '''
         result = self._values.get("azurekv")
         return typing.cast(typing.Optional["SecretStoreSpecProviderAzurekv"], result)
+
+    @builtins.property
+    def barbican(self) -> typing.Optional["SecretStoreSpecProviderBarbican"]:
+        '''Barbican configures this store to sync secrets using the OpenStack Barbican provider.
+
+        :schema: SecretStoreSpecProvider#barbican
+        '''
+        result = self._values.get("barbican")
+        return typing.cast(typing.Optional["SecretStoreSpecProviderBarbican"], result)
 
     @builtins.property
     def beyondtrust(self) -> typing.Optional["SecretStoreSpecProviderBeyondtrust"]:
@@ -62978,6 +63456,448 @@ class SecretStoreSpecProviderAzurekvServiceAccountRef:
 
     def __repr__(self) -> str:
         return "SecretStoreSpecProviderAzurekvServiceAccountRef(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.SecretStoreSpecProviderBarbican",
+    jsii_struct_bases=[],
+    name_mapping={
+        "auth": "auth",
+        "auth_url": "authUrl",
+        "domain_name": "domainName",
+        "region": "region",
+        "tenant_name": "tenantName",
+    },
+)
+class SecretStoreSpecProviderBarbican:
+    def __init__(
+        self,
+        *,
+        auth: typing.Union["SecretStoreSpecProviderBarbicanAuth", typing.Dict[builtins.str, typing.Any]],
+        auth_url: typing.Optional[builtins.str] = None,
+        domain_name: typing.Optional[builtins.str] = None,
+        region: typing.Optional[builtins.str] = None,
+        tenant_name: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''Barbican configures this store to sync secrets using the OpenStack Barbican provider.
+
+        :param auth: BarbicanAuth contains the authentication information for Barbican.
+        :param auth_url: 
+        :param domain_name: 
+        :param region: 
+        :param tenant_name: 
+
+        :schema: SecretStoreSpecProviderBarbican
+        '''
+        if isinstance(auth, dict):
+            auth = SecretStoreSpecProviderBarbicanAuth(**auth)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__154a067ea26de32be5424ac81730b69e06dfb8fc22dcfa2306fb1f2bf14cb7c6)
+            check_type(argname="argument auth", value=auth, expected_type=type_hints["auth"])
+            check_type(argname="argument auth_url", value=auth_url, expected_type=type_hints["auth_url"])
+            check_type(argname="argument domain_name", value=domain_name, expected_type=type_hints["domain_name"])
+            check_type(argname="argument region", value=region, expected_type=type_hints["region"])
+            check_type(argname="argument tenant_name", value=tenant_name, expected_type=type_hints["tenant_name"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "auth": auth,
+        }
+        if auth_url is not None:
+            self._values["auth_url"] = auth_url
+        if domain_name is not None:
+            self._values["domain_name"] = domain_name
+        if region is not None:
+            self._values["region"] = region
+        if tenant_name is not None:
+            self._values["tenant_name"] = tenant_name
+
+    @builtins.property
+    def auth(self) -> "SecretStoreSpecProviderBarbicanAuth":
+        '''BarbicanAuth contains the authentication information for Barbican.
+
+        :schema: SecretStoreSpecProviderBarbican#auth
+        '''
+        result = self._values.get("auth")
+        assert result is not None, "Required property 'auth' is missing"
+        return typing.cast("SecretStoreSpecProviderBarbicanAuth", result)
+
+    @builtins.property
+    def auth_url(self) -> typing.Optional[builtins.str]:
+        '''
+        :schema: SecretStoreSpecProviderBarbican#authURL
+        '''
+        result = self._values.get("auth_url")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def domain_name(self) -> typing.Optional[builtins.str]:
+        '''
+        :schema: SecretStoreSpecProviderBarbican#domainName
+        '''
+        result = self._values.get("domain_name")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def region(self) -> typing.Optional[builtins.str]:
+        '''
+        :schema: SecretStoreSpecProviderBarbican#region
+        '''
+        result = self._values.get("region")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def tenant_name(self) -> typing.Optional[builtins.str]:
+        '''
+        :schema: SecretStoreSpecProviderBarbican#tenantName
+        '''
+        result = self._values.get("tenant_name")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "SecretStoreSpecProviderBarbican(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.SecretStoreSpecProviderBarbicanAuth",
+    jsii_struct_bases=[],
+    name_mapping={"password": "password", "username": "username"},
+)
+class SecretStoreSpecProviderBarbicanAuth:
+    def __init__(
+        self,
+        *,
+        password: typing.Union["SecretStoreSpecProviderBarbicanAuthPassword", typing.Dict[builtins.str, typing.Any]],
+        username: typing.Union["SecretStoreSpecProviderBarbicanAuthUsername", typing.Dict[builtins.str, typing.Any]],
+    ) -> None:
+        '''BarbicanAuth contains the authentication information for Barbican.
+
+        :param password: BarbicanProviderPasswordRef defines a reference to a secret containing password for the Barbican provider.
+        :param username: BarbicanProviderUsernameRef defines a reference to a secret containing username for the Barbican provider.
+
+        :schema: SecretStoreSpecProviderBarbicanAuth
+        '''
+        if isinstance(password, dict):
+            password = SecretStoreSpecProviderBarbicanAuthPassword(**password)
+        if isinstance(username, dict):
+            username = SecretStoreSpecProviderBarbicanAuthUsername(**username)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__d6fc1ea0ef06eb135e6f5caaa339fcaf52a2f6a6cd7f97e152ca516cfa266708)
+            check_type(argname="argument password", value=password, expected_type=type_hints["password"])
+            check_type(argname="argument username", value=username, expected_type=type_hints["username"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "password": password,
+            "username": username,
+        }
+
+    @builtins.property
+    def password(self) -> "SecretStoreSpecProviderBarbicanAuthPassword":
+        '''BarbicanProviderPasswordRef defines a reference to a secret containing password for the Barbican provider.
+
+        :schema: SecretStoreSpecProviderBarbicanAuth#password
+        '''
+        result = self._values.get("password")
+        assert result is not None, "Required property 'password' is missing"
+        return typing.cast("SecretStoreSpecProviderBarbicanAuthPassword", result)
+
+    @builtins.property
+    def username(self) -> "SecretStoreSpecProviderBarbicanAuthUsername":
+        '''BarbicanProviderUsernameRef defines a reference to a secret containing username for the Barbican provider.
+
+        :schema: SecretStoreSpecProviderBarbicanAuth#username
+        '''
+        result = self._values.get("username")
+        assert result is not None, "Required property 'username' is missing"
+        return typing.cast("SecretStoreSpecProviderBarbicanAuthUsername", result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "SecretStoreSpecProviderBarbicanAuth(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.SecretStoreSpecProviderBarbicanAuthPassword",
+    jsii_struct_bases=[],
+    name_mapping={"secret_ref": "secretRef"},
+)
+class SecretStoreSpecProviderBarbicanAuthPassword:
+    def __init__(
+        self,
+        *,
+        secret_ref: typing.Union["SecretStoreSpecProviderBarbicanAuthPasswordSecretRef", typing.Dict[builtins.str, typing.Any]],
+    ) -> None:
+        '''BarbicanProviderPasswordRef defines a reference to a secret containing password for the Barbican provider.
+
+        :param secret_ref: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+
+        :schema: SecretStoreSpecProviderBarbicanAuthPassword
+        '''
+        if isinstance(secret_ref, dict):
+            secret_ref = SecretStoreSpecProviderBarbicanAuthPasswordSecretRef(**secret_ref)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__6bd5df2d279ff3f74fd15c70788b902b2bd1c988de77a7b3a7653492efcaf26d)
+            check_type(argname="argument secret_ref", value=secret_ref, expected_type=type_hints["secret_ref"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "secret_ref": secret_ref,
+        }
+
+    @builtins.property
+    def secret_ref(self) -> "SecretStoreSpecProviderBarbicanAuthPasswordSecretRef":
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
+
+        In some instances, ``key`` is a required field.
+
+        :schema: SecretStoreSpecProviderBarbicanAuthPassword#secretRef
+        '''
+        result = self._values.get("secret_ref")
+        assert result is not None, "Required property 'secret_ref' is missing"
+        return typing.cast("SecretStoreSpecProviderBarbicanAuthPasswordSecretRef", result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "SecretStoreSpecProviderBarbicanAuthPassword(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.SecretStoreSpecProviderBarbicanAuthPasswordSecretRef",
+    jsii_struct_bases=[],
+    name_mapping={"key": "key", "name": "name", "namespace": "namespace"},
+)
+class SecretStoreSpecProviderBarbicanAuthPasswordSecretRef:
+    def __init__(
+        self,
+        *,
+        key: typing.Optional[builtins.str] = None,
+        name: typing.Optional[builtins.str] = None,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
+
+        In some instances, ``key`` is a required field.
+
+        :param key: A key in the referenced Secret. Some instances of this field may be defaulted, in others it may be required.
+        :param name: The name of the Secret resource being referred to.
+        :param namespace: The namespace of the Secret resource being referred to. Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: SecretStoreSpecProviderBarbicanAuthPasswordSecretRef
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__a5e6fb57641ee1660bccc39516c55d7b56b3a3d3302453312065e427fbb0d3b5)
+            check_type(argname="argument key", value=key, expected_type=type_hints["key"])
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if key is not None:
+            self._values["key"] = key
+        if name is not None:
+            self._values["name"] = name
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def key(self) -> typing.Optional[builtins.str]:
+        '''A key in the referenced Secret.
+
+        Some instances of this field may be defaulted, in others it may be required.
+
+        :schema: SecretStoreSpecProviderBarbicanAuthPasswordSecretRef#key
+        '''
+        result = self._values.get("key")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def name(self) -> typing.Optional[builtins.str]:
+        '''The name of the Secret resource being referred to.
+
+        :schema: SecretStoreSpecProviderBarbicanAuthPasswordSecretRef#name
+        '''
+        result = self._values.get("name")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''The namespace of the Secret resource being referred to.
+
+        Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: SecretStoreSpecProviderBarbicanAuthPasswordSecretRef#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "SecretStoreSpecProviderBarbicanAuthPasswordSecretRef(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.SecretStoreSpecProviderBarbicanAuthUsername",
+    jsii_struct_bases=[],
+    name_mapping={"secret_ref": "secretRef", "value": "value"},
+)
+class SecretStoreSpecProviderBarbicanAuthUsername:
+    def __init__(
+        self,
+        *,
+        secret_ref: typing.Optional[typing.Union["SecretStoreSpecProviderBarbicanAuthUsernameSecretRef", typing.Dict[builtins.str, typing.Any]]] = None,
+        value: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''BarbicanProviderUsernameRef defines a reference to a secret containing username for the Barbican provider.
+
+        :param secret_ref: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+        :param value: 
+
+        :schema: SecretStoreSpecProviderBarbicanAuthUsername
+        '''
+        if isinstance(secret_ref, dict):
+            secret_ref = SecretStoreSpecProviderBarbicanAuthUsernameSecretRef(**secret_ref)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__a3dfdf8c9b160b41523809716a3aa729d0c4cf0648affb747e159463087c5acc)
+            check_type(argname="argument secret_ref", value=secret_ref, expected_type=type_hints["secret_ref"])
+            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if secret_ref is not None:
+            self._values["secret_ref"] = secret_ref
+        if value is not None:
+            self._values["value"] = value
+
+    @builtins.property
+    def secret_ref(
+        self,
+    ) -> typing.Optional["SecretStoreSpecProviderBarbicanAuthUsernameSecretRef"]:
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
+
+        In some instances, ``key`` is a required field.
+
+        :schema: SecretStoreSpecProviderBarbicanAuthUsername#secretRef
+        '''
+        result = self._values.get("secret_ref")
+        return typing.cast(typing.Optional["SecretStoreSpecProviderBarbicanAuthUsernameSecretRef"], result)
+
+    @builtins.property
+    def value(self) -> typing.Optional[builtins.str]:
+        '''
+        :schema: SecretStoreSpecProviderBarbicanAuthUsername#value
+        '''
+        result = self._values.get("value")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "SecretStoreSpecProviderBarbicanAuthUsername(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.SecretStoreSpecProviderBarbicanAuthUsernameSecretRef",
+    jsii_struct_bases=[],
+    name_mapping={"key": "key", "name": "name", "namespace": "namespace"},
+)
+class SecretStoreSpecProviderBarbicanAuthUsernameSecretRef:
+    def __init__(
+        self,
+        *,
+        key: typing.Optional[builtins.str] = None,
+        name: typing.Optional[builtins.str] = None,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
+
+        In some instances, ``key`` is a required field.
+
+        :param key: A key in the referenced Secret. Some instances of this field may be defaulted, in others it may be required.
+        :param name: The name of the Secret resource being referred to.
+        :param namespace: The namespace of the Secret resource being referred to. Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: SecretStoreSpecProviderBarbicanAuthUsernameSecretRef
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__092c159bf5d33c1210acc8f12a6bfbf6a4bca950ce59441becfd2339627535c0)
+            check_type(argname="argument key", value=key, expected_type=type_hints["key"])
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if key is not None:
+            self._values["key"] = key
+        if name is not None:
+            self._values["name"] = name
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def key(self) -> typing.Optional[builtins.str]:
+        '''A key in the referenced Secret.
+
+        Some instances of this field may be defaulted, in others it may be required.
+
+        :schema: SecretStoreSpecProviderBarbicanAuthUsernameSecretRef#key
+        '''
+        result = self._values.get("key")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def name(self) -> typing.Optional[builtins.str]:
+        '''The name of the Secret resource being referred to.
+
+        :schema: SecretStoreSpecProviderBarbicanAuthUsernameSecretRef#name
+        '''
+        result = self._values.get("name")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''The namespace of the Secret resource being referred to.
+
+        Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: SecretStoreSpecProviderBarbicanAuthUsernameSecretRef#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "SecretStoreSpecProviderBarbicanAuthUsernameSecretRef(%s)" % ", ".join(
             k + "=" + repr(v) for k, v in self._values.items()
         )
 
@@ -101624,6 +102544,12 @@ __all__ = [
     "ClusterSecretStoreSpecProviderAzurekvCustomCloudConfig",
     "ClusterSecretStoreSpecProviderAzurekvEnvironmentType",
     "ClusterSecretStoreSpecProviderAzurekvServiceAccountRef",
+    "ClusterSecretStoreSpecProviderBarbican",
+    "ClusterSecretStoreSpecProviderBarbicanAuth",
+    "ClusterSecretStoreSpecProviderBarbicanAuthPassword",
+    "ClusterSecretStoreSpecProviderBarbicanAuthPasswordSecretRef",
+    "ClusterSecretStoreSpecProviderBarbicanAuthUsername",
+    "ClusterSecretStoreSpecProviderBarbicanAuthUsernameSecretRef",
     "ClusterSecretStoreSpecProviderBeyondtrust",
     "ClusterSecretStoreSpecProviderBeyondtrustAuth",
     "ClusterSecretStoreSpecProviderBeyondtrustAuthApiKey",
@@ -102296,6 +103222,12 @@ __all__ = [
     "SecretStoreSpecProviderAzurekvCustomCloudConfig",
     "SecretStoreSpecProviderAzurekvEnvironmentType",
     "SecretStoreSpecProviderAzurekvServiceAccountRef",
+    "SecretStoreSpecProviderBarbican",
+    "SecretStoreSpecProviderBarbicanAuth",
+    "SecretStoreSpecProviderBarbicanAuthPassword",
+    "SecretStoreSpecProviderBarbicanAuthPasswordSecretRef",
+    "SecretStoreSpecProviderBarbicanAuthUsername",
+    "SecretStoreSpecProviderBarbicanAuthUsernameSecretRef",
     "SecretStoreSpecProviderBeyondtrust",
     "SecretStoreSpecProviderBeyondtrustAuth",
     "SecretStoreSpecProviderBeyondtrustAuthApiKey",
@@ -103703,6 +104635,7 @@ def _typecheckingstub__b577f0ccbbef07f08ad1ab52f92fc2ed139f3591354a8294c647ea76a
     alibaba: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderAlibaba, typing.Dict[builtins.str, typing.Any]]] = None,
     aws: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderAws, typing.Dict[builtins.str, typing.Any]]] = None,
     azurekv: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderAzurekv, typing.Dict[builtins.str, typing.Any]]] = None,
+    barbican: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderBarbican, typing.Dict[builtins.str, typing.Any]]] = None,
     beyondtrust: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderBeyondtrust, typing.Dict[builtins.str, typing.Any]]] = None,
     bitwardensecretsmanager: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderBitwardensecretsmanager, typing.Dict[builtins.str, typing.Any]]] = None,
     chef: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderChef, typing.Dict[builtins.str, typing.Any]]] = None,
@@ -104052,6 +104985,58 @@ def _typecheckingstub__6f9bc3908e702dbfc1f5487ab0c0ab8d9ac9fbe77dc944911fa425330
     *,
     name: builtins.str,
     audiences: typing.Optional[typing.Sequence[builtins.str]] = None,
+    namespace: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__a75333dbfe62c25a8c24042fb7138906e895e98f48a3233ca97dd3316bcdf433(
+    *,
+    auth: typing.Union[ClusterSecretStoreSpecProviderBarbicanAuth, typing.Dict[builtins.str, typing.Any]],
+    auth_url: typing.Optional[builtins.str] = None,
+    domain_name: typing.Optional[builtins.str] = None,
+    region: typing.Optional[builtins.str] = None,
+    tenant_name: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__b1a686a2c06e788c75b12c0518e3362c7cf0dd0f0432f32e06bdad4d11ab2c12(
+    *,
+    password: typing.Union[ClusterSecretStoreSpecProviderBarbicanAuthPassword, typing.Dict[builtins.str, typing.Any]],
+    username: typing.Union[ClusterSecretStoreSpecProviderBarbicanAuthUsername, typing.Dict[builtins.str, typing.Any]],
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__1b6c0ccf64fc42e52096d5d6df45a6fbc0bf8e03463115a26ef07a8846ffad5b(
+    *,
+    secret_ref: typing.Union[ClusterSecretStoreSpecProviderBarbicanAuthPasswordSecretRef, typing.Dict[builtins.str, typing.Any]],
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__656437d4ed65e4dcf7b8b4e780648827e1fe25f6cacacef378a1da52c0f47721(
+    *,
+    key: typing.Optional[builtins.str] = None,
+    name: typing.Optional[builtins.str] = None,
+    namespace: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__1b17920c7a1b7ed74b5395d8f3c36a922c83cb764ad0a5a3ef50ddacbd700206(
+    *,
+    secret_ref: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderBarbicanAuthUsernameSecretRef, typing.Dict[builtins.str, typing.Any]]] = None,
+    value: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__413a2cee039f434bba77513d2c1278b99a24ba76f8e378f354b9d69888f5dc60(
+    *,
+    key: typing.Optional[builtins.str] = None,
+    name: typing.Optional[builtins.str] = None,
     namespace: typing.Optional[builtins.str] = None,
 ) -> None:
     """Type checking stubs"""
@@ -109060,6 +110045,7 @@ def _typecheckingstub__c530965dc9a8ce9c6b19c8fa2f1a1209e5d3f087076176d43c9a82a73
     alibaba: typing.Optional[typing.Union[SecretStoreSpecProviderAlibaba, typing.Dict[builtins.str, typing.Any]]] = None,
     aws: typing.Optional[typing.Union[SecretStoreSpecProviderAws, typing.Dict[builtins.str, typing.Any]]] = None,
     azurekv: typing.Optional[typing.Union[SecretStoreSpecProviderAzurekv, typing.Dict[builtins.str, typing.Any]]] = None,
+    barbican: typing.Optional[typing.Union[SecretStoreSpecProviderBarbican, typing.Dict[builtins.str, typing.Any]]] = None,
     beyondtrust: typing.Optional[typing.Union[SecretStoreSpecProviderBeyondtrust, typing.Dict[builtins.str, typing.Any]]] = None,
     bitwardensecretsmanager: typing.Optional[typing.Union[SecretStoreSpecProviderBitwardensecretsmanager, typing.Dict[builtins.str, typing.Any]]] = None,
     chef: typing.Optional[typing.Union[SecretStoreSpecProviderChef, typing.Dict[builtins.str, typing.Any]]] = None,
@@ -109409,6 +110395,58 @@ def _typecheckingstub__6270c5495b069a85f3a72915c6c9d3b066899e220bc6fe5e733e75e85
     *,
     name: builtins.str,
     audiences: typing.Optional[typing.Sequence[builtins.str]] = None,
+    namespace: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__154a067ea26de32be5424ac81730b69e06dfb8fc22dcfa2306fb1f2bf14cb7c6(
+    *,
+    auth: typing.Union[SecretStoreSpecProviderBarbicanAuth, typing.Dict[builtins.str, typing.Any]],
+    auth_url: typing.Optional[builtins.str] = None,
+    domain_name: typing.Optional[builtins.str] = None,
+    region: typing.Optional[builtins.str] = None,
+    tenant_name: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__d6fc1ea0ef06eb135e6f5caaa339fcaf52a2f6a6cd7f97e152ca516cfa266708(
+    *,
+    password: typing.Union[SecretStoreSpecProviderBarbicanAuthPassword, typing.Dict[builtins.str, typing.Any]],
+    username: typing.Union[SecretStoreSpecProviderBarbicanAuthUsername, typing.Dict[builtins.str, typing.Any]],
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__6bd5df2d279ff3f74fd15c70788b902b2bd1c988de77a7b3a7653492efcaf26d(
+    *,
+    secret_ref: typing.Union[SecretStoreSpecProviderBarbicanAuthPasswordSecretRef, typing.Dict[builtins.str, typing.Any]],
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__a5e6fb57641ee1660bccc39516c55d7b56b3a3d3302453312065e427fbb0d3b5(
+    *,
+    key: typing.Optional[builtins.str] = None,
+    name: typing.Optional[builtins.str] = None,
+    namespace: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__a3dfdf8c9b160b41523809716a3aa729d0c4cf0648affb747e159463087c5acc(
+    *,
+    secret_ref: typing.Optional[typing.Union[SecretStoreSpecProviderBarbicanAuthUsernameSecretRef, typing.Dict[builtins.str, typing.Any]]] = None,
+    value: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__092c159bf5d33c1210acc8f12a6bfbf6a4bca950ce59441becfd2339627535c0(
+    *,
+    key: typing.Optional[builtins.str] = None,
+    name: typing.Optional[builtins.str] = None,
     namespace: typing.Optional[builtins.str] = None,
 ) -> None:
     """Type checking stubs"""
