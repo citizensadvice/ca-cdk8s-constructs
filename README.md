@@ -4,7 +4,7 @@ This repository contains a collection of opinionated cdk8s constructs that are c
 
 ## Installation
 
-The project is available on PyPi under [ca-cdk8s-constructs](https://pypi.org/project/ca-cdk-constructs/). Use your project manager of choice to install it.
+The project is available on PyPi under [ca-cdk8s-constructs](https://pypi.org/project/ca-cdk8s-constructs/). Use your project manager of choice to install it.
 
 ## Features
 
