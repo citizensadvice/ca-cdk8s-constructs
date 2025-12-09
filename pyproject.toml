@@ -4,12 +4,20 @@ version = "4.0.4"
 description = "A collection of cdk8s constructs"
 readme = "README.md"
 requires-python = ">=3.10"
+license = { file = "LICENSE" }
+authors = [{ name = "Citizens Advice", email = "cloud.engineering@citizensadvice.org.uk" }]
 dependencies = [
     "cdk8s>=2.70.11",
     "cdk8s-plus-32>=2.4.1",
     "pyyaml>=6.0.2",
     "aws-cdk-lib>=2.214.0",
 ]
+
+[project.urls]
+Homepage = "https://github.com/citizensadvice/ca-cdk8s-constructs"
+Repository = "https://github.com/matthewcane/ca-cdk8s-constructs"
+Issues = "https://github.com/citizensadvice/ca-cdk8s-constructs/issues"
+Changelog = "https://github.com/citizensadvice/ca-cdk8s-constructs/releases"
 
 [dependency-groups]
 dev = [
