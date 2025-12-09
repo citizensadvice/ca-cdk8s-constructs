@@ -2,24 +2,9 @@
 
 This repository contains a collection of opinionated cdk8s constructs that are commonly used in CA applications.
 
-## Usage
+## Installation
 
-To use the constructs, add the following to your `pyproject.toml` file:
-
-### Poetry project
-
-```toml
-[tool.poetry.dependencies]
-ca-cdk8s-constructs = { git = "https://github.com/citizensadvice/ca-cdk8s-constructs", rev = "<version>" }
-```
-
-### uv project
-
-```toml
-dependencies = [
-  "ca-cdk-constructs @ git+https://github.com/citizensadvice/ca-cdk8s-constructs@<version>"
-]
-```
+The project is available on PyPi under [ca-cdk8s-constructs](https://pypi.org/project/ca-cdk-constructs/). Use your project manager of choice to install it.
 
 ## Features
 
