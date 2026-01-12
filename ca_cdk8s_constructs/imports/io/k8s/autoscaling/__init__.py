@@ -46,11 +46,11 @@ class VerticalPodAutoscaler(
 
     def __init__(
         self,
-        scope: _constructs_77d1e7e8.Construct,
+        scope: "_constructs_77d1e7e8.Construct",
         id: builtins.str,
         *,
         spec: typing.Union["VerticalPodAutoscalerSpec", typing.Dict[builtins.str, typing.Any]],
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''Defines a "VerticalPodAutoscaler" API object.
 
@@ -73,7 +73,7 @@ class VerticalPodAutoscaler(
         cls,
         *,
         spec: typing.Union["VerticalPodAutoscalerSpec", typing.Dict[builtins.str, typing.Any]],
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> typing.Any:
         '''Renders a Kubernetes manifest for "VerticalPodAutoscaler".
 
@@ -93,9 +93,9 @@ class VerticalPodAutoscaler(
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="GVK")
-    def GVK(cls) -> _cdk8s_d3d9af27.GroupVersionKind:
+    def GVK(cls) -> "_cdk8s_d3d9af27.GroupVersionKind":
         '''Returns the apiVersion and kind for "VerticalPodAutoscaler".'''
-        return typing.cast(_cdk8s_d3d9af27.GroupVersionKind, jsii.sget(cls, "GVK"))
+        return typing.cast("_cdk8s_d3d9af27.GroupVersionKind", jsii.sget(cls, "GVK"))
 
 
 class VerticalPodAutoscalerCheckpoint(
@@ -110,10 +110,10 @@ class VerticalPodAutoscalerCheckpoint(
 
     def __init__(
         self,
-        scope: _constructs_77d1e7e8.Construct,
+        scope: "_constructs_77d1e7e8.Construct",
         id: builtins.str,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["VerticalPodAutoscalerCheckpointSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''Defines a "VerticalPodAutoscalerCheckpoint" API object.
@@ -136,7 +136,7 @@ class VerticalPodAutoscalerCheckpoint(
     def manifest(
         cls,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["VerticalPodAutoscalerCheckpointSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> typing.Any:
         '''Renders a Kubernetes manifest for "VerticalPodAutoscalerCheckpoint".
@@ -157,9 +157,9 @@ class VerticalPodAutoscalerCheckpoint(
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="GVK")
-    def GVK(cls) -> _cdk8s_d3d9af27.GroupVersionKind:
+    def GVK(cls) -> "_cdk8s_d3d9af27.GroupVersionKind":
         '''Returns the apiVersion and kind for "VerticalPodAutoscalerCheckpoint".'''
-        return typing.cast(_cdk8s_d3d9af27.GroupVersionKind, jsii.sget(cls, "GVK"))
+        return typing.cast("_cdk8s_d3d9af27.GroupVersionKind", jsii.sget(cls, "GVK"))
 
 
 @jsii.data_type(
@@ -171,7 +171,7 @@ class VerticalPodAutoscalerCheckpointProps:
     def __init__(
         self,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["VerticalPodAutoscalerCheckpointSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''VerticalPodAutoscalerCheckpoint is the checkpoint of the internal state of VPA that is used for recovery after recommender's restart.
@@ -196,12 +196,12 @@ class VerticalPodAutoscalerCheckpointProps:
             self._values["spec"] = spec
 
     @builtins.property
-    def metadata(self) -> typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata]:
+    def metadata(self) -> typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"]:
         '''
         :schema: VerticalPodAutoscalerCheckpoint#metadata
         '''
         result = self._values.get("metadata")
-        return typing.cast(typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata], result)
+        return typing.cast(typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"], result)
 
     @builtins.property
     def spec(self) -> typing.Optional["VerticalPodAutoscalerCheckpointSpec"]:
@@ -302,10 +302,10 @@ class VerticalPodAutoscalerCheckpointV1Beta2(
 
     def __init__(
         self,
-        scope: _constructs_77d1e7e8.Construct,
+        scope: "_constructs_77d1e7e8.Construct",
         id: builtins.str,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["VerticalPodAutoscalerCheckpointV1Beta2Spec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''Defines a "VerticalPodAutoscalerCheckpointV1Beta2" API object.
@@ -330,7 +330,7 @@ class VerticalPodAutoscalerCheckpointV1Beta2(
     def manifest(
         cls,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["VerticalPodAutoscalerCheckpointV1Beta2Spec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> typing.Any:
         '''Renders a Kubernetes manifest for "VerticalPodAutoscalerCheckpointV1Beta2".
@@ -353,9 +353,9 @@ class VerticalPodAutoscalerCheckpointV1Beta2(
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="GVK")
-    def GVK(cls) -> _cdk8s_d3d9af27.GroupVersionKind:
+    def GVK(cls) -> "_cdk8s_d3d9af27.GroupVersionKind":
         '''Returns the apiVersion and kind for "VerticalPodAutoscalerCheckpointV1Beta2".'''
-        return typing.cast(_cdk8s_d3d9af27.GroupVersionKind, jsii.sget(cls, "GVK"))
+        return typing.cast("_cdk8s_d3d9af27.GroupVersionKind", jsii.sget(cls, "GVK"))
 
 
 @jsii.data_type(
@@ -367,7 +367,7 @@ class VerticalPodAutoscalerCheckpointV1Beta2Props:
     def __init__(
         self,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["VerticalPodAutoscalerCheckpointV1Beta2Spec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''VerticalPodAutoscalerCheckpoint is the checkpoint of the internal state of VPA that is used for recovery after recommender's restart.
@@ -392,12 +392,12 @@ class VerticalPodAutoscalerCheckpointV1Beta2Props:
             self._values["spec"] = spec
 
     @builtins.property
-    def metadata(self) -> typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata]:
+    def metadata(self) -> typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"]:
         '''
         :schema: VerticalPodAutoscalerCheckpointV1Beta2#metadata
         '''
         result = self._values.get("metadata")
-        return typing.cast(typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata], result)
+        return typing.cast(typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"], result)
 
     @builtins.property
     def spec(self) -> typing.Optional["VerticalPodAutoscalerCheckpointV1Beta2Spec"]:
@@ -496,7 +496,7 @@ class VerticalPodAutoscalerProps:
         self,
         *,
         spec: typing.Union["VerticalPodAutoscalerSpec", typing.Dict[builtins.str, typing.Any]],
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''VerticalPodAutoscaler is the configuration for a vertical pod autoscaler, which automatically manages pod resources based on historical and real time resource utilization.
 
@@ -532,12 +532,12 @@ class VerticalPodAutoscalerProps:
         return typing.cast("VerticalPodAutoscalerSpec", result)
 
     @builtins.property
-    def metadata(self) -> typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata]:
+    def metadata(self) -> typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"]:
         '''
         :schema: VerticalPodAutoscaler#metadata
         '''
         result = self._values.get("metadata")
-        return typing.cast(typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata], result)
+        return typing.cast(typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"], result)
 
     def __eq__(self, rhs: typing.Any) -> builtins.bool:
         return isinstance(rhs, self.__class__) and rhs._values == self._values
@@ -1249,7 +1249,7 @@ class VerticalPodAutoscalerSpecUpdatePolicy:
 
         :param eviction_requirements: EvictionRequirements is a list of EvictionRequirements that need to evaluate to true in order for a Pod to be evicted. If more than one EvictionRequirement is specified, all of them need to be fulfilled to allow eviction.
         :param min_replicas: Minimal number of replicas which need to be alive for Updater to attempt pod eviction (pending other checks like PDB). Only positive values are allowed. Overrides global '--min-replicas' flag.
-        :param update_mode: Controls when autoscaler applies changes to the pod resources. The default is 'Auto'.
+        :param update_mode: Controls when autoscaler applies changes to the pod resources. The default is 'Recreate'.
 
         :schema: VerticalPodAutoscalerSpecUpdatePolicy
         '''
@@ -1298,7 +1298,7 @@ class VerticalPodAutoscalerSpecUpdatePolicy:
     ) -> typing.Optional["VerticalPodAutoscalerSpecUpdatePolicyUpdateMode"]:
         '''Controls when autoscaler applies changes to the pod resources.
 
-        The default is 'Auto'.
+        The default is 'Recreate'.
 
         :schema: VerticalPodAutoscalerSpecUpdatePolicy#updateMode
         '''
@@ -1405,7 +1405,7 @@ class VerticalPodAutoscalerSpecUpdatePolicyEvictionRequirementsChangeRequirement
 class VerticalPodAutoscalerSpecUpdatePolicyUpdateMode(enum.Enum):
     '''Controls when autoscaler applies changes to the pod resources.
 
-    The default is 'Auto'.
+    The default is 'Recreate'.
 
     :schema: VerticalPodAutoscalerSpecUpdatePolicyUpdateMode
     '''
@@ -1434,11 +1434,11 @@ class VerticalPodAutoscalerV1Beta2(
 
     def __init__(
         self,
-        scope: _constructs_77d1e7e8.Construct,
+        scope: "_constructs_77d1e7e8.Construct",
         id: builtins.str,
         *,
         spec: typing.Union["VerticalPodAutoscalerV1Beta2Spec", typing.Dict[builtins.str, typing.Any]],
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''Defines a "VerticalPodAutoscalerV1Beta2" API object.
 
@@ -1461,7 +1461,7 @@ class VerticalPodAutoscalerV1Beta2(
         cls,
         *,
         spec: typing.Union["VerticalPodAutoscalerV1Beta2Spec", typing.Dict[builtins.str, typing.Any]],
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> typing.Any:
         '''Renders a Kubernetes manifest for "VerticalPodAutoscalerV1Beta2".
 
@@ -1481,9 +1481,9 @@ class VerticalPodAutoscalerV1Beta2(
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="GVK")
-    def GVK(cls) -> _cdk8s_d3d9af27.GroupVersionKind:
+    def GVK(cls) -> "_cdk8s_d3d9af27.GroupVersionKind":
         '''Returns the apiVersion and kind for "VerticalPodAutoscalerV1Beta2".'''
-        return typing.cast(_cdk8s_d3d9af27.GroupVersionKind, jsii.sget(cls, "GVK"))
+        return typing.cast("_cdk8s_d3d9af27.GroupVersionKind", jsii.sget(cls, "GVK"))
 
 
 @jsii.data_type(
@@ -1496,7 +1496,7 @@ class VerticalPodAutoscalerV1Beta2Props:
         self,
         *,
         spec: typing.Union["VerticalPodAutoscalerV1Beta2Spec", typing.Dict[builtins.str, typing.Any]],
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''VerticalPodAutoscaler is the configuration for a vertical pod autoscaler, which automatically manages pod resources based on historical and real time resource utilization.
 
@@ -1532,12 +1532,12 @@ class VerticalPodAutoscalerV1Beta2Props:
         return typing.cast("VerticalPodAutoscalerV1Beta2Spec", result)
 
     @builtins.property
-    def metadata(self) -> typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata]:
+    def metadata(self) -> typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"]:
         '''
         :schema: VerticalPodAutoscalerV1Beta2#metadata
         '''
         result = self._values.get("metadata")
-        return typing.cast(typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata], result)
+        return typing.cast(typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"], result)
 
     def __eq__(self, rhs: typing.Any) -> builtins.bool:
         return isinstance(rhs, self.__class__) and rhs._values == self._values

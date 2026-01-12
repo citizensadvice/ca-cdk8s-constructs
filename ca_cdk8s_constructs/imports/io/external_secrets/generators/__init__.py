@@ -53,10 +53,10 @@ class AcrAccessToken(
 
     def __init__(
         self,
-        scope: _constructs_77d1e7e8.Construct,
+        scope: "_constructs_77d1e7e8.Construct",
         id: builtins.str,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["AcrAccessTokenSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''Defines a "ACRAccessToken" API object.
@@ -79,7 +79,7 @@ class AcrAccessToken(
     def manifest(
         cls,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["AcrAccessTokenSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> typing.Any:
         '''Renders a Kubernetes manifest for "ACRAccessToken".
@@ -100,9 +100,9 @@ class AcrAccessToken(
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="GVK")
-    def GVK(cls) -> _cdk8s_d3d9af27.GroupVersionKind:
+    def GVK(cls) -> "_cdk8s_d3d9af27.GroupVersionKind":
         '''Returns the apiVersion and kind for "ACRAccessToken".'''
-        return typing.cast(_cdk8s_d3d9af27.GroupVersionKind, jsii.sget(cls, "GVK"))
+        return typing.cast("_cdk8s_d3d9af27.GroupVersionKind", jsii.sget(cls, "GVK"))
 
 
 @jsii.data_type(
@@ -114,7 +114,7 @@ class AcrAccessTokenProps:
     def __init__(
         self,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["AcrAccessTokenSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''ACRAccessToken returns an Azure Container Registry token that can be used for pushing/pulling images.
@@ -146,12 +146,12 @@ class AcrAccessTokenProps:
             self._values["spec"] = spec
 
     @builtins.property
-    def metadata(self) -> typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata]:
+    def metadata(self) -> typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"]:
         '''
         :schema: ACRAccessToken#metadata
         '''
         result = self._values.get("metadata")
-        return typing.cast(typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata], result)
+        return typing.cast(typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"], result)
 
     @builtins.property
     def spec(self) -> typing.Optional["AcrAccessTokenSpec"]:
@@ -859,10 +859,10 @@ class CloudsmithAccessToken(
 
     def __init__(
         self,
-        scope: _constructs_77d1e7e8.Construct,
+        scope: "_constructs_77d1e7e8.Construct",
         id: builtins.str,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["CloudsmithAccessTokenSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''Defines a "CloudsmithAccessToken" API object.
@@ -885,7 +885,7 @@ class CloudsmithAccessToken(
     def manifest(
         cls,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["CloudsmithAccessTokenSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> typing.Any:
         '''Renders a Kubernetes manifest for "CloudsmithAccessToken".
@@ -906,9 +906,9 @@ class CloudsmithAccessToken(
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="GVK")
-    def GVK(cls) -> _cdk8s_d3d9af27.GroupVersionKind:
+    def GVK(cls) -> "_cdk8s_d3d9af27.GroupVersionKind":
         '''Returns the apiVersion and kind for "CloudsmithAccessToken".'''
-        return typing.cast(_cdk8s_d3d9af27.GroupVersionKind, jsii.sget(cls, "GVK"))
+        return typing.cast("_cdk8s_d3d9af27.GroupVersionKind", jsii.sget(cls, "GVK"))
 
 
 @jsii.data_type(
@@ -920,7 +920,7 @@ class CloudsmithAccessTokenProps:
     def __init__(
         self,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["CloudsmithAccessTokenSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''CloudsmithAccessToken generates Cloudsmith access token using OIDC authentication.
@@ -945,12 +945,12 @@ class CloudsmithAccessTokenProps:
             self._values["spec"] = spec
 
     @builtins.property
-    def metadata(self) -> typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata]:
+    def metadata(self) -> typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"]:
         '''
         :schema: CloudsmithAccessToken#metadata
         '''
         result = self._values.get("metadata")
-        return typing.cast(typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata], result)
+        return typing.cast(typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"], result)
 
     @builtins.property
     def spec(self) -> typing.Optional["CloudsmithAccessTokenSpec"]:
@@ -1160,10 +1160,10 @@ class ClusterGenerator(
 
     def __init__(
         self,
-        scope: _constructs_77d1e7e8.Construct,
+        scope: "_constructs_77d1e7e8.Construct",
         id: builtins.str,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["ClusterGeneratorSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''Defines a "ClusterGenerator" API object.
@@ -1186,7 +1186,7 @@ class ClusterGenerator(
     def manifest(
         cls,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["ClusterGeneratorSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> typing.Any:
         '''Renders a Kubernetes manifest for "ClusterGenerator".
@@ -1207,9 +1207,9 @@ class ClusterGenerator(
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="GVK")
-    def GVK(cls) -> _cdk8s_d3d9af27.GroupVersionKind:
+    def GVK(cls) -> "_cdk8s_d3d9af27.GroupVersionKind":
         '''Returns the apiVersion and kind for "ClusterGenerator".'''
-        return typing.cast(_cdk8s_d3d9af27.GroupVersionKind, jsii.sget(cls, "GVK"))
+        return typing.cast("_cdk8s_d3d9af27.GroupVersionKind", jsii.sget(cls, "GVK"))
 
 
 @jsii.data_type(
@@ -1221,7 +1221,7 @@ class ClusterGeneratorProps:
     def __init__(
         self,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["ClusterGeneratorSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''ClusterGenerator represents a cluster-wide generator which can be referenced as part of ``generatorRef`` fields.
@@ -1246,12 +1246,12 @@ class ClusterGeneratorProps:
             self._values["spec"] = spec
 
     @builtins.property
-    def metadata(self) -> typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata]:
+    def metadata(self) -> typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"]:
         '''
         :schema: ClusterGenerator#metadata
         '''
         result = self._values.get("metadata")
-        return typing.cast(typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata], result)
+        return typing.cast(typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"], result)
 
     @builtins.property
     def spec(self) -> typing.Optional["ClusterGeneratorSpec"]:
@@ -10715,10 +10715,10 @@ class EcrAuthorizationToken(
 
     def __init__(
         self,
-        scope: _constructs_77d1e7e8.Construct,
+        scope: "_constructs_77d1e7e8.Construct",
         id: builtins.str,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["EcrAuthorizationTokenSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''Defines a "ECRAuthorizationToken" API object.
@@ -10741,7 +10741,7 @@ class EcrAuthorizationToken(
     def manifest(
         cls,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["EcrAuthorizationTokenSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> typing.Any:
         '''Renders a Kubernetes manifest for "ECRAuthorizationToken".
@@ -10762,9 +10762,9 @@ class EcrAuthorizationToken(
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="GVK")
-    def GVK(cls) -> _cdk8s_d3d9af27.GroupVersionKind:
+    def GVK(cls) -> "_cdk8s_d3d9af27.GroupVersionKind":
         '''Returns the apiVersion and kind for "ECRAuthorizationToken".'''
-        return typing.cast(_cdk8s_d3d9af27.GroupVersionKind, jsii.sget(cls, "GVK"))
+        return typing.cast("_cdk8s_d3d9af27.GroupVersionKind", jsii.sget(cls, "GVK"))
 
 
 @jsii.data_type(
@@ -10776,7 +10776,7 @@ class EcrAuthorizationTokenProps:
     def __init__(
         self,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["EcrAuthorizationTokenSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''ECRAuthorizationToken uses the GetAuthorizationToken API to retrieve an authorization token.
@@ -10806,12 +10806,12 @@ class EcrAuthorizationTokenProps:
             self._values["spec"] = spec
 
     @builtins.property
-    def metadata(self) -> typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata]:
+    def metadata(self) -> typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"]:
         '''
         :schema: ECRAuthorizationToken#metadata
         '''
         result = self._values.get("metadata")
-        return typing.cast(typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata], result)
+        return typing.cast(typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"], result)
 
     @builtins.property
     def spec(self) -> typing.Optional["EcrAuthorizationTokenSpec"]:
@@ -11454,10 +11454,10 @@ class Fake(
 
     def __init__(
         self,
-        scope: _constructs_77d1e7e8.Construct,
+        scope: "_constructs_77d1e7e8.Construct",
         id: builtins.str,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["FakeSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''Defines a "Fake" API object.
@@ -11480,7 +11480,7 @@ class Fake(
     def manifest(
         cls,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["FakeSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> typing.Any:
         '''Renders a Kubernetes manifest for "Fake".
@@ -11501,9 +11501,9 @@ class Fake(
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="GVK")
-    def GVK(cls) -> _cdk8s_d3d9af27.GroupVersionKind:
+    def GVK(cls) -> "_cdk8s_d3d9af27.GroupVersionKind":
         '''Returns the apiVersion and kind for "Fake".'''
-        return typing.cast(_cdk8s_d3d9af27.GroupVersionKind, jsii.sget(cls, "GVK"))
+        return typing.cast("_cdk8s_d3d9af27.GroupVersionKind", jsii.sget(cls, "GVK"))
 
 
 @jsii.data_type(
@@ -11515,7 +11515,7 @@ class FakeProps:
     def __init__(
         self,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["FakeSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''Fake generator is used for testing.
@@ -11543,12 +11543,12 @@ class FakeProps:
             self._values["spec"] = spec
 
     @builtins.property
-    def metadata(self) -> typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata]:
+    def metadata(self) -> typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"]:
         '''
         :schema: Fake#metadata
         '''
         result = self._values.get("metadata")
-        return typing.cast(typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata], result)
+        return typing.cast(typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"], result)
 
     @builtins.property
     def spec(self) -> typing.Optional["FakeSpec"]:
@@ -11642,10 +11642,10 @@ class GcrAccessToken(
 
     def __init__(
         self,
-        scope: _constructs_77d1e7e8.Construct,
+        scope: "_constructs_77d1e7e8.Construct",
         id: builtins.str,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["GcrAccessTokenSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''Defines a "GCRAccessToken" API object.
@@ -11668,7 +11668,7 @@ class GcrAccessToken(
     def manifest(
         cls,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["GcrAccessTokenSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> typing.Any:
         '''Renders a Kubernetes manifest for "GCRAccessToken".
@@ -11689,9 +11689,9 @@ class GcrAccessToken(
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="GVK")
-    def GVK(cls) -> _cdk8s_d3d9af27.GroupVersionKind:
+    def GVK(cls) -> "_cdk8s_d3d9af27.GroupVersionKind":
         '''Returns the apiVersion and kind for "GCRAccessToken".'''
-        return typing.cast(_cdk8s_d3d9af27.GroupVersionKind, jsii.sget(cls, "GVK"))
+        return typing.cast("_cdk8s_d3d9af27.GroupVersionKind", jsii.sget(cls, "GVK"))
 
 
 @jsii.data_type(
@@ -11703,7 +11703,7 @@ class GcrAccessTokenProps:
     def __init__(
         self,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["GcrAccessTokenSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''GCRAccessToken generates an GCP access token that can be used to authenticate with GCR.
@@ -11728,12 +11728,12 @@ class GcrAccessTokenProps:
             self._values["spec"] = spec
 
     @builtins.property
-    def metadata(self) -> typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata]:
+    def metadata(self) -> typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"]:
         '''
         :schema: GCRAccessToken#metadata
         '''
         result = self._values.get("metadata")
-        return typing.cast(typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata], result)
+        return typing.cast(typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"], result)
 
     @builtins.property
     def spec(self) -> typing.Optional["GcrAccessTokenSpec"]:
@@ -12634,10 +12634,10 @@ class GeneratorState(
 
     def __init__(
         self,
-        scope: _constructs_77d1e7e8.Construct,
+        scope: "_constructs_77d1e7e8.Construct",
         id: builtins.str,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["GeneratorStateSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''Defines a "GeneratorState" API object.
@@ -12660,7 +12660,7 @@ class GeneratorState(
     def manifest(
         cls,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["GeneratorStateSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> typing.Any:
         '''Renders a Kubernetes manifest for "GeneratorState".
@@ -12681,9 +12681,9 @@ class GeneratorState(
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="GVK")
-    def GVK(cls) -> _cdk8s_d3d9af27.GroupVersionKind:
+    def GVK(cls) -> "_cdk8s_d3d9af27.GroupVersionKind":
         '''Returns the apiVersion and kind for "GeneratorState".'''
-        return typing.cast(_cdk8s_d3d9af27.GroupVersionKind, jsii.sget(cls, "GVK"))
+        return typing.cast("_cdk8s_d3d9af27.GroupVersionKind", jsii.sget(cls, "GVK"))
 
 
 @jsii.data_type(
@@ -12695,7 +12695,7 @@ class GeneratorStateProps:
     def __init__(
         self,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["GeneratorStateSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''GeneratorState represents the state created and managed by a generator resource.
@@ -12720,12 +12720,12 @@ class GeneratorStateProps:
             self._values["spec"] = spec
 
     @builtins.property
-    def metadata(self) -> typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata]:
+    def metadata(self) -> typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"]:
         '''
         :schema: GeneratorState#metadata
         '''
         result = self._values.get("metadata")
-        return typing.cast(typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata], result)
+        return typing.cast(typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"], result)
 
     @builtins.property
     def spec(self) -> typing.Optional["GeneratorStateSpec"]:
@@ -12847,10 +12847,10 @@ class GithubAccessToken(
 
     def __init__(
         self,
-        scope: _constructs_77d1e7e8.Construct,
+        scope: "_constructs_77d1e7e8.Construct",
         id: builtins.str,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["GithubAccessTokenSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''Defines a "GithubAccessToken" API object.
@@ -12873,7 +12873,7 @@ class GithubAccessToken(
     def manifest(
         cls,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["GithubAccessTokenSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> typing.Any:
         '''Renders a Kubernetes manifest for "GithubAccessToken".
@@ -12894,9 +12894,9 @@ class GithubAccessToken(
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="GVK")
-    def GVK(cls) -> _cdk8s_d3d9af27.GroupVersionKind:
+    def GVK(cls) -> "_cdk8s_d3d9af27.GroupVersionKind":
         '''Returns the apiVersion and kind for "GithubAccessToken".'''
-        return typing.cast(_cdk8s_d3d9af27.GroupVersionKind, jsii.sget(cls, "GVK"))
+        return typing.cast("_cdk8s_d3d9af27.GroupVersionKind", jsii.sget(cls, "GVK"))
 
 
 @jsii.data_type(
@@ -12908,7 +12908,7 @@ class GithubAccessTokenProps:
     def __init__(
         self,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["GithubAccessTokenSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''GithubAccessToken generates ghs_ accessToken.
@@ -12933,12 +12933,12 @@ class GithubAccessTokenProps:
             self._values["spec"] = spec
 
     @builtins.property
-    def metadata(self) -> typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata]:
+    def metadata(self) -> typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"]:
         '''
         :schema: GithubAccessToken#metadata
         '''
         result = self._values.get("metadata")
-        return typing.cast(typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata], result)
+        return typing.cast(typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"], result)
 
     @builtins.property
     def spec(self) -> typing.Optional["GithubAccessTokenSpec"]:
@@ -13284,10 +13284,10 @@ class Grafana(
 
     def __init__(
         self,
-        scope: _constructs_77d1e7e8.Construct,
+        scope: "_constructs_77d1e7e8.Construct",
         id: builtins.str,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["GrafanaSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''Defines a "Grafana" API object.
@@ -13310,7 +13310,7 @@ class Grafana(
     def manifest(
         cls,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["GrafanaSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> typing.Any:
         '''Renders a Kubernetes manifest for "Grafana".
@@ -13331,9 +13331,9 @@ class Grafana(
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="GVK")
-    def GVK(cls) -> _cdk8s_d3d9af27.GroupVersionKind:
+    def GVK(cls) -> "_cdk8s_d3d9af27.GroupVersionKind":
         '''Returns the apiVersion and kind for "Grafana".'''
-        return typing.cast(_cdk8s_d3d9af27.GroupVersionKind, jsii.sget(cls, "GVK"))
+        return typing.cast("_cdk8s_d3d9af27.GroupVersionKind", jsii.sget(cls, "GVK"))
 
 
 @jsii.data_type(
@@ -13345,7 +13345,7 @@ class GrafanaProps:
     def __init__(
         self,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["GrafanaSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''Grafana represents a generator for Grafana service account tokens.
@@ -13370,12 +13370,12 @@ class GrafanaProps:
             self._values["spec"] = spec
 
     @builtins.property
-    def metadata(self) -> typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata]:
+    def metadata(self) -> typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"]:
         '''
         :schema: Grafana#metadata
         '''
         result = self._values.get("metadata")
-        return typing.cast(typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata], result)
+        return typing.cast(typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"], result)
 
     @builtins.property
     def spec(self) -> typing.Optional["GrafanaSpec"]:
@@ -13805,10 +13805,10 @@ class Mfa(
 
     def __init__(
         self,
-        scope: _constructs_77d1e7e8.Construct,
+        scope: "_constructs_77d1e7e8.Construct",
         id: builtins.str,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["MfaSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''Defines a "MFA" API object.
@@ -13831,7 +13831,7 @@ class Mfa(
     def manifest(
         cls,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["MfaSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> typing.Any:
         '''Renders a Kubernetes manifest for "MFA".
@@ -13852,9 +13852,9 @@ class Mfa(
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="GVK")
-    def GVK(cls) -> _cdk8s_d3d9af27.GroupVersionKind:
+    def GVK(cls) -> "_cdk8s_d3d9af27.GroupVersionKind":
         '''Returns the apiVersion and kind for "MFA".'''
-        return typing.cast(_cdk8s_d3d9af27.GroupVersionKind, jsii.sget(cls, "GVK"))
+        return typing.cast("_cdk8s_d3d9af27.GroupVersionKind", jsii.sget(cls, "GVK"))
 
 
 @jsii.data_type(
@@ -13866,7 +13866,7 @@ class MfaProps:
     def __init__(
         self,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["MfaSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''MFA generates a new TOTP token that is compliant with RFC 6238.
@@ -13891,12 +13891,12 @@ class MfaProps:
             self._values["spec"] = spec
 
     @builtins.property
-    def metadata(self) -> typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata]:
+    def metadata(self) -> typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"]:
         '''
         :schema: MFA#metadata
         '''
         result = self._values.get("metadata")
-        return typing.cast(typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata], result)
+        return typing.cast(typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"], result)
 
     @builtins.property
     def spec(self) -> typing.Optional["MfaSpec"]:
@@ -14132,10 +14132,10 @@ class Password(
 
     def __init__(
         self,
-        scope: _constructs_77d1e7e8.Construct,
+        scope: "_constructs_77d1e7e8.Construct",
         id: builtins.str,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["PasswordSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''Defines a "Password" API object.
@@ -14158,7 +14158,7 @@ class Password(
     def manifest(
         cls,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["PasswordSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> typing.Any:
         '''Renders a Kubernetes manifest for "Password".
@@ -14179,9 +14179,9 @@ class Password(
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="GVK")
-    def GVK(cls) -> _cdk8s_d3d9af27.GroupVersionKind:
+    def GVK(cls) -> "_cdk8s_d3d9af27.GroupVersionKind":
         '''Returns the apiVersion and kind for "Password".'''
-        return typing.cast(_cdk8s_d3d9af27.GroupVersionKind, jsii.sget(cls, "GVK"))
+        return typing.cast("_cdk8s_d3d9af27.GroupVersionKind", jsii.sget(cls, "GVK"))
 
 
 @jsii.data_type(
@@ -14193,7 +14193,7 @@ class PasswordProps:
     def __init__(
         self,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["PasswordSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''Password generates a random password based on the configuration parameters in spec.
@@ -14220,12 +14220,12 @@ class PasswordProps:
             self._values["spec"] = spec
 
     @builtins.property
-    def metadata(self) -> typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata]:
+    def metadata(self) -> typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"]:
         '''
         :schema: Password#metadata
         '''
         result = self._values.get("metadata")
-        return typing.cast(typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata], result)
+        return typing.cast(typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"], result)
 
     @builtins.property
     def spec(self) -> typing.Optional["PasswordSpec"]:
@@ -14460,10 +14460,10 @@ class QuayAccessToken(
 
     def __init__(
         self,
-        scope: _constructs_77d1e7e8.Construct,
+        scope: "_constructs_77d1e7e8.Construct",
         id: builtins.str,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["QuayAccessTokenSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''Defines a "QuayAccessToken" API object.
@@ -14486,7 +14486,7 @@ class QuayAccessToken(
     def manifest(
         cls,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["QuayAccessTokenSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> typing.Any:
         '''Renders a Kubernetes manifest for "QuayAccessToken".
@@ -14507,9 +14507,9 @@ class QuayAccessToken(
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="GVK")
-    def GVK(cls) -> _cdk8s_d3d9af27.GroupVersionKind:
+    def GVK(cls) -> "_cdk8s_d3d9af27.GroupVersionKind":
         '''Returns the apiVersion and kind for "QuayAccessToken".'''
-        return typing.cast(_cdk8s_d3d9af27.GroupVersionKind, jsii.sget(cls, "GVK"))
+        return typing.cast("_cdk8s_d3d9af27.GroupVersionKind", jsii.sget(cls, "GVK"))
 
 
 @jsii.data_type(
@@ -14521,7 +14521,7 @@ class QuayAccessTokenProps:
     def __init__(
         self,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["QuayAccessTokenSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''QuayAccessToken generates Quay oauth token for pulling/pushing images.
@@ -14546,12 +14546,12 @@ class QuayAccessTokenProps:
             self._values["spec"] = spec
 
     @builtins.property
-    def metadata(self) -> typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata]:
+    def metadata(self) -> typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"]:
         '''
         :schema: QuayAccessToken#metadata
         '''
         result = self._values.get("metadata")
-        return typing.cast(typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata], result)
+        return typing.cast(typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"], result)
 
     @builtins.property
     def spec(self) -> typing.Optional["QuayAccessTokenSpec"]:
@@ -14746,10 +14746,10 @@ class SshKey(
 
     def __init__(
         self,
-        scope: _constructs_77d1e7e8.Construct,
+        scope: "_constructs_77d1e7e8.Construct",
         id: builtins.str,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["SshKeySpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''Defines a "SSHKey" API object.
@@ -14772,7 +14772,7 @@ class SshKey(
     def manifest(
         cls,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["SshKeySpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> typing.Any:
         '''Renders a Kubernetes manifest for "SSHKey".
@@ -14793,9 +14793,9 @@ class SshKey(
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="GVK")
-    def GVK(cls) -> _cdk8s_d3d9af27.GroupVersionKind:
+    def GVK(cls) -> "_cdk8s_d3d9af27.GroupVersionKind":
         '''Returns the apiVersion and kind for "SSHKey".'''
-        return typing.cast(_cdk8s_d3d9af27.GroupVersionKind, jsii.sget(cls, "GVK"))
+        return typing.cast("_cdk8s_d3d9af27.GroupVersionKind", jsii.sget(cls, "GVK"))
 
 
 @jsii.data_type(
@@ -14807,7 +14807,7 @@ class SshKeyProps:
     def __init__(
         self,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["SshKeySpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''SSHKey generates SSH key pairs.
@@ -14832,12 +14832,12 @@ class SshKeyProps:
             self._values["spec"] = spec
 
     @builtins.property
-    def metadata(self) -> typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata]:
+    def metadata(self) -> typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"]:
         '''
         :schema: SSHKey#metadata
         '''
         result = self._values.get("metadata")
-        return typing.cast(typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata], result)
+        return typing.cast(typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"], result)
 
     @builtins.property
     def spec(self) -> typing.Optional["SshKeySpec"]:
@@ -14968,10 +14968,10 @@ class StsSessionToken(
 
     def __init__(
         self,
-        scope: _constructs_77d1e7e8.Construct,
+        scope: "_constructs_77d1e7e8.Construct",
         id: builtins.str,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["StsSessionTokenSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''Defines a "STSSessionToken" API object.
@@ -14994,7 +14994,7 @@ class StsSessionToken(
     def manifest(
         cls,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["StsSessionTokenSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> typing.Any:
         '''Renders a Kubernetes manifest for "STSSessionToken".
@@ -15015,9 +15015,9 @@ class StsSessionToken(
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="GVK")
-    def GVK(cls) -> _cdk8s_d3d9af27.GroupVersionKind:
+    def GVK(cls) -> "_cdk8s_d3d9af27.GroupVersionKind":
         '''Returns the apiVersion and kind for "STSSessionToken".'''
-        return typing.cast(_cdk8s_d3d9af27.GroupVersionKind, jsii.sget(cls, "GVK"))
+        return typing.cast("_cdk8s_d3d9af27.GroupVersionKind", jsii.sget(cls, "GVK"))
 
 
 @jsii.data_type(
@@ -15029,7 +15029,7 @@ class StsSessionTokenProps:
     def __init__(
         self,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["StsSessionTokenSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''STSSessionToken uses the GetSessionToken API to retrieve an authorization token.
@@ -15058,12 +15058,12 @@ class StsSessionTokenProps:
             self._values["spec"] = spec
 
     @builtins.property
-    def metadata(self) -> typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata]:
+    def metadata(self) -> typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"]:
         '''
         :schema: STSSessionToken#metadata
         '''
         result = self._values.get("metadata")
-        return typing.cast(typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata], result)
+        return typing.cast(typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"], result)
 
     @builtins.property
     def spec(self) -> typing.Optional["StsSessionTokenSpec"]:
@@ -15784,10 +15784,10 @@ class Uuid(
 
     def __init__(
         self,
-        scope: _constructs_77d1e7e8.Construct,
+        scope: "_constructs_77d1e7e8.Construct",
         id: builtins.str,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Any = None,
     ) -> None:
         '''Defines a "UUID" API object.
@@ -15810,7 +15810,7 @@ class Uuid(
     def manifest(
         cls,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Any = None,
     ) -> typing.Any:
         '''Renders a Kubernetes manifest for "UUID".
@@ -15831,9 +15831,9 @@ class Uuid(
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="GVK")
-    def GVK(cls) -> _cdk8s_d3d9af27.GroupVersionKind:
+    def GVK(cls) -> "_cdk8s_d3d9af27.GroupVersionKind":
         '''Returns the apiVersion and kind for "UUID".'''
-        return typing.cast(_cdk8s_d3d9af27.GroupVersionKind, jsii.sget(cls, "GVK"))
+        return typing.cast("_cdk8s_d3d9af27.GroupVersionKind", jsii.sget(cls, "GVK"))
 
 
 @jsii.data_type(
@@ -15845,7 +15845,7 @@ class UuidProps:
     def __init__(
         self,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Any = None,
     ) -> None:
         '''UUID generates a version 1 UUID (e56657e3-764f-11ef-a397-65231a88c216).
@@ -15868,12 +15868,12 @@ class UuidProps:
             self._values["spec"] = spec
 
     @builtins.property
-    def metadata(self) -> typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata]:
+    def metadata(self) -> typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"]:
         '''
         :schema: UUID#metadata
         '''
         result = self._values.get("metadata")
-        return typing.cast(typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata], result)
+        return typing.cast(typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"], result)
 
     @builtins.property
     def spec(self) -> typing.Any:
@@ -15908,10 +15908,10 @@ class VaultDynamicSecret(
 
     def __init__(
         self,
-        scope: _constructs_77d1e7e8.Construct,
+        scope: "_constructs_77d1e7e8.Construct",
         id: builtins.str,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["VaultDynamicSecretSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''Defines a "VaultDynamicSecret" API object.
@@ -15934,7 +15934,7 @@ class VaultDynamicSecret(
     def manifest(
         cls,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["VaultDynamicSecretSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> typing.Any:
         '''Renders a Kubernetes manifest for "VaultDynamicSecret".
@@ -15955,9 +15955,9 @@ class VaultDynamicSecret(
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="GVK")
-    def GVK(cls) -> _cdk8s_d3d9af27.GroupVersionKind:
+    def GVK(cls) -> "_cdk8s_d3d9af27.GroupVersionKind":
         '''Returns the apiVersion and kind for "VaultDynamicSecret".'''
-        return typing.cast(_cdk8s_d3d9af27.GroupVersionKind, jsii.sget(cls, "GVK"))
+        return typing.cast("_cdk8s_d3d9af27.GroupVersionKind", jsii.sget(cls, "GVK"))
 
 
 @jsii.data_type(
@@ -15969,7 +15969,7 @@ class VaultDynamicSecretProps:
     def __init__(
         self,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["VaultDynamicSecretSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''VaultDynamicSecret represents a generator that can create dynamic secrets from HashiCorp Vault.
@@ -15994,12 +15994,12 @@ class VaultDynamicSecretProps:
             self._values["spec"] = spec
 
     @builtins.property
-    def metadata(self) -> typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata]:
+    def metadata(self) -> typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"]:
         '''
         :schema: VaultDynamicSecret#metadata
         '''
         result = self._values.get("metadata")
-        return typing.cast(typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata], result)
+        return typing.cast(typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"], result)
 
     @builtins.property
     def spec(self) -> typing.Optional["VaultDynamicSecretSpec"]:
@@ -19800,10 +19800,10 @@ class Webhook(
 
     def __init__(
         self,
-        scope: _constructs_77d1e7e8.Construct,
+        scope: "_constructs_77d1e7e8.Construct",
         id: builtins.str,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["WebhookSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''Defines a "Webhook" API object.
@@ -19826,7 +19826,7 @@ class Webhook(
     def manifest(
         cls,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["WebhookSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> typing.Any:
         '''Renders a Kubernetes manifest for "Webhook".
@@ -19847,9 +19847,9 @@ class Webhook(
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="GVK")
-    def GVK(cls) -> _cdk8s_d3d9af27.GroupVersionKind:
+    def GVK(cls) -> "_cdk8s_d3d9af27.GroupVersionKind":
         '''Returns the apiVersion and kind for "Webhook".'''
-        return typing.cast(_cdk8s_d3d9af27.GroupVersionKind, jsii.sget(cls, "GVK"))
+        return typing.cast("_cdk8s_d3d9af27.GroupVersionKind", jsii.sget(cls, "GVK"))
 
 
 @jsii.data_type(
@@ -19861,7 +19861,7 @@ class WebhookProps:
     def __init__(
         self,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["WebhookSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''Webhook connects to a third party API server to handle the secrets generation configuration parameters in spec.
@@ -19889,12 +19889,12 @@ class WebhookProps:
             self._values["spec"] = spec
 
     @builtins.property
-    def metadata(self) -> typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata]:
+    def metadata(self) -> typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"]:
         '''
         :schema: Webhook#metadata
         '''
         result = self._values.get("metadata")
-        return typing.cast(typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata], result)
+        return typing.cast(typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"], result)
 
     @builtins.property
     def spec(self) -> typing.Optional["WebhookSpec"]:
