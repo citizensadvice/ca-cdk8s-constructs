@@ -46,10 +46,10 @@ class ClusterExternalSecret(
 
     def __init__(
         self,
-        scope: _constructs_77d1e7e8.Construct,
+        scope: "_constructs_77d1e7e8.Construct",
         id: builtins.str,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["ClusterExternalSecretSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''Defines a "ClusterExternalSecret" API object.
@@ -72,7 +72,7 @@ class ClusterExternalSecret(
     def manifest(
         cls,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["ClusterExternalSecretSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> typing.Any:
         '''Renders a Kubernetes manifest for "ClusterExternalSecret".
@@ -93,9 +93,9 @@ class ClusterExternalSecret(
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="GVK")
-    def GVK(cls) -> _cdk8s_d3d9af27.GroupVersionKind:
+    def GVK(cls) -> "_cdk8s_d3d9af27.GroupVersionKind":
         '''Returns the apiVersion and kind for "ClusterExternalSecret".'''
-        return typing.cast(_cdk8s_d3d9af27.GroupVersionKind, jsii.sget(cls, "GVK"))
+        return typing.cast("_cdk8s_d3d9af27.GroupVersionKind", jsii.sget(cls, "GVK"))
 
 
 @jsii.data_type(
@@ -107,7 +107,7 @@ class ClusterExternalSecretProps:
     def __init__(
         self,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["ClusterExternalSecretSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''ClusterExternalSecret is the Schema for the clusterexternalsecrets API.
@@ -132,12 +132,12 @@ class ClusterExternalSecretProps:
             self._values["spec"] = spec
 
     @builtins.property
-    def metadata(self) -> typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata]:
+    def metadata(self) -> typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"]:
         '''
         :schema: ClusterExternalSecret#metadata
         '''
         result = self._values.get("metadata")
-        return typing.cast(typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata], result)
+        return typing.cast(typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"], result)
 
     @builtins.property
     def spec(self) -> typing.Optional["ClusterExternalSecretSpec"]:
@@ -3504,10 +3504,10 @@ class ClusterExternalSecretV1Beta1(
 
     def __init__(
         self,
-        scope: _constructs_77d1e7e8.Construct,
+        scope: "_constructs_77d1e7e8.Construct",
         id: builtins.str,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["ClusterExternalSecretV1Beta1Spec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''Defines a "ClusterExternalSecretV1Beta1" API object.
@@ -3530,7 +3530,7 @@ class ClusterExternalSecretV1Beta1(
     def manifest(
         cls,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["ClusterExternalSecretV1Beta1Spec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> typing.Any:
         '''Renders a Kubernetes manifest for "ClusterExternalSecretV1Beta1".
@@ -3551,9 +3551,9 @@ class ClusterExternalSecretV1Beta1(
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="GVK")
-    def GVK(cls) -> _cdk8s_d3d9af27.GroupVersionKind:
+    def GVK(cls) -> "_cdk8s_d3d9af27.GroupVersionKind":
         '''Returns the apiVersion and kind for "ClusterExternalSecretV1Beta1".'''
-        return typing.cast(_cdk8s_d3d9af27.GroupVersionKind, jsii.sget(cls, "GVK"))
+        return typing.cast("_cdk8s_d3d9af27.GroupVersionKind", jsii.sget(cls, "GVK"))
 
 
 @jsii.data_type(
@@ -3565,7 +3565,7 @@ class ClusterExternalSecretV1Beta1Props:
     def __init__(
         self,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["ClusterExternalSecretV1Beta1Spec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''ClusterExternalSecret is the schema for the clusterexternalsecrets API.
@@ -3590,12 +3590,12 @@ class ClusterExternalSecretV1Beta1Props:
             self._values["spec"] = spec
 
     @builtins.property
-    def metadata(self) -> typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata]:
+    def metadata(self) -> typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"]:
         '''
         :schema: ClusterExternalSecretV1Beta1#metadata
         '''
         result = self._values.get("metadata")
-        return typing.cast(typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata], result)
+        return typing.cast(typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"], result)
 
     @builtins.property
     def spec(self) -> typing.Optional["ClusterExternalSecretV1Beta1Spec"]:
@@ -6694,10 +6694,10 @@ class ClusterPushSecret(
 
     def __init__(
         self,
-        scope: _constructs_77d1e7e8.Construct,
+        scope: "_constructs_77d1e7e8.Construct",
         id: builtins.str,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["ClusterPushSecretSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''Defines a "ClusterPushSecret" API object.
@@ -6720,7 +6720,7 @@ class ClusterPushSecret(
     def manifest(
         cls,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["ClusterPushSecretSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> typing.Any:
         '''Renders a Kubernetes manifest for "ClusterPushSecret".
@@ -6741,9 +6741,9 @@ class ClusterPushSecret(
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="GVK")
-    def GVK(cls) -> _cdk8s_d3d9af27.GroupVersionKind:
+    def GVK(cls) -> "_cdk8s_d3d9af27.GroupVersionKind":
         '''Returns the apiVersion and kind for "ClusterPushSecret".'''
-        return typing.cast(_cdk8s_d3d9af27.GroupVersionKind, jsii.sget(cls, "GVK"))
+        return typing.cast("_cdk8s_d3d9af27.GroupVersionKind", jsii.sget(cls, "GVK"))
 
 
 @jsii.data_type(
@@ -6755,7 +6755,7 @@ class ClusterPushSecretProps:
     def __init__(
         self,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["ClusterPushSecretSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''ClusterPushSecret is the Schema for the ClusterPushSecrets API that enables cluster-wide management of pushing Kubernetes secrets to external providers.
@@ -6780,12 +6780,12 @@ class ClusterPushSecretProps:
             self._values["spec"] = spec
 
     @builtins.property
-    def metadata(self) -> typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata]:
+    def metadata(self) -> typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"]:
         '''
         :schema: ClusterPushSecret#metadata
         '''
         result = self._values.get("metadata")
-        return typing.cast(typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata], result)
+        return typing.cast(typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"], result)
 
     @builtins.property
     def spec(self) -> typing.Optional["ClusterPushSecretSpec"]:
@@ -8829,10 +8829,10 @@ class ClusterSecretStore(
 
     def __init__(
         self,
-        scope: _constructs_77d1e7e8.Construct,
+        scope: "_constructs_77d1e7e8.Construct",
         id: builtins.str,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["ClusterSecretStoreSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''Defines a "ClusterSecretStore" API object.
@@ -8855,7 +8855,7 @@ class ClusterSecretStore(
     def manifest(
         cls,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["ClusterSecretStoreSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> typing.Any:
         '''Renders a Kubernetes manifest for "ClusterSecretStore".
@@ -8876,9 +8876,9 @@ class ClusterSecretStore(
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="GVK")
-    def GVK(cls) -> _cdk8s_d3d9af27.GroupVersionKind:
+    def GVK(cls) -> "_cdk8s_d3d9af27.GroupVersionKind":
         '''Returns the apiVersion and kind for "ClusterSecretStore".'''
-        return typing.cast(_cdk8s_d3d9af27.GroupVersionKind, jsii.sget(cls, "GVK"))
+        return typing.cast("_cdk8s_d3d9af27.GroupVersionKind", jsii.sget(cls, "GVK"))
 
 
 @jsii.data_type(
@@ -8890,7 +8890,7 @@ class ClusterSecretStoreProps:
     def __init__(
         self,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["ClusterSecretStoreSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''ClusterSecretStore represents a secure external location for storing secrets, which can be referenced as part of ``storeRef`` fields.
@@ -8915,12 +8915,12 @@ class ClusterSecretStoreProps:
             self._values["spec"] = spec
 
     @builtins.property
-    def metadata(self) -> typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata]:
+    def metadata(self) -> typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"]:
         '''
         :schema: ClusterSecretStore#metadata
         '''
         result = self._values.get("metadata")
-        return typing.cast(typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata], result)
+        return typing.cast(typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"], result)
 
     @builtins.property
     def spec(self) -> typing.Optional["ClusterSecretStoreSpec"]:
@@ -8967,10 +8967,10 @@ class ClusterSecretStoreSpec:
         '''SecretStoreSpec defines the desired state of SecretStore.
 
         :param provider: Used to configure the provider. Only one provider may be set
-        :param conditions: Used to constraint a ClusterSecretStore to specific namespaces. Relevant only to ClusterSecretStore
+        :param conditions: Used to constrain a ClusterSecretStore to specific namespaces. Relevant only to ClusterSecretStore.
         :param controller: Used to select the correct ESO controller (think: ingress.ingressClassName) The ESO controller is instantiated with a specific controller name and filters ES based on this property.
         :param refresh_interval: Used to configure store refresh interval in seconds. Empty or 0 will default to the controller config.
-        :param retry_settings: Used to configure http retries if failed.
+        :param retry_settings: Used to configure HTTP retries on failures.
 
         :schema: ClusterSecretStoreSpec
         '''
@@ -9013,9 +9013,9 @@ class ClusterSecretStoreSpec:
     def conditions(
         self,
     ) -> typing.Optional[typing.List["ClusterSecretStoreSpecConditions"]]:
-        '''Used to constraint a ClusterSecretStore to specific namespaces.
+        '''Used to constrain a ClusterSecretStore to specific namespaces.
 
-        Relevant only to ClusterSecretStore
+        Relevant only to ClusterSecretStore.
 
         :schema: ClusterSecretStoreSpec#conditions
         '''
@@ -9044,7 +9044,7 @@ class ClusterSecretStoreSpec:
 
     @builtins.property
     def retry_settings(self) -> typing.Optional["ClusterSecretStoreSpecRetrySettings"]:
-        '''Used to configure http retries if failed.
+        '''Used to configure HTTP retries on failures.
 
         :schema: ClusterSecretStoreSpec#retrySettings
         '''
@@ -9314,6 +9314,7 @@ class ClusterSecretStoreSpecConditionsNamespaceSelectorMatchExpressions:
         "delinea": "delinea",
         "device42": "device42",
         "doppler": "doppler",
+        "dvls": "dvls",
         "fake": "fake",
         "fortanix": "fortanix",
         "gcpsm": "gcpsm",
@@ -9359,6 +9360,7 @@ class ClusterSecretStoreSpecProvider:
         delinea: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderDelinea", typing.Dict[builtins.str, typing.Any]]] = None,
         device42: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderDevice42", typing.Dict[builtins.str, typing.Any]]] = None,
         doppler: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderDoppler", typing.Dict[builtins.str, typing.Any]]] = None,
+        dvls: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderDvls", typing.Dict[builtins.str, typing.Any]]] = None,
         fake: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderFake", typing.Dict[builtins.str, typing.Any]]] = None,
         fortanix: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderFortanix", typing.Dict[builtins.str, typing.Any]]] = None,
         gcpsm: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderGcpsm", typing.Dict[builtins.str, typing.Any]]] = None,
@@ -9403,10 +9405,11 @@ class ClusterSecretStoreSpecProvider:
         :param delinea: Delinea DevOps Secrets Vault https://docs.delinea.com/online-help/products/devops-secrets-vault/current.
         :param device42: Device42 configures this store to sync secrets using the Device42 provider.
         :param doppler: Doppler configures this store to sync secrets using the Doppler provider.
+        :param dvls: DVLS configures this store to sync secrets using Devolutions Server provider.
         :param fake: Fake configures a store with static key/value pairs.
         :param fortanix: Fortanix configures this store to sync secrets using the Fortanix provider.
         :param gcpsm: GCPSM configures this store to sync secrets using Google Cloud Platform Secret Manager provider.
-        :param github: Github configures this store to push GitHub Action secrets using GitHub API provider. Note: This provider only supports write operations (PushSecret) and cannot fetch secrets from GitHub
+        :param github: Github configures this store to push GitHub Actions secrets using the GitHub API provider. Note: This provider only supports write operations (PushSecret) and cannot fetch secrets from GitHub
         :param gitlab: GitLab configures this store to sync secrets using GitLab Variables provider.
         :param ibm: IBM configures this store to sync secrets using IBM Cloud provider.
         :param infisical: Infisical configures this store to sync secrets using the Infisical provider.
@@ -9421,10 +9424,10 @@ class ClusterSecretStoreSpecProvider:
         :param passworddepot: PasswordDepotProvider configures a store to sync secrets with a Password Depot instance.
         :param previder: Previder configures this store to sync secrets using the Previder provider.
         :param pulumi: Pulumi configures this store to sync secrets using the Pulumi provider.
-        :param scaleway: Scaleway.
+        :param scaleway: Scaleway configures this store to sync secrets using the Scaleway provider.
         :param secretserver: SecretServer configures this store to sync secrets using SecretServer provider https://docs.delinea.com/online-help/secret-server/start.htm.
         :param senhasegura: Senhasegura configures this store to sync secrets using senhasegura provider.
-        :param vault: Vault configures this store to sync secrets using Hashi provider.
+        :param vault: Vault configures this store to sync secrets using the HashiCorp Vault provider.
         :param volcengine: Volcengine configures this store to sync secrets using the Volcengine provider.
         :param webhook: Webhook configures this store to sync secrets using a generic templated webhook.
         :param yandexcertificatemanager: YandexCertificateManager configures this store to sync secrets using Yandex Certificate Manager provider.
@@ -9458,6 +9461,8 @@ class ClusterSecretStoreSpecProvider:
             device42 = ClusterSecretStoreSpecProviderDevice42(**device42)
         if isinstance(doppler, dict):
             doppler = ClusterSecretStoreSpecProviderDoppler(**doppler)
+        if isinstance(dvls, dict):
+            dvls = ClusterSecretStoreSpecProviderDvls(**dvls)
         if isinstance(fake, dict):
             fake = ClusterSecretStoreSpecProviderFake(**fake)
         if isinstance(fortanix, dict):
@@ -9525,6 +9530,7 @@ class ClusterSecretStoreSpecProvider:
             check_type(argname="argument delinea", value=delinea, expected_type=type_hints["delinea"])
             check_type(argname="argument device42", value=device42, expected_type=type_hints["device42"])
             check_type(argname="argument doppler", value=doppler, expected_type=type_hints["doppler"])
+            check_type(argname="argument dvls", value=dvls, expected_type=type_hints["dvls"])
             check_type(argname="argument fake", value=fake, expected_type=type_hints["fake"])
             check_type(argname="argument fortanix", value=fortanix, expected_type=type_hints["fortanix"])
             check_type(argname="argument gcpsm", value=gcpsm, expected_type=type_hints["gcpsm"])
@@ -9578,6 +9584,8 @@ class ClusterSecretStoreSpecProvider:
             self._values["device42"] = device42
         if doppler is not None:
             self._values["doppler"] = doppler
+        if dvls is not None:
+            self._values["dvls"] = dvls
         if fake is not None:
             self._values["fake"] = fake
         if fortanix is not None:
@@ -9753,6 +9761,15 @@ class ClusterSecretStoreSpecProvider:
         return typing.cast(typing.Optional["ClusterSecretStoreSpecProviderDoppler"], result)
 
     @builtins.property
+    def dvls(self) -> typing.Optional["ClusterSecretStoreSpecProviderDvls"]:
+        '''DVLS configures this store to sync secrets using Devolutions Server provider.
+
+        :schema: ClusterSecretStoreSpecProvider#dvls
+        '''
+        result = self._values.get("dvls")
+        return typing.cast(typing.Optional["ClusterSecretStoreSpecProviderDvls"], result)
+
+    @builtins.property
     def fake(self) -> typing.Optional["ClusterSecretStoreSpecProviderFake"]:
         '''Fake configures a store with static key/value pairs.
 
@@ -9781,7 +9798,7 @@ class ClusterSecretStoreSpecProvider:
 
     @builtins.property
     def github(self) -> typing.Optional["ClusterSecretStoreSpecProviderGithub"]:
-        '''Github configures this store to push GitHub Action secrets using GitHub API provider.
+        '''Github configures this store to push GitHub Actions secrets using the GitHub API provider.
 
         Note: This provider only supports write operations (PushSecret) and cannot fetch secrets from GitHub
 
@@ -9930,7 +9947,7 @@ class ClusterSecretStoreSpecProvider:
 
     @builtins.property
     def scaleway(self) -> typing.Optional["ClusterSecretStoreSpecProviderScaleway"]:
-        '''Scaleway.
+        '''Scaleway configures this store to sync secrets using the Scaleway provider.
 
         :schema: ClusterSecretStoreSpecProvider#scaleway
         '''
@@ -9961,7 +9978,7 @@ class ClusterSecretStoreSpecProvider:
 
     @builtins.property
     def vault(self) -> typing.Optional["ClusterSecretStoreSpecProviderVault"]:
-        '''Vault configures this store to sync secrets using Hashi provider.
+        '''Vault configures this store to sync secrets using the HashiCorp Vault provider.
 
         :schema: ClusterSecretStoreSpecProvider#vault
         '''
@@ -12217,7 +12234,7 @@ class ClusterSecretStoreSpecProviderAzurekv:
         :param vault_url: Vault Url from which the secrets to be fetched from.
         :param auth_secret_ref: Auth configures how the operator authenticates with Azure. Required for ServicePrincipal auth type. Optional for WorkloadIdentity.
         :param auth_type: Auth type defines how to authenticate to the keyvault service. Valid values are: - "ServicePrincipal" (default): Using a service principal (tenantId, clientId, clientSecret) - "ManagedIdentity": Using Managed Identity assigned to the pod (see aad-pod-identity)
-        :param custom_cloud_config: CustomCloudConfig defines custom Azure Stack Hub or Azure Stack Edge endpoints. Required when EnvironmentType is AzureStackCloud. IMPORTANT: This feature REQUIRES UseAzureSDK to be set to true. Custom cloud configuration is not supported with the legacy go-autorest SDK.
+        :param custom_cloud_config: CustomCloudConfig defines custom Azure endpoints for non-standard clouds. Required when EnvironmentType is AzureStackCloud. Optional for other environment types - useful for Azure China when using Workload Identity with AKS, where the OIDC issuer (login.partner.microsoftonline.cn) differs from the standard China Cloud endpoint (login.chinacloudapi.cn). IMPORTANT: This feature REQUIRES UseAzureSDK to be set to true. Custom cloud configuration is not supported with the legacy go-autorest SDK.
         :param environment_type: EnvironmentType specifies the Azure cloud environment endpoints to use for connecting and authenticating with Azure. By default it points to the public cloud AAD endpoint. The following endpoints are available, also see here: https://github.com/Azure/go-autorest/blob/main/autorest/azure/environments.go#L152 PublicCloud, USGovernmentCloud, ChinaCloud, GermanCloud, AzureStackCloud Use AzureStackCloud when you need to configure custom Azure Stack Hub or Azure Stack Edge endpoints.
         :param identity_id: If multiple Managed Identity is assigned to the pod, you can select the one to be used.
         :param service_account_ref: ServiceAccountRef specified the service account that should be used when authenticating with WorkloadIdentity.
@@ -12306,9 +12323,12 @@ class ClusterSecretStoreSpecProviderAzurekv:
     def custom_cloud_config(
         self,
     ) -> typing.Optional["ClusterSecretStoreSpecProviderAzurekvCustomCloudConfig"]:
-        '''CustomCloudConfig defines custom Azure Stack Hub or Azure Stack Edge endpoints.
+        '''CustomCloudConfig defines custom Azure endpoints for non-standard clouds.
 
         Required when EnvironmentType is AzureStackCloud.
+        Optional for other environment types - useful for Azure China when using Workload Identity
+        with AKS, where the OIDC issuer (login.partner.microsoftonline.cn) differs from the
+        standard China Cloud endpoint (login.chinacloudapi.cn).
         IMPORTANT: This feature REQUIRES UseAzureSDK to be set to true. Custom cloud
         configuration is not supported with the legacy go-autorest SDK.
 
@@ -12848,9 +12868,12 @@ class ClusterSecretStoreSpecProviderAzurekvCustomCloudConfig:
         key_vault_endpoint: typing.Optional[builtins.str] = None,
         resource_manager_endpoint: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''CustomCloudConfig defines custom Azure Stack Hub or Azure Stack Edge endpoints.
+        '''CustomCloudConfig defines custom Azure endpoints for non-standard clouds.
 
         Required when EnvironmentType is AzureStackCloud.
+        Optional for other environment types - useful for Azure China when using Workload Identity
+        with AKS, where the OIDC issuer (login.partner.microsoftonline.cn) differs from the
+        standard China Cloud endpoint (login.chinacloudapi.cn).
         IMPORTANT: This feature REQUIRES UseAzureSDK to be set to true. Custom cloud
         configuration is not supported with the legacy go-autorest SDK.
 
@@ -17071,38 +17094,57 @@ class ClusterSecretStoreSpecProviderDoppler:
 @jsii.data_type(
     jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderDopplerAuth",
     jsii_struct_bases=[],
-    name_mapping={"secret_ref": "secretRef"},
+    name_mapping={"oidc_config": "oidcConfig", "secret_ref": "secretRef"},
 )
 class ClusterSecretStoreSpecProviderDopplerAuth:
     def __init__(
         self,
         *,
-        secret_ref: typing.Union["ClusterSecretStoreSpecProviderDopplerAuthSecretRef", typing.Dict[builtins.str, typing.Any]],
+        oidc_config: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderDopplerAuthOidcConfig", typing.Dict[builtins.str, typing.Any]]] = None,
+        secret_ref: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderDopplerAuthSecretRef", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''Auth configures how the Operator authenticates with the Doppler API.
 
-        :param secret_ref: DopplerAuthSecretRef contains the secret reference for accessing the Doppler API.
+        :param oidc_config: OIDCConfig authenticates using Kubernetes ServiceAccount tokens via OIDC.
+        :param secret_ref: SecretRef authenticates using a Doppler service token stored in a Kubernetes Secret.
 
         :schema: ClusterSecretStoreSpecProviderDopplerAuth
         '''
+        if isinstance(oidc_config, dict):
+            oidc_config = ClusterSecretStoreSpecProviderDopplerAuthOidcConfig(**oidc_config)
         if isinstance(secret_ref, dict):
             secret_ref = ClusterSecretStoreSpecProviderDopplerAuthSecretRef(**secret_ref)
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__0640796c079d4a9e1cb79809d032c9607c59bf7dd136fce95231ed0c6ec6b444)
+            check_type(argname="argument oidc_config", value=oidc_config, expected_type=type_hints["oidc_config"])
             check_type(argname="argument secret_ref", value=secret_ref, expected_type=type_hints["secret_ref"])
-        self._values: typing.Dict[builtins.str, typing.Any] = {
-            "secret_ref": secret_ref,
-        }
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if oidc_config is not None:
+            self._values["oidc_config"] = oidc_config
+        if secret_ref is not None:
+            self._values["secret_ref"] = secret_ref
 
     @builtins.property
-    def secret_ref(self) -> "ClusterSecretStoreSpecProviderDopplerAuthSecretRef":
-        '''DopplerAuthSecretRef contains the secret reference for accessing the Doppler API.
+    def oidc_config(
+        self,
+    ) -> typing.Optional["ClusterSecretStoreSpecProviderDopplerAuthOidcConfig"]:
+        '''OIDCConfig authenticates using Kubernetes ServiceAccount tokens via OIDC.
+
+        :schema: ClusterSecretStoreSpecProviderDopplerAuth#oidcConfig
+        '''
+        result = self._values.get("oidc_config")
+        return typing.cast(typing.Optional["ClusterSecretStoreSpecProviderDopplerAuthOidcConfig"], result)
+
+    @builtins.property
+    def secret_ref(
+        self,
+    ) -> typing.Optional["ClusterSecretStoreSpecProviderDopplerAuthSecretRef"]:
+        '''SecretRef authenticates using a Doppler service token stored in a Kubernetes Secret.
 
         :schema: ClusterSecretStoreSpecProviderDopplerAuth#secretRef
         '''
         result = self._values.get("secret_ref")
-        assert result is not None, "Required property 'secret_ref' is missing"
-        return typing.cast("ClusterSecretStoreSpecProviderDopplerAuthSecretRef", result)
+        return typing.cast(typing.Optional["ClusterSecretStoreSpecProviderDopplerAuthSecretRef"], result)
 
     def __eq__(self, rhs: typing.Any) -> builtins.bool:
         return isinstance(rhs, self.__class__) and rhs._values == self._values
@@ -17112,6 +17154,168 @@ class ClusterSecretStoreSpecProviderDopplerAuth:
 
     def __repr__(self) -> str:
         return "ClusterSecretStoreSpecProviderDopplerAuth(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderDopplerAuthOidcConfig",
+    jsii_struct_bases=[],
+    name_mapping={
+        "identity": "identity",
+        "service_account_ref": "serviceAccountRef",
+        "expiration_seconds": "expirationSeconds",
+    },
+)
+class ClusterSecretStoreSpecProviderDopplerAuthOidcConfig:
+    def __init__(
+        self,
+        *,
+        identity: builtins.str,
+        service_account_ref: typing.Union["ClusterSecretStoreSpecProviderDopplerAuthOidcConfigServiceAccountRef", typing.Dict[builtins.str, typing.Any]],
+        expiration_seconds: typing.Optional[jsii.Number] = None,
+    ) -> None:
+        '''OIDCConfig authenticates using Kubernetes ServiceAccount tokens via OIDC.
+
+        :param identity: Identity is the Doppler Service Account Identity ID configured for OIDC authentication.
+        :param service_account_ref: ServiceAccountRef specifies the Kubernetes ServiceAccount to use for authentication.
+        :param expiration_seconds: ExpirationSeconds sets the ServiceAccount token validity duration. Defaults to 10 minutes. Default: 10 minutes.
+
+        :schema: ClusterSecretStoreSpecProviderDopplerAuthOidcConfig
+        '''
+        if isinstance(service_account_ref, dict):
+            service_account_ref = ClusterSecretStoreSpecProviderDopplerAuthOidcConfigServiceAccountRef(**service_account_ref)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__cf11cd5f0dbb508516886c0cecde9d0a711e30cb26df91c1fb6d874d9998290c)
+            check_type(argname="argument identity", value=identity, expected_type=type_hints["identity"])
+            check_type(argname="argument service_account_ref", value=service_account_ref, expected_type=type_hints["service_account_ref"])
+            check_type(argname="argument expiration_seconds", value=expiration_seconds, expected_type=type_hints["expiration_seconds"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "identity": identity,
+            "service_account_ref": service_account_ref,
+        }
+        if expiration_seconds is not None:
+            self._values["expiration_seconds"] = expiration_seconds
+
+    @builtins.property
+    def identity(self) -> builtins.str:
+        '''Identity is the Doppler Service Account Identity ID configured for OIDC authentication.
+
+        :schema: ClusterSecretStoreSpecProviderDopplerAuthOidcConfig#identity
+        '''
+        result = self._values.get("identity")
+        assert result is not None, "Required property 'identity' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def service_account_ref(
+        self,
+    ) -> "ClusterSecretStoreSpecProviderDopplerAuthOidcConfigServiceAccountRef":
+        '''ServiceAccountRef specifies the Kubernetes ServiceAccount to use for authentication.
+
+        :schema: ClusterSecretStoreSpecProviderDopplerAuthOidcConfig#serviceAccountRef
+        '''
+        result = self._values.get("service_account_ref")
+        assert result is not None, "Required property 'service_account_ref' is missing"
+        return typing.cast("ClusterSecretStoreSpecProviderDopplerAuthOidcConfigServiceAccountRef", result)
+
+    @builtins.property
+    def expiration_seconds(self) -> typing.Optional[jsii.Number]:
+        '''ExpirationSeconds sets the ServiceAccount token validity duration.
+
+        Defaults to 10 minutes.
+
+        :default: 10 minutes.
+
+        :schema: ClusterSecretStoreSpecProviderDopplerAuthOidcConfig#expirationSeconds
+        '''
+        result = self._values.get("expiration_seconds")
+        return typing.cast(typing.Optional[jsii.Number], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterSecretStoreSpecProviderDopplerAuthOidcConfig(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderDopplerAuthOidcConfigServiceAccountRef",
+    jsii_struct_bases=[],
+    name_mapping={"name": "name", "audiences": "audiences", "namespace": "namespace"},
+)
+class ClusterSecretStoreSpecProviderDopplerAuthOidcConfigServiceAccountRef:
+    def __init__(
+        self,
+        *,
+        name: builtins.str,
+        audiences: typing.Optional[typing.Sequence[builtins.str]] = None,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''ServiceAccountRef specifies the Kubernetes ServiceAccount to use for authentication.
+
+        :param name: The name of the ServiceAccount resource being referred to.
+        :param audiences: Audience specifies the ``aud`` claim for the service account token If the service account uses a well-known annotation for e.g. IRSA or GCP Workload Identity then this audiences will be appended to the list.
+        :param namespace: Namespace of the resource being referred to. Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: ClusterSecretStoreSpecProviderDopplerAuthOidcConfigServiceAccountRef
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__87fe2636c4f9e87cf4d10ab1687c4b96ed92c4d4750aa23a60e0eb5bd5d39c43)
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument audiences", value=audiences, expected_type=type_hints["audiences"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "name": name,
+        }
+        if audiences is not None:
+            self._values["audiences"] = audiences
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def name(self) -> builtins.str:
+        '''The name of the ServiceAccount resource being referred to.
+
+        :schema: ClusterSecretStoreSpecProviderDopplerAuthOidcConfigServiceAccountRef#name
+        '''
+        result = self._values.get("name")
+        assert result is not None, "Required property 'name' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def audiences(self) -> typing.Optional[typing.List[builtins.str]]:
+        '''Audience specifies the ``aud`` claim for the service account token If the service account uses a well-known annotation for e.g. IRSA or GCP Workload Identity then this audiences will be appended to the list.
+
+        :schema: ClusterSecretStoreSpecProviderDopplerAuthOidcConfigServiceAccountRef#audiences
+        '''
+        result = self._values.get("audiences")
+        return typing.cast(typing.Optional[typing.List[builtins.str]], result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''Namespace of the resource being referred to.
+
+        Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: ClusterSecretStoreSpecProviderDopplerAuthOidcConfigServiceAccountRef#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterSecretStoreSpecProviderDopplerAuthOidcConfigServiceAccountRef(%s)" % ", ".join(
             k + "=" + repr(v) for k, v in self._values.items()
         )
 
@@ -17127,7 +17331,7 @@ class ClusterSecretStoreSpecProviderDopplerAuthSecretRef:
         *,
         doppler_token: typing.Union["ClusterSecretStoreSpecProviderDopplerAuthSecretRefDopplerToken", typing.Dict[builtins.str, typing.Any]],
     ) -> None:
-        '''DopplerAuthSecretRef contains the secret reference for accessing the Doppler API.
+        '''SecretRef authenticates using a Doppler service token stored in a Kubernetes Secret.
 
         :param doppler_token: The DopplerToken is used for authentication. See https://docs.doppler.com/reference/api#authentication for auth token types. The Key attribute defaults to dopplerToken if not specified.
 
@@ -17289,6 +17493,351 @@ class ClusterSecretStoreSpecProviderDopplerNameTransformer(enum.Enum):
     '''dotnet-env.'''
     LOWER_HYPHEN_KEBAB = "LOWER_HYPHEN_KEBAB"
     '''lower-kebab.'''
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderDvls",
+    jsii_struct_bases=[],
+    name_mapping={"auth": "auth", "server_url": "serverUrl", "insecure": "insecure"},
+)
+class ClusterSecretStoreSpecProviderDvls:
+    def __init__(
+        self,
+        *,
+        auth: typing.Union["ClusterSecretStoreSpecProviderDvlsAuth", typing.Dict[builtins.str, typing.Any]],
+        server_url: builtins.str,
+        insecure: typing.Optional[builtins.bool] = None,
+    ) -> None:
+        '''DVLS configures this store to sync secrets using Devolutions Server provider.
+
+        :param auth: Auth defines the authentication method to use.
+        :param server_url: ServerURL is the DVLS instance URL (e.g., https://dvls.example.com).
+        :param insecure: Insecure allows connecting to DVLS over plain HTTP. This is NOT RECOMMENDED for production use. Set to true only if you understand the security implications.
+
+        :schema: ClusterSecretStoreSpecProviderDvls
+        '''
+        if isinstance(auth, dict):
+            auth = ClusterSecretStoreSpecProviderDvlsAuth(**auth)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__d36b7e22ca02193e3684f603cfa08b76ebe81dad02f4922cba153befa1bb7ba6)
+            check_type(argname="argument auth", value=auth, expected_type=type_hints["auth"])
+            check_type(argname="argument server_url", value=server_url, expected_type=type_hints["server_url"])
+            check_type(argname="argument insecure", value=insecure, expected_type=type_hints["insecure"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "auth": auth,
+            "server_url": server_url,
+        }
+        if insecure is not None:
+            self._values["insecure"] = insecure
+
+    @builtins.property
+    def auth(self) -> "ClusterSecretStoreSpecProviderDvlsAuth":
+        '''Auth defines the authentication method to use.
+
+        :schema: ClusterSecretStoreSpecProviderDvls#auth
+        '''
+        result = self._values.get("auth")
+        assert result is not None, "Required property 'auth' is missing"
+        return typing.cast("ClusterSecretStoreSpecProviderDvlsAuth", result)
+
+    @builtins.property
+    def server_url(self) -> builtins.str:
+        '''ServerURL is the DVLS instance URL (e.g., https://dvls.example.com).
+
+        :schema: ClusterSecretStoreSpecProviderDvls#serverUrl
+        '''
+        result = self._values.get("server_url")
+        assert result is not None, "Required property 'server_url' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def insecure(self) -> typing.Optional[builtins.bool]:
+        '''Insecure allows connecting to DVLS over plain HTTP.
+
+        This is NOT RECOMMENDED for production use.
+        Set to true only if you understand the security implications.
+
+        :schema: ClusterSecretStoreSpecProviderDvls#insecure
+        '''
+        result = self._values.get("insecure")
+        return typing.cast(typing.Optional[builtins.bool], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterSecretStoreSpecProviderDvls(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderDvlsAuth",
+    jsii_struct_bases=[],
+    name_mapping={"secret_ref": "secretRef"},
+)
+class ClusterSecretStoreSpecProviderDvlsAuth:
+    def __init__(
+        self,
+        *,
+        secret_ref: typing.Union["ClusterSecretStoreSpecProviderDvlsAuthSecretRef", typing.Dict[builtins.str, typing.Any]],
+    ) -> None:
+        '''Auth defines the authentication method to use.
+
+        :param secret_ref: SecretRef contains the Application ID and Application Secret for authentication.
+
+        :schema: ClusterSecretStoreSpecProviderDvlsAuth
+        '''
+        if isinstance(secret_ref, dict):
+            secret_ref = ClusterSecretStoreSpecProviderDvlsAuthSecretRef(**secret_ref)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__4ea94cfc1d3dcac5657f95335d88618f963af8134d4eee851e5053f70feb818d)
+            check_type(argname="argument secret_ref", value=secret_ref, expected_type=type_hints["secret_ref"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "secret_ref": secret_ref,
+        }
+
+    @builtins.property
+    def secret_ref(self) -> "ClusterSecretStoreSpecProviderDvlsAuthSecretRef":
+        '''SecretRef contains the Application ID and Application Secret for authentication.
+
+        :schema: ClusterSecretStoreSpecProviderDvlsAuth#secretRef
+        '''
+        result = self._values.get("secret_ref")
+        assert result is not None, "Required property 'secret_ref' is missing"
+        return typing.cast("ClusterSecretStoreSpecProviderDvlsAuthSecretRef", result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterSecretStoreSpecProviderDvlsAuth(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderDvlsAuthSecretRef",
+    jsii_struct_bases=[],
+    name_mapping={"app_id": "appId", "app_secret": "appSecret"},
+)
+class ClusterSecretStoreSpecProviderDvlsAuthSecretRef:
+    def __init__(
+        self,
+        *,
+        app_id: typing.Union["ClusterSecretStoreSpecProviderDvlsAuthSecretRefAppId", typing.Dict[builtins.str, typing.Any]],
+        app_secret: typing.Union["ClusterSecretStoreSpecProviderDvlsAuthSecretRefAppSecret", typing.Dict[builtins.str, typing.Any]],
+    ) -> None:
+        '''SecretRef contains the Application ID and Application Secret for authentication.
+
+        :param app_id: AppID is the reference to the secret containing the Application ID.
+        :param app_secret: AppSecret is the reference to the secret containing the Application Secret.
+
+        :schema: ClusterSecretStoreSpecProviderDvlsAuthSecretRef
+        '''
+        if isinstance(app_id, dict):
+            app_id = ClusterSecretStoreSpecProviderDvlsAuthSecretRefAppId(**app_id)
+        if isinstance(app_secret, dict):
+            app_secret = ClusterSecretStoreSpecProviderDvlsAuthSecretRefAppSecret(**app_secret)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__2968c76b4d024910f059e43f51234385d464f2f97e884f6eea8a6ea085669f2d)
+            check_type(argname="argument app_id", value=app_id, expected_type=type_hints["app_id"])
+            check_type(argname="argument app_secret", value=app_secret, expected_type=type_hints["app_secret"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "app_id": app_id,
+            "app_secret": app_secret,
+        }
+
+    @builtins.property
+    def app_id(self) -> "ClusterSecretStoreSpecProviderDvlsAuthSecretRefAppId":
+        '''AppID is the reference to the secret containing the Application ID.
+
+        :schema: ClusterSecretStoreSpecProviderDvlsAuthSecretRef#appId
+        '''
+        result = self._values.get("app_id")
+        assert result is not None, "Required property 'app_id' is missing"
+        return typing.cast("ClusterSecretStoreSpecProviderDvlsAuthSecretRefAppId", result)
+
+    @builtins.property
+    def app_secret(self) -> "ClusterSecretStoreSpecProviderDvlsAuthSecretRefAppSecret":
+        '''AppSecret is the reference to the secret containing the Application Secret.
+
+        :schema: ClusterSecretStoreSpecProviderDvlsAuthSecretRef#appSecret
+        '''
+        result = self._values.get("app_secret")
+        assert result is not None, "Required property 'app_secret' is missing"
+        return typing.cast("ClusterSecretStoreSpecProviderDvlsAuthSecretRefAppSecret", result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterSecretStoreSpecProviderDvlsAuthSecretRef(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderDvlsAuthSecretRefAppId",
+    jsii_struct_bases=[],
+    name_mapping={"key": "key", "name": "name", "namespace": "namespace"},
+)
+class ClusterSecretStoreSpecProviderDvlsAuthSecretRefAppId:
+    def __init__(
+        self,
+        *,
+        key: typing.Optional[builtins.str] = None,
+        name: typing.Optional[builtins.str] = None,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''AppID is the reference to the secret containing the Application ID.
+
+        :param key: A key in the referenced Secret. Some instances of this field may be defaulted, in others it may be required.
+        :param name: The name of the Secret resource being referred to.
+        :param namespace: The namespace of the Secret resource being referred to. Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: ClusterSecretStoreSpecProviderDvlsAuthSecretRefAppId
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__5a8c51257d6564e3fc04207adb93f2289ea9b74b43b76e56a18cd7279bf7b34c)
+            check_type(argname="argument key", value=key, expected_type=type_hints["key"])
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if key is not None:
+            self._values["key"] = key
+        if name is not None:
+            self._values["name"] = name
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def key(self) -> typing.Optional[builtins.str]:
+        '''A key in the referenced Secret.
+
+        Some instances of this field may be defaulted, in others it may be required.
+
+        :schema: ClusterSecretStoreSpecProviderDvlsAuthSecretRefAppId#key
+        '''
+        result = self._values.get("key")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def name(self) -> typing.Optional[builtins.str]:
+        '''The name of the Secret resource being referred to.
+
+        :schema: ClusterSecretStoreSpecProviderDvlsAuthSecretRefAppId#name
+        '''
+        result = self._values.get("name")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''The namespace of the Secret resource being referred to.
+
+        Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: ClusterSecretStoreSpecProviderDvlsAuthSecretRefAppId#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterSecretStoreSpecProviderDvlsAuthSecretRefAppId(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderDvlsAuthSecretRefAppSecret",
+    jsii_struct_bases=[],
+    name_mapping={"key": "key", "name": "name", "namespace": "namespace"},
+)
+class ClusterSecretStoreSpecProviderDvlsAuthSecretRefAppSecret:
+    def __init__(
+        self,
+        *,
+        key: typing.Optional[builtins.str] = None,
+        name: typing.Optional[builtins.str] = None,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''AppSecret is the reference to the secret containing the Application Secret.
+
+        :param key: A key in the referenced Secret. Some instances of this field may be defaulted, in others it may be required.
+        :param name: The name of the Secret resource being referred to.
+        :param namespace: The namespace of the Secret resource being referred to. Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: ClusterSecretStoreSpecProviderDvlsAuthSecretRefAppSecret
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__0c4d058c367947bc41356deefe1c646a945188625effc12ad141967e61444f3f)
+            check_type(argname="argument key", value=key, expected_type=type_hints["key"])
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if key is not None:
+            self._values["key"] = key
+        if name is not None:
+            self._values["name"] = name
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def key(self) -> typing.Optional[builtins.str]:
+        '''A key in the referenced Secret.
+
+        Some instances of this field may be defaulted, in others it may be required.
+
+        :schema: ClusterSecretStoreSpecProviderDvlsAuthSecretRefAppSecret#key
+        '''
+        result = self._values.get("key")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def name(self) -> typing.Optional[builtins.str]:
+        '''The name of the Secret resource being referred to.
+
+        :schema: ClusterSecretStoreSpecProviderDvlsAuthSecretRefAppSecret#name
+        '''
+        result = self._values.get("name")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''The namespace of the Secret resource being referred to.
+
+        Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: ClusterSecretStoreSpecProviderDvlsAuthSecretRefAppSecret#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterSecretStoreSpecProviderDvlsAuthSecretRefAppSecret(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
 
 
 @jsii.data_type(
@@ -18549,7 +19098,7 @@ class ClusterSecretStoreSpecProviderGithub:
         upload_url: typing.Optional[builtins.str] = None,
         url: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''Github configures this store to push GitHub Action secrets using GitHub API provider.
+        '''Github configures this store to push GitHub Actions secrets using the GitHub API provider.
 
         Note: This provider only supports write operations (PushSecret) and cannot fetch secrets from GitHub
 
@@ -19623,6 +20172,8 @@ class ClusterSecretStoreSpecProviderIbmAuthSecretRefSecretApiKeySecretRef:
     name_mapping={
         "auth": "auth",
         "secrets_scope": "secretsScope",
+        "ca_bundle": "caBundle",
+        "ca_provider": "caProvider",
         "host_api": "hostApi",
     },
 )
@@ -19632,12 +20183,16 @@ class ClusterSecretStoreSpecProviderInfisical:
         *,
         auth: typing.Union["ClusterSecretStoreSpecProviderInfisicalAuth", typing.Dict[builtins.str, typing.Any]],
         secrets_scope: typing.Union["ClusterSecretStoreSpecProviderInfisicalSecretsScope", typing.Dict[builtins.str, typing.Any]],
+        ca_bundle: typing.Optional[builtins.str] = None,
+        ca_provider: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderInfisicalCaProvider", typing.Dict[builtins.str, typing.Any]]] = None,
         host_api: typing.Optional[builtins.str] = None,
     ) -> None:
         '''Infisical configures this store to sync secrets using the Infisical provider.
 
         :param auth: Auth configures how the Operator authenticates with the Infisical API.
         :param secrets_scope: SecretsScope defines the scope of the secrets within the workspace.
+        :param ca_bundle: CABundle is a PEM-encoded CA certificate bundle used to validate the Infisical server's TLS certificate. Mutually exclusive with CAProvider.
+        :param ca_provider: CAProvider is a reference to a Secret or ConfigMap that contains a CA certificate. The certificate is used to validate the Infisical server's TLS certificate. Mutually exclusive with CABundle.
         :param host_api: HostAPI specifies the base URL of the Infisical API. If not provided, it defaults to "https://app.infisical.com/api".
 
         :schema: ClusterSecretStoreSpecProviderInfisical
@@ -19646,15 +20201,23 @@ class ClusterSecretStoreSpecProviderInfisical:
             auth = ClusterSecretStoreSpecProviderInfisicalAuth(**auth)
         if isinstance(secrets_scope, dict):
             secrets_scope = ClusterSecretStoreSpecProviderInfisicalSecretsScope(**secrets_scope)
+        if isinstance(ca_provider, dict):
+            ca_provider = ClusterSecretStoreSpecProviderInfisicalCaProvider(**ca_provider)
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__9a6b80a96af13e75f58be942b229d3c8494ce16b99ec94b56bea68a8764ce334)
             check_type(argname="argument auth", value=auth, expected_type=type_hints["auth"])
             check_type(argname="argument secrets_scope", value=secrets_scope, expected_type=type_hints["secrets_scope"])
+            check_type(argname="argument ca_bundle", value=ca_bundle, expected_type=type_hints["ca_bundle"])
+            check_type(argname="argument ca_provider", value=ca_provider, expected_type=type_hints["ca_provider"])
             check_type(argname="argument host_api", value=host_api, expected_type=type_hints["host_api"])
         self._values: typing.Dict[builtins.str, typing.Any] = {
             "auth": auth,
             "secrets_scope": secrets_scope,
         }
+        if ca_bundle is not None:
+            self._values["ca_bundle"] = ca_bundle
+        if ca_provider is not None:
+            self._values["ca_provider"] = ca_provider
         if host_api is not None:
             self._values["host_api"] = host_api
 
@@ -19677,6 +20240,31 @@ class ClusterSecretStoreSpecProviderInfisical:
         result = self._values.get("secrets_scope")
         assert result is not None, "Required property 'secrets_scope' is missing"
         return typing.cast("ClusterSecretStoreSpecProviderInfisicalSecretsScope", result)
+
+    @builtins.property
+    def ca_bundle(self) -> typing.Optional[builtins.str]:
+        '''CABundle is a PEM-encoded CA certificate bundle used to validate the Infisical server's TLS certificate.
+
+        Mutually exclusive with CAProvider.
+
+        :schema: ClusterSecretStoreSpecProviderInfisical#caBundle
+        '''
+        result = self._values.get("ca_bundle")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def ca_provider(
+        self,
+    ) -> typing.Optional["ClusterSecretStoreSpecProviderInfisicalCaProvider"]:
+        '''CAProvider is a reference to a Secret or ConfigMap that contains a CA certificate.
+
+        The certificate is used to validate the Infisical server's TLS certificate.
+        Mutually exclusive with CABundle.
+
+        :schema: ClusterSecretStoreSpecProviderInfisical#caProvider
+        '''
+        result = self._values.get("ca_provider")
+        return typing.cast(typing.Optional["ClusterSecretStoreSpecProviderInfisicalCaProvider"], result)
 
     @builtins.property
     def host_api(self) -> typing.Optional[builtins.str]:
@@ -22537,6 +23125,119 @@ class ClusterSecretStoreSpecProviderInfisicalAuthUniversalAuthCredentialsClientS
 
 
 @jsii.data_type(
+    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderInfisicalCaProvider",
+    jsii_struct_bases=[],
+    name_mapping={
+        "name": "name",
+        "type": "type",
+        "key": "key",
+        "namespace": "namespace",
+    },
+)
+class ClusterSecretStoreSpecProviderInfisicalCaProvider:
+    def __init__(
+        self,
+        *,
+        name: builtins.str,
+        type: "ClusterSecretStoreSpecProviderInfisicalCaProviderType",
+        key: typing.Optional[builtins.str] = None,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''CAProvider is a reference to a Secret or ConfigMap that contains a CA certificate.
+
+        The certificate is used to validate the Infisical server's TLS certificate.
+        Mutually exclusive with CABundle.
+
+        :param name: The name of the object located at the provider type.
+        :param type: The type of provider to use such as "Secret", or "ConfigMap".
+        :param key: The key where the CA certificate can be found in the Secret or ConfigMap.
+        :param namespace: The namespace the Provider type is in. Can only be defined when used in a ClusterSecretStore.
+
+        :schema: ClusterSecretStoreSpecProviderInfisicalCaProvider
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__1613d91585134348ae60fdda4df39be3e5c0a54a9aa11eff03e8ca9185826981)
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument type", value=type, expected_type=type_hints["type"])
+            check_type(argname="argument key", value=key, expected_type=type_hints["key"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "name": name,
+            "type": type,
+        }
+        if key is not None:
+            self._values["key"] = key
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def name(self) -> builtins.str:
+        '''The name of the object located at the provider type.
+
+        :schema: ClusterSecretStoreSpecProviderInfisicalCaProvider#name
+        '''
+        result = self._values.get("name")
+        assert result is not None, "Required property 'name' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def type(self) -> "ClusterSecretStoreSpecProviderInfisicalCaProviderType":
+        '''The type of provider to use such as "Secret", or "ConfigMap".
+
+        :schema: ClusterSecretStoreSpecProviderInfisicalCaProvider#type
+        '''
+        result = self._values.get("type")
+        assert result is not None, "Required property 'type' is missing"
+        return typing.cast("ClusterSecretStoreSpecProviderInfisicalCaProviderType", result)
+
+    @builtins.property
+    def key(self) -> typing.Optional[builtins.str]:
+        '''The key where the CA certificate can be found in the Secret or ConfigMap.
+
+        :schema: ClusterSecretStoreSpecProviderInfisicalCaProvider#key
+        '''
+        result = self._values.get("key")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''The namespace the Provider type is in.
+
+        Can only be defined when used in a ClusterSecretStore.
+
+        :schema: ClusterSecretStoreSpecProviderInfisicalCaProvider#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterSecretStoreSpecProviderInfisicalCaProvider(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.enum(
+    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderInfisicalCaProviderType"
+)
+class ClusterSecretStoreSpecProviderInfisicalCaProviderType(enum.Enum):
+    '''The type of provider to use such as "Secret", or "ConfigMap".
+
+    :schema: ClusterSecretStoreSpecProviderInfisicalCaProviderType
+    '''
+
+    SECRET = "SECRET"
+    '''Secret.'''
+    CONFIG_MAP = "CONFIG_MAP"
+    '''ConfigMap.'''
+
+
+@jsii.data_type(
     jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderInfisicalSecretsScope",
     jsii_struct_bases=[],
     name_mapping={
@@ -24563,6 +25264,7 @@ class ClusterSecretStoreSpecProviderOnepasswordAuthSecretRefConnectTokenSecretRe
     name_mapping={
         "auth": "auth",
         "vault": "vault",
+        "cache": "cache",
         "integration_info": "integrationInfo",
     },
 )
@@ -24572,29 +25274,36 @@ class ClusterSecretStoreSpecProviderOnepasswordSdk:
         *,
         auth: typing.Union["ClusterSecretStoreSpecProviderOnepasswordSdkAuth", typing.Dict[builtins.str, typing.Any]],
         vault: builtins.str,
+        cache: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderOnepasswordSdkCache", typing.Dict[builtins.str, typing.Any]]] = None,
         integration_info: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderOnepasswordSdkIntegrationInfo", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''OnePasswordSDK configures this store to use 1Password's new Go SDK to sync secrets.
 
         :param auth: Auth defines the information necessary to authenticate against OnePassword API.
         :param vault: Vault defines the vault's name or uuid to access. Do NOT add op:// prefix. This will be done automatically.
+        :param cache: Cache configures client-side caching for read operations (GetSecret, GetSecretMap). When enabled, secrets are cached with the specified TTL. Write operations (PushSecret, DeleteSecret) automatically invalidate relevant cache entries. If omitted, caching is disabled (default). cache: {} is a valid option to set.
         :param integration_info: IntegrationInfo specifies the name and version of the integration built using the 1Password Go SDK. If you don't know which name and version to use, use ``DefaultIntegrationName`` and ``DefaultIntegrationVersion``, respectively.
 
         :schema: ClusterSecretStoreSpecProviderOnepasswordSdk
         '''
         if isinstance(auth, dict):
             auth = ClusterSecretStoreSpecProviderOnepasswordSdkAuth(**auth)
+        if isinstance(cache, dict):
+            cache = ClusterSecretStoreSpecProviderOnepasswordSdkCache(**cache)
         if isinstance(integration_info, dict):
             integration_info = ClusterSecretStoreSpecProviderOnepasswordSdkIntegrationInfo(**integration_info)
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__c949a5d5d1ec74991e57510b94ba4991b0f0b972f7973c1c39b1e642e3b5cc92)
             check_type(argname="argument auth", value=auth, expected_type=type_hints["auth"])
             check_type(argname="argument vault", value=vault, expected_type=type_hints["vault"])
+            check_type(argname="argument cache", value=cache, expected_type=type_hints["cache"])
             check_type(argname="argument integration_info", value=integration_info, expected_type=type_hints["integration_info"])
         self._values: typing.Dict[builtins.str, typing.Any] = {
             "auth": auth,
             "vault": vault,
         }
+        if cache is not None:
+            self._values["cache"] = cache
         if integration_info is not None:
             self._values["integration_info"] = integration_info
 
@@ -24619,6 +25328,22 @@ class ClusterSecretStoreSpecProviderOnepasswordSdk:
         result = self._values.get("vault")
         assert result is not None, "Required property 'vault' is missing"
         return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def cache(
+        self,
+    ) -> typing.Optional["ClusterSecretStoreSpecProviderOnepasswordSdkCache"]:
+        '''Cache configures client-side caching for read operations (GetSecret, GetSecretMap).
+
+        When enabled, secrets are cached with the specified TTL.
+        Write operations (PushSecret, DeleteSecret) automatically invalidate relevant cache entries.
+        If omitted, caching is disabled (default).
+        cache: {} is a valid option to set.
+
+        :schema: ClusterSecretStoreSpecProviderOnepasswordSdk#cache
+        '''
+        result = self._values.get("cache")
+        return typing.cast(typing.Optional["ClusterSecretStoreSpecProviderOnepasswordSdkCache"], result)
 
     @builtins.property
     def integration_info(
@@ -24768,6 +25493,74 @@ class ClusterSecretStoreSpecProviderOnepasswordSdkAuthServiceAccountSecretRef:
 
     def __repr__(self) -> str:
         return "ClusterSecretStoreSpecProviderOnepasswordSdkAuthServiceAccountSecretRef(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderOnepasswordSdkCache",
+    jsii_struct_bases=[],
+    name_mapping={"max_size": "maxSize", "ttl": "ttl"},
+)
+class ClusterSecretStoreSpecProviderOnepasswordSdkCache:
+    def __init__(
+        self,
+        *,
+        max_size: typing.Optional[jsii.Number] = None,
+        ttl: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''Cache configures client-side caching for read operations (GetSecret, GetSecretMap).
+
+        When enabled, secrets are cached with the specified TTL.
+        Write operations (PushSecret, DeleteSecret) automatically invalidate relevant cache entries.
+        If omitted, caching is disabled (default).
+        cache: {} is a valid option to set.
+
+        :param max_size: MaxSize is the maximum number of secrets to cache. When the cache is full, least-recently-used entries are evicted.
+        :param ttl: TTL is the time-to-live for cached secrets. Format: duration string (e.g., "5m", "1h", "30s")
+
+        :schema: ClusterSecretStoreSpecProviderOnepasswordSdkCache
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__ac200f992d42f096ee4bf8968be5e1c44acd437ad700f2e04bf855f0c908cf21)
+            check_type(argname="argument max_size", value=max_size, expected_type=type_hints["max_size"])
+            check_type(argname="argument ttl", value=ttl, expected_type=type_hints["ttl"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if max_size is not None:
+            self._values["max_size"] = max_size
+        if ttl is not None:
+            self._values["ttl"] = ttl
+
+    @builtins.property
+    def max_size(self) -> typing.Optional[jsii.Number]:
+        '''MaxSize is the maximum number of secrets to cache.
+
+        When the cache is full, least-recently-used entries are evicted.
+
+        :schema: ClusterSecretStoreSpecProviderOnepasswordSdkCache#maxSize
+        '''
+        result = self._values.get("max_size")
+        return typing.cast(typing.Optional[jsii.Number], result)
+
+    @builtins.property
+    def ttl(self) -> typing.Optional[builtins.str]:
+        '''TTL is the time-to-live for cached secrets.
+
+        Format: duration string (e.g., "5m", "1h", "30s")
+
+        :schema: ClusterSecretStoreSpecProviderOnepasswordSdkCache#ttl
+        '''
+        result = self._values.get("ttl")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterSecretStoreSpecProviderOnepasswordSdkCache(%s)" % ", ".join(
             k + "=" + repr(v) for k, v in self._values.items()
         )
 
@@ -26431,7 +27224,7 @@ class ClusterSecretStoreSpecProviderScaleway:
         secret_key: typing.Union["ClusterSecretStoreSpecProviderScalewaySecretKey", typing.Dict[builtins.str, typing.Any]],
         api_url: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''Scaleway.
+        '''Scaleway configures this store to sync secrets using the Scaleway provider.
 
         :param access_key: AccessKey is the non-secret part of the api key.
         :param project_id: ProjectID is the id of your project, which you can find in the console: https://console.scaleway.com/project/settings.
@@ -27608,7 +28401,7 @@ class ClusterSecretStoreSpecProviderVault:
         tls: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderVaultTls", typing.Dict[builtins.str, typing.Any]]] = None,
         version: typing.Optional["ClusterSecretStoreSpecProviderVaultVersion"] = None,
     ) -> None:
-        '''Vault configures this store to sync secrets using Hashi provider.
+        '''Vault configures this store to sync secrets using the HashiCorp Vault provider.
 
         :param server: Server is the connection address for the Vault server, e.g: "https://vault.example.com:8200".
         :param auth: Auth configures how secret-manager authenticates with the Vault server.
@@ -33243,7 +34036,7 @@ class ClusterSecretStoreSpecRetrySettings:
         max_retries: typing.Optional[jsii.Number] = None,
         retry_interval: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''Used to configure http retries if failed.
+        '''Used to configure HTTP retries on failures.
 
         :param max_retries: 
         :param retry_interval: 
@@ -33300,10 +34093,10 @@ class ClusterSecretStoreV1Beta1(
 
     def __init__(
         self,
-        scope: _constructs_77d1e7e8.Construct,
+        scope: "_constructs_77d1e7e8.Construct",
         id: builtins.str,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["ClusterSecretStoreV1Beta1Spec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''Defines a "ClusterSecretStoreV1Beta1" API object.
@@ -33326,7 +34119,7 @@ class ClusterSecretStoreV1Beta1(
     def manifest(
         cls,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["ClusterSecretStoreV1Beta1Spec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> typing.Any:
         '''Renders a Kubernetes manifest for "ClusterSecretStoreV1Beta1".
@@ -33347,9 +34140,9 @@ class ClusterSecretStoreV1Beta1(
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="GVK")
-    def GVK(cls) -> _cdk8s_d3d9af27.GroupVersionKind:
+    def GVK(cls) -> "_cdk8s_d3d9af27.GroupVersionKind":
         '''Returns the apiVersion and kind for "ClusterSecretStoreV1Beta1".'''
-        return typing.cast(_cdk8s_d3d9af27.GroupVersionKind, jsii.sget(cls, "GVK"))
+        return typing.cast("_cdk8s_d3d9af27.GroupVersionKind", jsii.sget(cls, "GVK"))
 
 
 @jsii.data_type(
@@ -33361,7 +34154,7 @@ class ClusterSecretStoreV1Beta1Props:
     def __init__(
         self,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["ClusterSecretStoreV1Beta1Spec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''ClusterSecretStore represents a secure external location for storing secrets, which can be referenced as part of ``storeRef`` fields.
@@ -33386,12 +34179,12 @@ class ClusterSecretStoreV1Beta1Props:
             self._values["spec"] = spec
 
     @builtins.property
-    def metadata(self) -> typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata]:
+    def metadata(self) -> typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"]:
         '''
         :schema: ClusterSecretStoreV1Beta1#metadata
         '''
         result = self._values.get("metadata")
-        return typing.cast(typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata], result)
+        return typing.cast(typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"], result)
 
     @builtins.property
     def spec(self) -> typing.Optional["ClusterSecretStoreV1Beta1Spec"]:
@@ -33438,10 +34231,10 @@ class ClusterSecretStoreV1Beta1Spec:
         '''SecretStoreSpec defines the desired state of SecretStore.
 
         :param provider: Used to configure the provider. Only one provider may be set
-        :param conditions: Used to constraint a ClusterSecretStore to specific namespaces. Relevant only to ClusterSecretStore
+        :param conditions: Used to constrain a ClusterSecretStore to specific namespaces. Relevant only to ClusterSecretStore.
         :param controller: Used to select the correct ESO controller (think: ingress.ingressClassName) The ESO controller is instantiated with a specific controller name and filters ES based on this property.
         :param refresh_interval: Used to configure store refresh interval in seconds. Empty or 0 will default to the controller config.
-        :param retry_settings: Used to configure http retries if failed.
+        :param retry_settings: Used to configure HTTP retries on failures.
 
         :schema: ClusterSecretStoreV1Beta1Spec
         '''
@@ -33484,9 +34277,9 @@ class ClusterSecretStoreV1Beta1Spec:
     def conditions(
         self,
     ) -> typing.Optional[typing.List["ClusterSecretStoreV1Beta1SpecConditions"]]:
-        '''Used to constraint a ClusterSecretStore to specific namespaces.
+        '''Used to constrain a ClusterSecretStore to specific namespaces.
 
-        Relevant only to ClusterSecretStore
+        Relevant only to ClusterSecretStore.
 
         :schema: ClusterSecretStoreV1Beta1Spec#conditions
         '''
@@ -33517,7 +34310,7 @@ class ClusterSecretStoreV1Beta1Spec:
     def retry_settings(
         self,
     ) -> typing.Optional["ClusterSecretStoreV1Beta1SpecRetrySettings"]:
-        '''Used to configure http retries if failed.
+        '''Used to configure HTTP retries on failures.
 
         :schema: ClusterSecretStoreV1Beta1Spec#retrySettings
         '''
@@ -33870,7 +34663,7 @@ class ClusterSecretStoreV1Beta1SpecProvider:
         :param fake: Fake configures a store with static key/value pairs.
         :param fortanix: Fortanix configures this store to sync secrets using the Fortanix provider.
         :param gcpsm: GCPSM configures this store to sync secrets using Google Cloud Platform Secret Manager provider.
-        :param github: Github configures this store to push Github Action secrets using Github API provider.
+        :param github: Github configures this store to push GitHub Actions secrets using the GitHub API provider.
         :param gitlab: GitLab configures this store to sync secrets using GitLab Variables provider.
         :param ibm: IBM configures this store to sync secrets using IBM Cloud provider.
         :param infisical: Infisical configures this store to sync secrets using the Infisical provider.
@@ -33883,10 +34676,10 @@ class ClusterSecretStoreV1Beta1SpecProvider:
         :param passworddepot: PasswordDepotProvider configures a store to sync secrets with a Password Depot instance.
         :param previder: Previder configures this store to sync secrets using the Previder provider.
         :param pulumi: Pulumi configures this store to sync secrets using the Pulumi provider.
-        :param scaleway: Scaleway.
+        :param scaleway: Scaleway configures this store to sync secrets using the Scaleway provider.
         :param secretserver: SecretServer configures this store to sync secrets using SecretServer provider https://docs.delinea.com/online-help/secret-server/start.htm.
         :param senhasegura: Senhasegura configures this store to sync secrets using senhasegura provider.
-        :param vault: Vault configures this store to sync secrets using Hashi provider.
+        :param vault: Vault configures this store to sync secrets using the HashiCorp Vault provider.
         :param webhook: Webhook configures this store to sync secrets using a generic templated webhook.
         :param yandexcertificatemanager: YandexCertificateManager configures this store to sync secrets using Yandex Certificate Manager provider.
         :param yandexlockbox: YandexLockbox configures this store to sync secrets using Yandex Lockbox provider.
@@ -34229,7 +35022,7 @@ class ClusterSecretStoreV1Beta1SpecProvider:
 
     @builtins.property
     def github(self) -> typing.Optional["ClusterSecretStoreV1Beta1SpecProviderGithub"]:
-        '''Github configures this store to push Github Action secrets using Github API provider.
+        '''Github configures this store to push GitHub Actions secrets using the GitHub API provider.
 
         :schema: ClusterSecretStoreV1Beta1SpecProvider#github
         '''
@@ -34364,7 +35157,7 @@ class ClusterSecretStoreV1Beta1SpecProvider:
     def scaleway(
         self,
     ) -> typing.Optional["ClusterSecretStoreV1Beta1SpecProviderScaleway"]:
-        '''Scaleway.
+        '''Scaleway configures this store to sync secrets using the Scaleway provider.
 
         :schema: ClusterSecretStoreV1Beta1SpecProvider#scaleway
         '''
@@ -34395,7 +35188,7 @@ class ClusterSecretStoreV1Beta1SpecProvider:
 
     @builtins.property
     def vault(self) -> typing.Optional["ClusterSecretStoreV1Beta1SpecProviderVault"]:
-        '''Vault configures this store to sync secrets using Hashi provider.
+        '''Vault configures this store to sync secrets using the HashiCorp Vault provider.
 
         :schema: ClusterSecretStoreV1Beta1SpecProvider#vault
         '''
@@ -41930,7 +42723,7 @@ class ClusterSecretStoreV1Beta1SpecProviderGithub:
         upload_url: typing.Optional[builtins.str] = None,
         url: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''Github configures this store to push Github Action secrets using Github API provider.
+        '''Github configures this store to push GitHub Actions secrets using the GitHub API provider.
 
         :param app_id: appID specifies the Github APP that will be used to authenticate the client.
         :param auth: auth configures how secret-manager authenticates with a Github instance.
@@ -46668,7 +47461,7 @@ class ClusterSecretStoreV1Beta1SpecProviderScaleway:
         secret_key: typing.Union["ClusterSecretStoreV1Beta1SpecProviderScalewaySecretKey", typing.Dict[builtins.str, typing.Any]],
         api_url: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''Scaleway.
+        '''Scaleway configures this store to sync secrets using the Scaleway provider.
 
         :param access_key: AccessKey is the non-secret part of the api key.
         :param project_id: ProjectID is the id of your project, which you can find in the console: https://console.scaleway.com/project/settings.
@@ -47680,7 +48473,7 @@ class ClusterSecretStoreV1Beta1SpecProviderVault:
         tls: typing.Optional[typing.Union["ClusterSecretStoreV1Beta1SpecProviderVaultTls", typing.Dict[builtins.str, typing.Any]]] = None,
         version: typing.Optional["ClusterSecretStoreV1Beta1SpecProviderVaultVersion"] = None,
     ) -> None:
-        '''Vault configures this store to sync secrets using Hashi provider.
+        '''Vault configures this store to sync secrets using the HashiCorp Vault provider.
 
         :param server: Server is the connection address for the Vault server, e.g: "https://vault.example.com:8200".
         :param auth: Auth configures how secret-manager authenticates with the Vault server.
@@ -52023,7 +52816,7 @@ class ClusterSecretStoreV1Beta1SpecRetrySettings:
         max_retries: typing.Optional[jsii.Number] = None,
         retry_interval: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''Used to configure http retries if failed.
+        '''Used to configure HTTP retries on failures.
 
         :param max_retries: MaxRetries is the maximum number of retry attempts.
         :param retry_interval: RetryInterval is the interval between retry attempts.
@@ -52084,10 +52877,10 @@ class ExternalSecret(
 
     def __init__(
         self,
-        scope: _constructs_77d1e7e8.Construct,
+        scope: "_constructs_77d1e7e8.Construct",
         id: builtins.str,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["ExternalSecretSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''Defines a "ExternalSecret" API object.
@@ -52110,7 +52903,7 @@ class ExternalSecret(
     def manifest(
         cls,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["ExternalSecretSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> typing.Any:
         '''Renders a Kubernetes manifest for "ExternalSecret".
@@ -52131,9 +52924,9 @@ class ExternalSecret(
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="GVK")
-    def GVK(cls) -> _cdk8s_d3d9af27.GroupVersionKind:
+    def GVK(cls) -> "_cdk8s_d3d9af27.GroupVersionKind":
         '''Returns the apiVersion and kind for "ExternalSecret".'''
-        return typing.cast(_cdk8s_d3d9af27.GroupVersionKind, jsii.sget(cls, "GVK"))
+        return typing.cast("_cdk8s_d3d9af27.GroupVersionKind", jsii.sget(cls, "GVK"))
 
 
 @jsii.data_type(
@@ -52145,7 +52938,7 @@ class ExternalSecretProps:
     def __init__(
         self,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["ExternalSecretSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''ExternalSecret is the Schema for the external-secrets API.
@@ -52172,12 +52965,12 @@ class ExternalSecretProps:
             self._values["spec"] = spec
 
     @builtins.property
-    def metadata(self) -> typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata]:
+    def metadata(self) -> typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"]:
         '''
         :schema: ExternalSecret#metadata
         '''
         result = self._values.get("metadata")
-        return typing.cast(typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata], result)
+        return typing.cast(typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"], result)
 
     @builtins.property
     def spec(self) -> typing.Optional["ExternalSecretSpec"]:
@@ -54930,10 +55723,10 @@ class ExternalSecretV1Beta1(
 
     def __init__(
         self,
-        scope: _constructs_77d1e7e8.Construct,
+        scope: "_constructs_77d1e7e8.Construct",
         id: builtins.str,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["ExternalSecretV1Beta1Spec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''Defines a "ExternalSecretV1Beta1" API object.
@@ -54956,7 +55749,7 @@ class ExternalSecretV1Beta1(
     def manifest(
         cls,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["ExternalSecretV1Beta1Spec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> typing.Any:
         '''Renders a Kubernetes manifest for "ExternalSecretV1Beta1".
@@ -54977,9 +55770,9 @@ class ExternalSecretV1Beta1(
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="GVK")
-    def GVK(cls) -> _cdk8s_d3d9af27.GroupVersionKind:
+    def GVK(cls) -> "_cdk8s_d3d9af27.GroupVersionKind":
         '''Returns the apiVersion and kind for "ExternalSecretV1Beta1".'''
-        return typing.cast(_cdk8s_d3d9af27.GroupVersionKind, jsii.sget(cls, "GVK"))
+        return typing.cast("_cdk8s_d3d9af27.GroupVersionKind", jsii.sget(cls, "GVK"))
 
 
 @jsii.data_type(
@@ -54991,7 +55784,7 @@ class ExternalSecretV1Beta1Props:
     def __init__(
         self,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["ExternalSecretV1Beta1Spec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''ExternalSecret is the schema for the external-secrets API.
@@ -55016,12 +55809,12 @@ class ExternalSecretV1Beta1Props:
             self._values["spec"] = spec
 
     @builtins.property
-    def metadata(self) -> typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata]:
+    def metadata(self) -> typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"]:
         '''
         :schema: ExternalSecretV1Beta1#metadata
         '''
         result = self._values.get("metadata")
-        return typing.cast(typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata], result)
+        return typing.cast(typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"], result)
 
     @builtins.property
     def spec(self) -> typing.Optional["ExternalSecretV1Beta1Spec"]:
@@ -57534,10 +58327,10 @@ class PushSecret(
 
     def __init__(
         self,
-        scope: _constructs_77d1e7e8.Construct,
+        scope: "_constructs_77d1e7e8.Construct",
         id: builtins.str,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["PushSecretSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''Defines a "PushSecret" API object.
@@ -57560,7 +58353,7 @@ class PushSecret(
     def manifest(
         cls,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["PushSecretSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> typing.Any:
         '''Renders a Kubernetes manifest for "PushSecret".
@@ -57581,9 +58374,9 @@ class PushSecret(
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="GVK")
-    def GVK(cls) -> _cdk8s_d3d9af27.GroupVersionKind:
+    def GVK(cls) -> "_cdk8s_d3d9af27.GroupVersionKind":
         '''Returns the apiVersion and kind for "PushSecret".'''
-        return typing.cast(_cdk8s_d3d9af27.GroupVersionKind, jsii.sget(cls, "GVK"))
+        return typing.cast("_cdk8s_d3d9af27.GroupVersionKind", jsii.sget(cls, "GVK"))
 
 
 @jsii.data_type(
@@ -57595,7 +58388,7 @@ class PushSecretProps:
     def __init__(
         self,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["PushSecretSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''PushSecret is the Schema for the PushSecrets API that enables pushing Kubernetes secrets to external secret providers.
@@ -57620,12 +58413,12 @@ class PushSecretProps:
             self._values["spec"] = spec
 
     @builtins.property
-    def metadata(self) -> typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata]:
+    def metadata(self) -> typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"]:
         '''
         :schema: PushSecret#metadata
         '''
         result = self._values.get("metadata")
-        return typing.cast(typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata], result)
+        return typing.cast(typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"], result)
 
     @builtins.property
     def spec(self) -> typing.Optional["PushSecretSpec"]:
@@ -59283,10 +60076,10 @@ class SecretStore(
 
     def __init__(
         self,
-        scope: _constructs_77d1e7e8.Construct,
+        scope: "_constructs_77d1e7e8.Construct",
         id: builtins.str,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["SecretStoreSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''Defines a "SecretStore" API object.
@@ -59309,7 +60102,7 @@ class SecretStore(
     def manifest(
         cls,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["SecretStoreSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> typing.Any:
         '''Renders a Kubernetes manifest for "SecretStore".
@@ -59330,9 +60123,9 @@ class SecretStore(
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="GVK")
-    def GVK(cls) -> _cdk8s_d3d9af27.GroupVersionKind:
+    def GVK(cls) -> "_cdk8s_d3d9af27.GroupVersionKind":
         '''Returns the apiVersion and kind for "SecretStore".'''
-        return typing.cast(_cdk8s_d3d9af27.GroupVersionKind, jsii.sget(cls, "GVK"))
+        return typing.cast("_cdk8s_d3d9af27.GroupVersionKind", jsii.sget(cls, "GVK"))
 
 
 @jsii.data_type(
@@ -59344,7 +60137,7 @@ class SecretStoreProps:
     def __init__(
         self,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["SecretStoreSpec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''SecretStore represents a secure external location for storing secrets, which can be referenced as part of ``storeRef`` fields.
@@ -59369,12 +60162,12 @@ class SecretStoreProps:
             self._values["spec"] = spec
 
     @builtins.property
-    def metadata(self) -> typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata]:
+    def metadata(self) -> typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"]:
         '''
         :schema: SecretStore#metadata
         '''
         result = self._values.get("metadata")
-        return typing.cast(typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata], result)
+        return typing.cast(typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"], result)
 
     @builtins.property
     def spec(self) -> typing.Optional["SecretStoreSpec"]:
@@ -59421,10 +60214,10 @@ class SecretStoreSpec:
         '''SecretStoreSpec defines the desired state of SecretStore.
 
         :param provider: Used to configure the provider. Only one provider may be set
-        :param conditions: Used to constraint a ClusterSecretStore to specific namespaces. Relevant only to ClusterSecretStore
+        :param conditions: Used to constrain a ClusterSecretStore to specific namespaces. Relevant only to ClusterSecretStore.
         :param controller: Used to select the correct ESO controller (think: ingress.ingressClassName) The ESO controller is instantiated with a specific controller name and filters ES based on this property.
         :param refresh_interval: Used to configure store refresh interval in seconds. Empty or 0 will default to the controller config.
-        :param retry_settings: Used to configure http retries if failed.
+        :param retry_settings: Used to configure HTTP retries on failures.
 
         :schema: SecretStoreSpec
         '''
@@ -59465,9 +60258,9 @@ class SecretStoreSpec:
 
     @builtins.property
     def conditions(self) -> typing.Optional[typing.List["SecretStoreSpecConditions"]]:
-        '''Used to constraint a ClusterSecretStore to specific namespaces.
+        '''Used to constrain a ClusterSecretStore to specific namespaces.
 
-        Relevant only to ClusterSecretStore
+        Relevant only to ClusterSecretStore.
 
         :schema: SecretStoreSpec#conditions
         '''
@@ -59496,7 +60289,7 @@ class SecretStoreSpec:
 
     @builtins.property
     def retry_settings(self) -> typing.Optional["SecretStoreSpecRetrySettings"]:
-        '''Used to configure http retries if failed.
+        '''Used to configure HTTP retries on failures.
 
         :schema: SecretStoreSpec#retrySettings
         '''
@@ -59766,6 +60559,7 @@ class SecretStoreSpecConditionsNamespaceSelectorMatchExpressions:
         "delinea": "delinea",
         "device42": "device42",
         "doppler": "doppler",
+        "dvls": "dvls",
         "fake": "fake",
         "fortanix": "fortanix",
         "gcpsm": "gcpsm",
@@ -59811,6 +60605,7 @@ class SecretStoreSpecProvider:
         delinea: typing.Optional[typing.Union["SecretStoreSpecProviderDelinea", typing.Dict[builtins.str, typing.Any]]] = None,
         device42: typing.Optional[typing.Union["SecretStoreSpecProviderDevice42", typing.Dict[builtins.str, typing.Any]]] = None,
         doppler: typing.Optional[typing.Union["SecretStoreSpecProviderDoppler", typing.Dict[builtins.str, typing.Any]]] = None,
+        dvls: typing.Optional[typing.Union["SecretStoreSpecProviderDvls", typing.Dict[builtins.str, typing.Any]]] = None,
         fake: typing.Optional[typing.Union["SecretStoreSpecProviderFake", typing.Dict[builtins.str, typing.Any]]] = None,
         fortanix: typing.Optional[typing.Union["SecretStoreSpecProviderFortanix", typing.Dict[builtins.str, typing.Any]]] = None,
         gcpsm: typing.Optional[typing.Union["SecretStoreSpecProviderGcpsm", typing.Dict[builtins.str, typing.Any]]] = None,
@@ -59855,10 +60650,11 @@ class SecretStoreSpecProvider:
         :param delinea: Delinea DevOps Secrets Vault https://docs.delinea.com/online-help/products/devops-secrets-vault/current.
         :param device42: Device42 configures this store to sync secrets using the Device42 provider.
         :param doppler: Doppler configures this store to sync secrets using the Doppler provider.
+        :param dvls: DVLS configures this store to sync secrets using Devolutions Server provider.
         :param fake: Fake configures a store with static key/value pairs.
         :param fortanix: Fortanix configures this store to sync secrets using the Fortanix provider.
         :param gcpsm: GCPSM configures this store to sync secrets using Google Cloud Platform Secret Manager provider.
-        :param github: Github configures this store to push GitHub Action secrets using GitHub API provider. Note: This provider only supports write operations (PushSecret) and cannot fetch secrets from GitHub
+        :param github: Github configures this store to push GitHub Actions secrets using the GitHub API provider. Note: This provider only supports write operations (PushSecret) and cannot fetch secrets from GitHub
         :param gitlab: GitLab configures this store to sync secrets using GitLab Variables provider.
         :param ibm: IBM configures this store to sync secrets using IBM Cloud provider.
         :param infisical: Infisical configures this store to sync secrets using the Infisical provider.
@@ -59873,10 +60669,10 @@ class SecretStoreSpecProvider:
         :param passworddepot: PasswordDepotProvider configures a store to sync secrets with a Password Depot instance.
         :param previder: Previder configures this store to sync secrets using the Previder provider.
         :param pulumi: Pulumi configures this store to sync secrets using the Pulumi provider.
-        :param scaleway: Scaleway.
+        :param scaleway: Scaleway configures this store to sync secrets using the Scaleway provider.
         :param secretserver: SecretServer configures this store to sync secrets using SecretServer provider https://docs.delinea.com/online-help/secret-server/start.htm.
         :param senhasegura: Senhasegura configures this store to sync secrets using senhasegura provider.
-        :param vault: Vault configures this store to sync secrets using Hashi provider.
+        :param vault: Vault configures this store to sync secrets using the HashiCorp Vault provider.
         :param volcengine: Volcengine configures this store to sync secrets using the Volcengine provider.
         :param webhook: Webhook configures this store to sync secrets using a generic templated webhook.
         :param yandexcertificatemanager: YandexCertificateManager configures this store to sync secrets using Yandex Certificate Manager provider.
@@ -59910,6 +60706,8 @@ class SecretStoreSpecProvider:
             device42 = SecretStoreSpecProviderDevice42(**device42)
         if isinstance(doppler, dict):
             doppler = SecretStoreSpecProviderDoppler(**doppler)
+        if isinstance(dvls, dict):
+            dvls = SecretStoreSpecProviderDvls(**dvls)
         if isinstance(fake, dict):
             fake = SecretStoreSpecProviderFake(**fake)
         if isinstance(fortanix, dict):
@@ -59977,6 +60775,7 @@ class SecretStoreSpecProvider:
             check_type(argname="argument delinea", value=delinea, expected_type=type_hints["delinea"])
             check_type(argname="argument device42", value=device42, expected_type=type_hints["device42"])
             check_type(argname="argument doppler", value=doppler, expected_type=type_hints["doppler"])
+            check_type(argname="argument dvls", value=dvls, expected_type=type_hints["dvls"])
             check_type(argname="argument fake", value=fake, expected_type=type_hints["fake"])
             check_type(argname="argument fortanix", value=fortanix, expected_type=type_hints["fortanix"])
             check_type(argname="argument gcpsm", value=gcpsm, expected_type=type_hints["gcpsm"])
@@ -60030,6 +60829,8 @@ class SecretStoreSpecProvider:
             self._values["device42"] = device42
         if doppler is not None:
             self._values["doppler"] = doppler
+        if dvls is not None:
+            self._values["dvls"] = dvls
         if fake is not None:
             self._values["fake"] = fake
         if fortanix is not None:
@@ -60203,6 +61004,15 @@ class SecretStoreSpecProvider:
         return typing.cast(typing.Optional["SecretStoreSpecProviderDoppler"], result)
 
     @builtins.property
+    def dvls(self) -> typing.Optional["SecretStoreSpecProviderDvls"]:
+        '''DVLS configures this store to sync secrets using Devolutions Server provider.
+
+        :schema: SecretStoreSpecProvider#dvls
+        '''
+        result = self._values.get("dvls")
+        return typing.cast(typing.Optional["SecretStoreSpecProviderDvls"], result)
+
+    @builtins.property
     def fake(self) -> typing.Optional["SecretStoreSpecProviderFake"]:
         '''Fake configures a store with static key/value pairs.
 
@@ -60231,7 +61041,7 @@ class SecretStoreSpecProvider:
 
     @builtins.property
     def github(self) -> typing.Optional["SecretStoreSpecProviderGithub"]:
-        '''Github configures this store to push GitHub Action secrets using GitHub API provider.
+        '''Github configures this store to push GitHub Actions secrets using the GitHub API provider.
 
         Note: This provider only supports write operations (PushSecret) and cannot fetch secrets from GitHub
 
@@ -60374,7 +61184,7 @@ class SecretStoreSpecProvider:
 
     @builtins.property
     def scaleway(self) -> typing.Optional["SecretStoreSpecProviderScaleway"]:
-        '''Scaleway.
+        '''Scaleway configures this store to sync secrets using the Scaleway provider.
 
         :schema: SecretStoreSpecProvider#scaleway
         '''
@@ -60401,7 +61211,7 @@ class SecretStoreSpecProvider:
 
     @builtins.property
     def vault(self) -> typing.Optional["SecretStoreSpecProviderVault"]:
-        '''Vault configures this store to sync secrets using Hashi provider.
+        '''Vault configures this store to sync secrets using the HashiCorp Vault provider.
 
         :schema: SecretStoreSpecProvider#vault
         '''
@@ -62653,7 +63463,7 @@ class SecretStoreSpecProviderAzurekv:
         :param vault_url: Vault Url from which the secrets to be fetched from.
         :param auth_secret_ref: Auth configures how the operator authenticates with Azure. Required for ServicePrincipal auth type. Optional for WorkloadIdentity.
         :param auth_type: Auth type defines how to authenticate to the keyvault service. Valid values are: - "ServicePrincipal" (default): Using a service principal (tenantId, clientId, clientSecret) - "ManagedIdentity": Using Managed Identity assigned to the pod (see aad-pod-identity)
-        :param custom_cloud_config: CustomCloudConfig defines custom Azure Stack Hub or Azure Stack Edge endpoints. Required when EnvironmentType is AzureStackCloud. IMPORTANT: This feature REQUIRES UseAzureSDK to be set to true. Custom cloud configuration is not supported with the legacy go-autorest SDK.
+        :param custom_cloud_config: CustomCloudConfig defines custom Azure endpoints for non-standard clouds. Required when EnvironmentType is AzureStackCloud. Optional for other environment types - useful for Azure China when using Workload Identity with AKS, where the OIDC issuer (login.partner.microsoftonline.cn) differs from the standard China Cloud endpoint (login.chinacloudapi.cn). IMPORTANT: This feature REQUIRES UseAzureSDK to be set to true. Custom cloud configuration is not supported with the legacy go-autorest SDK.
         :param environment_type: EnvironmentType specifies the Azure cloud environment endpoints to use for connecting and authenticating with Azure. By default it points to the public cloud AAD endpoint. The following endpoints are available, also see here: https://github.com/Azure/go-autorest/blob/main/autorest/azure/environments.go#L152 PublicCloud, USGovernmentCloud, ChinaCloud, GermanCloud, AzureStackCloud Use AzureStackCloud when you need to configure custom Azure Stack Hub or Azure Stack Edge endpoints.
         :param identity_id: If multiple Managed Identity is assigned to the pod, you can select the one to be used.
         :param service_account_ref: ServiceAccountRef specified the service account that should be used when authenticating with WorkloadIdentity.
@@ -62740,9 +63550,12 @@ class SecretStoreSpecProviderAzurekv:
     def custom_cloud_config(
         self,
     ) -> typing.Optional["SecretStoreSpecProviderAzurekvCustomCloudConfig"]:
-        '''CustomCloudConfig defines custom Azure Stack Hub or Azure Stack Edge endpoints.
+        '''CustomCloudConfig defines custom Azure endpoints for non-standard clouds.
 
         Required when EnvironmentType is AzureStackCloud.
+        Optional for other environment types - useful for Azure China when using Workload Identity
+        with AKS, where the OIDC issuer (login.partner.microsoftonline.cn) differs from the
+        standard China Cloud endpoint (login.chinacloudapi.cn).
         IMPORTANT: This feature REQUIRES UseAzureSDK to be set to true. Custom cloud
         configuration is not supported with the legacy go-autorest SDK.
 
@@ -63280,9 +64093,12 @@ class SecretStoreSpecProviderAzurekvCustomCloudConfig:
         key_vault_endpoint: typing.Optional[builtins.str] = None,
         resource_manager_endpoint: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''CustomCloudConfig defines custom Azure Stack Hub or Azure Stack Edge endpoints.
+        '''CustomCloudConfig defines custom Azure endpoints for non-standard clouds.
 
         Required when EnvironmentType is AzureStackCloud.
+        Optional for other environment types - useful for Azure China when using Workload Identity
+        with AKS, where the OIDC issuer (login.partner.microsoftonline.cn) differs from the
+        standard China Cloud endpoint (login.chinacloudapi.cn).
         IMPORTANT: This feature REQUIRES UseAzureSDK to be set to true. Custom cloud
         configuration is not supported with the legacy go-autorest SDK.
 
@@ -67493,38 +68309,57 @@ class SecretStoreSpecProviderDoppler:
 @jsii.data_type(
     jsii_type="ioexternal-secrets.SecretStoreSpecProviderDopplerAuth",
     jsii_struct_bases=[],
-    name_mapping={"secret_ref": "secretRef"},
+    name_mapping={"oidc_config": "oidcConfig", "secret_ref": "secretRef"},
 )
 class SecretStoreSpecProviderDopplerAuth:
     def __init__(
         self,
         *,
-        secret_ref: typing.Union["SecretStoreSpecProviderDopplerAuthSecretRef", typing.Dict[builtins.str, typing.Any]],
+        oidc_config: typing.Optional[typing.Union["SecretStoreSpecProviderDopplerAuthOidcConfig", typing.Dict[builtins.str, typing.Any]]] = None,
+        secret_ref: typing.Optional[typing.Union["SecretStoreSpecProviderDopplerAuthSecretRef", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''Auth configures how the Operator authenticates with the Doppler API.
 
-        :param secret_ref: DopplerAuthSecretRef contains the secret reference for accessing the Doppler API.
+        :param oidc_config: OIDCConfig authenticates using Kubernetes ServiceAccount tokens via OIDC.
+        :param secret_ref: SecretRef authenticates using a Doppler service token stored in a Kubernetes Secret.
 
         :schema: SecretStoreSpecProviderDopplerAuth
         '''
+        if isinstance(oidc_config, dict):
+            oidc_config = SecretStoreSpecProviderDopplerAuthOidcConfig(**oidc_config)
         if isinstance(secret_ref, dict):
             secret_ref = SecretStoreSpecProviderDopplerAuthSecretRef(**secret_ref)
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__6357e1ba1e34597f385cc02bc303f3029ad1fc0a8571b281de865ff460724313)
+            check_type(argname="argument oidc_config", value=oidc_config, expected_type=type_hints["oidc_config"])
             check_type(argname="argument secret_ref", value=secret_ref, expected_type=type_hints["secret_ref"])
-        self._values: typing.Dict[builtins.str, typing.Any] = {
-            "secret_ref": secret_ref,
-        }
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if oidc_config is not None:
+            self._values["oidc_config"] = oidc_config
+        if secret_ref is not None:
+            self._values["secret_ref"] = secret_ref
 
     @builtins.property
-    def secret_ref(self) -> "SecretStoreSpecProviderDopplerAuthSecretRef":
-        '''DopplerAuthSecretRef contains the secret reference for accessing the Doppler API.
+    def oidc_config(
+        self,
+    ) -> typing.Optional["SecretStoreSpecProviderDopplerAuthOidcConfig"]:
+        '''OIDCConfig authenticates using Kubernetes ServiceAccount tokens via OIDC.
+
+        :schema: SecretStoreSpecProviderDopplerAuth#oidcConfig
+        '''
+        result = self._values.get("oidc_config")
+        return typing.cast(typing.Optional["SecretStoreSpecProviderDopplerAuthOidcConfig"], result)
+
+    @builtins.property
+    def secret_ref(
+        self,
+    ) -> typing.Optional["SecretStoreSpecProviderDopplerAuthSecretRef"]:
+        '''SecretRef authenticates using a Doppler service token stored in a Kubernetes Secret.
 
         :schema: SecretStoreSpecProviderDopplerAuth#secretRef
         '''
         result = self._values.get("secret_ref")
-        assert result is not None, "Required property 'secret_ref' is missing"
-        return typing.cast("SecretStoreSpecProviderDopplerAuthSecretRef", result)
+        return typing.cast(typing.Optional["SecretStoreSpecProviderDopplerAuthSecretRef"], result)
 
     def __eq__(self, rhs: typing.Any) -> builtins.bool:
         return isinstance(rhs, self.__class__) and rhs._values == self._values
@@ -67534,6 +68369,168 @@ class SecretStoreSpecProviderDopplerAuth:
 
     def __repr__(self) -> str:
         return "SecretStoreSpecProviderDopplerAuth(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.SecretStoreSpecProviderDopplerAuthOidcConfig",
+    jsii_struct_bases=[],
+    name_mapping={
+        "identity": "identity",
+        "service_account_ref": "serviceAccountRef",
+        "expiration_seconds": "expirationSeconds",
+    },
+)
+class SecretStoreSpecProviderDopplerAuthOidcConfig:
+    def __init__(
+        self,
+        *,
+        identity: builtins.str,
+        service_account_ref: typing.Union["SecretStoreSpecProviderDopplerAuthOidcConfigServiceAccountRef", typing.Dict[builtins.str, typing.Any]],
+        expiration_seconds: typing.Optional[jsii.Number] = None,
+    ) -> None:
+        '''OIDCConfig authenticates using Kubernetes ServiceAccount tokens via OIDC.
+
+        :param identity: Identity is the Doppler Service Account Identity ID configured for OIDC authentication.
+        :param service_account_ref: ServiceAccountRef specifies the Kubernetes ServiceAccount to use for authentication.
+        :param expiration_seconds: ExpirationSeconds sets the ServiceAccount token validity duration. Defaults to 10 minutes. Default: 10 minutes.
+
+        :schema: SecretStoreSpecProviderDopplerAuthOidcConfig
+        '''
+        if isinstance(service_account_ref, dict):
+            service_account_ref = SecretStoreSpecProviderDopplerAuthOidcConfigServiceAccountRef(**service_account_ref)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__9b1dcd02390e6047c7a4495de14fdbfb935354f9e429a6cce2b075be761aafc4)
+            check_type(argname="argument identity", value=identity, expected_type=type_hints["identity"])
+            check_type(argname="argument service_account_ref", value=service_account_ref, expected_type=type_hints["service_account_ref"])
+            check_type(argname="argument expiration_seconds", value=expiration_seconds, expected_type=type_hints["expiration_seconds"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "identity": identity,
+            "service_account_ref": service_account_ref,
+        }
+        if expiration_seconds is not None:
+            self._values["expiration_seconds"] = expiration_seconds
+
+    @builtins.property
+    def identity(self) -> builtins.str:
+        '''Identity is the Doppler Service Account Identity ID configured for OIDC authentication.
+
+        :schema: SecretStoreSpecProviderDopplerAuthOidcConfig#identity
+        '''
+        result = self._values.get("identity")
+        assert result is not None, "Required property 'identity' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def service_account_ref(
+        self,
+    ) -> "SecretStoreSpecProviderDopplerAuthOidcConfigServiceAccountRef":
+        '''ServiceAccountRef specifies the Kubernetes ServiceAccount to use for authentication.
+
+        :schema: SecretStoreSpecProviderDopplerAuthOidcConfig#serviceAccountRef
+        '''
+        result = self._values.get("service_account_ref")
+        assert result is not None, "Required property 'service_account_ref' is missing"
+        return typing.cast("SecretStoreSpecProviderDopplerAuthOidcConfigServiceAccountRef", result)
+
+    @builtins.property
+    def expiration_seconds(self) -> typing.Optional[jsii.Number]:
+        '''ExpirationSeconds sets the ServiceAccount token validity duration.
+
+        Defaults to 10 minutes.
+
+        :default: 10 minutes.
+
+        :schema: SecretStoreSpecProviderDopplerAuthOidcConfig#expirationSeconds
+        '''
+        result = self._values.get("expiration_seconds")
+        return typing.cast(typing.Optional[jsii.Number], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "SecretStoreSpecProviderDopplerAuthOidcConfig(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.SecretStoreSpecProviderDopplerAuthOidcConfigServiceAccountRef",
+    jsii_struct_bases=[],
+    name_mapping={"name": "name", "audiences": "audiences", "namespace": "namespace"},
+)
+class SecretStoreSpecProviderDopplerAuthOidcConfigServiceAccountRef:
+    def __init__(
+        self,
+        *,
+        name: builtins.str,
+        audiences: typing.Optional[typing.Sequence[builtins.str]] = None,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''ServiceAccountRef specifies the Kubernetes ServiceAccount to use for authentication.
+
+        :param name: The name of the ServiceAccount resource being referred to.
+        :param audiences: Audience specifies the ``aud`` claim for the service account token If the service account uses a well-known annotation for e.g. IRSA or GCP Workload Identity then this audiences will be appended to the list.
+        :param namespace: Namespace of the resource being referred to. Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: SecretStoreSpecProviderDopplerAuthOidcConfigServiceAccountRef
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__e3c1ce65aabc188bd423bb2824de572c419fb5c348ed0d3659fcc8644666d0e6)
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument audiences", value=audiences, expected_type=type_hints["audiences"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "name": name,
+        }
+        if audiences is not None:
+            self._values["audiences"] = audiences
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def name(self) -> builtins.str:
+        '''The name of the ServiceAccount resource being referred to.
+
+        :schema: SecretStoreSpecProviderDopplerAuthOidcConfigServiceAccountRef#name
+        '''
+        result = self._values.get("name")
+        assert result is not None, "Required property 'name' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def audiences(self) -> typing.Optional[typing.List[builtins.str]]:
+        '''Audience specifies the ``aud`` claim for the service account token If the service account uses a well-known annotation for e.g. IRSA or GCP Workload Identity then this audiences will be appended to the list.
+
+        :schema: SecretStoreSpecProviderDopplerAuthOidcConfigServiceAccountRef#audiences
+        '''
+        result = self._values.get("audiences")
+        return typing.cast(typing.Optional[typing.List[builtins.str]], result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''Namespace of the resource being referred to.
+
+        Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: SecretStoreSpecProviderDopplerAuthOidcConfigServiceAccountRef#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "SecretStoreSpecProviderDopplerAuthOidcConfigServiceAccountRef(%s)" % ", ".join(
             k + "=" + repr(v) for k, v in self._values.items()
         )
 
@@ -67549,7 +68546,7 @@ class SecretStoreSpecProviderDopplerAuthSecretRef:
         *,
         doppler_token: typing.Union["SecretStoreSpecProviderDopplerAuthSecretRefDopplerToken", typing.Dict[builtins.str, typing.Any]],
     ) -> None:
-        '''DopplerAuthSecretRef contains the secret reference for accessing the Doppler API.
+        '''SecretRef authenticates using a Doppler service token stored in a Kubernetes Secret.
 
         :param doppler_token: The DopplerToken is used for authentication. See https://docs.doppler.com/reference/api#authentication for auth token types. The Key attribute defaults to dopplerToken if not specified.
 
@@ -67711,6 +68708,351 @@ class SecretStoreSpecProviderDopplerNameTransformer(enum.Enum):
     '''dotnet-env.'''
     LOWER_HYPHEN_KEBAB = "LOWER_HYPHEN_KEBAB"
     '''lower-kebab.'''
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.SecretStoreSpecProviderDvls",
+    jsii_struct_bases=[],
+    name_mapping={"auth": "auth", "server_url": "serverUrl", "insecure": "insecure"},
+)
+class SecretStoreSpecProviderDvls:
+    def __init__(
+        self,
+        *,
+        auth: typing.Union["SecretStoreSpecProviderDvlsAuth", typing.Dict[builtins.str, typing.Any]],
+        server_url: builtins.str,
+        insecure: typing.Optional[builtins.bool] = None,
+    ) -> None:
+        '''DVLS configures this store to sync secrets using Devolutions Server provider.
+
+        :param auth: Auth defines the authentication method to use.
+        :param server_url: ServerURL is the DVLS instance URL (e.g., https://dvls.example.com).
+        :param insecure: Insecure allows connecting to DVLS over plain HTTP. This is NOT RECOMMENDED for production use. Set to true only if you understand the security implications.
+
+        :schema: SecretStoreSpecProviderDvls
+        '''
+        if isinstance(auth, dict):
+            auth = SecretStoreSpecProviderDvlsAuth(**auth)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__4f307b2bc1c26a4a1e0ea742fbb3957972c1acc2e3e8f0640e2749e4fe4c5f8a)
+            check_type(argname="argument auth", value=auth, expected_type=type_hints["auth"])
+            check_type(argname="argument server_url", value=server_url, expected_type=type_hints["server_url"])
+            check_type(argname="argument insecure", value=insecure, expected_type=type_hints["insecure"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "auth": auth,
+            "server_url": server_url,
+        }
+        if insecure is not None:
+            self._values["insecure"] = insecure
+
+    @builtins.property
+    def auth(self) -> "SecretStoreSpecProviderDvlsAuth":
+        '''Auth defines the authentication method to use.
+
+        :schema: SecretStoreSpecProviderDvls#auth
+        '''
+        result = self._values.get("auth")
+        assert result is not None, "Required property 'auth' is missing"
+        return typing.cast("SecretStoreSpecProviderDvlsAuth", result)
+
+    @builtins.property
+    def server_url(self) -> builtins.str:
+        '''ServerURL is the DVLS instance URL (e.g., https://dvls.example.com).
+
+        :schema: SecretStoreSpecProviderDvls#serverUrl
+        '''
+        result = self._values.get("server_url")
+        assert result is not None, "Required property 'server_url' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def insecure(self) -> typing.Optional[builtins.bool]:
+        '''Insecure allows connecting to DVLS over plain HTTP.
+
+        This is NOT RECOMMENDED for production use.
+        Set to true only if you understand the security implications.
+
+        :schema: SecretStoreSpecProviderDvls#insecure
+        '''
+        result = self._values.get("insecure")
+        return typing.cast(typing.Optional[builtins.bool], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "SecretStoreSpecProviderDvls(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.SecretStoreSpecProviderDvlsAuth",
+    jsii_struct_bases=[],
+    name_mapping={"secret_ref": "secretRef"},
+)
+class SecretStoreSpecProviderDvlsAuth:
+    def __init__(
+        self,
+        *,
+        secret_ref: typing.Union["SecretStoreSpecProviderDvlsAuthSecretRef", typing.Dict[builtins.str, typing.Any]],
+    ) -> None:
+        '''Auth defines the authentication method to use.
+
+        :param secret_ref: SecretRef contains the Application ID and Application Secret for authentication.
+
+        :schema: SecretStoreSpecProviderDvlsAuth
+        '''
+        if isinstance(secret_ref, dict):
+            secret_ref = SecretStoreSpecProviderDvlsAuthSecretRef(**secret_ref)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__ef989d74dc5669f8ef828e697b36def9ed0cc63f099f3c031f2067f506100e25)
+            check_type(argname="argument secret_ref", value=secret_ref, expected_type=type_hints["secret_ref"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "secret_ref": secret_ref,
+        }
+
+    @builtins.property
+    def secret_ref(self) -> "SecretStoreSpecProviderDvlsAuthSecretRef":
+        '''SecretRef contains the Application ID and Application Secret for authentication.
+
+        :schema: SecretStoreSpecProviderDvlsAuth#secretRef
+        '''
+        result = self._values.get("secret_ref")
+        assert result is not None, "Required property 'secret_ref' is missing"
+        return typing.cast("SecretStoreSpecProviderDvlsAuthSecretRef", result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "SecretStoreSpecProviderDvlsAuth(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.SecretStoreSpecProviderDvlsAuthSecretRef",
+    jsii_struct_bases=[],
+    name_mapping={"app_id": "appId", "app_secret": "appSecret"},
+)
+class SecretStoreSpecProviderDvlsAuthSecretRef:
+    def __init__(
+        self,
+        *,
+        app_id: typing.Union["SecretStoreSpecProviderDvlsAuthSecretRefAppId", typing.Dict[builtins.str, typing.Any]],
+        app_secret: typing.Union["SecretStoreSpecProviderDvlsAuthSecretRefAppSecret", typing.Dict[builtins.str, typing.Any]],
+    ) -> None:
+        '''SecretRef contains the Application ID and Application Secret for authentication.
+
+        :param app_id: AppID is the reference to the secret containing the Application ID.
+        :param app_secret: AppSecret is the reference to the secret containing the Application Secret.
+
+        :schema: SecretStoreSpecProviderDvlsAuthSecretRef
+        '''
+        if isinstance(app_id, dict):
+            app_id = SecretStoreSpecProviderDvlsAuthSecretRefAppId(**app_id)
+        if isinstance(app_secret, dict):
+            app_secret = SecretStoreSpecProviderDvlsAuthSecretRefAppSecret(**app_secret)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__5ce78804a9e78d3b82aa4d53c3083af2f139f7d4220d9b5b841d048467b592e6)
+            check_type(argname="argument app_id", value=app_id, expected_type=type_hints["app_id"])
+            check_type(argname="argument app_secret", value=app_secret, expected_type=type_hints["app_secret"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "app_id": app_id,
+            "app_secret": app_secret,
+        }
+
+    @builtins.property
+    def app_id(self) -> "SecretStoreSpecProviderDvlsAuthSecretRefAppId":
+        '''AppID is the reference to the secret containing the Application ID.
+
+        :schema: SecretStoreSpecProviderDvlsAuthSecretRef#appId
+        '''
+        result = self._values.get("app_id")
+        assert result is not None, "Required property 'app_id' is missing"
+        return typing.cast("SecretStoreSpecProviderDvlsAuthSecretRefAppId", result)
+
+    @builtins.property
+    def app_secret(self) -> "SecretStoreSpecProviderDvlsAuthSecretRefAppSecret":
+        '''AppSecret is the reference to the secret containing the Application Secret.
+
+        :schema: SecretStoreSpecProviderDvlsAuthSecretRef#appSecret
+        '''
+        result = self._values.get("app_secret")
+        assert result is not None, "Required property 'app_secret' is missing"
+        return typing.cast("SecretStoreSpecProviderDvlsAuthSecretRefAppSecret", result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "SecretStoreSpecProviderDvlsAuthSecretRef(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.SecretStoreSpecProviderDvlsAuthSecretRefAppId",
+    jsii_struct_bases=[],
+    name_mapping={"key": "key", "name": "name", "namespace": "namespace"},
+)
+class SecretStoreSpecProviderDvlsAuthSecretRefAppId:
+    def __init__(
+        self,
+        *,
+        key: typing.Optional[builtins.str] = None,
+        name: typing.Optional[builtins.str] = None,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''AppID is the reference to the secret containing the Application ID.
+
+        :param key: A key in the referenced Secret. Some instances of this field may be defaulted, in others it may be required.
+        :param name: The name of the Secret resource being referred to.
+        :param namespace: The namespace of the Secret resource being referred to. Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: SecretStoreSpecProviderDvlsAuthSecretRefAppId
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__ced0370db32d08feb5d54b75d32f1f3a2c4536daddfd6a0d8a37cf8b232ee224)
+            check_type(argname="argument key", value=key, expected_type=type_hints["key"])
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if key is not None:
+            self._values["key"] = key
+        if name is not None:
+            self._values["name"] = name
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def key(self) -> typing.Optional[builtins.str]:
+        '''A key in the referenced Secret.
+
+        Some instances of this field may be defaulted, in others it may be required.
+
+        :schema: SecretStoreSpecProviderDvlsAuthSecretRefAppId#key
+        '''
+        result = self._values.get("key")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def name(self) -> typing.Optional[builtins.str]:
+        '''The name of the Secret resource being referred to.
+
+        :schema: SecretStoreSpecProviderDvlsAuthSecretRefAppId#name
+        '''
+        result = self._values.get("name")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''The namespace of the Secret resource being referred to.
+
+        Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: SecretStoreSpecProviderDvlsAuthSecretRefAppId#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "SecretStoreSpecProviderDvlsAuthSecretRefAppId(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.SecretStoreSpecProviderDvlsAuthSecretRefAppSecret",
+    jsii_struct_bases=[],
+    name_mapping={"key": "key", "name": "name", "namespace": "namespace"},
+)
+class SecretStoreSpecProviderDvlsAuthSecretRefAppSecret:
+    def __init__(
+        self,
+        *,
+        key: typing.Optional[builtins.str] = None,
+        name: typing.Optional[builtins.str] = None,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''AppSecret is the reference to the secret containing the Application Secret.
+
+        :param key: A key in the referenced Secret. Some instances of this field may be defaulted, in others it may be required.
+        :param name: The name of the Secret resource being referred to.
+        :param namespace: The namespace of the Secret resource being referred to. Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: SecretStoreSpecProviderDvlsAuthSecretRefAppSecret
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__dc1d2365ef334dfe488ba7e9b93fa5e0d62471e864254c31ffe1cdd641cc7274)
+            check_type(argname="argument key", value=key, expected_type=type_hints["key"])
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if key is not None:
+            self._values["key"] = key
+        if name is not None:
+            self._values["name"] = name
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def key(self) -> typing.Optional[builtins.str]:
+        '''A key in the referenced Secret.
+
+        Some instances of this field may be defaulted, in others it may be required.
+
+        :schema: SecretStoreSpecProviderDvlsAuthSecretRefAppSecret#key
+        '''
+        result = self._values.get("key")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def name(self) -> typing.Optional[builtins.str]:
+        '''The name of the Secret resource being referred to.
+
+        :schema: SecretStoreSpecProviderDvlsAuthSecretRefAppSecret#name
+        '''
+        result = self._values.get("name")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''The namespace of the Secret resource being referred to.
+
+        Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: SecretStoreSpecProviderDvlsAuthSecretRefAppSecret#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "SecretStoreSpecProviderDvlsAuthSecretRefAppSecret(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
 
 
 @jsii.data_type(
@@ -68969,7 +70311,7 @@ class SecretStoreSpecProviderGithub:
         upload_url: typing.Optional[builtins.str] = None,
         url: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''Github configures this store to push GitHub Action secrets using GitHub API provider.
+        '''Github configures this store to push GitHub Actions secrets using the GitHub API provider.
 
         Note: This provider only supports write operations (PushSecret) and cannot fetch secrets from GitHub
 
@@ -70037,6 +71379,8 @@ class SecretStoreSpecProviderIbmAuthSecretRefSecretApiKeySecretRef:
     name_mapping={
         "auth": "auth",
         "secrets_scope": "secretsScope",
+        "ca_bundle": "caBundle",
+        "ca_provider": "caProvider",
         "host_api": "hostApi",
     },
 )
@@ -70046,12 +71390,16 @@ class SecretStoreSpecProviderInfisical:
         *,
         auth: typing.Union["SecretStoreSpecProviderInfisicalAuth", typing.Dict[builtins.str, typing.Any]],
         secrets_scope: typing.Union["SecretStoreSpecProviderInfisicalSecretsScope", typing.Dict[builtins.str, typing.Any]],
+        ca_bundle: typing.Optional[builtins.str] = None,
+        ca_provider: typing.Optional[typing.Union["SecretStoreSpecProviderInfisicalCaProvider", typing.Dict[builtins.str, typing.Any]]] = None,
         host_api: typing.Optional[builtins.str] = None,
     ) -> None:
         '''Infisical configures this store to sync secrets using the Infisical provider.
 
         :param auth: Auth configures how the Operator authenticates with the Infisical API.
         :param secrets_scope: SecretsScope defines the scope of the secrets within the workspace.
+        :param ca_bundle: CABundle is a PEM-encoded CA certificate bundle used to validate the Infisical server's TLS certificate. Mutually exclusive with CAProvider.
+        :param ca_provider: CAProvider is a reference to a Secret or ConfigMap that contains a CA certificate. The certificate is used to validate the Infisical server's TLS certificate. Mutually exclusive with CABundle.
         :param host_api: HostAPI specifies the base URL of the Infisical API. If not provided, it defaults to "https://app.infisical.com/api".
 
         :schema: SecretStoreSpecProviderInfisical
@@ -70060,15 +71408,23 @@ class SecretStoreSpecProviderInfisical:
             auth = SecretStoreSpecProviderInfisicalAuth(**auth)
         if isinstance(secrets_scope, dict):
             secrets_scope = SecretStoreSpecProviderInfisicalSecretsScope(**secrets_scope)
+        if isinstance(ca_provider, dict):
+            ca_provider = SecretStoreSpecProviderInfisicalCaProvider(**ca_provider)
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__04fba857dc426841da1155a76d2c4ebcc7578ef2aea12274a93875d140d9ee91)
             check_type(argname="argument auth", value=auth, expected_type=type_hints["auth"])
             check_type(argname="argument secrets_scope", value=secrets_scope, expected_type=type_hints["secrets_scope"])
+            check_type(argname="argument ca_bundle", value=ca_bundle, expected_type=type_hints["ca_bundle"])
+            check_type(argname="argument ca_provider", value=ca_provider, expected_type=type_hints["ca_provider"])
             check_type(argname="argument host_api", value=host_api, expected_type=type_hints["host_api"])
         self._values: typing.Dict[builtins.str, typing.Any] = {
             "auth": auth,
             "secrets_scope": secrets_scope,
         }
+        if ca_bundle is not None:
+            self._values["ca_bundle"] = ca_bundle
+        if ca_provider is not None:
+            self._values["ca_provider"] = ca_provider
         if host_api is not None:
             self._values["host_api"] = host_api
 
@@ -70091,6 +71447,31 @@ class SecretStoreSpecProviderInfisical:
         result = self._values.get("secrets_scope")
         assert result is not None, "Required property 'secrets_scope' is missing"
         return typing.cast("SecretStoreSpecProviderInfisicalSecretsScope", result)
+
+    @builtins.property
+    def ca_bundle(self) -> typing.Optional[builtins.str]:
+        '''CABundle is a PEM-encoded CA certificate bundle used to validate the Infisical server's TLS certificate.
+
+        Mutually exclusive with CAProvider.
+
+        :schema: SecretStoreSpecProviderInfisical#caBundle
+        '''
+        result = self._values.get("ca_bundle")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def ca_provider(
+        self,
+    ) -> typing.Optional["SecretStoreSpecProviderInfisicalCaProvider"]:
+        '''CAProvider is a reference to a Secret or ConfigMap that contains a CA certificate.
+
+        The certificate is used to validate the Infisical server's TLS certificate.
+        Mutually exclusive with CABundle.
+
+        :schema: SecretStoreSpecProviderInfisical#caProvider
+        '''
+        result = self._values.get("ca_provider")
+        return typing.cast(typing.Optional["SecretStoreSpecProviderInfisicalCaProvider"], result)
 
     @builtins.property
     def host_api(self) -> typing.Optional[builtins.str]:
@@ -72947,6 +74328,119 @@ class SecretStoreSpecProviderInfisicalAuthUniversalAuthCredentialsClientSecret:
 
 
 @jsii.data_type(
+    jsii_type="ioexternal-secrets.SecretStoreSpecProviderInfisicalCaProvider",
+    jsii_struct_bases=[],
+    name_mapping={
+        "name": "name",
+        "type": "type",
+        "key": "key",
+        "namespace": "namespace",
+    },
+)
+class SecretStoreSpecProviderInfisicalCaProvider:
+    def __init__(
+        self,
+        *,
+        name: builtins.str,
+        type: "SecretStoreSpecProviderInfisicalCaProviderType",
+        key: typing.Optional[builtins.str] = None,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''CAProvider is a reference to a Secret or ConfigMap that contains a CA certificate.
+
+        The certificate is used to validate the Infisical server's TLS certificate.
+        Mutually exclusive with CABundle.
+
+        :param name: The name of the object located at the provider type.
+        :param type: The type of provider to use such as "Secret", or "ConfigMap".
+        :param key: The key where the CA certificate can be found in the Secret or ConfigMap.
+        :param namespace: The namespace the Provider type is in. Can only be defined when used in a ClusterSecretStore.
+
+        :schema: SecretStoreSpecProviderInfisicalCaProvider
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__277bf88cd0c711a3d0dd6c1262610398fc11c0a1d976ce606b12298a8598146d)
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument type", value=type, expected_type=type_hints["type"])
+            check_type(argname="argument key", value=key, expected_type=type_hints["key"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "name": name,
+            "type": type,
+        }
+        if key is not None:
+            self._values["key"] = key
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def name(self) -> builtins.str:
+        '''The name of the object located at the provider type.
+
+        :schema: SecretStoreSpecProviderInfisicalCaProvider#name
+        '''
+        result = self._values.get("name")
+        assert result is not None, "Required property 'name' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def type(self) -> "SecretStoreSpecProviderInfisicalCaProviderType":
+        '''The type of provider to use such as "Secret", or "ConfigMap".
+
+        :schema: SecretStoreSpecProviderInfisicalCaProvider#type
+        '''
+        result = self._values.get("type")
+        assert result is not None, "Required property 'type' is missing"
+        return typing.cast("SecretStoreSpecProviderInfisicalCaProviderType", result)
+
+    @builtins.property
+    def key(self) -> typing.Optional[builtins.str]:
+        '''The key where the CA certificate can be found in the Secret or ConfigMap.
+
+        :schema: SecretStoreSpecProviderInfisicalCaProvider#key
+        '''
+        result = self._values.get("key")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''The namespace the Provider type is in.
+
+        Can only be defined when used in a ClusterSecretStore.
+
+        :schema: SecretStoreSpecProviderInfisicalCaProvider#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "SecretStoreSpecProviderInfisicalCaProvider(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.enum(
+    jsii_type="ioexternal-secrets.SecretStoreSpecProviderInfisicalCaProviderType"
+)
+class SecretStoreSpecProviderInfisicalCaProviderType(enum.Enum):
+    '''The type of provider to use such as "Secret", or "ConfigMap".
+
+    :schema: SecretStoreSpecProviderInfisicalCaProviderType
+    '''
+
+    SECRET = "SECRET"
+    '''Secret.'''
+    CONFIG_MAP = "CONFIG_MAP"
+    '''ConfigMap.'''
+
+
+@jsii.data_type(
     jsii_type="ioexternal-secrets.SecretStoreSpecProviderInfisicalSecretsScope",
     jsii_struct_bases=[],
     name_mapping={
@@ -74961,6 +76455,7 @@ class SecretStoreSpecProviderOnepasswordAuthSecretRefConnectTokenSecretRef:
     name_mapping={
         "auth": "auth",
         "vault": "vault",
+        "cache": "cache",
         "integration_info": "integrationInfo",
     },
 )
@@ -74970,29 +76465,36 @@ class SecretStoreSpecProviderOnepasswordSdk:
         *,
         auth: typing.Union["SecretStoreSpecProviderOnepasswordSdkAuth", typing.Dict[builtins.str, typing.Any]],
         vault: builtins.str,
+        cache: typing.Optional[typing.Union["SecretStoreSpecProviderOnepasswordSdkCache", typing.Dict[builtins.str, typing.Any]]] = None,
         integration_info: typing.Optional[typing.Union["SecretStoreSpecProviderOnepasswordSdkIntegrationInfo", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''OnePasswordSDK configures this store to use 1Password's new Go SDK to sync secrets.
 
         :param auth: Auth defines the information necessary to authenticate against OnePassword API.
         :param vault: Vault defines the vault's name or uuid to access. Do NOT add op:// prefix. This will be done automatically.
+        :param cache: Cache configures client-side caching for read operations (GetSecret, GetSecretMap). When enabled, secrets are cached with the specified TTL. Write operations (PushSecret, DeleteSecret) automatically invalidate relevant cache entries. If omitted, caching is disabled (default). cache: {} is a valid option to set.
         :param integration_info: IntegrationInfo specifies the name and version of the integration built using the 1Password Go SDK. If you don't know which name and version to use, use ``DefaultIntegrationName`` and ``DefaultIntegrationVersion``, respectively.
 
         :schema: SecretStoreSpecProviderOnepasswordSdk
         '''
         if isinstance(auth, dict):
             auth = SecretStoreSpecProviderOnepasswordSdkAuth(**auth)
+        if isinstance(cache, dict):
+            cache = SecretStoreSpecProviderOnepasswordSdkCache(**cache)
         if isinstance(integration_info, dict):
             integration_info = SecretStoreSpecProviderOnepasswordSdkIntegrationInfo(**integration_info)
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__c7f44d50626711b8f1cc45034c4a00f0d3f0bc360279d0e22e8673cb20887779)
             check_type(argname="argument auth", value=auth, expected_type=type_hints["auth"])
             check_type(argname="argument vault", value=vault, expected_type=type_hints["vault"])
+            check_type(argname="argument cache", value=cache, expected_type=type_hints["cache"])
             check_type(argname="argument integration_info", value=integration_info, expected_type=type_hints["integration_info"])
         self._values: typing.Dict[builtins.str, typing.Any] = {
             "auth": auth,
             "vault": vault,
         }
+        if cache is not None:
+            self._values["cache"] = cache
         if integration_info is not None:
             self._values["integration_info"] = integration_info
 
@@ -75017,6 +76519,20 @@ class SecretStoreSpecProviderOnepasswordSdk:
         result = self._values.get("vault")
         assert result is not None, "Required property 'vault' is missing"
         return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def cache(self) -> typing.Optional["SecretStoreSpecProviderOnepasswordSdkCache"]:
+        '''Cache configures client-side caching for read operations (GetSecret, GetSecretMap).
+
+        When enabled, secrets are cached with the specified TTL.
+        Write operations (PushSecret, DeleteSecret) automatically invalidate relevant cache entries.
+        If omitted, caching is disabled (default).
+        cache: {} is a valid option to set.
+
+        :schema: SecretStoreSpecProviderOnepasswordSdk#cache
+        '''
+        result = self._values.get("cache")
+        return typing.cast(typing.Optional["SecretStoreSpecProviderOnepasswordSdkCache"], result)
 
     @builtins.property
     def integration_info(
@@ -75166,6 +76682,74 @@ class SecretStoreSpecProviderOnepasswordSdkAuthServiceAccountSecretRef:
 
     def __repr__(self) -> str:
         return "SecretStoreSpecProviderOnepasswordSdkAuthServiceAccountSecretRef(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.SecretStoreSpecProviderOnepasswordSdkCache",
+    jsii_struct_bases=[],
+    name_mapping={"max_size": "maxSize", "ttl": "ttl"},
+)
+class SecretStoreSpecProviderOnepasswordSdkCache:
+    def __init__(
+        self,
+        *,
+        max_size: typing.Optional[jsii.Number] = None,
+        ttl: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''Cache configures client-side caching for read operations (GetSecret, GetSecretMap).
+
+        When enabled, secrets are cached with the specified TTL.
+        Write operations (PushSecret, DeleteSecret) automatically invalidate relevant cache entries.
+        If omitted, caching is disabled (default).
+        cache: {} is a valid option to set.
+
+        :param max_size: MaxSize is the maximum number of secrets to cache. When the cache is full, least-recently-used entries are evicted.
+        :param ttl: TTL is the time-to-live for cached secrets. Format: duration string (e.g., "5m", "1h", "30s")
+
+        :schema: SecretStoreSpecProviderOnepasswordSdkCache
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__1d4f308386953d0043c6f68dd296d314792b9def8e52c820f431b147ece01f45)
+            check_type(argname="argument max_size", value=max_size, expected_type=type_hints["max_size"])
+            check_type(argname="argument ttl", value=ttl, expected_type=type_hints["ttl"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if max_size is not None:
+            self._values["max_size"] = max_size
+        if ttl is not None:
+            self._values["ttl"] = ttl
+
+    @builtins.property
+    def max_size(self) -> typing.Optional[jsii.Number]:
+        '''MaxSize is the maximum number of secrets to cache.
+
+        When the cache is full, least-recently-used entries are evicted.
+
+        :schema: SecretStoreSpecProviderOnepasswordSdkCache#maxSize
+        '''
+        result = self._values.get("max_size")
+        return typing.cast(typing.Optional[jsii.Number], result)
+
+    @builtins.property
+    def ttl(self) -> typing.Optional[builtins.str]:
+        '''TTL is the time-to-live for cached secrets.
+
+        Format: duration string (e.g., "5m", "1h", "30s")
+
+        :schema: SecretStoreSpecProviderOnepasswordSdkCache#ttl
+        '''
+        result = self._values.get("ttl")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "SecretStoreSpecProviderOnepasswordSdkCache(%s)" % ", ".join(
             k + "=" + repr(v) for k, v in self._values.items()
         )
 
@@ -76821,7 +78405,7 @@ class SecretStoreSpecProviderScaleway:
         secret_key: typing.Union["SecretStoreSpecProviderScalewaySecretKey", typing.Dict[builtins.str, typing.Any]],
         api_url: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''Scaleway.
+        '''Scaleway configures this store to sync secrets using the Scaleway provider.
 
         :param access_key: AccessKey is the non-secret part of the api key.
         :param project_id: ProjectID is the id of your project, which you can find in the console: https://console.scaleway.com/project/settings.
@@ -77998,7 +79582,7 @@ class SecretStoreSpecProviderVault:
         tls: typing.Optional[typing.Union["SecretStoreSpecProviderVaultTls", typing.Dict[builtins.str, typing.Any]]] = None,
         version: typing.Optional["SecretStoreSpecProviderVaultVersion"] = None,
     ) -> None:
-        '''Vault configures this store to sync secrets using Hashi provider.
+        '''Vault configures this store to sync secrets using the HashiCorp Vault provider.
 
         :param server: Server is the connection address for the Vault server, e.g: "https://vault.example.com:8200".
         :param auth: Auth configures how secret-manager authenticates with the Vault server.
@@ -83619,7 +85203,7 @@ class SecretStoreSpecRetrySettings:
         max_retries: typing.Optional[jsii.Number] = None,
         retry_interval: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''Used to configure http retries if failed.
+        '''Used to configure HTTP retries on failures.
 
         :param max_retries: 
         :param retry_interval: 
@@ -83676,10 +85260,10 @@ class SecretStoreV1Beta1(
 
     def __init__(
         self,
-        scope: _constructs_77d1e7e8.Construct,
+        scope: "_constructs_77d1e7e8.Construct",
         id: builtins.str,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["SecretStoreV1Beta1Spec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''Defines a "SecretStoreV1Beta1" API object.
@@ -83702,7 +85286,7 @@ class SecretStoreV1Beta1(
     def manifest(
         cls,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["SecretStoreV1Beta1Spec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> typing.Any:
         '''Renders a Kubernetes manifest for "SecretStoreV1Beta1".
@@ -83723,9 +85307,9 @@ class SecretStoreV1Beta1(
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="GVK")
-    def GVK(cls) -> _cdk8s_d3d9af27.GroupVersionKind:
+    def GVK(cls) -> "_cdk8s_d3d9af27.GroupVersionKind":
         '''Returns the apiVersion and kind for "SecretStoreV1Beta1".'''
-        return typing.cast(_cdk8s_d3d9af27.GroupVersionKind, jsii.sget(cls, "GVK"))
+        return typing.cast("_cdk8s_d3d9af27.GroupVersionKind", jsii.sget(cls, "GVK"))
 
 
 @jsii.data_type(
@@ -83737,7 +85321,7 @@ class SecretStoreV1Beta1Props:
     def __init__(
         self,
         *,
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
         spec: typing.Optional[typing.Union["SecretStoreV1Beta1Spec", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''SecretStore represents a secure external location for storing secrets, which can be referenced as part of ``storeRef`` fields.
@@ -83762,12 +85346,12 @@ class SecretStoreV1Beta1Props:
             self._values["spec"] = spec
 
     @builtins.property
-    def metadata(self) -> typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata]:
+    def metadata(self) -> typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"]:
         '''
         :schema: SecretStoreV1Beta1#metadata
         '''
         result = self._values.get("metadata")
-        return typing.cast(typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata], result)
+        return typing.cast(typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"], result)
 
     @builtins.property
     def spec(self) -> typing.Optional["SecretStoreV1Beta1Spec"]:
@@ -83814,10 +85398,10 @@ class SecretStoreV1Beta1Spec:
         '''SecretStoreSpec defines the desired state of SecretStore.
 
         :param provider: Used to configure the provider. Only one provider may be set
-        :param conditions: Used to constraint a ClusterSecretStore to specific namespaces. Relevant only to ClusterSecretStore
+        :param conditions: Used to constrain a ClusterSecretStore to specific namespaces. Relevant only to ClusterSecretStore.
         :param controller: Used to select the correct ESO controller (think: ingress.ingressClassName) The ESO controller is instantiated with a specific controller name and filters ES based on this property.
         :param refresh_interval: Used to configure store refresh interval in seconds. Empty or 0 will default to the controller config.
-        :param retry_settings: Used to configure http retries if failed.
+        :param retry_settings: Used to configure HTTP retries on failures.
 
         :schema: SecretStoreV1Beta1Spec
         '''
@@ -83860,9 +85444,9 @@ class SecretStoreV1Beta1Spec:
     def conditions(
         self,
     ) -> typing.Optional[typing.List["SecretStoreV1Beta1SpecConditions"]]:
-        '''Used to constraint a ClusterSecretStore to specific namespaces.
+        '''Used to constrain a ClusterSecretStore to specific namespaces.
 
-        Relevant only to ClusterSecretStore
+        Relevant only to ClusterSecretStore.
 
         :schema: SecretStoreV1Beta1Spec#conditions
         '''
@@ -83891,7 +85475,7 @@ class SecretStoreV1Beta1Spec:
 
     @builtins.property
     def retry_settings(self) -> typing.Optional["SecretStoreV1Beta1SpecRetrySettings"]:
-        '''Used to configure http retries if failed.
+        '''Used to configure HTTP retries on failures.
 
         :schema: SecretStoreV1Beta1Spec#retrySettings
         '''
@@ -84244,7 +85828,7 @@ class SecretStoreV1Beta1SpecProvider:
         :param fake: Fake configures a store with static key/value pairs.
         :param fortanix: Fortanix configures this store to sync secrets using the Fortanix provider.
         :param gcpsm: GCPSM configures this store to sync secrets using Google Cloud Platform Secret Manager provider.
-        :param github: Github configures this store to push Github Action secrets using Github API provider.
+        :param github: Github configures this store to push GitHub Actions secrets using the GitHub API provider.
         :param gitlab: GitLab configures this store to sync secrets using GitLab Variables provider.
         :param ibm: IBM configures this store to sync secrets using IBM Cloud provider.
         :param infisical: Infisical configures this store to sync secrets using the Infisical provider.
@@ -84257,10 +85841,10 @@ class SecretStoreV1Beta1SpecProvider:
         :param passworddepot: PasswordDepotProvider configures a store to sync secrets with a Password Depot instance.
         :param previder: Previder configures this store to sync secrets using the Previder provider.
         :param pulumi: Pulumi configures this store to sync secrets using the Pulumi provider.
-        :param scaleway: Scaleway.
+        :param scaleway: Scaleway configures this store to sync secrets using the Scaleway provider.
         :param secretserver: SecretServer configures this store to sync secrets using SecretServer provider https://docs.delinea.com/online-help/secret-server/start.htm.
         :param senhasegura: Senhasegura configures this store to sync secrets using senhasegura provider.
-        :param vault: Vault configures this store to sync secrets using Hashi provider.
+        :param vault: Vault configures this store to sync secrets using the HashiCorp Vault provider.
         :param webhook: Webhook configures this store to sync secrets using a generic templated webhook.
         :param yandexcertificatemanager: YandexCertificateManager configures this store to sync secrets using Yandex Certificate Manager provider.
         :param yandexlockbox: YandexLockbox configures this store to sync secrets using Yandex Lockbox provider.
@@ -84587,7 +86171,7 @@ class SecretStoreV1Beta1SpecProvider:
 
     @builtins.property
     def github(self) -> typing.Optional["SecretStoreV1Beta1SpecProviderGithub"]:
-        '''Github configures this store to push Github Action secrets using Github API provider.
+        '''Github configures this store to push GitHub Actions secrets using the GitHub API provider.
 
         :schema: SecretStoreV1Beta1SpecProvider#github
         '''
@@ -84712,7 +86296,7 @@ class SecretStoreV1Beta1SpecProvider:
 
     @builtins.property
     def scaleway(self) -> typing.Optional["SecretStoreV1Beta1SpecProviderScaleway"]:
-        '''Scaleway.
+        '''Scaleway configures this store to sync secrets using the Scaleway provider.
 
         :schema: SecretStoreV1Beta1SpecProvider#scaleway
         '''
@@ -84743,7 +86327,7 @@ class SecretStoreV1Beta1SpecProvider:
 
     @builtins.property
     def vault(self) -> typing.Optional["SecretStoreV1Beta1SpecProviderVault"]:
-        '''Vault configures this store to sync secrets using Hashi provider.
+        '''Vault configures this store to sync secrets using the HashiCorp Vault provider.
 
         :schema: SecretStoreV1Beta1SpecProvider#vault
         '''
@@ -92252,7 +93836,7 @@ class SecretStoreV1Beta1SpecProviderGithub:
         upload_url: typing.Optional[builtins.str] = None,
         url: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''Github configures this store to push Github Action secrets using Github API provider.
+        '''Github configures this store to push GitHub Actions secrets using the GitHub API provider.
 
         :param app_id: appID specifies the Github APP that will be used to authenticate the client.
         :param auth: auth configures how secret-manager authenticates with a Github instance.
@@ -96974,7 +98558,7 @@ class SecretStoreV1Beta1SpecProviderScaleway:
         secret_key: typing.Union["SecretStoreV1Beta1SpecProviderScalewaySecretKey", typing.Dict[builtins.str, typing.Any]],
         api_url: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''Scaleway.
+        '''Scaleway configures this store to sync secrets using the Scaleway provider.
 
         :param access_key: AccessKey is the non-secret part of the api key.
         :param project_id: ProjectID is the id of your project, which you can find in the console: https://console.scaleway.com/project/settings.
@@ -97986,7 +99570,7 @@ class SecretStoreV1Beta1SpecProviderVault:
         tls: typing.Optional[typing.Union["SecretStoreV1Beta1SpecProviderVaultTls", typing.Dict[builtins.str, typing.Any]]] = None,
         version: typing.Optional["SecretStoreV1Beta1SpecProviderVaultVersion"] = None,
     ) -> None:
-        '''Vault configures this store to sync secrets using Hashi provider.
+        '''Vault configures this store to sync secrets using the HashiCorp Vault provider.
 
         :param server: Server is the connection address for the Vault server, e.g: "https://vault.example.com:8200".
         :param auth: Auth configures how secret-manager authenticates with the Vault server.
@@ -102305,7 +103889,7 @@ class SecretStoreV1Beta1SpecRetrySettings:
         max_retries: typing.Optional[jsii.Number] = None,
         retry_interval: typing.Optional[builtins.str] = None,
     ) -> None:
-        '''Used to configure http retries if failed.
+        '''Used to configure HTTP retries on failures.
 
         :param max_retries: MaxRetries is the maximum number of retry attempts.
         :param retry_interval: RetryInterval is the interval between retry attempts.
@@ -102599,10 +104183,17 @@ __all__ = [
     "ClusterSecretStoreSpecProviderDevice42AuthSecretRefCredentials",
     "ClusterSecretStoreSpecProviderDoppler",
     "ClusterSecretStoreSpecProviderDopplerAuth",
+    "ClusterSecretStoreSpecProviderDopplerAuthOidcConfig",
+    "ClusterSecretStoreSpecProviderDopplerAuthOidcConfigServiceAccountRef",
     "ClusterSecretStoreSpecProviderDopplerAuthSecretRef",
     "ClusterSecretStoreSpecProviderDopplerAuthSecretRefDopplerToken",
     "ClusterSecretStoreSpecProviderDopplerFormat",
     "ClusterSecretStoreSpecProviderDopplerNameTransformer",
+    "ClusterSecretStoreSpecProviderDvls",
+    "ClusterSecretStoreSpecProviderDvlsAuth",
+    "ClusterSecretStoreSpecProviderDvlsAuthSecretRef",
+    "ClusterSecretStoreSpecProviderDvlsAuthSecretRefAppId",
+    "ClusterSecretStoreSpecProviderDvlsAuthSecretRefAppSecret",
     "ClusterSecretStoreSpecProviderFake",
     "ClusterSecretStoreSpecProviderFakeData",
     "ClusterSecretStoreSpecProviderFortanix",
@@ -102668,6 +104259,8 @@ __all__ = [
     "ClusterSecretStoreSpecProviderInfisicalAuthUniversalAuthCredentials",
     "ClusterSecretStoreSpecProviderInfisicalAuthUniversalAuthCredentialsClientId",
     "ClusterSecretStoreSpecProviderInfisicalAuthUniversalAuthCredentialsClientSecret",
+    "ClusterSecretStoreSpecProviderInfisicalCaProvider",
+    "ClusterSecretStoreSpecProviderInfisicalCaProviderType",
     "ClusterSecretStoreSpecProviderInfisicalSecretsScope",
     "ClusterSecretStoreSpecProviderKeepersecurity",
     "ClusterSecretStoreSpecProviderKeepersecurityAuthRef",
@@ -102699,6 +104292,7 @@ __all__ = [
     "ClusterSecretStoreSpecProviderOnepasswordSdk",
     "ClusterSecretStoreSpecProviderOnepasswordSdkAuth",
     "ClusterSecretStoreSpecProviderOnepasswordSdkAuthServiceAccountSecretRef",
+    "ClusterSecretStoreSpecProviderOnepasswordSdkCache",
     "ClusterSecretStoreSpecProviderOnepasswordSdkIntegrationInfo",
     "ClusterSecretStoreSpecProviderOracle",
     "ClusterSecretStoreSpecProviderOracleAuth",
@@ -103277,10 +104871,17 @@ __all__ = [
     "SecretStoreSpecProviderDevice42AuthSecretRefCredentials",
     "SecretStoreSpecProviderDoppler",
     "SecretStoreSpecProviderDopplerAuth",
+    "SecretStoreSpecProviderDopplerAuthOidcConfig",
+    "SecretStoreSpecProviderDopplerAuthOidcConfigServiceAccountRef",
     "SecretStoreSpecProviderDopplerAuthSecretRef",
     "SecretStoreSpecProviderDopplerAuthSecretRefDopplerToken",
     "SecretStoreSpecProviderDopplerFormat",
     "SecretStoreSpecProviderDopplerNameTransformer",
+    "SecretStoreSpecProviderDvls",
+    "SecretStoreSpecProviderDvlsAuth",
+    "SecretStoreSpecProviderDvlsAuthSecretRef",
+    "SecretStoreSpecProviderDvlsAuthSecretRefAppId",
+    "SecretStoreSpecProviderDvlsAuthSecretRefAppSecret",
     "SecretStoreSpecProviderFake",
     "SecretStoreSpecProviderFakeData",
     "SecretStoreSpecProviderFortanix",
@@ -103346,6 +104947,8 @@ __all__ = [
     "SecretStoreSpecProviderInfisicalAuthUniversalAuthCredentials",
     "SecretStoreSpecProviderInfisicalAuthUniversalAuthCredentialsClientId",
     "SecretStoreSpecProviderInfisicalAuthUniversalAuthCredentialsClientSecret",
+    "SecretStoreSpecProviderInfisicalCaProvider",
+    "SecretStoreSpecProviderInfisicalCaProviderType",
     "SecretStoreSpecProviderInfisicalSecretsScope",
     "SecretStoreSpecProviderKeepersecurity",
     "SecretStoreSpecProviderKeepersecurityAuthRef",
@@ -103377,6 +104980,7 @@ __all__ = [
     "SecretStoreSpecProviderOnepasswordSdk",
     "SecretStoreSpecProviderOnepasswordSdkAuth",
     "SecretStoreSpecProviderOnepasswordSdkAuthServiceAccountSecretRef",
+    "SecretStoreSpecProviderOnepasswordSdkCache",
     "SecretStoreSpecProviderOnepasswordSdkIntegrationInfo",
     "SecretStoreSpecProviderOracle",
     "SecretStoreSpecProviderOracleAuth",
@@ -104644,6 +106248,7 @@ def _typecheckingstub__b577f0ccbbef07f08ad1ab52f92fc2ed139f3591354a8294c647ea76a
     delinea: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderDelinea, typing.Dict[builtins.str, typing.Any]]] = None,
     device42: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderDevice42, typing.Dict[builtins.str, typing.Any]]] = None,
     doppler: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderDoppler, typing.Dict[builtins.str, typing.Any]]] = None,
+    dvls: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderDvls, typing.Dict[builtins.str, typing.Any]]] = None,
     fake: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderFake, typing.Dict[builtins.str, typing.Any]]] = None,
     fortanix: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderFortanix, typing.Dict[builtins.str, typing.Any]]] = None,
     gcpsm: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderGcpsm, typing.Dict[builtins.str, typing.Any]]] = None,
@@ -105451,7 +107056,26 @@ def _typecheckingstub__0dd68389ea2170d4818b9d8b2ec83768c2d8b28610a7de7f55d87f5be
 
 def _typecheckingstub__0640796c079d4a9e1cb79809d032c9607c59bf7dd136fce95231ed0c6ec6b444(
     *,
-    secret_ref: typing.Union[ClusterSecretStoreSpecProviderDopplerAuthSecretRef, typing.Dict[builtins.str, typing.Any]],
+    oidc_config: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderDopplerAuthOidcConfig, typing.Dict[builtins.str, typing.Any]]] = None,
+    secret_ref: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderDopplerAuthSecretRef, typing.Dict[builtins.str, typing.Any]]] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__cf11cd5f0dbb508516886c0cecde9d0a711e30cb26df91c1fb6d874d9998290c(
+    *,
+    identity: builtins.str,
+    service_account_ref: typing.Union[ClusterSecretStoreSpecProviderDopplerAuthOidcConfigServiceAccountRef, typing.Dict[builtins.str, typing.Any]],
+    expiration_seconds: typing.Optional[jsii.Number] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__87fe2636c4f9e87cf4d10ab1687c4b96ed92c4d4750aa23a60e0eb5bd5d39c43(
+    *,
+    name: builtins.str,
+    audiences: typing.Optional[typing.Sequence[builtins.str]] = None,
+    namespace: typing.Optional[builtins.str] = None,
 ) -> None:
     """Type checking stubs"""
     pass
@@ -105464,6 +107088,48 @@ def _typecheckingstub__7c95daf1911c92b6a02497b836b0de1c0dd20ec85f3460dc91288f6c0
     pass
 
 def _typecheckingstub__5306e8d316ebcaef9c47cefbeffdf751b56983711be14ac59eaa47323f0e4bec(
+    *,
+    key: typing.Optional[builtins.str] = None,
+    name: typing.Optional[builtins.str] = None,
+    namespace: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__d36b7e22ca02193e3684f603cfa08b76ebe81dad02f4922cba153befa1bb7ba6(
+    *,
+    auth: typing.Union[ClusterSecretStoreSpecProviderDvlsAuth, typing.Dict[builtins.str, typing.Any]],
+    server_url: builtins.str,
+    insecure: typing.Optional[builtins.bool] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__4ea94cfc1d3dcac5657f95335d88618f963af8134d4eee851e5053f70feb818d(
+    *,
+    secret_ref: typing.Union[ClusterSecretStoreSpecProviderDvlsAuthSecretRef, typing.Dict[builtins.str, typing.Any]],
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__2968c76b4d024910f059e43f51234385d464f2f97e884f6eea8a6ea085669f2d(
+    *,
+    app_id: typing.Union[ClusterSecretStoreSpecProviderDvlsAuthSecretRefAppId, typing.Dict[builtins.str, typing.Any]],
+    app_secret: typing.Union[ClusterSecretStoreSpecProviderDvlsAuthSecretRefAppSecret, typing.Dict[builtins.str, typing.Any]],
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__5a8c51257d6564e3fc04207adb93f2289ea9b74b43b76e56a18cd7279bf7b34c(
+    *,
+    key: typing.Optional[builtins.str] = None,
+    name: typing.Optional[builtins.str] = None,
+    namespace: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__0c4d058c367947bc41356deefe1c646a945188625effc12ad141967e61444f3f(
     *,
     key: typing.Optional[builtins.str] = None,
     name: typing.Optional[builtins.str] = None,
@@ -105735,6 +107401,8 @@ def _typecheckingstub__9a6b80a96af13e75f58be942b229d3c8494ce16b99ec94b56bea68a87
     *,
     auth: typing.Union[ClusterSecretStoreSpecProviderInfisicalAuth, typing.Dict[builtins.str, typing.Any]],
     secrets_scope: typing.Union[ClusterSecretStoreSpecProviderInfisicalSecretsScope, typing.Dict[builtins.str, typing.Any]],
+    ca_bundle: typing.Optional[builtins.str] = None,
+    ca_provider: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderInfisicalCaProvider, typing.Dict[builtins.str, typing.Any]]] = None,
     host_api: typing.Optional[builtins.str] = None,
 ) -> None:
     """Type checking stubs"""
@@ -106046,6 +107714,16 @@ def _typecheckingstub__2226ec3cd40ee516d20337a1ae2f90febd186ed8cb48afcdc63d6ebd7
     """Type checking stubs"""
     pass
 
+def _typecheckingstub__1613d91585134348ae60fdda4df39be3e5c0a54a9aa11eff03e8ca9185826981(
+    *,
+    name: builtins.str,
+    type: ClusterSecretStoreSpecProviderInfisicalCaProviderType,
+    key: typing.Optional[builtins.str] = None,
+    namespace: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
 def _typecheckingstub__34dc694fcff54c27f88bc27595d7536b0a2cef29a7c368868541cff5eb030a3e(
     *,
     environment_slug: builtins.str,
@@ -106283,6 +107961,7 @@ def _typecheckingstub__c949a5d5d1ec74991e57510b94ba4991b0f0b972f7973c1c39b1e642e
     *,
     auth: typing.Union[ClusterSecretStoreSpecProviderOnepasswordSdkAuth, typing.Dict[builtins.str, typing.Any]],
     vault: builtins.str,
+    cache: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderOnepasswordSdkCache, typing.Dict[builtins.str, typing.Any]]] = None,
     integration_info: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderOnepasswordSdkIntegrationInfo, typing.Dict[builtins.str, typing.Any]]] = None,
 ) -> None:
     """Type checking stubs"""
@@ -106300,6 +107979,14 @@ def _typecheckingstub__98b5a6ac2775949f6d9c6da05f551ebde01e8c3006caec2000910cbe6
     key: typing.Optional[builtins.str] = None,
     name: typing.Optional[builtins.str] = None,
     namespace: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__ac200f992d42f096ee4bf8968be5e1c44acd437ad700f2e04bf855f0c908cf21(
+    *,
+    max_size: typing.Optional[jsii.Number] = None,
+    ttl: typing.Optional[builtins.str] = None,
 ) -> None:
     """Type checking stubs"""
     pass
@@ -110054,6 +111741,7 @@ def _typecheckingstub__c530965dc9a8ce9c6b19c8fa2f1a1209e5d3f087076176d43c9a82a73
     delinea: typing.Optional[typing.Union[SecretStoreSpecProviderDelinea, typing.Dict[builtins.str, typing.Any]]] = None,
     device42: typing.Optional[typing.Union[SecretStoreSpecProviderDevice42, typing.Dict[builtins.str, typing.Any]]] = None,
     doppler: typing.Optional[typing.Union[SecretStoreSpecProviderDoppler, typing.Dict[builtins.str, typing.Any]]] = None,
+    dvls: typing.Optional[typing.Union[SecretStoreSpecProviderDvls, typing.Dict[builtins.str, typing.Any]]] = None,
     fake: typing.Optional[typing.Union[SecretStoreSpecProviderFake, typing.Dict[builtins.str, typing.Any]]] = None,
     fortanix: typing.Optional[typing.Union[SecretStoreSpecProviderFortanix, typing.Dict[builtins.str, typing.Any]]] = None,
     gcpsm: typing.Optional[typing.Union[SecretStoreSpecProviderGcpsm, typing.Dict[builtins.str, typing.Any]]] = None,
@@ -110861,7 +112549,26 @@ def _typecheckingstub__98efd1402079378e5baf34fb480404d4663b863b9e7a80268de7accd4
 
 def _typecheckingstub__6357e1ba1e34597f385cc02bc303f3029ad1fc0a8571b281de865ff460724313(
     *,
-    secret_ref: typing.Union[SecretStoreSpecProviderDopplerAuthSecretRef, typing.Dict[builtins.str, typing.Any]],
+    oidc_config: typing.Optional[typing.Union[SecretStoreSpecProviderDopplerAuthOidcConfig, typing.Dict[builtins.str, typing.Any]]] = None,
+    secret_ref: typing.Optional[typing.Union[SecretStoreSpecProviderDopplerAuthSecretRef, typing.Dict[builtins.str, typing.Any]]] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__9b1dcd02390e6047c7a4495de14fdbfb935354f9e429a6cce2b075be761aafc4(
+    *,
+    identity: builtins.str,
+    service_account_ref: typing.Union[SecretStoreSpecProviderDopplerAuthOidcConfigServiceAccountRef, typing.Dict[builtins.str, typing.Any]],
+    expiration_seconds: typing.Optional[jsii.Number] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__e3c1ce65aabc188bd423bb2824de572c419fb5c348ed0d3659fcc8644666d0e6(
+    *,
+    name: builtins.str,
+    audiences: typing.Optional[typing.Sequence[builtins.str]] = None,
+    namespace: typing.Optional[builtins.str] = None,
 ) -> None:
     """Type checking stubs"""
     pass
@@ -110874,6 +112581,48 @@ def _typecheckingstub__98568135797c92229d3531a95d22d66a3c4ca2328b48116d9aca83302
     pass
 
 def _typecheckingstub__d53caecd3aa7c5a58bbf4df00b6c8f022b8cd88194bdd0e53904627f635e1ce1(
+    *,
+    key: typing.Optional[builtins.str] = None,
+    name: typing.Optional[builtins.str] = None,
+    namespace: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__4f307b2bc1c26a4a1e0ea742fbb3957972c1acc2e3e8f0640e2749e4fe4c5f8a(
+    *,
+    auth: typing.Union[SecretStoreSpecProviderDvlsAuth, typing.Dict[builtins.str, typing.Any]],
+    server_url: builtins.str,
+    insecure: typing.Optional[builtins.bool] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__ef989d74dc5669f8ef828e697b36def9ed0cc63f099f3c031f2067f506100e25(
+    *,
+    secret_ref: typing.Union[SecretStoreSpecProviderDvlsAuthSecretRef, typing.Dict[builtins.str, typing.Any]],
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__5ce78804a9e78d3b82aa4d53c3083af2f139f7d4220d9b5b841d048467b592e6(
+    *,
+    app_id: typing.Union[SecretStoreSpecProviderDvlsAuthSecretRefAppId, typing.Dict[builtins.str, typing.Any]],
+    app_secret: typing.Union[SecretStoreSpecProviderDvlsAuthSecretRefAppSecret, typing.Dict[builtins.str, typing.Any]],
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__ced0370db32d08feb5d54b75d32f1f3a2c4536daddfd6a0d8a37cf8b232ee224(
+    *,
+    key: typing.Optional[builtins.str] = None,
+    name: typing.Optional[builtins.str] = None,
+    namespace: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__dc1d2365ef334dfe488ba7e9b93fa5e0d62471e864254c31ffe1cdd641cc7274(
     *,
     key: typing.Optional[builtins.str] = None,
     name: typing.Optional[builtins.str] = None,
@@ -111145,6 +112894,8 @@ def _typecheckingstub__04fba857dc426841da1155a76d2c4ebcc7578ef2aea12274a93875d14
     *,
     auth: typing.Union[SecretStoreSpecProviderInfisicalAuth, typing.Dict[builtins.str, typing.Any]],
     secrets_scope: typing.Union[SecretStoreSpecProviderInfisicalSecretsScope, typing.Dict[builtins.str, typing.Any]],
+    ca_bundle: typing.Optional[builtins.str] = None,
+    ca_provider: typing.Optional[typing.Union[SecretStoreSpecProviderInfisicalCaProvider, typing.Dict[builtins.str, typing.Any]]] = None,
     host_api: typing.Optional[builtins.str] = None,
 ) -> None:
     """Type checking stubs"""
@@ -111456,6 +113207,16 @@ def _typecheckingstub__972adda814c20e66f418c71ff9f5d1bb4ff4c2b8cdb9d21719b577d35
     """Type checking stubs"""
     pass
 
+def _typecheckingstub__277bf88cd0c711a3d0dd6c1262610398fc11c0a1d976ce606b12298a8598146d(
+    *,
+    name: builtins.str,
+    type: SecretStoreSpecProviderInfisicalCaProviderType,
+    key: typing.Optional[builtins.str] = None,
+    namespace: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
 def _typecheckingstub__7ad542b1317611059dcd37d8c98dd0ddb2a42aa2a69601f647caf290aed09dcc(
     *,
     environment_slug: builtins.str,
@@ -111693,6 +113454,7 @@ def _typecheckingstub__c7f44d50626711b8f1cc45034c4a00f0d3f0bc360279d0e22e8673cb2
     *,
     auth: typing.Union[SecretStoreSpecProviderOnepasswordSdkAuth, typing.Dict[builtins.str, typing.Any]],
     vault: builtins.str,
+    cache: typing.Optional[typing.Union[SecretStoreSpecProviderOnepasswordSdkCache, typing.Dict[builtins.str, typing.Any]]] = None,
     integration_info: typing.Optional[typing.Union[SecretStoreSpecProviderOnepasswordSdkIntegrationInfo, typing.Dict[builtins.str, typing.Any]]] = None,
 ) -> None:
     """Type checking stubs"""
@@ -111710,6 +113472,14 @@ def _typecheckingstub__97a68f5ad674a54d829e369f487a2bd05b106ad3ac86dfcabfc90af5c
     key: typing.Optional[builtins.str] = None,
     name: typing.Optional[builtins.str] = None,
     namespace: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__1d4f308386953d0043c6f68dd296d314792b9def8e52c820f431b147ece01f45(
+    *,
+    max_size: typing.Optional[jsii.Number] = None,
+    ttl: typing.Optional[builtins.str] = None,
 ) -> None:
     """Type checking stubs"""
     pass

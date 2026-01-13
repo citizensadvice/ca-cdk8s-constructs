@@ -52,11 +52,11 @@ class Probe(
 
     def __init__(
         self,
-        scope: _constructs_77d1e7e8.Construct,
+        scope: "_constructs_77d1e7e8.Construct",
         id: builtins.str,
         *,
         spec: typing.Union["ProbeSpec", typing.Dict[builtins.str, typing.Any]],
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''Defines a "Probe" API object.
 
@@ -79,7 +79,7 @@ class Probe(
         cls,
         *,
         spec: typing.Union["ProbeSpec", typing.Dict[builtins.str, typing.Any]],
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> typing.Any:
         '''Renders a Kubernetes manifest for "Probe".
 
@@ -99,9 +99,9 @@ class Probe(
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="GVK")
-    def GVK(cls) -> _cdk8s_d3d9af27.GroupVersionKind:
+    def GVK(cls) -> "_cdk8s_d3d9af27.GroupVersionKind":
         '''Returns the apiVersion and kind for "Probe".'''
-        return typing.cast(_cdk8s_d3d9af27.GroupVersionKind, jsii.sget(cls, "GVK"))
+        return typing.cast("_cdk8s_d3d9af27.GroupVersionKind", jsii.sget(cls, "GVK"))
 
 
 @jsii.data_type(
@@ -114,7 +114,7 @@ class ProbeProps:
         self,
         *,
         spec: typing.Union["ProbeSpec", typing.Dict[builtins.str, typing.Any]],
-        metadata: typing.Optional[typing.Union[_cdk8s_d3d9af27.ApiObjectMetadata, typing.Dict[builtins.str, typing.Any]]] = None,
+        metadata: typing.Optional[typing.Union["_cdk8s_d3d9af27.ApiObjectMetadata", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''The ``Probe`` custom resource definition (CRD) defines how to scrape metrics from prober exporters such as the `blackbox exporter <https://github.com/prometheus/blackbox_exporter>`_.
 
@@ -155,12 +155,12 @@ class ProbeProps:
         return typing.cast("ProbeSpec", result)
 
     @builtins.property
-    def metadata(self) -> typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata]:
+    def metadata(self) -> typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"]:
         '''
         :schema: Probe#metadata
         '''
         result = self._values.get("metadata")
-        return typing.cast(typing.Optional[_cdk8s_d3d9af27.ApiObjectMetadata], result)
+        return typing.cast(typing.Optional["_cdk8s_d3d9af27.ApiObjectMetadata"], result)
 
     def __eq__(self, rhs: typing.Any) -> builtins.bool:
         return isinstance(rhs, self.__class__) and rhs._values == self._values
@@ -201,6 +201,7 @@ class ProbeProps:
         "sample_limit": "sampleLimit",
         "scrape_class": "scrapeClass",
         "scrape_classic_histograms": "scrapeClassicHistograms",
+        "scrape_native_histograms": "scrapeNativeHistograms",
         "scrape_protocols": "scrapeProtocols",
         "scrape_timeout": "scrapeTimeout",
         "target_limit": "targetLimit",
@@ -235,6 +236,7 @@ class ProbeSpec:
         sample_limit: typing.Optional[jsii.Number] = None,
         scrape_class: typing.Optional[builtins.str] = None,
         scrape_classic_histograms: typing.Optional[builtins.bool] = None,
+        scrape_native_histograms: typing.Optional[builtins.bool] = None,
         scrape_protocols: typing.Optional[typing.Sequence["ProbeSpecScrapeProtocols"]] = None,
         scrape_timeout: typing.Optional[builtins.str] = None,
         target_limit: typing.Optional[jsii.Number] = None,
@@ -266,6 +268,7 @@ class ProbeSpec:
         :param sample_limit: sampleLimit defines per-scrape limit on number of scraped samples that will be accepted.
         :param scrape_class: scrapeClass defines the scrape class to apply.
         :param scrape_classic_histograms: scrapeClassicHistograms defines whether to scrape a classic histogram that is also exposed as a native histogram. It requires Prometheus >= v2.45.0. Notice: ``scrapeClassicHistograms`` corresponds to the ``always_scrape_classic_histograms`` field in the Prometheus configuration.
+        :param scrape_native_histograms: scrapeNativeHistograms defines whether to enable scraping of native histograms. It requires Prometheus >= v3.8.0.
         :param scrape_protocols: scrapeProtocols defines the protocols to negotiate during a scrape. It tells clients the protocols supported by Prometheus in order of preference (from most to least preferred). If unset, Prometheus uses its default value. It requires Prometheus >= v2.49.0.
         :param scrape_timeout: scrapeTimeout defines the timeout for scraping metrics from the Prometheus exporter. If not specified, the Prometheus global scrape timeout is used. The value cannot be greater than the scrape interval otherwise the operator will reject the resource.
         :param target_limit: targetLimit defines a limit on the number of scraped targets that will be accepted.
@@ -313,6 +316,7 @@ class ProbeSpec:
             check_type(argname="argument sample_limit", value=sample_limit, expected_type=type_hints["sample_limit"])
             check_type(argname="argument scrape_class", value=scrape_class, expected_type=type_hints["scrape_class"])
             check_type(argname="argument scrape_classic_histograms", value=scrape_classic_histograms, expected_type=type_hints["scrape_classic_histograms"])
+            check_type(argname="argument scrape_native_histograms", value=scrape_native_histograms, expected_type=type_hints["scrape_native_histograms"])
             check_type(argname="argument scrape_protocols", value=scrape_protocols, expected_type=type_hints["scrape_protocols"])
             check_type(argname="argument scrape_timeout", value=scrape_timeout, expected_type=type_hints["scrape_timeout"])
             check_type(argname="argument target_limit", value=target_limit, expected_type=type_hints["target_limit"])
@@ -365,6 +369,8 @@ class ProbeSpec:
             self._values["scrape_class"] = scrape_class
         if scrape_classic_histograms is not None:
             self._values["scrape_classic_histograms"] = scrape_classic_histograms
+        if scrape_native_histograms is not None:
+            self._values["scrape_native_histograms"] = scrape_native_histograms
         if scrape_protocols is not None:
             self._values["scrape_protocols"] = scrape_protocols
         if scrape_timeout is not None:
@@ -635,6 +641,17 @@ class ProbeSpec:
         :schema: ProbeSpec#scrapeClassicHistograms
         '''
         result = self._values.get("scrape_classic_histograms")
+        return typing.cast(typing.Optional[builtins.bool], result)
+
+    @builtins.property
+    def scrape_native_histograms(self) -> typing.Optional[builtins.bool]:
+        '''scrapeNativeHistograms defines whether to enable scraping of native histograms.
+
+        It requires Prometheus >= v3.8.0.
+
+        :schema: ProbeSpec#scrapeNativeHistograms
+        '''
+        result = self._values.get("scrape_native_histograms")
         return typing.cast(typing.Optional[builtins.bool], result)
 
     @builtins.property
@@ -4741,6 +4758,7 @@ def _typecheckingstub__4da9453333edbc627c631d6c0043f58d9dc9b96a470aabc5bda67f045
     sample_limit: typing.Optional[jsii.Number] = None,
     scrape_class: typing.Optional[builtins.str] = None,
     scrape_classic_histograms: typing.Optional[builtins.bool] = None,
+    scrape_native_histograms: typing.Optional[builtins.bool] = None,
     scrape_protocols: typing.Optional[typing.Sequence[ProbeSpecScrapeProtocols]] = None,
     scrape_timeout: typing.Optional[builtins.str] = None,
     target_limit: typing.Optional[jsii.Number] = None,
