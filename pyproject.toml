@@ -1,6 +1,6 @@
 [project]
 name = "ca-cdk8s-constructs"
-version = "4.1.0"
+version = "4.2.0"
 description = "A collection of cdk8s constructs"
 readme = "README.md"
 requires-python = ">=3.10"
