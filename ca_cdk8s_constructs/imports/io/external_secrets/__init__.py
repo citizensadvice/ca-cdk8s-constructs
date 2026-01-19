@@ -14394,6 +14394,7 @@ class ClusterSecretStoreSpecProviderBeyondtrustAuthClientSecretSecretRef:
         "verify_ca": "verifyCa",
         "api_version": "apiVersion",
         "client_time_out_seconds": "clientTimeOutSeconds",
+        "decrypt": "decrypt",
         "retrieval_type": "retrievalType",
         "separator": "separator",
     },
@@ -14406,6 +14407,7 @@ class ClusterSecretStoreSpecProviderBeyondtrustServer:
         verify_ca: builtins.bool,
         api_version: typing.Optional[builtins.str] = None,
         client_time_out_seconds: typing.Optional[jsii.Number] = None,
+        decrypt: typing.Optional[builtins.bool] = None,
         retrieval_type: typing.Optional[builtins.str] = None,
         separator: typing.Optional[builtins.str] = None,
     ) -> None:
@@ -14415,6 +14417,7 @@ class ClusterSecretStoreSpecProviderBeyondtrustServer:
         :param verify_ca: 
         :param api_version: 
         :param client_time_out_seconds: Timeout specifies a time limit for requests made by this Client. The timeout includes connection time, any redirects, and reading the response body. Defaults to 45 seconds. Default: 45 seconds.
+        :param decrypt: When true, the response includes the decrypted password. When false, the password field is omitted. This option only applies to the SECRET retrieval type. Default: true.
         :param retrieval_type: The secret retrieval type. SECRET = Secrets Safe (credential, text, file). MANAGED_ACCOUNT = Password Safe account associated with a system.
         :param separator: A character that separates the folder names.
 
@@ -14426,6 +14429,7 @@ class ClusterSecretStoreSpecProviderBeyondtrustServer:
             check_type(argname="argument verify_ca", value=verify_ca, expected_type=type_hints["verify_ca"])
             check_type(argname="argument api_version", value=api_version, expected_type=type_hints["api_version"])
             check_type(argname="argument client_time_out_seconds", value=client_time_out_seconds, expected_type=type_hints["client_time_out_seconds"])
+            check_type(argname="argument decrypt", value=decrypt, expected_type=type_hints["decrypt"])
             check_type(argname="argument retrieval_type", value=retrieval_type, expected_type=type_hints["retrieval_type"])
             check_type(argname="argument separator", value=separator, expected_type=type_hints["separator"])
         self._values: typing.Dict[builtins.str, typing.Any] = {
@@ -14436,6 +14440,8 @@ class ClusterSecretStoreSpecProviderBeyondtrustServer:
             self._values["api_version"] = api_version
         if client_time_out_seconds is not None:
             self._values["client_time_out_seconds"] = client_time_out_seconds
+        if decrypt is not None:
+            self._values["decrypt"] = decrypt
         if retrieval_type is not None:
             self._values["retrieval_type"] = retrieval_type
         if separator is not None:
@@ -14479,6 +14485,17 @@ class ClusterSecretStoreSpecProviderBeyondtrustServer:
         '''
         result = self._values.get("client_time_out_seconds")
         return typing.cast(typing.Optional[jsii.Number], result)
+
+    @builtins.property
+    def decrypt(self) -> typing.Optional[builtins.bool]:
+        '''When true, the response includes the decrypted password.
+
+        When false, the password field is omitted. This option only applies to the SECRET retrieval type. Default: true.
+
+        :schema: ClusterSecretStoreSpecProviderBeyondtrustServer#decrypt
+        '''
+        result = self._values.get("decrypt")
+        return typing.cast(typing.Optional[builtins.bool], result)
 
     @builtins.property
     def retrieval_type(self) -> typing.Optional[builtins.str]:
@@ -39008,6 +39025,7 @@ class ClusterSecretStoreV1Beta1SpecProviderBeyondtrustAuthClientSecretSecretRef:
         "verify_ca": "verifyCa",
         "api_version": "apiVersion",
         "client_time_out_seconds": "clientTimeOutSeconds",
+        "decrypt": "decrypt",
         "retrieval_type": "retrievalType",
         "separator": "separator",
     },
@@ -39020,6 +39038,7 @@ class ClusterSecretStoreV1Beta1SpecProviderBeyondtrustServer:
         verify_ca: builtins.bool,
         api_version: typing.Optional[builtins.str] = None,
         client_time_out_seconds: typing.Optional[jsii.Number] = None,
+        decrypt: typing.Optional[builtins.bool] = None,
         retrieval_type: typing.Optional[builtins.str] = None,
         separator: typing.Optional[builtins.str] = None,
     ) -> None:
@@ -39029,6 +39048,7 @@ class ClusterSecretStoreV1Beta1SpecProviderBeyondtrustServer:
         :param verify_ca: 
         :param api_version: 
         :param client_time_out_seconds: Timeout specifies a time limit for requests made by this Client. The timeout includes connection time, any redirects, and reading the response body. Defaults to 45 seconds. Default: 45 seconds.
+        :param decrypt: When true, the response includes the decrypted password. When false, the password field is omitted. This option only applies to the SECRET retrieval type. Default: true.
         :param retrieval_type: The secret retrieval type. SECRET = Secrets Safe (credential, text, file). MANAGED_ACCOUNT = Password Safe account associated with a system.
         :param separator: A character that separates the folder names.
 
@@ -39040,6 +39060,7 @@ class ClusterSecretStoreV1Beta1SpecProviderBeyondtrustServer:
             check_type(argname="argument verify_ca", value=verify_ca, expected_type=type_hints["verify_ca"])
             check_type(argname="argument api_version", value=api_version, expected_type=type_hints["api_version"])
             check_type(argname="argument client_time_out_seconds", value=client_time_out_seconds, expected_type=type_hints["client_time_out_seconds"])
+            check_type(argname="argument decrypt", value=decrypt, expected_type=type_hints["decrypt"])
             check_type(argname="argument retrieval_type", value=retrieval_type, expected_type=type_hints["retrieval_type"])
             check_type(argname="argument separator", value=separator, expected_type=type_hints["separator"])
         self._values: typing.Dict[builtins.str, typing.Any] = {
@@ -39050,6 +39071,8 @@ class ClusterSecretStoreV1Beta1SpecProviderBeyondtrustServer:
             self._values["api_version"] = api_version
         if client_time_out_seconds is not None:
             self._values["client_time_out_seconds"] = client_time_out_seconds
+        if decrypt is not None:
+            self._values["decrypt"] = decrypt
         if retrieval_type is not None:
             self._values["retrieval_type"] = retrieval_type
         if separator is not None:
@@ -39093,6 +39116,17 @@ class ClusterSecretStoreV1Beta1SpecProviderBeyondtrustServer:
         '''
         result = self._values.get("client_time_out_seconds")
         return typing.cast(typing.Optional[jsii.Number], result)
+
+    @builtins.property
+    def decrypt(self) -> typing.Optional[builtins.bool]:
+        '''When true, the response includes the decrypted password.
+
+        When false, the password field is omitted. This option only applies to the SECRET retrieval type. Default: true.
+
+        :schema: ClusterSecretStoreV1Beta1SpecProviderBeyondtrustServer#decrypt
+        '''
+        result = self._values.get("decrypt")
+        return typing.cast(typing.Optional[builtins.bool], result)
 
     @builtins.property
     def retrieval_type(self) -> typing.Optional[builtins.str]:
@@ -65617,6 +65651,7 @@ class SecretStoreSpecProviderBeyondtrustAuthClientSecretSecretRef:
         "verify_ca": "verifyCa",
         "api_version": "apiVersion",
         "client_time_out_seconds": "clientTimeOutSeconds",
+        "decrypt": "decrypt",
         "retrieval_type": "retrievalType",
         "separator": "separator",
     },
@@ -65629,6 +65664,7 @@ class SecretStoreSpecProviderBeyondtrustServer:
         verify_ca: builtins.bool,
         api_version: typing.Optional[builtins.str] = None,
         client_time_out_seconds: typing.Optional[jsii.Number] = None,
+        decrypt: typing.Optional[builtins.bool] = None,
         retrieval_type: typing.Optional[builtins.str] = None,
         separator: typing.Optional[builtins.str] = None,
     ) -> None:
@@ -65638,6 +65674,7 @@ class SecretStoreSpecProviderBeyondtrustServer:
         :param verify_ca: 
         :param api_version: 
         :param client_time_out_seconds: Timeout specifies a time limit for requests made by this Client. The timeout includes connection time, any redirects, and reading the response body. Defaults to 45 seconds. Default: 45 seconds.
+        :param decrypt: When true, the response includes the decrypted password. When false, the password field is omitted. This option only applies to the SECRET retrieval type. Default: true.
         :param retrieval_type: The secret retrieval type. SECRET = Secrets Safe (credential, text, file). MANAGED_ACCOUNT = Password Safe account associated with a system.
         :param separator: A character that separates the folder names.
 
@@ -65649,6 +65686,7 @@ class SecretStoreSpecProviderBeyondtrustServer:
             check_type(argname="argument verify_ca", value=verify_ca, expected_type=type_hints["verify_ca"])
             check_type(argname="argument api_version", value=api_version, expected_type=type_hints["api_version"])
             check_type(argname="argument client_time_out_seconds", value=client_time_out_seconds, expected_type=type_hints["client_time_out_seconds"])
+            check_type(argname="argument decrypt", value=decrypt, expected_type=type_hints["decrypt"])
             check_type(argname="argument retrieval_type", value=retrieval_type, expected_type=type_hints["retrieval_type"])
             check_type(argname="argument separator", value=separator, expected_type=type_hints["separator"])
         self._values: typing.Dict[builtins.str, typing.Any] = {
@@ -65659,6 +65697,8 @@ class SecretStoreSpecProviderBeyondtrustServer:
             self._values["api_version"] = api_version
         if client_time_out_seconds is not None:
             self._values["client_time_out_seconds"] = client_time_out_seconds
+        if decrypt is not None:
+            self._values["decrypt"] = decrypt
         if retrieval_type is not None:
             self._values["retrieval_type"] = retrieval_type
         if separator is not None:
@@ -65702,6 +65742,17 @@ class SecretStoreSpecProviderBeyondtrustServer:
         '''
         result = self._values.get("client_time_out_seconds")
         return typing.cast(typing.Optional[jsii.Number], result)
+
+    @builtins.property
+    def decrypt(self) -> typing.Optional[builtins.bool]:
+        '''When true, the response includes the decrypted password.
+
+        When false, the password field is omitted. This option only applies to the SECRET retrieval type. Default: true.
+
+        :schema: SecretStoreSpecProviderBeyondtrustServer#decrypt
+        '''
+        result = self._values.get("decrypt")
+        return typing.cast(typing.Optional[builtins.bool], result)
 
     @builtins.property
     def retrieval_type(self) -> typing.Optional[builtins.str]:
@@ -90139,6 +90190,7 @@ class SecretStoreV1Beta1SpecProviderBeyondtrustAuthClientSecretSecretRef:
         "verify_ca": "verifyCa",
         "api_version": "apiVersion",
         "client_time_out_seconds": "clientTimeOutSeconds",
+        "decrypt": "decrypt",
         "retrieval_type": "retrievalType",
         "separator": "separator",
     },
@@ -90151,6 +90203,7 @@ class SecretStoreV1Beta1SpecProviderBeyondtrustServer:
         verify_ca: builtins.bool,
         api_version: typing.Optional[builtins.str] = None,
         client_time_out_seconds: typing.Optional[jsii.Number] = None,
+        decrypt: typing.Optional[builtins.bool] = None,
         retrieval_type: typing.Optional[builtins.str] = None,
         separator: typing.Optional[builtins.str] = None,
     ) -> None:
@@ -90160,6 +90213,7 @@ class SecretStoreV1Beta1SpecProviderBeyondtrustServer:
         :param verify_ca: 
         :param api_version: 
         :param client_time_out_seconds: Timeout specifies a time limit for requests made by this Client. The timeout includes connection time, any redirects, and reading the response body. Defaults to 45 seconds. Default: 45 seconds.
+        :param decrypt: When true, the response includes the decrypted password. When false, the password field is omitted. This option only applies to the SECRET retrieval type. Default: true.
         :param retrieval_type: The secret retrieval type. SECRET = Secrets Safe (credential, text, file). MANAGED_ACCOUNT = Password Safe account associated with a system.
         :param separator: A character that separates the folder names.
 
@@ -90171,6 +90225,7 @@ class SecretStoreV1Beta1SpecProviderBeyondtrustServer:
             check_type(argname="argument verify_ca", value=verify_ca, expected_type=type_hints["verify_ca"])
             check_type(argname="argument api_version", value=api_version, expected_type=type_hints["api_version"])
             check_type(argname="argument client_time_out_seconds", value=client_time_out_seconds, expected_type=type_hints["client_time_out_seconds"])
+            check_type(argname="argument decrypt", value=decrypt, expected_type=type_hints["decrypt"])
             check_type(argname="argument retrieval_type", value=retrieval_type, expected_type=type_hints["retrieval_type"])
             check_type(argname="argument separator", value=separator, expected_type=type_hints["separator"])
         self._values: typing.Dict[builtins.str, typing.Any] = {
@@ -90181,6 +90236,8 @@ class SecretStoreV1Beta1SpecProviderBeyondtrustServer:
             self._values["api_version"] = api_version
         if client_time_out_seconds is not None:
             self._values["client_time_out_seconds"] = client_time_out_seconds
+        if decrypt is not None:
+            self._values["decrypt"] = decrypt
         if retrieval_type is not None:
             self._values["retrieval_type"] = retrieval_type
         if separator is not None:
@@ -90224,6 +90281,17 @@ class SecretStoreV1Beta1SpecProviderBeyondtrustServer:
         '''
         result = self._values.get("client_time_out_seconds")
         return typing.cast(typing.Optional[jsii.Number], result)
+
+    @builtins.property
+    def decrypt(self) -> typing.Optional[builtins.bool]:
+        '''When true, the response includes the decrypted password.
+
+        When false, the password field is omitted. This option only applies to the SECRET retrieval type. Default: true.
+
+        :schema: SecretStoreV1Beta1SpecProviderBeyondtrustServer#decrypt
+        '''
+        result = self._values.get("decrypt")
+        return typing.cast(typing.Optional[builtins.bool], result)
 
     @builtins.property
     def retrieval_type(self) -> typing.Optional[builtins.str]:
@@ -106757,6 +106825,7 @@ def _typecheckingstub__d0fc2047013d9df29b8790baf5b9a8708154d054b60e41e42e2a69ad4
     verify_ca: builtins.bool,
     api_version: typing.Optional[builtins.str] = None,
     client_time_out_seconds: typing.Optional[jsii.Number] = None,
+    decrypt: typing.Optional[builtins.bool] = None,
     retrieval_type: typing.Optional[builtins.str] = None,
     separator: typing.Optional[builtins.str] = None,
 ) -> None:
@@ -109439,6 +109508,7 @@ def _typecheckingstub__4baad16e8885afc816e35320219242f427726fad7c713c13199df71c3
     verify_ca: builtins.bool,
     api_version: typing.Optional[builtins.str] = None,
     client_time_out_seconds: typing.Optional[jsii.Number] = None,
+    decrypt: typing.Optional[builtins.bool] = None,
     retrieval_type: typing.Optional[builtins.str] = None,
     separator: typing.Optional[builtins.str] = None,
 ) -> None:
@@ -112250,6 +112320,7 @@ def _typecheckingstub__56a00d3c261c952c60132f5a03d2c46520abe5b9addc3bf710264fe67
     verify_ca: builtins.bool,
     api_version: typing.Optional[builtins.str] = None,
     client_time_out_seconds: typing.Optional[jsii.Number] = None,
+    decrypt: typing.Optional[builtins.bool] = None,
     retrieval_type: typing.Optional[builtins.str] = None,
     separator: typing.Optional[builtins.str] = None,
 ) -> None:
@@ -114932,6 +115003,7 @@ def _typecheckingstub__e3a45e59ccaf8d835902daa56d4287a9108ffbc3c080277441ed37dbf
     verify_ca: builtins.bool,
     api_version: typing.Optional[builtins.str] = None,
     client_time_out_seconds: typing.Optional[jsii.Number] = None,
+    decrypt: typing.Optional[builtins.bool] = None,
     retrieval_type: typing.Optional[builtins.str] = None,
     separator: typing.Optional[builtins.str] = None,
 ) -> None:
