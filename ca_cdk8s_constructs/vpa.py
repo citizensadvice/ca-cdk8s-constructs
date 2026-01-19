@@ -22,13 +22,15 @@ class VpaUpdateMode(enum.Enum):
     - OFF: VPA will only provide the recommendations, and it will not automatically change resource requirements.
     - INITIAL: VPA only assigns resource requests on pod creation and never changes them later.
     - RECREATE: VPA assigns resource requests on pod creation time and updates them on existing pods by evicting and recreating them.
-    - AUTO: It recreates the pod based on the recommendation.
+    - IN_PLACE_OR_RECREATE: VPA resizes running pods in-place or recreates them if in-place resize is not possible.
+    - AUTO: (DEPRECATED) It recreates the pod based on the recommendation.
     """
 
     OFF = "off"
     INITIAL = "initial"
     RECREATE = "recreate"
     AUTO = "auto"
+    IN_PLACE_OR_RECREATE = "in_place_or_recreate"
 
     def to_vpa_mode(self) -> VerticalPodAutoscalerSpecUpdatePolicyUpdateMode:
         """Convert to the underlying VPA update mode enum."""
@@ -37,6 +39,7 @@ class VpaUpdateMode(enum.Enum):
             VpaUpdateMode.INITIAL: VerticalPodAutoscalerSpecUpdatePolicyUpdateMode.INITIAL,
             VpaUpdateMode.RECREATE: VerticalPodAutoscalerSpecUpdatePolicyUpdateMode.RECREATE,
             VpaUpdateMode.AUTO: VerticalPodAutoscalerSpecUpdatePolicyUpdateMode.AUTO,
+            VpaUpdateMode.IN_PLACE_OR_RECREATE: VerticalPodAutoscalerSpecUpdatePolicyUpdateMode.IN_PLACE_OR_RECREATE,
         }
         return mode_map[self]
 
@@ -46,7 +49,7 @@ def ca_vpa(
     id: str,
     target: Workload,
     min_allowed_cpu: Cpu = Cpu.millis(100),
-    update_mode: VpaUpdateMode = VpaUpdateMode.AUTO,
+    update_mode: VpaUpdateMode = VpaUpdateMode.IN_PLACE_OR_RECREATE,
 ) -> VerticalPodAutoscaler:
     """Returns a VerticalPodAutoscaler for a target.
 
