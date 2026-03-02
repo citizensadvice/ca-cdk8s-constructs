@@ -9302,7 +9302,6 @@ class ClusterSecretStoreSpecConditionsNamespaceSelectorMatchExpressions:
     jsii_struct_bases=[],
     name_mapping={
         "akeyless": "akeyless",
-        "alibaba": "alibaba",
         "aws": "aws",
         "azurekv": "azurekv",
         "barbican": "barbican",
@@ -9312,7 +9311,6 @@ class ClusterSecretStoreSpecConditionsNamespaceSelectorMatchExpressions:
         "cloudrusm": "cloudrusm",
         "conjur": "conjur",
         "delinea": "delinea",
-        "device42": "device42",
         "doppler": "doppler",
         "dvls": "dvls",
         "fake": "fake",
@@ -9348,7 +9346,6 @@ class ClusterSecretStoreSpecProvider:
         self,
         *,
         akeyless: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderAkeyless", typing.Dict[builtins.str, typing.Any]]] = None,
-        alibaba: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderAlibaba", typing.Dict[builtins.str, typing.Any]]] = None,
         aws: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderAws", typing.Dict[builtins.str, typing.Any]]] = None,
         azurekv: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderAzurekv", typing.Dict[builtins.str, typing.Any]]] = None,
         barbican: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderBarbican", typing.Dict[builtins.str, typing.Any]]] = None,
@@ -9358,7 +9355,6 @@ class ClusterSecretStoreSpecProvider:
         cloudrusm: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderCloudrusm", typing.Dict[builtins.str, typing.Any]]] = None,
         conjur: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderConjur", typing.Dict[builtins.str, typing.Any]]] = None,
         delinea: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderDelinea", typing.Dict[builtins.str, typing.Any]]] = None,
-        device42: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderDevice42", typing.Dict[builtins.str, typing.Any]]] = None,
         doppler: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderDoppler", typing.Dict[builtins.str, typing.Any]]] = None,
         dvls: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderDvls", typing.Dict[builtins.str, typing.Any]]] = None,
         fake: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderFake", typing.Dict[builtins.str, typing.Any]]] = None,
@@ -9393,7 +9389,6 @@ class ClusterSecretStoreSpecProvider:
         Only one provider may be set
 
         :param akeyless: Akeyless configures this store to sync secrets using Akeyless Vault provider.
-        :param alibaba: Alibaba configures this store to sync secrets using Alibaba Cloud provider.
         :param aws: AWS configures this store to sync secrets using AWS Secret Manager provider.
         :param azurekv: AzureKV configures this store to sync secrets using Azure Key Vault provider.
         :param barbican: Barbican configures this store to sync secrets using the OpenStack Barbican provider.
@@ -9403,7 +9398,6 @@ class ClusterSecretStoreSpecProvider:
         :param cloudrusm: CloudruSM configures this store to sync secrets using the Cloud.ru Secret Manager provider.
         :param conjur: Conjur configures this store to sync secrets using conjur provider.
         :param delinea: Delinea DevOps Secrets Vault https://docs.delinea.com/online-help/products/devops-secrets-vault/current.
-        :param device42: Device42 configures this store to sync secrets using the Device42 provider.
         :param doppler: Doppler configures this store to sync secrets using the Doppler provider.
         :param dvls: DVLS configures this store to sync secrets using Devolutions Server provider.
         :param fake: Fake configures a store with static key/value pairs.
@@ -9437,8 +9431,6 @@ class ClusterSecretStoreSpecProvider:
         '''
         if isinstance(akeyless, dict):
             akeyless = ClusterSecretStoreSpecProviderAkeyless(**akeyless)
-        if isinstance(alibaba, dict):
-            alibaba = ClusterSecretStoreSpecProviderAlibaba(**alibaba)
         if isinstance(aws, dict):
             aws = ClusterSecretStoreSpecProviderAws(**aws)
         if isinstance(azurekv, dict):
@@ -9457,8 +9449,6 @@ class ClusterSecretStoreSpecProvider:
             conjur = ClusterSecretStoreSpecProviderConjur(**conjur)
         if isinstance(delinea, dict):
             delinea = ClusterSecretStoreSpecProviderDelinea(**delinea)
-        if isinstance(device42, dict):
-            device42 = ClusterSecretStoreSpecProviderDevice42(**device42)
         if isinstance(doppler, dict):
             doppler = ClusterSecretStoreSpecProviderDoppler(**doppler)
         if isinstance(dvls, dict):
@@ -9518,7 +9508,6 @@ class ClusterSecretStoreSpecProvider:
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__b577f0ccbbef07f08ad1ab52f92fc2ed139f3591354a8294c647ea76a6470491)
             check_type(argname="argument akeyless", value=akeyless, expected_type=type_hints["akeyless"])
-            check_type(argname="argument alibaba", value=alibaba, expected_type=type_hints["alibaba"])
             check_type(argname="argument aws", value=aws, expected_type=type_hints["aws"])
             check_type(argname="argument azurekv", value=azurekv, expected_type=type_hints["azurekv"])
             check_type(argname="argument barbican", value=barbican, expected_type=type_hints["barbican"])
@@ -9528,7 +9517,6 @@ class ClusterSecretStoreSpecProvider:
             check_type(argname="argument cloudrusm", value=cloudrusm, expected_type=type_hints["cloudrusm"])
             check_type(argname="argument conjur", value=conjur, expected_type=type_hints["conjur"])
             check_type(argname="argument delinea", value=delinea, expected_type=type_hints["delinea"])
-            check_type(argname="argument device42", value=device42, expected_type=type_hints["device42"])
             check_type(argname="argument doppler", value=doppler, expected_type=type_hints["doppler"])
             check_type(argname="argument dvls", value=dvls, expected_type=type_hints["dvls"])
             check_type(argname="argument fake", value=fake, expected_type=type_hints["fake"])
@@ -9560,8 +9548,6 @@ class ClusterSecretStoreSpecProvider:
         self._values: typing.Dict[builtins.str, typing.Any] = {}
         if akeyless is not None:
             self._values["akeyless"] = akeyless
-        if alibaba is not None:
-            self._values["alibaba"] = alibaba
         if aws is not None:
             self._values["aws"] = aws
         if azurekv is not None:
@@ -9580,8 +9566,6 @@ class ClusterSecretStoreSpecProvider:
             self._values["conjur"] = conjur
         if delinea is not None:
             self._values["delinea"] = delinea
-        if device42 is not None:
-            self._values["device42"] = device42
         if doppler is not None:
             self._values["doppler"] = doppler
         if dvls is not None:
@@ -9647,15 +9631,6 @@ class ClusterSecretStoreSpecProvider:
         '''
         result = self._values.get("akeyless")
         return typing.cast(typing.Optional["ClusterSecretStoreSpecProviderAkeyless"], result)
-
-    @builtins.property
-    def alibaba(self) -> typing.Optional["ClusterSecretStoreSpecProviderAlibaba"]:
-        '''Alibaba configures this store to sync secrets using Alibaba Cloud provider.
-
-        :schema: ClusterSecretStoreSpecProvider#alibaba
-        '''
-        result = self._values.get("alibaba")
-        return typing.cast(typing.Optional["ClusterSecretStoreSpecProviderAlibaba"], result)
 
     @builtins.property
     def aws(self) -> typing.Optional["ClusterSecretStoreSpecProviderAws"]:
@@ -9741,15 +9716,6 @@ class ClusterSecretStoreSpecProvider:
         '''
         result = self._values.get("delinea")
         return typing.cast(typing.Optional["ClusterSecretStoreSpecProviderDelinea"], result)
-
-    @builtins.property
-    def device42(self) -> typing.Optional["ClusterSecretStoreSpecProviderDevice42"]:
-        '''Device42 configures this store to sync secrets using the Device42 provider.
-
-        :schema: ClusterSecretStoreSpecProvider#device42
-        '''
-        result = self._values.get("device42")
-        return typing.cast(typing.Optional["ClusterSecretStoreSpecProviderDevice42"], result)
 
     @builtins.property
     def doppler(self) -> typing.Optional["ClusterSecretStoreSpecProviderDoppler"]:
@@ -10913,447 +10879,6 @@ class ClusterSecretStoreSpecProviderAkeylessCaProviderType(enum.Enum):
     '''Secret.'''
     CONFIG_MAP = "CONFIG_MAP"
     '''ConfigMap.'''
-
-
-@jsii.data_type(
-    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderAlibaba",
-    jsii_struct_bases=[],
-    name_mapping={"auth": "auth", "region_id": "regionId"},
-)
-class ClusterSecretStoreSpecProviderAlibaba:
-    def __init__(
-        self,
-        *,
-        auth: typing.Union["ClusterSecretStoreSpecProviderAlibabaAuth", typing.Dict[builtins.str, typing.Any]],
-        region_id: builtins.str,
-    ) -> None:
-        '''Alibaba configures this store to sync secrets using Alibaba Cloud provider.
-
-        :param auth: AlibabaAuth contains a secretRef for credentials.
-        :param region_id: Alibaba Region to be used for the provider.
-
-        :schema: ClusterSecretStoreSpecProviderAlibaba
-        '''
-        if isinstance(auth, dict):
-            auth = ClusterSecretStoreSpecProviderAlibabaAuth(**auth)
-        if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__a5ff624b83768ab7e3f6981bd9dbaf0c920598597111dc90a49f4e43af854503)
-            check_type(argname="argument auth", value=auth, expected_type=type_hints["auth"])
-            check_type(argname="argument region_id", value=region_id, expected_type=type_hints["region_id"])
-        self._values: typing.Dict[builtins.str, typing.Any] = {
-            "auth": auth,
-            "region_id": region_id,
-        }
-
-    @builtins.property
-    def auth(self) -> "ClusterSecretStoreSpecProviderAlibabaAuth":
-        '''AlibabaAuth contains a secretRef for credentials.
-
-        :schema: ClusterSecretStoreSpecProviderAlibaba#auth
-        '''
-        result = self._values.get("auth")
-        assert result is not None, "Required property 'auth' is missing"
-        return typing.cast("ClusterSecretStoreSpecProviderAlibabaAuth", result)
-
-    @builtins.property
-    def region_id(self) -> builtins.str:
-        '''Alibaba Region to be used for the provider.
-
-        :schema: ClusterSecretStoreSpecProviderAlibaba#regionID
-        '''
-        result = self._values.get("region_id")
-        assert result is not None, "Required property 'region_id' is missing"
-        return typing.cast(builtins.str, result)
-
-    def __eq__(self, rhs: typing.Any) -> builtins.bool:
-        return isinstance(rhs, self.__class__) and rhs._values == self._values
-
-    def __ne__(self, rhs: typing.Any) -> builtins.bool:
-        return not (rhs == self)
-
-    def __repr__(self) -> str:
-        return "ClusterSecretStoreSpecProviderAlibaba(%s)" % ", ".join(
-            k + "=" + repr(v) for k, v in self._values.items()
-        )
-
-
-@jsii.data_type(
-    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderAlibabaAuth",
-    jsii_struct_bases=[],
-    name_mapping={"rrsa": "rrsa", "secret_ref": "secretRef"},
-)
-class ClusterSecretStoreSpecProviderAlibabaAuth:
-    def __init__(
-        self,
-        *,
-        rrsa: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderAlibabaAuthRrsa", typing.Dict[builtins.str, typing.Any]]] = None,
-        secret_ref: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderAlibabaAuthSecretRef", typing.Dict[builtins.str, typing.Any]]] = None,
-    ) -> None:
-        '''AlibabaAuth contains a secretRef for credentials.
-
-        :param rrsa: AlibabaRRSAAuth authenticates against Alibaba using RRSA.
-        :param secret_ref: AlibabaAuthSecretRef holds secret references for Alibaba credentials.
-
-        :schema: ClusterSecretStoreSpecProviderAlibabaAuth
-        '''
-        if isinstance(rrsa, dict):
-            rrsa = ClusterSecretStoreSpecProviderAlibabaAuthRrsa(**rrsa)
-        if isinstance(secret_ref, dict):
-            secret_ref = ClusterSecretStoreSpecProviderAlibabaAuthSecretRef(**secret_ref)
-        if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__a3e71811aee1daf711f7bac2275e4c3a683aa7203798d77f39b0ef34d5bd4d8f)
-            check_type(argname="argument rrsa", value=rrsa, expected_type=type_hints["rrsa"])
-            check_type(argname="argument secret_ref", value=secret_ref, expected_type=type_hints["secret_ref"])
-        self._values: typing.Dict[builtins.str, typing.Any] = {}
-        if rrsa is not None:
-            self._values["rrsa"] = rrsa
-        if secret_ref is not None:
-            self._values["secret_ref"] = secret_ref
-
-    @builtins.property
-    def rrsa(self) -> typing.Optional["ClusterSecretStoreSpecProviderAlibabaAuthRrsa"]:
-        '''AlibabaRRSAAuth authenticates against Alibaba using RRSA.
-
-        :schema: ClusterSecretStoreSpecProviderAlibabaAuth#rrsa
-        '''
-        result = self._values.get("rrsa")
-        return typing.cast(typing.Optional["ClusterSecretStoreSpecProviderAlibabaAuthRrsa"], result)
-
-    @builtins.property
-    def secret_ref(
-        self,
-    ) -> typing.Optional["ClusterSecretStoreSpecProviderAlibabaAuthSecretRef"]:
-        '''AlibabaAuthSecretRef holds secret references for Alibaba credentials.
-
-        :schema: ClusterSecretStoreSpecProviderAlibabaAuth#secretRef
-        '''
-        result = self._values.get("secret_ref")
-        return typing.cast(typing.Optional["ClusterSecretStoreSpecProviderAlibabaAuthSecretRef"], result)
-
-    def __eq__(self, rhs: typing.Any) -> builtins.bool:
-        return isinstance(rhs, self.__class__) and rhs._values == self._values
-
-    def __ne__(self, rhs: typing.Any) -> builtins.bool:
-        return not (rhs == self)
-
-    def __repr__(self) -> str:
-        return "ClusterSecretStoreSpecProviderAlibabaAuth(%s)" % ", ".join(
-            k + "=" + repr(v) for k, v in self._values.items()
-        )
-
-
-@jsii.data_type(
-    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderAlibabaAuthRrsa",
-    jsii_struct_bases=[],
-    name_mapping={
-        "oidc_provider_arn": "oidcProviderArn",
-        "oidc_token_file_path": "oidcTokenFilePath",
-        "role_arn": "roleArn",
-        "session_name": "sessionName",
-    },
-)
-class ClusterSecretStoreSpecProviderAlibabaAuthRrsa:
-    def __init__(
-        self,
-        *,
-        oidc_provider_arn: builtins.str,
-        oidc_token_file_path: builtins.str,
-        role_arn: builtins.str,
-        session_name: builtins.str,
-    ) -> None:
-        '''AlibabaRRSAAuth authenticates against Alibaba using RRSA.
-
-        :param oidc_provider_arn: 
-        :param oidc_token_file_path: 
-        :param role_arn: 
-        :param session_name: 
-
-        :schema: ClusterSecretStoreSpecProviderAlibabaAuthRrsa
-        '''
-        if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__c9b387e718990c982ab8ed3bda219992a33a3611431a7be98fa20bfdec2d8004)
-            check_type(argname="argument oidc_provider_arn", value=oidc_provider_arn, expected_type=type_hints["oidc_provider_arn"])
-            check_type(argname="argument oidc_token_file_path", value=oidc_token_file_path, expected_type=type_hints["oidc_token_file_path"])
-            check_type(argname="argument role_arn", value=role_arn, expected_type=type_hints["role_arn"])
-            check_type(argname="argument session_name", value=session_name, expected_type=type_hints["session_name"])
-        self._values: typing.Dict[builtins.str, typing.Any] = {
-            "oidc_provider_arn": oidc_provider_arn,
-            "oidc_token_file_path": oidc_token_file_path,
-            "role_arn": role_arn,
-            "session_name": session_name,
-        }
-
-    @builtins.property
-    def oidc_provider_arn(self) -> builtins.str:
-        '''
-        :schema: ClusterSecretStoreSpecProviderAlibabaAuthRrsa#oidcProviderArn
-        '''
-        result = self._values.get("oidc_provider_arn")
-        assert result is not None, "Required property 'oidc_provider_arn' is missing"
-        return typing.cast(builtins.str, result)
-
-    @builtins.property
-    def oidc_token_file_path(self) -> builtins.str:
-        '''
-        :schema: ClusterSecretStoreSpecProviderAlibabaAuthRrsa#oidcTokenFilePath
-        '''
-        result = self._values.get("oidc_token_file_path")
-        assert result is not None, "Required property 'oidc_token_file_path' is missing"
-        return typing.cast(builtins.str, result)
-
-    @builtins.property
-    def role_arn(self) -> builtins.str:
-        '''
-        :schema: ClusterSecretStoreSpecProviderAlibabaAuthRrsa#roleArn
-        '''
-        result = self._values.get("role_arn")
-        assert result is not None, "Required property 'role_arn' is missing"
-        return typing.cast(builtins.str, result)
-
-    @builtins.property
-    def session_name(self) -> builtins.str:
-        '''
-        :schema: ClusterSecretStoreSpecProviderAlibabaAuthRrsa#sessionName
-        '''
-        result = self._values.get("session_name")
-        assert result is not None, "Required property 'session_name' is missing"
-        return typing.cast(builtins.str, result)
-
-    def __eq__(self, rhs: typing.Any) -> builtins.bool:
-        return isinstance(rhs, self.__class__) and rhs._values == self._values
-
-    def __ne__(self, rhs: typing.Any) -> builtins.bool:
-        return not (rhs == self)
-
-    def __repr__(self) -> str:
-        return "ClusterSecretStoreSpecProviderAlibabaAuthRrsa(%s)" % ", ".join(
-            k + "=" + repr(v) for k, v in self._values.items()
-        )
-
-
-@jsii.data_type(
-    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderAlibabaAuthSecretRef",
-    jsii_struct_bases=[],
-    name_mapping={
-        "access_key_id_secret_ref": "accessKeyIdSecretRef",
-        "access_key_secret_secret_ref": "accessKeySecretSecretRef",
-    },
-)
-class ClusterSecretStoreSpecProviderAlibabaAuthSecretRef:
-    def __init__(
-        self,
-        *,
-        access_key_id_secret_ref: typing.Union["ClusterSecretStoreSpecProviderAlibabaAuthSecretRefAccessKeyIdSecretRef", typing.Dict[builtins.str, typing.Any]],
-        access_key_secret_secret_ref: typing.Union["ClusterSecretStoreSpecProviderAlibabaAuthSecretRefAccessKeySecretSecretRef", typing.Dict[builtins.str, typing.Any]],
-    ) -> None:
-        '''AlibabaAuthSecretRef holds secret references for Alibaba credentials.
-
-        :param access_key_id_secret_ref: The AccessKeyID is used for authentication.
-        :param access_key_secret_secret_ref: The AccessKeySecret is used for authentication.
-
-        :schema: ClusterSecretStoreSpecProviderAlibabaAuthSecretRef
-        '''
-        if isinstance(access_key_id_secret_ref, dict):
-            access_key_id_secret_ref = ClusterSecretStoreSpecProviderAlibabaAuthSecretRefAccessKeyIdSecretRef(**access_key_id_secret_ref)
-        if isinstance(access_key_secret_secret_ref, dict):
-            access_key_secret_secret_ref = ClusterSecretStoreSpecProviderAlibabaAuthSecretRefAccessKeySecretSecretRef(**access_key_secret_secret_ref)
-        if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__91e926199bf20fc1a102ce65ad3b639e0398edcf53243008995020f063edf9ab)
-            check_type(argname="argument access_key_id_secret_ref", value=access_key_id_secret_ref, expected_type=type_hints["access_key_id_secret_ref"])
-            check_type(argname="argument access_key_secret_secret_ref", value=access_key_secret_secret_ref, expected_type=type_hints["access_key_secret_secret_ref"])
-        self._values: typing.Dict[builtins.str, typing.Any] = {
-            "access_key_id_secret_ref": access_key_id_secret_ref,
-            "access_key_secret_secret_ref": access_key_secret_secret_ref,
-        }
-
-    @builtins.property
-    def access_key_id_secret_ref(
-        self,
-    ) -> "ClusterSecretStoreSpecProviderAlibabaAuthSecretRefAccessKeyIdSecretRef":
-        '''The AccessKeyID is used for authentication.
-
-        :schema: ClusterSecretStoreSpecProviderAlibabaAuthSecretRef#accessKeyIDSecretRef
-        '''
-        result = self._values.get("access_key_id_secret_ref")
-        assert result is not None, "Required property 'access_key_id_secret_ref' is missing"
-        return typing.cast("ClusterSecretStoreSpecProviderAlibabaAuthSecretRefAccessKeyIdSecretRef", result)
-
-    @builtins.property
-    def access_key_secret_secret_ref(
-        self,
-    ) -> "ClusterSecretStoreSpecProviderAlibabaAuthSecretRefAccessKeySecretSecretRef":
-        '''The AccessKeySecret is used for authentication.
-
-        :schema: ClusterSecretStoreSpecProviderAlibabaAuthSecretRef#accessKeySecretSecretRef
-        '''
-        result = self._values.get("access_key_secret_secret_ref")
-        assert result is not None, "Required property 'access_key_secret_secret_ref' is missing"
-        return typing.cast("ClusterSecretStoreSpecProviderAlibabaAuthSecretRefAccessKeySecretSecretRef", result)
-
-    def __eq__(self, rhs: typing.Any) -> builtins.bool:
-        return isinstance(rhs, self.__class__) and rhs._values == self._values
-
-    def __ne__(self, rhs: typing.Any) -> builtins.bool:
-        return not (rhs == self)
-
-    def __repr__(self) -> str:
-        return "ClusterSecretStoreSpecProviderAlibabaAuthSecretRef(%s)" % ", ".join(
-            k + "=" + repr(v) for k, v in self._values.items()
-        )
-
-
-@jsii.data_type(
-    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderAlibabaAuthSecretRefAccessKeyIdSecretRef",
-    jsii_struct_bases=[],
-    name_mapping={"key": "key", "name": "name", "namespace": "namespace"},
-)
-class ClusterSecretStoreSpecProviderAlibabaAuthSecretRefAccessKeyIdSecretRef:
-    def __init__(
-        self,
-        *,
-        key: typing.Optional[builtins.str] = None,
-        name: typing.Optional[builtins.str] = None,
-        namespace: typing.Optional[builtins.str] = None,
-    ) -> None:
-        '''The AccessKeyID is used for authentication.
-
-        :param key: A key in the referenced Secret. Some instances of this field may be defaulted, in others it may be required.
-        :param name: The name of the Secret resource being referred to.
-        :param namespace: The namespace of the Secret resource being referred to. Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
-
-        :schema: ClusterSecretStoreSpecProviderAlibabaAuthSecretRefAccessKeyIdSecretRef
-        '''
-        if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__577c863fea491e359b51abf5fe73e1d4acc1c81ea7401361e1c6cd8c07c011ee)
-            check_type(argname="argument key", value=key, expected_type=type_hints["key"])
-            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
-            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
-        self._values: typing.Dict[builtins.str, typing.Any] = {}
-        if key is not None:
-            self._values["key"] = key
-        if name is not None:
-            self._values["name"] = name
-        if namespace is not None:
-            self._values["namespace"] = namespace
-
-    @builtins.property
-    def key(self) -> typing.Optional[builtins.str]:
-        '''A key in the referenced Secret.
-
-        Some instances of this field may be defaulted, in others it may be required.
-
-        :schema: ClusterSecretStoreSpecProviderAlibabaAuthSecretRefAccessKeyIdSecretRef#key
-        '''
-        result = self._values.get("key")
-        return typing.cast(typing.Optional[builtins.str], result)
-
-    @builtins.property
-    def name(self) -> typing.Optional[builtins.str]:
-        '''The name of the Secret resource being referred to.
-
-        :schema: ClusterSecretStoreSpecProviderAlibabaAuthSecretRefAccessKeyIdSecretRef#name
-        '''
-        result = self._values.get("name")
-        return typing.cast(typing.Optional[builtins.str], result)
-
-    @builtins.property
-    def namespace(self) -> typing.Optional[builtins.str]:
-        '''The namespace of the Secret resource being referred to.
-
-        Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
-
-        :schema: ClusterSecretStoreSpecProviderAlibabaAuthSecretRefAccessKeyIdSecretRef#namespace
-        '''
-        result = self._values.get("namespace")
-        return typing.cast(typing.Optional[builtins.str], result)
-
-    def __eq__(self, rhs: typing.Any) -> builtins.bool:
-        return isinstance(rhs, self.__class__) and rhs._values == self._values
-
-    def __ne__(self, rhs: typing.Any) -> builtins.bool:
-        return not (rhs == self)
-
-    def __repr__(self) -> str:
-        return "ClusterSecretStoreSpecProviderAlibabaAuthSecretRefAccessKeyIdSecretRef(%s)" % ", ".join(
-            k + "=" + repr(v) for k, v in self._values.items()
-        )
-
-
-@jsii.data_type(
-    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderAlibabaAuthSecretRefAccessKeySecretSecretRef",
-    jsii_struct_bases=[],
-    name_mapping={"key": "key", "name": "name", "namespace": "namespace"},
-)
-class ClusterSecretStoreSpecProviderAlibabaAuthSecretRefAccessKeySecretSecretRef:
-    def __init__(
-        self,
-        *,
-        key: typing.Optional[builtins.str] = None,
-        name: typing.Optional[builtins.str] = None,
-        namespace: typing.Optional[builtins.str] = None,
-    ) -> None:
-        '''The AccessKeySecret is used for authentication.
-
-        :param key: A key in the referenced Secret. Some instances of this field may be defaulted, in others it may be required.
-        :param name: The name of the Secret resource being referred to.
-        :param namespace: The namespace of the Secret resource being referred to. Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
-
-        :schema: ClusterSecretStoreSpecProviderAlibabaAuthSecretRefAccessKeySecretSecretRef
-        '''
-        if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__48b18145fd0d8fe181e65bd8874d2e03b8e44f3a00137400c5dc630d92c474bb)
-            check_type(argname="argument key", value=key, expected_type=type_hints["key"])
-            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
-            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
-        self._values: typing.Dict[builtins.str, typing.Any] = {}
-        if key is not None:
-            self._values["key"] = key
-        if name is not None:
-            self._values["name"] = name
-        if namespace is not None:
-            self._values["namespace"] = namespace
-
-    @builtins.property
-    def key(self) -> typing.Optional[builtins.str]:
-        '''A key in the referenced Secret.
-
-        Some instances of this field may be defaulted, in others it may be required.
-
-        :schema: ClusterSecretStoreSpecProviderAlibabaAuthSecretRefAccessKeySecretSecretRef#key
-        '''
-        result = self._values.get("key")
-        return typing.cast(typing.Optional[builtins.str], result)
-
-    @builtins.property
-    def name(self) -> typing.Optional[builtins.str]:
-        '''The name of the Secret resource being referred to.
-
-        :schema: ClusterSecretStoreSpecProviderAlibabaAuthSecretRefAccessKeySecretSecretRef#name
-        '''
-        result = self._values.get("name")
-        return typing.cast(typing.Optional[builtins.str], result)
-
-    @builtins.property
-    def namespace(self) -> typing.Optional[builtins.str]:
-        '''The namespace of the Secret resource being referred to.
-
-        Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
-
-        :schema: ClusterSecretStoreSpecProviderAlibabaAuthSecretRefAccessKeySecretSecretRef#namespace
-        '''
-        result = self._values.get("namespace")
-        return typing.cast(typing.Optional[builtins.str], result)
-
-    def __eq__(self, rhs: typing.Any) -> builtins.bool:
-        return isinstance(rhs, self.__class__) and rhs._values == self._values
-
-    def __ne__(self, rhs: typing.Any) -> builtins.bool:
-        return not (rhs == self)
-
-    def __repr__(self) -> str:
-        return "ClusterSecretStoreSpecProviderAlibabaAuthSecretRefAccessKeySecretSecretRef(%s)" % ", ".join(
-            k + "=" + repr(v) for k, v in self._values.items()
-        )
 
 
 @jsii.data_type(
@@ -16756,242 +16281,6 @@ class ClusterSecretStoreSpecProviderDelineaClientSecretSecretRef:
 
     def __repr__(self) -> str:
         return "ClusterSecretStoreSpecProviderDelineaClientSecretSecretRef(%s)" % ", ".join(
-            k + "=" + repr(v) for k, v in self._values.items()
-        )
-
-
-@jsii.data_type(
-    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderDevice42",
-    jsii_struct_bases=[],
-    name_mapping={"auth": "auth", "host": "host"},
-)
-class ClusterSecretStoreSpecProviderDevice42:
-    def __init__(
-        self,
-        *,
-        auth: typing.Union["ClusterSecretStoreSpecProviderDevice42Auth", typing.Dict[builtins.str, typing.Any]],
-        host: builtins.str,
-    ) -> None:
-        '''Device42 configures this store to sync secrets using the Device42 provider.
-
-        :param auth: Auth configures how secret-manager authenticates with a Device42 instance.
-        :param host: URL configures the Device42 instance URL.
-
-        :schema: ClusterSecretStoreSpecProviderDevice42
-        '''
-        if isinstance(auth, dict):
-            auth = ClusterSecretStoreSpecProviderDevice42Auth(**auth)
-        if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__3b980faf8f7ab064a9cfcd1983439a276ed0972abf895db7523c1a527d662b4a)
-            check_type(argname="argument auth", value=auth, expected_type=type_hints["auth"])
-            check_type(argname="argument host", value=host, expected_type=type_hints["host"])
-        self._values: typing.Dict[builtins.str, typing.Any] = {
-            "auth": auth,
-            "host": host,
-        }
-
-    @builtins.property
-    def auth(self) -> "ClusterSecretStoreSpecProviderDevice42Auth":
-        '''Auth configures how secret-manager authenticates with a Device42 instance.
-
-        :schema: ClusterSecretStoreSpecProviderDevice42#auth
-        '''
-        result = self._values.get("auth")
-        assert result is not None, "Required property 'auth' is missing"
-        return typing.cast("ClusterSecretStoreSpecProviderDevice42Auth", result)
-
-    @builtins.property
-    def host(self) -> builtins.str:
-        '''URL configures the Device42 instance URL.
-
-        :schema: ClusterSecretStoreSpecProviderDevice42#host
-        '''
-        result = self._values.get("host")
-        assert result is not None, "Required property 'host' is missing"
-        return typing.cast(builtins.str, result)
-
-    def __eq__(self, rhs: typing.Any) -> builtins.bool:
-        return isinstance(rhs, self.__class__) and rhs._values == self._values
-
-    def __ne__(self, rhs: typing.Any) -> builtins.bool:
-        return not (rhs == self)
-
-    def __repr__(self) -> str:
-        return "ClusterSecretStoreSpecProviderDevice42(%s)" % ", ".join(
-            k + "=" + repr(v) for k, v in self._values.items()
-        )
-
-
-@jsii.data_type(
-    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderDevice42Auth",
-    jsii_struct_bases=[],
-    name_mapping={"secret_ref": "secretRef"},
-)
-class ClusterSecretStoreSpecProviderDevice42Auth:
-    def __init__(
-        self,
-        *,
-        secret_ref: typing.Union["ClusterSecretStoreSpecProviderDevice42AuthSecretRef", typing.Dict[builtins.str, typing.Any]],
-    ) -> None:
-        '''Auth configures how secret-manager authenticates with a Device42 instance.
-
-        :param secret_ref: Device42SecretRef contains the secret reference for accessing the Device42 instance.
-
-        :schema: ClusterSecretStoreSpecProviderDevice42Auth
-        '''
-        if isinstance(secret_ref, dict):
-            secret_ref = ClusterSecretStoreSpecProviderDevice42AuthSecretRef(**secret_ref)
-        if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__54c8e2ebc137257748528df112aa238c9a6ef77f9b56c9bb9bcd16b25781ca42)
-            check_type(argname="argument secret_ref", value=secret_ref, expected_type=type_hints["secret_ref"])
-        self._values: typing.Dict[builtins.str, typing.Any] = {
-            "secret_ref": secret_ref,
-        }
-
-    @builtins.property
-    def secret_ref(self) -> "ClusterSecretStoreSpecProviderDevice42AuthSecretRef":
-        '''Device42SecretRef contains the secret reference for accessing the Device42 instance.
-
-        :schema: ClusterSecretStoreSpecProviderDevice42Auth#secretRef
-        '''
-        result = self._values.get("secret_ref")
-        assert result is not None, "Required property 'secret_ref' is missing"
-        return typing.cast("ClusterSecretStoreSpecProviderDevice42AuthSecretRef", result)
-
-    def __eq__(self, rhs: typing.Any) -> builtins.bool:
-        return isinstance(rhs, self.__class__) and rhs._values == self._values
-
-    def __ne__(self, rhs: typing.Any) -> builtins.bool:
-        return not (rhs == self)
-
-    def __repr__(self) -> str:
-        return "ClusterSecretStoreSpecProviderDevice42Auth(%s)" % ", ".join(
-            k + "=" + repr(v) for k, v in self._values.items()
-        )
-
-
-@jsii.data_type(
-    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderDevice42AuthSecretRef",
-    jsii_struct_bases=[],
-    name_mapping={"credentials": "credentials"},
-)
-class ClusterSecretStoreSpecProviderDevice42AuthSecretRef:
-    def __init__(
-        self,
-        *,
-        credentials: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderDevice42AuthSecretRefCredentials", typing.Dict[builtins.str, typing.Any]]] = None,
-    ) -> None:
-        '''Device42SecretRef contains the secret reference for accessing the Device42 instance.
-
-        :param credentials: Username / Password is used for authentication.
-
-        :schema: ClusterSecretStoreSpecProviderDevice42AuthSecretRef
-        '''
-        if isinstance(credentials, dict):
-            credentials = ClusterSecretStoreSpecProviderDevice42AuthSecretRefCredentials(**credentials)
-        if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__3a83f6871c46b61a6d2b61b66cadae3f1dbdc053d4764d9d48796b99c7257938)
-            check_type(argname="argument credentials", value=credentials, expected_type=type_hints["credentials"])
-        self._values: typing.Dict[builtins.str, typing.Any] = {}
-        if credentials is not None:
-            self._values["credentials"] = credentials
-
-    @builtins.property
-    def credentials(
-        self,
-    ) -> typing.Optional["ClusterSecretStoreSpecProviderDevice42AuthSecretRefCredentials"]:
-        '''Username / Password is used for authentication.
-
-        :schema: ClusterSecretStoreSpecProviderDevice42AuthSecretRef#credentials
-        '''
-        result = self._values.get("credentials")
-        return typing.cast(typing.Optional["ClusterSecretStoreSpecProviderDevice42AuthSecretRefCredentials"], result)
-
-    def __eq__(self, rhs: typing.Any) -> builtins.bool:
-        return isinstance(rhs, self.__class__) and rhs._values == self._values
-
-    def __ne__(self, rhs: typing.Any) -> builtins.bool:
-        return not (rhs == self)
-
-    def __repr__(self) -> str:
-        return "ClusterSecretStoreSpecProviderDevice42AuthSecretRef(%s)" % ", ".join(
-            k + "=" + repr(v) for k, v in self._values.items()
-        )
-
-
-@jsii.data_type(
-    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderDevice42AuthSecretRefCredentials",
-    jsii_struct_bases=[],
-    name_mapping={"key": "key", "name": "name", "namespace": "namespace"},
-)
-class ClusterSecretStoreSpecProviderDevice42AuthSecretRefCredentials:
-    def __init__(
-        self,
-        *,
-        key: typing.Optional[builtins.str] = None,
-        name: typing.Optional[builtins.str] = None,
-        namespace: typing.Optional[builtins.str] = None,
-    ) -> None:
-        '''Username / Password is used for authentication.
-
-        :param key: A key in the referenced Secret. Some instances of this field may be defaulted, in others it may be required.
-        :param name: The name of the Secret resource being referred to.
-        :param namespace: The namespace of the Secret resource being referred to. Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
-
-        :schema: ClusterSecretStoreSpecProviderDevice42AuthSecretRefCredentials
-        '''
-        if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__a36bc4fabfb05b1705411fa4fd38b63eaedd89c27e64b07573bd920b41a58786)
-            check_type(argname="argument key", value=key, expected_type=type_hints["key"])
-            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
-            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
-        self._values: typing.Dict[builtins.str, typing.Any] = {}
-        if key is not None:
-            self._values["key"] = key
-        if name is not None:
-            self._values["name"] = name
-        if namespace is not None:
-            self._values["namespace"] = namespace
-
-    @builtins.property
-    def key(self) -> typing.Optional[builtins.str]:
-        '''A key in the referenced Secret.
-
-        Some instances of this field may be defaulted, in others it may be required.
-
-        :schema: ClusterSecretStoreSpecProviderDevice42AuthSecretRefCredentials#key
-        '''
-        result = self._values.get("key")
-        return typing.cast(typing.Optional[builtins.str], result)
-
-    @builtins.property
-    def name(self) -> typing.Optional[builtins.str]:
-        '''The name of the Secret resource being referred to.
-
-        :schema: ClusterSecretStoreSpecProviderDevice42AuthSecretRefCredentials#name
-        '''
-        result = self._values.get("name")
-        return typing.cast(typing.Optional[builtins.str], result)
-
-    @builtins.property
-    def namespace(self) -> typing.Optional[builtins.str]:
-        '''The namespace of the Secret resource being referred to.
-
-        Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
-
-        :schema: ClusterSecretStoreSpecProviderDevice42AuthSecretRefCredentials#namespace
-        '''
-        result = self._values.get("namespace")
-        return typing.cast(typing.Optional[builtins.str], result)
-
-    def __eq__(self, rhs: typing.Any) -> builtins.bool:
-        return isinstance(rhs, self.__class__) and rhs._values == self._values
-
-    def __ne__(self, rhs: typing.Any) -> builtins.bool:
-        return not (rhs == self)
-
-    def __repr__(self) -> str:
-        return "ClusterSecretStoreSpecProviderDevice42AuthSecretRefCredentials(%s)" % ", ".join(
             k + "=" + repr(v) for k, v in self._values.items()
         )
 
@@ -60581,7 +59870,6 @@ class SecretStoreSpecConditionsNamespaceSelectorMatchExpressions:
     jsii_struct_bases=[],
     name_mapping={
         "akeyless": "akeyless",
-        "alibaba": "alibaba",
         "aws": "aws",
         "azurekv": "azurekv",
         "barbican": "barbican",
@@ -60591,7 +59879,6 @@ class SecretStoreSpecConditionsNamespaceSelectorMatchExpressions:
         "cloudrusm": "cloudrusm",
         "conjur": "conjur",
         "delinea": "delinea",
-        "device42": "device42",
         "doppler": "doppler",
         "dvls": "dvls",
         "fake": "fake",
@@ -60627,7 +59914,6 @@ class SecretStoreSpecProvider:
         self,
         *,
         akeyless: typing.Optional[typing.Union["SecretStoreSpecProviderAkeyless", typing.Dict[builtins.str, typing.Any]]] = None,
-        alibaba: typing.Optional[typing.Union["SecretStoreSpecProviderAlibaba", typing.Dict[builtins.str, typing.Any]]] = None,
         aws: typing.Optional[typing.Union["SecretStoreSpecProviderAws", typing.Dict[builtins.str, typing.Any]]] = None,
         azurekv: typing.Optional[typing.Union["SecretStoreSpecProviderAzurekv", typing.Dict[builtins.str, typing.Any]]] = None,
         barbican: typing.Optional[typing.Union["SecretStoreSpecProviderBarbican", typing.Dict[builtins.str, typing.Any]]] = None,
@@ -60637,7 +59923,6 @@ class SecretStoreSpecProvider:
         cloudrusm: typing.Optional[typing.Union["SecretStoreSpecProviderCloudrusm", typing.Dict[builtins.str, typing.Any]]] = None,
         conjur: typing.Optional[typing.Union["SecretStoreSpecProviderConjur", typing.Dict[builtins.str, typing.Any]]] = None,
         delinea: typing.Optional[typing.Union["SecretStoreSpecProviderDelinea", typing.Dict[builtins.str, typing.Any]]] = None,
-        device42: typing.Optional[typing.Union["SecretStoreSpecProviderDevice42", typing.Dict[builtins.str, typing.Any]]] = None,
         doppler: typing.Optional[typing.Union["SecretStoreSpecProviderDoppler", typing.Dict[builtins.str, typing.Any]]] = None,
         dvls: typing.Optional[typing.Union["SecretStoreSpecProviderDvls", typing.Dict[builtins.str, typing.Any]]] = None,
         fake: typing.Optional[typing.Union["SecretStoreSpecProviderFake", typing.Dict[builtins.str, typing.Any]]] = None,
@@ -60672,7 +59957,6 @@ class SecretStoreSpecProvider:
         Only one provider may be set
 
         :param akeyless: Akeyless configures this store to sync secrets using Akeyless Vault provider.
-        :param alibaba: Alibaba configures this store to sync secrets using Alibaba Cloud provider.
         :param aws: AWS configures this store to sync secrets using AWS Secret Manager provider.
         :param azurekv: AzureKV configures this store to sync secrets using Azure Key Vault provider.
         :param barbican: Barbican configures this store to sync secrets using the OpenStack Barbican provider.
@@ -60682,7 +59966,6 @@ class SecretStoreSpecProvider:
         :param cloudrusm: CloudruSM configures this store to sync secrets using the Cloud.ru Secret Manager provider.
         :param conjur: Conjur configures this store to sync secrets using conjur provider.
         :param delinea: Delinea DevOps Secrets Vault https://docs.delinea.com/online-help/products/devops-secrets-vault/current.
-        :param device42: Device42 configures this store to sync secrets using the Device42 provider.
         :param doppler: Doppler configures this store to sync secrets using the Doppler provider.
         :param dvls: DVLS configures this store to sync secrets using Devolutions Server provider.
         :param fake: Fake configures a store with static key/value pairs.
@@ -60716,8 +59999,6 @@ class SecretStoreSpecProvider:
         '''
         if isinstance(akeyless, dict):
             akeyless = SecretStoreSpecProviderAkeyless(**akeyless)
-        if isinstance(alibaba, dict):
-            alibaba = SecretStoreSpecProviderAlibaba(**alibaba)
         if isinstance(aws, dict):
             aws = SecretStoreSpecProviderAws(**aws)
         if isinstance(azurekv, dict):
@@ -60736,8 +60017,6 @@ class SecretStoreSpecProvider:
             conjur = SecretStoreSpecProviderConjur(**conjur)
         if isinstance(delinea, dict):
             delinea = SecretStoreSpecProviderDelinea(**delinea)
-        if isinstance(device42, dict):
-            device42 = SecretStoreSpecProviderDevice42(**device42)
         if isinstance(doppler, dict):
             doppler = SecretStoreSpecProviderDoppler(**doppler)
         if isinstance(dvls, dict):
@@ -60797,7 +60076,6 @@ class SecretStoreSpecProvider:
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__c530965dc9a8ce9c6b19c8fa2f1a1209e5d3f087076176d43c9a82a73ad3e971)
             check_type(argname="argument akeyless", value=akeyless, expected_type=type_hints["akeyless"])
-            check_type(argname="argument alibaba", value=alibaba, expected_type=type_hints["alibaba"])
             check_type(argname="argument aws", value=aws, expected_type=type_hints["aws"])
             check_type(argname="argument azurekv", value=azurekv, expected_type=type_hints["azurekv"])
             check_type(argname="argument barbican", value=barbican, expected_type=type_hints["barbican"])
@@ -60807,7 +60085,6 @@ class SecretStoreSpecProvider:
             check_type(argname="argument cloudrusm", value=cloudrusm, expected_type=type_hints["cloudrusm"])
             check_type(argname="argument conjur", value=conjur, expected_type=type_hints["conjur"])
             check_type(argname="argument delinea", value=delinea, expected_type=type_hints["delinea"])
-            check_type(argname="argument device42", value=device42, expected_type=type_hints["device42"])
             check_type(argname="argument doppler", value=doppler, expected_type=type_hints["doppler"])
             check_type(argname="argument dvls", value=dvls, expected_type=type_hints["dvls"])
             check_type(argname="argument fake", value=fake, expected_type=type_hints["fake"])
@@ -60839,8 +60116,6 @@ class SecretStoreSpecProvider:
         self._values: typing.Dict[builtins.str, typing.Any] = {}
         if akeyless is not None:
             self._values["akeyless"] = akeyless
-        if alibaba is not None:
-            self._values["alibaba"] = alibaba
         if aws is not None:
             self._values["aws"] = aws
         if azurekv is not None:
@@ -60859,8 +60134,6 @@ class SecretStoreSpecProvider:
             self._values["conjur"] = conjur
         if delinea is not None:
             self._values["delinea"] = delinea
-        if device42 is not None:
-            self._values["device42"] = device42
         if doppler is not None:
             self._values["doppler"] = doppler
         if dvls is not None:
@@ -60926,15 +60199,6 @@ class SecretStoreSpecProvider:
         '''
         result = self._values.get("akeyless")
         return typing.cast(typing.Optional["SecretStoreSpecProviderAkeyless"], result)
-
-    @builtins.property
-    def alibaba(self) -> typing.Optional["SecretStoreSpecProviderAlibaba"]:
-        '''Alibaba configures this store to sync secrets using Alibaba Cloud provider.
-
-        :schema: SecretStoreSpecProvider#alibaba
-        '''
-        result = self._values.get("alibaba")
-        return typing.cast(typing.Optional["SecretStoreSpecProviderAlibaba"], result)
 
     @builtins.property
     def aws(self) -> typing.Optional["SecretStoreSpecProviderAws"]:
@@ -61018,15 +60282,6 @@ class SecretStoreSpecProvider:
         '''
         result = self._values.get("delinea")
         return typing.cast(typing.Optional["SecretStoreSpecProviderDelinea"], result)
-
-    @builtins.property
-    def device42(self) -> typing.Optional["SecretStoreSpecProviderDevice42"]:
-        '''Device42 configures this store to sync secrets using the Device42 provider.
-
-        :schema: SecretStoreSpecProvider#device42
-        '''
-        result = self._values.get("device42")
-        return typing.cast(typing.Optional["SecretStoreSpecProviderDevice42"], result)
 
     @builtins.property
     def doppler(self) -> typing.Optional["SecretStoreSpecProviderDoppler"]:
@@ -62178,447 +61433,6 @@ class SecretStoreSpecProviderAkeylessCaProviderType(enum.Enum):
     '''Secret.'''
     CONFIG_MAP = "CONFIG_MAP"
     '''ConfigMap.'''
-
-
-@jsii.data_type(
-    jsii_type="ioexternal-secrets.SecretStoreSpecProviderAlibaba",
-    jsii_struct_bases=[],
-    name_mapping={"auth": "auth", "region_id": "regionId"},
-)
-class SecretStoreSpecProviderAlibaba:
-    def __init__(
-        self,
-        *,
-        auth: typing.Union["SecretStoreSpecProviderAlibabaAuth", typing.Dict[builtins.str, typing.Any]],
-        region_id: builtins.str,
-    ) -> None:
-        '''Alibaba configures this store to sync secrets using Alibaba Cloud provider.
-
-        :param auth: AlibabaAuth contains a secretRef for credentials.
-        :param region_id: Alibaba Region to be used for the provider.
-
-        :schema: SecretStoreSpecProviderAlibaba
-        '''
-        if isinstance(auth, dict):
-            auth = SecretStoreSpecProviderAlibabaAuth(**auth)
-        if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__160555d984538fdfb12b506e87bb6765d149005405f5ae079b3691db6a1d770f)
-            check_type(argname="argument auth", value=auth, expected_type=type_hints["auth"])
-            check_type(argname="argument region_id", value=region_id, expected_type=type_hints["region_id"])
-        self._values: typing.Dict[builtins.str, typing.Any] = {
-            "auth": auth,
-            "region_id": region_id,
-        }
-
-    @builtins.property
-    def auth(self) -> "SecretStoreSpecProviderAlibabaAuth":
-        '''AlibabaAuth contains a secretRef for credentials.
-
-        :schema: SecretStoreSpecProviderAlibaba#auth
-        '''
-        result = self._values.get("auth")
-        assert result is not None, "Required property 'auth' is missing"
-        return typing.cast("SecretStoreSpecProviderAlibabaAuth", result)
-
-    @builtins.property
-    def region_id(self) -> builtins.str:
-        '''Alibaba Region to be used for the provider.
-
-        :schema: SecretStoreSpecProviderAlibaba#regionID
-        '''
-        result = self._values.get("region_id")
-        assert result is not None, "Required property 'region_id' is missing"
-        return typing.cast(builtins.str, result)
-
-    def __eq__(self, rhs: typing.Any) -> builtins.bool:
-        return isinstance(rhs, self.__class__) and rhs._values == self._values
-
-    def __ne__(self, rhs: typing.Any) -> builtins.bool:
-        return not (rhs == self)
-
-    def __repr__(self) -> str:
-        return "SecretStoreSpecProviderAlibaba(%s)" % ", ".join(
-            k + "=" + repr(v) for k, v in self._values.items()
-        )
-
-
-@jsii.data_type(
-    jsii_type="ioexternal-secrets.SecretStoreSpecProviderAlibabaAuth",
-    jsii_struct_bases=[],
-    name_mapping={"rrsa": "rrsa", "secret_ref": "secretRef"},
-)
-class SecretStoreSpecProviderAlibabaAuth:
-    def __init__(
-        self,
-        *,
-        rrsa: typing.Optional[typing.Union["SecretStoreSpecProviderAlibabaAuthRrsa", typing.Dict[builtins.str, typing.Any]]] = None,
-        secret_ref: typing.Optional[typing.Union["SecretStoreSpecProviderAlibabaAuthSecretRef", typing.Dict[builtins.str, typing.Any]]] = None,
-    ) -> None:
-        '''AlibabaAuth contains a secretRef for credentials.
-
-        :param rrsa: AlibabaRRSAAuth authenticates against Alibaba using RRSA.
-        :param secret_ref: AlibabaAuthSecretRef holds secret references for Alibaba credentials.
-
-        :schema: SecretStoreSpecProviderAlibabaAuth
-        '''
-        if isinstance(rrsa, dict):
-            rrsa = SecretStoreSpecProviderAlibabaAuthRrsa(**rrsa)
-        if isinstance(secret_ref, dict):
-            secret_ref = SecretStoreSpecProviderAlibabaAuthSecretRef(**secret_ref)
-        if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__2d8b50e50e137fe4e3f84cfad896da01555d6ac69b57ae5d2e585611bb05e278)
-            check_type(argname="argument rrsa", value=rrsa, expected_type=type_hints["rrsa"])
-            check_type(argname="argument secret_ref", value=secret_ref, expected_type=type_hints["secret_ref"])
-        self._values: typing.Dict[builtins.str, typing.Any] = {}
-        if rrsa is not None:
-            self._values["rrsa"] = rrsa
-        if secret_ref is not None:
-            self._values["secret_ref"] = secret_ref
-
-    @builtins.property
-    def rrsa(self) -> typing.Optional["SecretStoreSpecProviderAlibabaAuthRrsa"]:
-        '''AlibabaRRSAAuth authenticates against Alibaba using RRSA.
-
-        :schema: SecretStoreSpecProviderAlibabaAuth#rrsa
-        '''
-        result = self._values.get("rrsa")
-        return typing.cast(typing.Optional["SecretStoreSpecProviderAlibabaAuthRrsa"], result)
-
-    @builtins.property
-    def secret_ref(
-        self,
-    ) -> typing.Optional["SecretStoreSpecProviderAlibabaAuthSecretRef"]:
-        '''AlibabaAuthSecretRef holds secret references for Alibaba credentials.
-
-        :schema: SecretStoreSpecProviderAlibabaAuth#secretRef
-        '''
-        result = self._values.get("secret_ref")
-        return typing.cast(typing.Optional["SecretStoreSpecProviderAlibabaAuthSecretRef"], result)
-
-    def __eq__(self, rhs: typing.Any) -> builtins.bool:
-        return isinstance(rhs, self.__class__) and rhs._values == self._values
-
-    def __ne__(self, rhs: typing.Any) -> builtins.bool:
-        return not (rhs == self)
-
-    def __repr__(self) -> str:
-        return "SecretStoreSpecProviderAlibabaAuth(%s)" % ", ".join(
-            k + "=" + repr(v) for k, v in self._values.items()
-        )
-
-
-@jsii.data_type(
-    jsii_type="ioexternal-secrets.SecretStoreSpecProviderAlibabaAuthRrsa",
-    jsii_struct_bases=[],
-    name_mapping={
-        "oidc_provider_arn": "oidcProviderArn",
-        "oidc_token_file_path": "oidcTokenFilePath",
-        "role_arn": "roleArn",
-        "session_name": "sessionName",
-    },
-)
-class SecretStoreSpecProviderAlibabaAuthRrsa:
-    def __init__(
-        self,
-        *,
-        oidc_provider_arn: builtins.str,
-        oidc_token_file_path: builtins.str,
-        role_arn: builtins.str,
-        session_name: builtins.str,
-    ) -> None:
-        '''AlibabaRRSAAuth authenticates against Alibaba using RRSA.
-
-        :param oidc_provider_arn: 
-        :param oidc_token_file_path: 
-        :param role_arn: 
-        :param session_name: 
-
-        :schema: SecretStoreSpecProviderAlibabaAuthRrsa
-        '''
-        if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__22fd549ae04f8c34cf4357cee9af0ba1a090b8e6889bbb1347558106e5e66c4f)
-            check_type(argname="argument oidc_provider_arn", value=oidc_provider_arn, expected_type=type_hints["oidc_provider_arn"])
-            check_type(argname="argument oidc_token_file_path", value=oidc_token_file_path, expected_type=type_hints["oidc_token_file_path"])
-            check_type(argname="argument role_arn", value=role_arn, expected_type=type_hints["role_arn"])
-            check_type(argname="argument session_name", value=session_name, expected_type=type_hints["session_name"])
-        self._values: typing.Dict[builtins.str, typing.Any] = {
-            "oidc_provider_arn": oidc_provider_arn,
-            "oidc_token_file_path": oidc_token_file_path,
-            "role_arn": role_arn,
-            "session_name": session_name,
-        }
-
-    @builtins.property
-    def oidc_provider_arn(self) -> builtins.str:
-        '''
-        :schema: SecretStoreSpecProviderAlibabaAuthRrsa#oidcProviderArn
-        '''
-        result = self._values.get("oidc_provider_arn")
-        assert result is not None, "Required property 'oidc_provider_arn' is missing"
-        return typing.cast(builtins.str, result)
-
-    @builtins.property
-    def oidc_token_file_path(self) -> builtins.str:
-        '''
-        :schema: SecretStoreSpecProviderAlibabaAuthRrsa#oidcTokenFilePath
-        '''
-        result = self._values.get("oidc_token_file_path")
-        assert result is not None, "Required property 'oidc_token_file_path' is missing"
-        return typing.cast(builtins.str, result)
-
-    @builtins.property
-    def role_arn(self) -> builtins.str:
-        '''
-        :schema: SecretStoreSpecProviderAlibabaAuthRrsa#roleArn
-        '''
-        result = self._values.get("role_arn")
-        assert result is not None, "Required property 'role_arn' is missing"
-        return typing.cast(builtins.str, result)
-
-    @builtins.property
-    def session_name(self) -> builtins.str:
-        '''
-        :schema: SecretStoreSpecProviderAlibabaAuthRrsa#sessionName
-        '''
-        result = self._values.get("session_name")
-        assert result is not None, "Required property 'session_name' is missing"
-        return typing.cast(builtins.str, result)
-
-    def __eq__(self, rhs: typing.Any) -> builtins.bool:
-        return isinstance(rhs, self.__class__) and rhs._values == self._values
-
-    def __ne__(self, rhs: typing.Any) -> builtins.bool:
-        return not (rhs == self)
-
-    def __repr__(self) -> str:
-        return "SecretStoreSpecProviderAlibabaAuthRrsa(%s)" % ", ".join(
-            k + "=" + repr(v) for k, v in self._values.items()
-        )
-
-
-@jsii.data_type(
-    jsii_type="ioexternal-secrets.SecretStoreSpecProviderAlibabaAuthSecretRef",
-    jsii_struct_bases=[],
-    name_mapping={
-        "access_key_id_secret_ref": "accessKeyIdSecretRef",
-        "access_key_secret_secret_ref": "accessKeySecretSecretRef",
-    },
-)
-class SecretStoreSpecProviderAlibabaAuthSecretRef:
-    def __init__(
-        self,
-        *,
-        access_key_id_secret_ref: typing.Union["SecretStoreSpecProviderAlibabaAuthSecretRefAccessKeyIdSecretRef", typing.Dict[builtins.str, typing.Any]],
-        access_key_secret_secret_ref: typing.Union["SecretStoreSpecProviderAlibabaAuthSecretRefAccessKeySecretSecretRef", typing.Dict[builtins.str, typing.Any]],
-    ) -> None:
-        '''AlibabaAuthSecretRef holds secret references for Alibaba credentials.
-
-        :param access_key_id_secret_ref: The AccessKeyID is used for authentication.
-        :param access_key_secret_secret_ref: The AccessKeySecret is used for authentication.
-
-        :schema: SecretStoreSpecProviderAlibabaAuthSecretRef
-        '''
-        if isinstance(access_key_id_secret_ref, dict):
-            access_key_id_secret_ref = SecretStoreSpecProviderAlibabaAuthSecretRefAccessKeyIdSecretRef(**access_key_id_secret_ref)
-        if isinstance(access_key_secret_secret_ref, dict):
-            access_key_secret_secret_ref = SecretStoreSpecProviderAlibabaAuthSecretRefAccessKeySecretSecretRef(**access_key_secret_secret_ref)
-        if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__83b732209a24571a7a96042e186e91398c6b74cf7cb865114ea675a90ddfc6e2)
-            check_type(argname="argument access_key_id_secret_ref", value=access_key_id_secret_ref, expected_type=type_hints["access_key_id_secret_ref"])
-            check_type(argname="argument access_key_secret_secret_ref", value=access_key_secret_secret_ref, expected_type=type_hints["access_key_secret_secret_ref"])
-        self._values: typing.Dict[builtins.str, typing.Any] = {
-            "access_key_id_secret_ref": access_key_id_secret_ref,
-            "access_key_secret_secret_ref": access_key_secret_secret_ref,
-        }
-
-    @builtins.property
-    def access_key_id_secret_ref(
-        self,
-    ) -> "SecretStoreSpecProviderAlibabaAuthSecretRefAccessKeyIdSecretRef":
-        '''The AccessKeyID is used for authentication.
-
-        :schema: SecretStoreSpecProviderAlibabaAuthSecretRef#accessKeyIDSecretRef
-        '''
-        result = self._values.get("access_key_id_secret_ref")
-        assert result is not None, "Required property 'access_key_id_secret_ref' is missing"
-        return typing.cast("SecretStoreSpecProviderAlibabaAuthSecretRefAccessKeyIdSecretRef", result)
-
-    @builtins.property
-    def access_key_secret_secret_ref(
-        self,
-    ) -> "SecretStoreSpecProviderAlibabaAuthSecretRefAccessKeySecretSecretRef":
-        '''The AccessKeySecret is used for authentication.
-
-        :schema: SecretStoreSpecProviderAlibabaAuthSecretRef#accessKeySecretSecretRef
-        '''
-        result = self._values.get("access_key_secret_secret_ref")
-        assert result is not None, "Required property 'access_key_secret_secret_ref' is missing"
-        return typing.cast("SecretStoreSpecProviderAlibabaAuthSecretRefAccessKeySecretSecretRef", result)
-
-    def __eq__(self, rhs: typing.Any) -> builtins.bool:
-        return isinstance(rhs, self.__class__) and rhs._values == self._values
-
-    def __ne__(self, rhs: typing.Any) -> builtins.bool:
-        return not (rhs == self)
-
-    def __repr__(self) -> str:
-        return "SecretStoreSpecProviderAlibabaAuthSecretRef(%s)" % ", ".join(
-            k + "=" + repr(v) for k, v in self._values.items()
-        )
-
-
-@jsii.data_type(
-    jsii_type="ioexternal-secrets.SecretStoreSpecProviderAlibabaAuthSecretRefAccessKeyIdSecretRef",
-    jsii_struct_bases=[],
-    name_mapping={"key": "key", "name": "name", "namespace": "namespace"},
-)
-class SecretStoreSpecProviderAlibabaAuthSecretRefAccessKeyIdSecretRef:
-    def __init__(
-        self,
-        *,
-        key: typing.Optional[builtins.str] = None,
-        name: typing.Optional[builtins.str] = None,
-        namespace: typing.Optional[builtins.str] = None,
-    ) -> None:
-        '''The AccessKeyID is used for authentication.
-
-        :param key: A key in the referenced Secret. Some instances of this field may be defaulted, in others it may be required.
-        :param name: The name of the Secret resource being referred to.
-        :param namespace: The namespace of the Secret resource being referred to. Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
-
-        :schema: SecretStoreSpecProviderAlibabaAuthSecretRefAccessKeyIdSecretRef
-        '''
-        if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__c21bb376b2e3a0198bfcc4ef9da1f454aec69fed4187ddac868a437f5508e1de)
-            check_type(argname="argument key", value=key, expected_type=type_hints["key"])
-            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
-            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
-        self._values: typing.Dict[builtins.str, typing.Any] = {}
-        if key is not None:
-            self._values["key"] = key
-        if name is not None:
-            self._values["name"] = name
-        if namespace is not None:
-            self._values["namespace"] = namespace
-
-    @builtins.property
-    def key(self) -> typing.Optional[builtins.str]:
-        '''A key in the referenced Secret.
-
-        Some instances of this field may be defaulted, in others it may be required.
-
-        :schema: SecretStoreSpecProviderAlibabaAuthSecretRefAccessKeyIdSecretRef#key
-        '''
-        result = self._values.get("key")
-        return typing.cast(typing.Optional[builtins.str], result)
-
-    @builtins.property
-    def name(self) -> typing.Optional[builtins.str]:
-        '''The name of the Secret resource being referred to.
-
-        :schema: SecretStoreSpecProviderAlibabaAuthSecretRefAccessKeyIdSecretRef#name
-        '''
-        result = self._values.get("name")
-        return typing.cast(typing.Optional[builtins.str], result)
-
-    @builtins.property
-    def namespace(self) -> typing.Optional[builtins.str]:
-        '''The namespace of the Secret resource being referred to.
-
-        Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
-
-        :schema: SecretStoreSpecProviderAlibabaAuthSecretRefAccessKeyIdSecretRef#namespace
-        '''
-        result = self._values.get("namespace")
-        return typing.cast(typing.Optional[builtins.str], result)
-
-    def __eq__(self, rhs: typing.Any) -> builtins.bool:
-        return isinstance(rhs, self.__class__) and rhs._values == self._values
-
-    def __ne__(self, rhs: typing.Any) -> builtins.bool:
-        return not (rhs == self)
-
-    def __repr__(self) -> str:
-        return "SecretStoreSpecProviderAlibabaAuthSecretRefAccessKeyIdSecretRef(%s)" % ", ".join(
-            k + "=" + repr(v) for k, v in self._values.items()
-        )
-
-
-@jsii.data_type(
-    jsii_type="ioexternal-secrets.SecretStoreSpecProviderAlibabaAuthSecretRefAccessKeySecretSecretRef",
-    jsii_struct_bases=[],
-    name_mapping={"key": "key", "name": "name", "namespace": "namespace"},
-)
-class SecretStoreSpecProviderAlibabaAuthSecretRefAccessKeySecretSecretRef:
-    def __init__(
-        self,
-        *,
-        key: typing.Optional[builtins.str] = None,
-        name: typing.Optional[builtins.str] = None,
-        namespace: typing.Optional[builtins.str] = None,
-    ) -> None:
-        '''The AccessKeySecret is used for authentication.
-
-        :param key: A key in the referenced Secret. Some instances of this field may be defaulted, in others it may be required.
-        :param name: The name of the Secret resource being referred to.
-        :param namespace: The namespace of the Secret resource being referred to. Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
-
-        :schema: SecretStoreSpecProviderAlibabaAuthSecretRefAccessKeySecretSecretRef
-        '''
-        if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__26d4e7fa82cee06a66db9f84afb99426b45555f9719c95d7984dc5ae97cec7b4)
-            check_type(argname="argument key", value=key, expected_type=type_hints["key"])
-            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
-            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
-        self._values: typing.Dict[builtins.str, typing.Any] = {}
-        if key is not None:
-            self._values["key"] = key
-        if name is not None:
-            self._values["name"] = name
-        if namespace is not None:
-            self._values["namespace"] = namespace
-
-    @builtins.property
-    def key(self) -> typing.Optional[builtins.str]:
-        '''A key in the referenced Secret.
-
-        Some instances of this field may be defaulted, in others it may be required.
-
-        :schema: SecretStoreSpecProviderAlibabaAuthSecretRefAccessKeySecretSecretRef#key
-        '''
-        result = self._values.get("key")
-        return typing.cast(typing.Optional[builtins.str], result)
-
-    @builtins.property
-    def name(self) -> typing.Optional[builtins.str]:
-        '''The name of the Secret resource being referred to.
-
-        :schema: SecretStoreSpecProviderAlibabaAuthSecretRefAccessKeySecretSecretRef#name
-        '''
-        result = self._values.get("name")
-        return typing.cast(typing.Optional[builtins.str], result)
-
-    @builtins.property
-    def namespace(self) -> typing.Optional[builtins.str]:
-        '''The namespace of the Secret resource being referred to.
-
-        Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
-
-        :schema: SecretStoreSpecProviderAlibabaAuthSecretRefAccessKeySecretSecretRef#namespace
-        '''
-        result = self._values.get("namespace")
-        return typing.cast(typing.Optional[builtins.str], result)
-
-    def __eq__(self, rhs: typing.Any) -> builtins.bool:
-        return isinstance(rhs, self.__class__) and rhs._values == self._values
-
-    def __ne__(self, rhs: typing.Any) -> builtins.bool:
-        return not (rhs == self)
-
-    def __repr__(self) -> str:
-        return "SecretStoreSpecProviderAlibabaAuthSecretRefAccessKeySecretSecretRef(%s)" % ", ".join(
-            k + "=" + repr(v) for k, v in self._values.items()
-        )
 
 
 @jsii.data_type(
@@ -68005,242 +66819,6 @@ class SecretStoreSpecProviderDelineaClientSecretSecretRef:
 
     def __repr__(self) -> str:
         return "SecretStoreSpecProviderDelineaClientSecretSecretRef(%s)" % ", ".join(
-            k + "=" + repr(v) for k, v in self._values.items()
-        )
-
-
-@jsii.data_type(
-    jsii_type="ioexternal-secrets.SecretStoreSpecProviderDevice42",
-    jsii_struct_bases=[],
-    name_mapping={"auth": "auth", "host": "host"},
-)
-class SecretStoreSpecProviderDevice42:
-    def __init__(
-        self,
-        *,
-        auth: typing.Union["SecretStoreSpecProviderDevice42Auth", typing.Dict[builtins.str, typing.Any]],
-        host: builtins.str,
-    ) -> None:
-        '''Device42 configures this store to sync secrets using the Device42 provider.
-
-        :param auth: Auth configures how secret-manager authenticates with a Device42 instance.
-        :param host: URL configures the Device42 instance URL.
-
-        :schema: SecretStoreSpecProviderDevice42
-        '''
-        if isinstance(auth, dict):
-            auth = SecretStoreSpecProviderDevice42Auth(**auth)
-        if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__2cfdff5d40e3337e4f379ec9510a200edb491527a1059910f25810aa05f2f375)
-            check_type(argname="argument auth", value=auth, expected_type=type_hints["auth"])
-            check_type(argname="argument host", value=host, expected_type=type_hints["host"])
-        self._values: typing.Dict[builtins.str, typing.Any] = {
-            "auth": auth,
-            "host": host,
-        }
-
-    @builtins.property
-    def auth(self) -> "SecretStoreSpecProviderDevice42Auth":
-        '''Auth configures how secret-manager authenticates with a Device42 instance.
-
-        :schema: SecretStoreSpecProviderDevice42#auth
-        '''
-        result = self._values.get("auth")
-        assert result is not None, "Required property 'auth' is missing"
-        return typing.cast("SecretStoreSpecProviderDevice42Auth", result)
-
-    @builtins.property
-    def host(self) -> builtins.str:
-        '''URL configures the Device42 instance URL.
-
-        :schema: SecretStoreSpecProviderDevice42#host
-        '''
-        result = self._values.get("host")
-        assert result is not None, "Required property 'host' is missing"
-        return typing.cast(builtins.str, result)
-
-    def __eq__(self, rhs: typing.Any) -> builtins.bool:
-        return isinstance(rhs, self.__class__) and rhs._values == self._values
-
-    def __ne__(self, rhs: typing.Any) -> builtins.bool:
-        return not (rhs == self)
-
-    def __repr__(self) -> str:
-        return "SecretStoreSpecProviderDevice42(%s)" % ", ".join(
-            k + "=" + repr(v) for k, v in self._values.items()
-        )
-
-
-@jsii.data_type(
-    jsii_type="ioexternal-secrets.SecretStoreSpecProviderDevice42Auth",
-    jsii_struct_bases=[],
-    name_mapping={"secret_ref": "secretRef"},
-)
-class SecretStoreSpecProviderDevice42Auth:
-    def __init__(
-        self,
-        *,
-        secret_ref: typing.Union["SecretStoreSpecProviderDevice42AuthSecretRef", typing.Dict[builtins.str, typing.Any]],
-    ) -> None:
-        '''Auth configures how secret-manager authenticates with a Device42 instance.
-
-        :param secret_ref: Device42SecretRef contains the secret reference for accessing the Device42 instance.
-
-        :schema: SecretStoreSpecProviderDevice42Auth
-        '''
-        if isinstance(secret_ref, dict):
-            secret_ref = SecretStoreSpecProviderDevice42AuthSecretRef(**secret_ref)
-        if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__d77e8e20c9c69795dc09c0209caeaf6a45974e7d920e0f99b9ad4bc21c0b0fc2)
-            check_type(argname="argument secret_ref", value=secret_ref, expected_type=type_hints["secret_ref"])
-        self._values: typing.Dict[builtins.str, typing.Any] = {
-            "secret_ref": secret_ref,
-        }
-
-    @builtins.property
-    def secret_ref(self) -> "SecretStoreSpecProviderDevice42AuthSecretRef":
-        '''Device42SecretRef contains the secret reference for accessing the Device42 instance.
-
-        :schema: SecretStoreSpecProviderDevice42Auth#secretRef
-        '''
-        result = self._values.get("secret_ref")
-        assert result is not None, "Required property 'secret_ref' is missing"
-        return typing.cast("SecretStoreSpecProviderDevice42AuthSecretRef", result)
-
-    def __eq__(self, rhs: typing.Any) -> builtins.bool:
-        return isinstance(rhs, self.__class__) and rhs._values == self._values
-
-    def __ne__(self, rhs: typing.Any) -> builtins.bool:
-        return not (rhs == self)
-
-    def __repr__(self) -> str:
-        return "SecretStoreSpecProviderDevice42Auth(%s)" % ", ".join(
-            k + "=" + repr(v) for k, v in self._values.items()
-        )
-
-
-@jsii.data_type(
-    jsii_type="ioexternal-secrets.SecretStoreSpecProviderDevice42AuthSecretRef",
-    jsii_struct_bases=[],
-    name_mapping={"credentials": "credentials"},
-)
-class SecretStoreSpecProviderDevice42AuthSecretRef:
-    def __init__(
-        self,
-        *,
-        credentials: typing.Optional[typing.Union["SecretStoreSpecProviderDevice42AuthSecretRefCredentials", typing.Dict[builtins.str, typing.Any]]] = None,
-    ) -> None:
-        '''Device42SecretRef contains the secret reference for accessing the Device42 instance.
-
-        :param credentials: Username / Password is used for authentication.
-
-        :schema: SecretStoreSpecProviderDevice42AuthSecretRef
-        '''
-        if isinstance(credentials, dict):
-            credentials = SecretStoreSpecProviderDevice42AuthSecretRefCredentials(**credentials)
-        if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__1cf46b767356467a18ed68d0cc75bc15cabfa68189eaf07a0198c18c9e87b0c3)
-            check_type(argname="argument credentials", value=credentials, expected_type=type_hints["credentials"])
-        self._values: typing.Dict[builtins.str, typing.Any] = {}
-        if credentials is not None:
-            self._values["credentials"] = credentials
-
-    @builtins.property
-    def credentials(
-        self,
-    ) -> typing.Optional["SecretStoreSpecProviderDevice42AuthSecretRefCredentials"]:
-        '''Username / Password is used for authentication.
-
-        :schema: SecretStoreSpecProviderDevice42AuthSecretRef#credentials
-        '''
-        result = self._values.get("credentials")
-        return typing.cast(typing.Optional["SecretStoreSpecProviderDevice42AuthSecretRefCredentials"], result)
-
-    def __eq__(self, rhs: typing.Any) -> builtins.bool:
-        return isinstance(rhs, self.__class__) and rhs._values == self._values
-
-    def __ne__(self, rhs: typing.Any) -> builtins.bool:
-        return not (rhs == self)
-
-    def __repr__(self) -> str:
-        return "SecretStoreSpecProviderDevice42AuthSecretRef(%s)" % ", ".join(
-            k + "=" + repr(v) for k, v in self._values.items()
-        )
-
-
-@jsii.data_type(
-    jsii_type="ioexternal-secrets.SecretStoreSpecProviderDevice42AuthSecretRefCredentials",
-    jsii_struct_bases=[],
-    name_mapping={"key": "key", "name": "name", "namespace": "namespace"},
-)
-class SecretStoreSpecProviderDevice42AuthSecretRefCredentials:
-    def __init__(
-        self,
-        *,
-        key: typing.Optional[builtins.str] = None,
-        name: typing.Optional[builtins.str] = None,
-        namespace: typing.Optional[builtins.str] = None,
-    ) -> None:
-        '''Username / Password is used for authentication.
-
-        :param key: A key in the referenced Secret. Some instances of this field may be defaulted, in others it may be required.
-        :param name: The name of the Secret resource being referred to.
-        :param namespace: The namespace of the Secret resource being referred to. Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
-
-        :schema: SecretStoreSpecProviderDevice42AuthSecretRefCredentials
-        '''
-        if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__db56813252ceed316b54d671fca21de247c12519e11fd092cb08b99aaca1236e)
-            check_type(argname="argument key", value=key, expected_type=type_hints["key"])
-            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
-            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
-        self._values: typing.Dict[builtins.str, typing.Any] = {}
-        if key is not None:
-            self._values["key"] = key
-        if name is not None:
-            self._values["name"] = name
-        if namespace is not None:
-            self._values["namespace"] = namespace
-
-    @builtins.property
-    def key(self) -> typing.Optional[builtins.str]:
-        '''A key in the referenced Secret.
-
-        Some instances of this field may be defaulted, in others it may be required.
-
-        :schema: SecretStoreSpecProviderDevice42AuthSecretRefCredentials#key
-        '''
-        result = self._values.get("key")
-        return typing.cast(typing.Optional[builtins.str], result)
-
-    @builtins.property
-    def name(self) -> typing.Optional[builtins.str]:
-        '''The name of the Secret resource being referred to.
-
-        :schema: SecretStoreSpecProviderDevice42AuthSecretRefCredentials#name
-        '''
-        result = self._values.get("name")
-        return typing.cast(typing.Optional[builtins.str], result)
-
-    @builtins.property
-    def namespace(self) -> typing.Optional[builtins.str]:
-        '''The namespace of the Secret resource being referred to.
-
-        Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
-
-        :schema: SecretStoreSpecProviderDevice42AuthSecretRefCredentials#namespace
-        '''
-        result = self._values.get("namespace")
-        return typing.cast(typing.Optional[builtins.str], result)
-
-    def __eq__(self, rhs: typing.Any) -> builtins.bool:
-        return isinstance(rhs, self.__class__) and rhs._values == self._values
-
-    def __ne__(self, rhs: typing.Any) -> builtins.bool:
-        return not (rhs == self)
-
-    def __repr__(self) -> str:
-        return "SecretStoreSpecProviderDevice42AuthSecretRefCredentials(%s)" % ", ".join(
             k + "=" + repr(v) for k, v in self._values.items()
         )
 
@@ -104169,12 +102747,6 @@ __all__ = [
     "ClusterSecretStoreSpecProviderAkeylessAuthSecretRefSecretRefAccessTypeParam",
     "ClusterSecretStoreSpecProviderAkeylessCaProvider",
     "ClusterSecretStoreSpecProviderAkeylessCaProviderType",
-    "ClusterSecretStoreSpecProviderAlibaba",
-    "ClusterSecretStoreSpecProviderAlibabaAuth",
-    "ClusterSecretStoreSpecProviderAlibabaAuthRrsa",
-    "ClusterSecretStoreSpecProviderAlibabaAuthSecretRef",
-    "ClusterSecretStoreSpecProviderAlibabaAuthSecretRefAccessKeyIdSecretRef",
-    "ClusterSecretStoreSpecProviderAlibabaAuthSecretRefAccessKeySecretSecretRef",
     "ClusterSecretStoreSpecProviderAws",
     "ClusterSecretStoreSpecProviderAwsAuth",
     "ClusterSecretStoreSpecProviderAwsAuthJwt",
@@ -104245,10 +102817,6 @@ __all__ = [
     "ClusterSecretStoreSpecProviderDelineaClientIdSecretRef",
     "ClusterSecretStoreSpecProviderDelineaClientSecret",
     "ClusterSecretStoreSpecProviderDelineaClientSecretSecretRef",
-    "ClusterSecretStoreSpecProviderDevice42",
-    "ClusterSecretStoreSpecProviderDevice42Auth",
-    "ClusterSecretStoreSpecProviderDevice42AuthSecretRef",
-    "ClusterSecretStoreSpecProviderDevice42AuthSecretRefCredentials",
     "ClusterSecretStoreSpecProviderDoppler",
     "ClusterSecretStoreSpecProviderDopplerAuth",
     "ClusterSecretStoreSpecProviderDopplerAuthOidcConfig",
@@ -104857,12 +103425,6 @@ __all__ = [
     "SecretStoreSpecProviderAkeylessAuthSecretRefSecretRefAccessTypeParam",
     "SecretStoreSpecProviderAkeylessCaProvider",
     "SecretStoreSpecProviderAkeylessCaProviderType",
-    "SecretStoreSpecProviderAlibaba",
-    "SecretStoreSpecProviderAlibabaAuth",
-    "SecretStoreSpecProviderAlibabaAuthRrsa",
-    "SecretStoreSpecProviderAlibabaAuthSecretRef",
-    "SecretStoreSpecProviderAlibabaAuthSecretRefAccessKeyIdSecretRef",
-    "SecretStoreSpecProviderAlibabaAuthSecretRefAccessKeySecretSecretRef",
     "SecretStoreSpecProviderAws",
     "SecretStoreSpecProviderAwsAuth",
     "SecretStoreSpecProviderAwsAuthJwt",
@@ -104933,10 +103495,6 @@ __all__ = [
     "SecretStoreSpecProviderDelineaClientIdSecretRef",
     "SecretStoreSpecProviderDelineaClientSecret",
     "SecretStoreSpecProviderDelineaClientSecretSecretRef",
-    "SecretStoreSpecProviderDevice42",
-    "SecretStoreSpecProviderDevice42Auth",
-    "SecretStoreSpecProviderDevice42AuthSecretRef",
-    "SecretStoreSpecProviderDevice42AuthSecretRefCredentials",
     "SecretStoreSpecProviderDoppler",
     "SecretStoreSpecProviderDopplerAuth",
     "SecretStoreSpecProviderDopplerAuthOidcConfig",
@@ -106304,7 +104862,6 @@ def _typecheckingstub__d0cf7b6aba7042541ed027a83c2a3602ec694bb8191253c6fb5470aea
 def _typecheckingstub__b577f0ccbbef07f08ad1ab52f92fc2ed139f3591354a8294c647ea76a6470491(
     *,
     akeyless: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderAkeyless, typing.Dict[builtins.str, typing.Any]]] = None,
-    alibaba: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderAlibaba, typing.Dict[builtins.str, typing.Any]]] = None,
     aws: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderAws, typing.Dict[builtins.str, typing.Any]]] = None,
     azurekv: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderAzurekv, typing.Dict[builtins.str, typing.Any]]] = None,
     barbican: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderBarbican, typing.Dict[builtins.str, typing.Any]]] = None,
@@ -106314,7 +104871,6 @@ def _typecheckingstub__b577f0ccbbef07f08ad1ab52f92fc2ed139f3591354a8294c647ea76a
     cloudrusm: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderCloudrusm, typing.Dict[builtins.str, typing.Any]]] = None,
     conjur: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderConjur, typing.Dict[builtins.str, typing.Any]]] = None,
     delinea: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderDelinea, typing.Dict[builtins.str, typing.Any]]] = None,
-    device42: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderDevice42, typing.Dict[builtins.str, typing.Any]]] = None,
     doppler: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderDoppler, typing.Dict[builtins.str, typing.Any]]] = None,
     dvls: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderDvls, typing.Dict[builtins.str, typing.Any]]] = None,
     fake: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderFake, typing.Dict[builtins.str, typing.Any]]] = None,
@@ -106434,58 +104990,6 @@ def _typecheckingstub__1c007e96589ec6b2844631ca03619f1b0870c03d301b7192f5f353c30
     name: builtins.str,
     type: ClusterSecretStoreSpecProviderAkeylessCaProviderType,
     key: typing.Optional[builtins.str] = None,
-    namespace: typing.Optional[builtins.str] = None,
-) -> None:
-    """Type checking stubs"""
-    pass
-
-def _typecheckingstub__a5ff624b83768ab7e3f6981bd9dbaf0c920598597111dc90a49f4e43af854503(
-    *,
-    auth: typing.Union[ClusterSecretStoreSpecProviderAlibabaAuth, typing.Dict[builtins.str, typing.Any]],
-    region_id: builtins.str,
-) -> None:
-    """Type checking stubs"""
-    pass
-
-def _typecheckingstub__a3e71811aee1daf711f7bac2275e4c3a683aa7203798d77f39b0ef34d5bd4d8f(
-    *,
-    rrsa: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderAlibabaAuthRrsa, typing.Dict[builtins.str, typing.Any]]] = None,
-    secret_ref: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderAlibabaAuthSecretRef, typing.Dict[builtins.str, typing.Any]]] = None,
-) -> None:
-    """Type checking stubs"""
-    pass
-
-def _typecheckingstub__c9b387e718990c982ab8ed3bda219992a33a3611431a7be98fa20bfdec2d8004(
-    *,
-    oidc_provider_arn: builtins.str,
-    oidc_token_file_path: builtins.str,
-    role_arn: builtins.str,
-    session_name: builtins.str,
-) -> None:
-    """Type checking stubs"""
-    pass
-
-def _typecheckingstub__91e926199bf20fc1a102ce65ad3b639e0398edcf53243008995020f063edf9ab(
-    *,
-    access_key_id_secret_ref: typing.Union[ClusterSecretStoreSpecProviderAlibabaAuthSecretRefAccessKeyIdSecretRef, typing.Dict[builtins.str, typing.Any]],
-    access_key_secret_secret_ref: typing.Union[ClusterSecretStoreSpecProviderAlibabaAuthSecretRefAccessKeySecretSecretRef, typing.Dict[builtins.str, typing.Any]],
-) -> None:
-    """Type checking stubs"""
-    pass
-
-def _typecheckingstub__577c863fea491e359b51abf5fe73e1d4acc1c81ea7401361e1c6cd8c07c011ee(
-    *,
-    key: typing.Optional[builtins.str] = None,
-    name: typing.Optional[builtins.str] = None,
-    namespace: typing.Optional[builtins.str] = None,
-) -> None:
-    """Type checking stubs"""
-    pass
-
-def _typecheckingstub__48b18145fd0d8fe181e65bd8874d2e03b8e44f3a00137400c5dc630d92c474bb(
-    *,
-    key: typing.Optional[builtins.str] = None,
-    name: typing.Optional[builtins.str] = None,
     namespace: typing.Optional[builtins.str] = None,
 ) -> None:
     """Type checking stubs"""
@@ -107073,37 +105577,6 @@ def _typecheckingstub__04637cfcdd56067f37c4d0d514bbb851c4b953254b08780ecb2c20ef2
     pass
 
 def _typecheckingstub__7a2824a75b885643d33eef6549120133911e8bf086fcc98f480cbc9480cb8e59(
-    *,
-    key: typing.Optional[builtins.str] = None,
-    name: typing.Optional[builtins.str] = None,
-    namespace: typing.Optional[builtins.str] = None,
-) -> None:
-    """Type checking stubs"""
-    pass
-
-def _typecheckingstub__3b980faf8f7ab064a9cfcd1983439a276ed0972abf895db7523c1a527d662b4a(
-    *,
-    auth: typing.Union[ClusterSecretStoreSpecProviderDevice42Auth, typing.Dict[builtins.str, typing.Any]],
-    host: builtins.str,
-) -> None:
-    """Type checking stubs"""
-    pass
-
-def _typecheckingstub__54c8e2ebc137257748528df112aa238c9a6ef77f9b56c9bb9bcd16b25781ca42(
-    *,
-    secret_ref: typing.Union[ClusterSecretStoreSpecProviderDevice42AuthSecretRef, typing.Dict[builtins.str, typing.Any]],
-) -> None:
-    """Type checking stubs"""
-    pass
-
-def _typecheckingstub__3a83f6871c46b61a6d2b61b66cadae3f1dbdc053d4764d9d48796b99c7257938(
-    *,
-    credentials: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderDevice42AuthSecretRefCredentials, typing.Dict[builtins.str, typing.Any]]] = None,
-) -> None:
-    """Type checking stubs"""
-    pass
-
-def _typecheckingstub__a36bc4fabfb05b1705411fa4fd38b63eaedd89c27e64b07573bd920b41a58786(
     *,
     key: typing.Optional[builtins.str] = None,
     name: typing.Optional[builtins.str] = None,
@@ -111799,7 +110272,6 @@ def _typecheckingstub__8ee07f9417bdb46432843fc9f094fd91393807cbdc66c75c920de43a2
 def _typecheckingstub__c530965dc9a8ce9c6b19c8fa2f1a1209e5d3f087076176d43c9a82a73ad3e971(
     *,
     akeyless: typing.Optional[typing.Union[SecretStoreSpecProviderAkeyless, typing.Dict[builtins.str, typing.Any]]] = None,
-    alibaba: typing.Optional[typing.Union[SecretStoreSpecProviderAlibaba, typing.Dict[builtins.str, typing.Any]]] = None,
     aws: typing.Optional[typing.Union[SecretStoreSpecProviderAws, typing.Dict[builtins.str, typing.Any]]] = None,
     azurekv: typing.Optional[typing.Union[SecretStoreSpecProviderAzurekv, typing.Dict[builtins.str, typing.Any]]] = None,
     barbican: typing.Optional[typing.Union[SecretStoreSpecProviderBarbican, typing.Dict[builtins.str, typing.Any]]] = None,
@@ -111809,7 +110281,6 @@ def _typecheckingstub__c530965dc9a8ce9c6b19c8fa2f1a1209e5d3f087076176d43c9a82a73
     cloudrusm: typing.Optional[typing.Union[SecretStoreSpecProviderCloudrusm, typing.Dict[builtins.str, typing.Any]]] = None,
     conjur: typing.Optional[typing.Union[SecretStoreSpecProviderConjur, typing.Dict[builtins.str, typing.Any]]] = None,
     delinea: typing.Optional[typing.Union[SecretStoreSpecProviderDelinea, typing.Dict[builtins.str, typing.Any]]] = None,
-    device42: typing.Optional[typing.Union[SecretStoreSpecProviderDevice42, typing.Dict[builtins.str, typing.Any]]] = None,
     doppler: typing.Optional[typing.Union[SecretStoreSpecProviderDoppler, typing.Dict[builtins.str, typing.Any]]] = None,
     dvls: typing.Optional[typing.Union[SecretStoreSpecProviderDvls, typing.Dict[builtins.str, typing.Any]]] = None,
     fake: typing.Optional[typing.Union[SecretStoreSpecProviderFake, typing.Dict[builtins.str, typing.Any]]] = None,
@@ -111929,58 +110400,6 @@ def _typecheckingstub__9f9c3b2ffab421d502bfac8a63fe44a7a580876ac897a20ca7ef6da1d
     name: builtins.str,
     type: SecretStoreSpecProviderAkeylessCaProviderType,
     key: typing.Optional[builtins.str] = None,
-    namespace: typing.Optional[builtins.str] = None,
-) -> None:
-    """Type checking stubs"""
-    pass
-
-def _typecheckingstub__160555d984538fdfb12b506e87bb6765d149005405f5ae079b3691db6a1d770f(
-    *,
-    auth: typing.Union[SecretStoreSpecProviderAlibabaAuth, typing.Dict[builtins.str, typing.Any]],
-    region_id: builtins.str,
-) -> None:
-    """Type checking stubs"""
-    pass
-
-def _typecheckingstub__2d8b50e50e137fe4e3f84cfad896da01555d6ac69b57ae5d2e585611bb05e278(
-    *,
-    rrsa: typing.Optional[typing.Union[SecretStoreSpecProviderAlibabaAuthRrsa, typing.Dict[builtins.str, typing.Any]]] = None,
-    secret_ref: typing.Optional[typing.Union[SecretStoreSpecProviderAlibabaAuthSecretRef, typing.Dict[builtins.str, typing.Any]]] = None,
-) -> None:
-    """Type checking stubs"""
-    pass
-
-def _typecheckingstub__22fd549ae04f8c34cf4357cee9af0ba1a090b8e6889bbb1347558106e5e66c4f(
-    *,
-    oidc_provider_arn: builtins.str,
-    oidc_token_file_path: builtins.str,
-    role_arn: builtins.str,
-    session_name: builtins.str,
-) -> None:
-    """Type checking stubs"""
-    pass
-
-def _typecheckingstub__83b732209a24571a7a96042e186e91398c6b74cf7cb865114ea675a90ddfc6e2(
-    *,
-    access_key_id_secret_ref: typing.Union[SecretStoreSpecProviderAlibabaAuthSecretRefAccessKeyIdSecretRef, typing.Dict[builtins.str, typing.Any]],
-    access_key_secret_secret_ref: typing.Union[SecretStoreSpecProviderAlibabaAuthSecretRefAccessKeySecretSecretRef, typing.Dict[builtins.str, typing.Any]],
-) -> None:
-    """Type checking stubs"""
-    pass
-
-def _typecheckingstub__c21bb376b2e3a0198bfcc4ef9da1f454aec69fed4187ddac868a437f5508e1de(
-    *,
-    key: typing.Optional[builtins.str] = None,
-    name: typing.Optional[builtins.str] = None,
-    namespace: typing.Optional[builtins.str] = None,
-) -> None:
-    """Type checking stubs"""
-    pass
-
-def _typecheckingstub__26d4e7fa82cee06a66db9f84afb99426b45555f9719c95d7984dc5ae97cec7b4(
-    *,
-    key: typing.Optional[builtins.str] = None,
-    name: typing.Optional[builtins.str] = None,
     namespace: typing.Optional[builtins.str] = None,
 ) -> None:
     """Type checking stubs"""
@@ -112568,37 +110987,6 @@ def _typecheckingstub__0d98eee09e6ba7910753e0b40916ccab2d89f1fb81a0089645c042a4b
     pass
 
 def _typecheckingstub__641e7f43d9b7121d104b49d8917a242fea51eac646b52d70f0271c6e96c4db42(
-    *,
-    key: typing.Optional[builtins.str] = None,
-    name: typing.Optional[builtins.str] = None,
-    namespace: typing.Optional[builtins.str] = None,
-) -> None:
-    """Type checking stubs"""
-    pass
-
-def _typecheckingstub__2cfdff5d40e3337e4f379ec9510a200edb491527a1059910f25810aa05f2f375(
-    *,
-    auth: typing.Union[SecretStoreSpecProviderDevice42Auth, typing.Dict[builtins.str, typing.Any]],
-    host: builtins.str,
-) -> None:
-    """Type checking stubs"""
-    pass
-
-def _typecheckingstub__d77e8e20c9c69795dc09c0209caeaf6a45974e7d920e0f99b9ad4bc21c0b0fc2(
-    *,
-    secret_ref: typing.Union[SecretStoreSpecProviderDevice42AuthSecretRef, typing.Dict[builtins.str, typing.Any]],
-) -> None:
-    """Type checking stubs"""
-    pass
-
-def _typecheckingstub__1cf46b767356467a18ed68d0cc75bc15cabfa68189eaf07a0198c18c9e87b0c3(
-    *,
-    credentials: typing.Optional[typing.Union[SecretStoreSpecProviderDevice42AuthSecretRefCredentials, typing.Dict[builtins.str, typing.Any]]] = None,
-) -> None:
-    """Type checking stubs"""
-    pass
-
-def _typecheckingstub__db56813252ceed316b54d671fca21de247c12519e11fd092cb08b99aaca1236e(
     *,
     key: typing.Optional[builtins.str] = None,
     name: typing.Optional[builtins.str] = None,
