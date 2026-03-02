@@ -558,6 +558,7 @@ class VerticalPodAutoscalerProps:
         "target_ref": "targetRef",
         "recommenders": "recommenders",
         "resource_policy": "resourcePolicy",
+        "startup_boost": "startupBoost",
         "update_policy": "updatePolicy",
     },
 )
@@ -568,6 +569,7 @@ class VerticalPodAutoscalerSpec:
         target_ref: typing.Union["VerticalPodAutoscalerSpecTargetRef", typing.Dict[builtins.str, typing.Any]],
         recommenders: typing.Optional[typing.Sequence[typing.Union["VerticalPodAutoscalerSpecRecommenders", typing.Dict[builtins.str, typing.Any]]]] = None,
         resource_policy: typing.Optional[typing.Union["VerticalPodAutoscalerSpecResourcePolicy", typing.Dict[builtins.str, typing.Any]]] = None,
+        startup_boost: typing.Optional[typing.Union["VerticalPodAutoscalerSpecStartupBoost", typing.Dict[builtins.str, typing.Any]]] = None,
         update_policy: typing.Optional[typing.Union["VerticalPodAutoscalerSpecUpdatePolicy", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''Specification of the behavior of the autoscaler.
@@ -577,6 +579,7 @@ class VerticalPodAutoscalerSpec:
         :param target_ref: TargetRef points to the controller managing the set of pods for the autoscaler to control - e.g. Deployment, StatefulSet. VerticalPodAutoscaler can be targeted at controller implementing scale subresource (the pod set is retrieved from the controller's ScaleStatus) or some well known controllers (e.g. for DaemonSet the pod set is read from the controller's spec). If VerticalPodAutoscaler cannot use specified target it will report ConfigUnsupported condition. Note that VerticalPodAutoscaler does not require full implementation of scale subresource - it will not use it to modify the replica count. The only thing retrieved is a label selector matching pods grouped by the target resource.
         :param recommenders: Recommender responsible for generating recommendation for this object. List should be empty (then the default recommender will generate the recommendation) or contain exactly one recommender.
         :param resource_policy: Controls how the autoscaler computes recommended resources. The resource policy may be used to set constraints on the recommendations for individual containers. If any individual containers need to be excluded from getting the VPA recommendations, then it must be disabled explicitly by setting mode to "Off" under containerPolicies. If not specified, the autoscaler computes recommended resources for all containers in the pod, without additional constraints.
+        :param startup_boost: startupBoost specifies the startup boost policy for the pod.
         :param update_policy: Describes the rules on how changes are applied to the pods. If not specified, all fields in the ``PodUpdatePolicy`` are set to their default values.
 
         :schema: VerticalPodAutoscalerSpec
@@ -585,6 +588,8 @@ class VerticalPodAutoscalerSpec:
             target_ref = VerticalPodAutoscalerSpecTargetRef(**target_ref)
         if isinstance(resource_policy, dict):
             resource_policy = VerticalPodAutoscalerSpecResourcePolicy(**resource_policy)
+        if isinstance(startup_boost, dict):
+            startup_boost = VerticalPodAutoscalerSpecStartupBoost(**startup_boost)
         if isinstance(update_policy, dict):
             update_policy = VerticalPodAutoscalerSpecUpdatePolicy(**update_policy)
         if __debug__:
@@ -592,6 +597,7 @@ class VerticalPodAutoscalerSpec:
             check_type(argname="argument target_ref", value=target_ref, expected_type=type_hints["target_ref"])
             check_type(argname="argument recommenders", value=recommenders, expected_type=type_hints["recommenders"])
             check_type(argname="argument resource_policy", value=resource_policy, expected_type=type_hints["resource_policy"])
+            check_type(argname="argument startup_boost", value=startup_boost, expected_type=type_hints["startup_boost"])
             check_type(argname="argument update_policy", value=update_policy, expected_type=type_hints["update_policy"])
         self._values: typing.Dict[builtins.str, typing.Any] = {
             "target_ref": target_ref,
@@ -600,6 +606,8 @@ class VerticalPodAutoscalerSpec:
             self._values["recommenders"] = recommenders
         if resource_policy is not None:
             self._values["resource_policy"] = resource_policy
+        if startup_boost is not None:
+            self._values["startup_boost"] = startup_boost
         if update_policy is not None:
             self._values["update_policy"] = update_policy
 
@@ -644,6 +652,15 @@ class VerticalPodAutoscalerSpec:
         '''
         result = self._values.get("resource_policy")
         return typing.cast(typing.Optional["VerticalPodAutoscalerSpecResourcePolicy"], result)
+
+    @builtins.property
+    def startup_boost(self) -> typing.Optional["VerticalPodAutoscalerSpecStartupBoost"]:
+        '''startupBoost specifies the startup boost policy for the pod.
+
+        :schema: VerticalPodAutoscalerSpec#startupBoost
+        '''
+        result = self._values.get("startup_boost")
+        return typing.cast(typing.Optional["VerticalPodAutoscalerSpecStartupBoost"], result)
 
     @builtins.property
     def update_policy(self) -> typing.Optional["VerticalPodAutoscalerSpecUpdatePolicy"]:
@@ -779,6 +796,7 @@ class VerticalPodAutoscalerSpecResourcePolicy:
         "mode": "mode",
         "oom_bump_up_ratio": "oomBumpUpRatio",
         "oom_min_bump_up": "oomMinBumpUp",
+        "startup_boost": "startupBoost",
     },
 )
 class VerticalPodAutoscalerSpecResourcePolicyContainerPolicies:
@@ -793,6 +811,7 @@ class VerticalPodAutoscalerSpecResourcePolicyContainerPolicies:
         mode: typing.Optional["VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesMode"] = None,
         oom_bump_up_ratio: typing.Optional["VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesOomBumpUpRatio"] = None,
         oom_min_bump_up: typing.Optional["VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesOomMinBumpUp"] = None,
+        startup_boost: typing.Optional[typing.Union["VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoost", typing.Dict[builtins.str, typing.Any]]] = None,
     ) -> None:
         '''ContainerResourcePolicy controls how autoscaler computes the recommended resources for a specific container.
 
@@ -804,9 +823,12 @@ class VerticalPodAutoscalerSpecResourcePolicyContainerPolicies:
         :param mode: Whether autoscaler is enabled for the container. The default is "Auto".
         :param oom_bump_up_ratio: oomBumpUpRatio is the ratio to increase memory when OOM is detected.
         :param oom_min_bump_up: oomMinBumpUp is the minimum increase in memory when OOM is detected.
+        :param startup_boost: startupBoost specifies the startup boost policy for the container. This overrides any pod-level startup boost policy. The startup boost policy takes precedence over the rest of the fields in this struct, except for ContainerName and ControlledValues.
 
         :schema: VerticalPodAutoscalerSpecResourcePolicyContainerPolicies
         '''
+        if isinstance(startup_boost, dict):
+            startup_boost = VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoost(**startup_boost)
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__20e39dd603c99d3d3deb05326547159fd6fe9e3b7008f5a98634351e64953eb1)
             check_type(argname="argument container_name", value=container_name, expected_type=type_hints["container_name"])
@@ -817,6 +839,7 @@ class VerticalPodAutoscalerSpecResourcePolicyContainerPolicies:
             check_type(argname="argument mode", value=mode, expected_type=type_hints["mode"])
             check_type(argname="argument oom_bump_up_ratio", value=oom_bump_up_ratio, expected_type=type_hints["oom_bump_up_ratio"])
             check_type(argname="argument oom_min_bump_up", value=oom_min_bump_up, expected_type=type_hints["oom_min_bump_up"])
+            check_type(argname="argument startup_boost", value=startup_boost, expected_type=type_hints["startup_boost"])
         self._values: typing.Dict[builtins.str, typing.Any] = {}
         if container_name is not None:
             self._values["container_name"] = container_name
@@ -834,6 +857,8 @@ class VerticalPodAutoscalerSpecResourcePolicyContainerPolicies:
             self._values["oom_bump_up_ratio"] = oom_bump_up_ratio
         if oom_min_bump_up is not None:
             self._values["oom_min_bump_up"] = oom_min_bump_up
+        if startup_boost is not None:
+            self._values["startup_boost"] = startup_boost
 
     @builtins.property
     def container_name(self) -> typing.Optional[builtins.str]:
@@ -928,6 +953,21 @@ class VerticalPodAutoscalerSpecResourcePolicyContainerPolicies:
         '''
         result = self._values.get("oom_min_bump_up")
         return typing.cast(typing.Optional["VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesOomMinBumpUp"], result)
+
+    @builtins.property
+    def startup_boost(
+        self,
+    ) -> typing.Optional["VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoost"]:
+        '''startupBoost specifies the startup boost policy for the container.
+
+        This overrides any pod-level startup boost policy.
+        The startup boost policy takes precedence over the rest of the fields in
+        this struct, except for ContainerName and ControlledValues.
+
+        :schema: VerticalPodAutoscalerSpecResourcePolicyContainerPolicies#startupBoost
+        '''
+        result = self._values.get("startup_boost")
+        return typing.cast(typing.Optional["VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoost"], result)
 
     def __eq__(self, rhs: typing.Any) -> builtins.bool:
         return isinstance(rhs, self.__class__) and rhs._values == self._values
@@ -1148,6 +1188,454 @@ class VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesOomMinBumpUp(
 
 
 @jsii.data_type(
+    jsii_type="iok8sautoscaling.VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoost",
+    jsii_struct_bases=[],
+    name_mapping={"cpu": "cpu"},
+)
+class VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoost:
+    def __init__(
+        self,
+        *,
+        cpu: typing.Optional[typing.Union["VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoostCpu", typing.Dict[builtins.str, typing.Any]]] = None,
+    ) -> None:
+        '''startupBoost specifies the startup boost policy for the container.
+
+        This overrides any pod-level startup boost policy.
+        The startup boost policy takes precedence over the rest of the fields in
+        this struct, except for ContainerName and ControlledValues.
+
+        :param cpu: cpu specifies the CPU startup boost policy. If this field is not set, no startup boost is applied.
+
+        :schema: VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoost
+        '''
+        if isinstance(cpu, dict):
+            cpu = VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoostCpu(**cpu)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__53f99f37924dc3ba777e957b8ffdcc8f7437c213b4fd0f7901a816e3b6a93394)
+            check_type(argname="argument cpu", value=cpu, expected_type=type_hints["cpu"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if cpu is not None:
+            self._values["cpu"] = cpu
+
+    @builtins.property
+    def cpu(
+        self,
+    ) -> typing.Optional["VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoostCpu"]:
+        '''cpu specifies the CPU startup boost policy.
+
+        If this field is not set, no startup boost is applied.
+
+        :schema: VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoost#cpu
+        '''
+        result = self._values.get("cpu")
+        return typing.cast(typing.Optional["VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoostCpu"], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoost(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="iok8sautoscaling.VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoostCpu",
+    jsii_struct_bases=[],
+    name_mapping={
+        "type": "type",
+        "duration_seconds": "durationSeconds",
+        "factor": "factor",
+        "quantity": "quantity",
+    },
+)
+class VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoostCpu:
+    def __init__(
+        self,
+        *,
+        type: "VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoostCpuType",
+        duration_seconds: typing.Optional[jsii.Number] = None,
+        factor: typing.Optional[jsii.Number] = None,
+        quantity: typing.Optional["VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoostCpuQuantity"] = None,
+    ) -> None:
+        '''cpu specifies the CPU startup boost policy.
+
+        If this field is not set, no startup boost is applied.
+
+        :param type: type specifies the kind of boost to apply. Supported values are: "Factor", "Quantity". No startupboost will be applied for unrecognized values.
+        :param duration_seconds: durationSeconds indicates for how long to keep the pod boosted after it goes to Ready. Defaults to 0. Default: 0.
+        :param factor: factor specifies the factor to apply to the resource request. This field is required when Type is "Factor".
+        :param quantity: quantity specifies the absolute resource quantity to be used as the resource request and limit during the boost phase. This field is required when Type is "Quantity".
+
+        :schema: VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoostCpu
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__ae81f4b3d36649484ebf51ebad8fd231af2c28b5717b3718db9583cece24ce0a)
+            check_type(argname="argument type", value=type, expected_type=type_hints["type"])
+            check_type(argname="argument duration_seconds", value=duration_seconds, expected_type=type_hints["duration_seconds"])
+            check_type(argname="argument factor", value=factor, expected_type=type_hints["factor"])
+            check_type(argname="argument quantity", value=quantity, expected_type=type_hints["quantity"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "type": type,
+        }
+        if duration_seconds is not None:
+            self._values["duration_seconds"] = duration_seconds
+        if factor is not None:
+            self._values["factor"] = factor
+        if quantity is not None:
+            self._values["quantity"] = quantity
+
+    @builtins.property
+    def type(
+        self,
+    ) -> "VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoostCpuType":
+        '''type specifies the kind of boost to apply.
+
+        Supported values are: "Factor", "Quantity".
+        No startupboost will be applied for unrecognized values.
+
+        :schema: VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoostCpu#type
+        '''
+        result = self._values.get("type")
+        assert result is not None, "Required property 'type' is missing"
+        return typing.cast("VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoostCpuType", result)
+
+    @builtins.property
+    def duration_seconds(self) -> typing.Optional[jsii.Number]:
+        '''durationSeconds indicates for how long to keep the pod boosted after it goes to Ready.
+
+        Defaults to 0.
+
+        :default: 0.
+
+        :schema: VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoostCpu#durationSeconds
+        '''
+        result = self._values.get("duration_seconds")
+        return typing.cast(typing.Optional[jsii.Number], result)
+
+    @builtins.property
+    def factor(self) -> typing.Optional[jsii.Number]:
+        '''factor specifies the factor to apply to the resource request.
+
+        This field is required when Type is "Factor".
+
+        :schema: VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoostCpu#factor
+        '''
+        result = self._values.get("factor")
+        return typing.cast(typing.Optional[jsii.Number], result)
+
+    @builtins.property
+    def quantity(
+        self,
+    ) -> typing.Optional["VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoostCpuQuantity"]:
+        '''quantity specifies the absolute resource quantity to be used as the resource request and limit during the boost phase.
+
+        This field is required when Type is "Quantity".
+
+        :schema: VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoostCpu#quantity
+        '''
+        result = self._values.get("quantity")
+        return typing.cast(typing.Optional["VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoostCpuQuantity"], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoostCpu(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+class VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoostCpuQuantity(
+    metaclass=jsii.JSIIMeta,
+    jsii_type="iok8sautoscaling.VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoostCpuQuantity",
+):
+    '''quantity specifies the absolute resource quantity to be used as the resource request and limit during the boost phase.
+
+    This field is required when Type is "Quantity".
+
+    :schema: VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoostCpuQuantity
+    '''
+
+    @jsii.member(jsii_name="fromNumber")
+    @builtins.classmethod
+    def from_number(
+        cls,
+        value: jsii.Number,
+    ) -> "VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoostCpuQuantity":
+        '''
+        :param value: -
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__13af68625e2d6185aacb4b10a18fcc118c4dd971de14210c7608a316df1cbc76)
+            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
+        return typing.cast("VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoostCpuQuantity", jsii.sinvoke(cls, "fromNumber", [value]))
+
+    @jsii.member(jsii_name="fromString")
+    @builtins.classmethod
+    def from_string(
+        cls,
+        value: builtins.str,
+    ) -> "VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoostCpuQuantity":
+        '''
+        :param value: -
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__6a3b31f4ed6940842ed03fbfbe6fbd1a1c9fb4f83d2034a9ff6d11693a936889)
+            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
+        return typing.cast("VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoostCpuQuantity", jsii.sinvoke(cls, "fromString", [value]))
+
+    @builtins.property
+    @jsii.member(jsii_name="value")
+    def value(self) -> typing.Union[builtins.str, jsii.Number]:
+        return typing.cast(typing.Union[builtins.str, jsii.Number], jsii.get(self, "value"))
+
+
+@jsii.enum(
+    jsii_type="iok8sautoscaling.VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoostCpuType"
+)
+class VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoostCpuType(
+    enum.Enum,
+):
+    '''type specifies the kind of boost to apply.
+
+    Supported values are: "Factor", "Quantity".
+    No startupboost will be applied for unrecognized values.
+
+    :schema: VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoostCpuType
+    '''
+
+    FACTOR = "FACTOR"
+    '''Factor.'''
+    QUANTITY = "QUANTITY"
+    '''Quantity.'''
+
+
+@jsii.data_type(
+    jsii_type="iok8sautoscaling.VerticalPodAutoscalerSpecStartupBoost",
+    jsii_struct_bases=[],
+    name_mapping={"cpu": "cpu"},
+)
+class VerticalPodAutoscalerSpecStartupBoost:
+    def __init__(
+        self,
+        *,
+        cpu: typing.Optional[typing.Union["VerticalPodAutoscalerSpecStartupBoostCpu", typing.Dict[builtins.str, typing.Any]]] = None,
+    ) -> None:
+        '''startupBoost specifies the startup boost policy for the pod.
+
+        :param cpu: cpu specifies the CPU startup boost policy. If this field is not set, no startup boost is applied.
+
+        :schema: VerticalPodAutoscalerSpecStartupBoost
+        '''
+        if isinstance(cpu, dict):
+            cpu = VerticalPodAutoscalerSpecStartupBoostCpu(**cpu)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__1b1e041b86540efe4cd67c092554b5ff23d87028803213c530c078cea1c4380e)
+            check_type(argname="argument cpu", value=cpu, expected_type=type_hints["cpu"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if cpu is not None:
+            self._values["cpu"] = cpu
+
+    @builtins.property
+    def cpu(self) -> typing.Optional["VerticalPodAutoscalerSpecStartupBoostCpu"]:
+        '''cpu specifies the CPU startup boost policy.
+
+        If this field is not set, no startup boost is applied.
+
+        :schema: VerticalPodAutoscalerSpecStartupBoost#cpu
+        '''
+        result = self._values.get("cpu")
+        return typing.cast(typing.Optional["VerticalPodAutoscalerSpecStartupBoostCpu"], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "VerticalPodAutoscalerSpecStartupBoost(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="iok8sautoscaling.VerticalPodAutoscalerSpecStartupBoostCpu",
+    jsii_struct_bases=[],
+    name_mapping={
+        "type": "type",
+        "duration_seconds": "durationSeconds",
+        "factor": "factor",
+        "quantity": "quantity",
+    },
+)
+class VerticalPodAutoscalerSpecStartupBoostCpu:
+    def __init__(
+        self,
+        *,
+        type: "VerticalPodAutoscalerSpecStartupBoostCpuType",
+        duration_seconds: typing.Optional[jsii.Number] = None,
+        factor: typing.Optional[jsii.Number] = None,
+        quantity: typing.Optional["VerticalPodAutoscalerSpecStartupBoostCpuQuantity"] = None,
+    ) -> None:
+        '''cpu specifies the CPU startup boost policy.
+
+        If this field is not set, no startup boost is applied.
+
+        :param type: type specifies the kind of boost to apply. Supported values are: "Factor", "Quantity". No startupboost will be applied for unrecognized values.
+        :param duration_seconds: durationSeconds indicates for how long to keep the pod boosted after it goes to Ready. Defaults to 0. Default: 0.
+        :param factor: factor specifies the factor to apply to the resource request. This field is required when Type is "Factor".
+        :param quantity: quantity specifies the absolute resource quantity to be used as the resource request and limit during the boost phase. This field is required when Type is "Quantity".
+
+        :schema: VerticalPodAutoscalerSpecStartupBoostCpu
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__14a74c3e686b79d0345281e20a2f0b5be491a5f2c66cfcf9861f26f784a23964)
+            check_type(argname="argument type", value=type, expected_type=type_hints["type"])
+            check_type(argname="argument duration_seconds", value=duration_seconds, expected_type=type_hints["duration_seconds"])
+            check_type(argname="argument factor", value=factor, expected_type=type_hints["factor"])
+            check_type(argname="argument quantity", value=quantity, expected_type=type_hints["quantity"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "type": type,
+        }
+        if duration_seconds is not None:
+            self._values["duration_seconds"] = duration_seconds
+        if factor is not None:
+            self._values["factor"] = factor
+        if quantity is not None:
+            self._values["quantity"] = quantity
+
+    @builtins.property
+    def type(self) -> "VerticalPodAutoscalerSpecStartupBoostCpuType":
+        '''type specifies the kind of boost to apply.
+
+        Supported values are: "Factor", "Quantity".
+        No startupboost will be applied for unrecognized values.
+
+        :schema: VerticalPodAutoscalerSpecStartupBoostCpu#type
+        '''
+        result = self._values.get("type")
+        assert result is not None, "Required property 'type' is missing"
+        return typing.cast("VerticalPodAutoscalerSpecStartupBoostCpuType", result)
+
+    @builtins.property
+    def duration_seconds(self) -> typing.Optional[jsii.Number]:
+        '''durationSeconds indicates for how long to keep the pod boosted after it goes to Ready.
+
+        Defaults to 0.
+
+        :default: 0.
+
+        :schema: VerticalPodAutoscalerSpecStartupBoostCpu#durationSeconds
+        '''
+        result = self._values.get("duration_seconds")
+        return typing.cast(typing.Optional[jsii.Number], result)
+
+    @builtins.property
+    def factor(self) -> typing.Optional[jsii.Number]:
+        '''factor specifies the factor to apply to the resource request.
+
+        This field is required when Type is "Factor".
+
+        :schema: VerticalPodAutoscalerSpecStartupBoostCpu#factor
+        '''
+        result = self._values.get("factor")
+        return typing.cast(typing.Optional[jsii.Number], result)
+
+    @builtins.property
+    def quantity(
+        self,
+    ) -> typing.Optional["VerticalPodAutoscalerSpecStartupBoostCpuQuantity"]:
+        '''quantity specifies the absolute resource quantity to be used as the resource request and limit during the boost phase.
+
+        This field is required when Type is "Quantity".
+
+        :schema: VerticalPodAutoscalerSpecStartupBoostCpu#quantity
+        '''
+        result = self._values.get("quantity")
+        return typing.cast(typing.Optional["VerticalPodAutoscalerSpecStartupBoostCpuQuantity"], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "VerticalPodAutoscalerSpecStartupBoostCpu(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+class VerticalPodAutoscalerSpecStartupBoostCpuQuantity(
+    metaclass=jsii.JSIIMeta,
+    jsii_type="iok8sautoscaling.VerticalPodAutoscalerSpecStartupBoostCpuQuantity",
+):
+    '''quantity specifies the absolute resource quantity to be used as the resource request and limit during the boost phase.
+
+    This field is required when Type is "Quantity".
+
+    :schema: VerticalPodAutoscalerSpecStartupBoostCpuQuantity
+    '''
+
+    @jsii.member(jsii_name="fromNumber")
+    @builtins.classmethod
+    def from_number(
+        cls,
+        value: jsii.Number,
+    ) -> "VerticalPodAutoscalerSpecStartupBoostCpuQuantity":
+        '''
+        :param value: -
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__b8354f36311df3be37c7681f547e78540525f410a3a81a44b62e1fc181d29ab1)
+            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
+        return typing.cast("VerticalPodAutoscalerSpecStartupBoostCpuQuantity", jsii.sinvoke(cls, "fromNumber", [value]))
+
+    @jsii.member(jsii_name="fromString")
+    @builtins.classmethod
+    def from_string(
+        cls,
+        value: builtins.str,
+    ) -> "VerticalPodAutoscalerSpecStartupBoostCpuQuantity":
+        '''
+        :param value: -
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__5d099a32aa7a375854d28ddbac10023165bce6c378e1619473da25032bf6780b)
+            check_type(argname="argument value", value=value, expected_type=type_hints["value"])
+        return typing.cast("VerticalPodAutoscalerSpecStartupBoostCpuQuantity", jsii.sinvoke(cls, "fromString", [value]))
+
+    @builtins.property
+    @jsii.member(jsii_name="value")
+    def value(self) -> typing.Union[builtins.str, jsii.Number]:
+        return typing.cast(typing.Union[builtins.str, jsii.Number], jsii.get(self, "value"))
+
+
+@jsii.enum(jsii_type="iok8sautoscaling.VerticalPodAutoscalerSpecStartupBoostCpuType")
+class VerticalPodAutoscalerSpecStartupBoostCpuType(enum.Enum):
+    '''type specifies the kind of boost to apply.
+
+    Supported values are: "Factor", "Quantity".
+    No startupboost will be applied for unrecognized values.
+
+    :schema: VerticalPodAutoscalerSpecStartupBoostCpuType
+    '''
+
+    FACTOR = "FACTOR"
+    '''Factor.'''
+    QUANTITY = "QUANTITY"
+    '''Quantity.'''
+
+
+@jsii.data_type(
     jsii_type="iok8sautoscaling.VerticalPodAutoscalerSpecTargetRef",
     jsii_struct_bases=[],
     name_mapping={"kind": "kind", "name": "name", "api_version": "apiVersion"},
@@ -1229,6 +1717,7 @@ class VerticalPodAutoscalerSpecTargetRef:
     jsii_type="iok8sautoscaling.VerticalPodAutoscalerSpecUpdatePolicy",
     jsii_struct_bases=[],
     name_mapping={
+        "evict_after_oom_seconds": "evictAfterOomSeconds",
         "eviction_requirements": "evictionRequirements",
         "min_replicas": "minReplicas",
         "update_mode": "updateMode",
@@ -1238,6 +1727,7 @@ class VerticalPodAutoscalerSpecUpdatePolicy:
     def __init__(
         self,
         *,
+        evict_after_oom_seconds: typing.Optional[jsii.Number] = None,
         eviction_requirements: typing.Optional[typing.Sequence[typing.Union["VerticalPodAutoscalerSpecUpdatePolicyEvictionRequirements", typing.Dict[builtins.str, typing.Any]]]] = None,
         min_replicas: typing.Optional[jsii.Number] = None,
         update_mode: typing.Optional["VerticalPodAutoscalerSpecUpdatePolicyUpdateMode"] = None,
@@ -1247,6 +1737,7 @@ class VerticalPodAutoscalerSpecUpdatePolicy:
         If not specified, all fields in the ``PodUpdatePolicy`` are set to their
         default values.
 
+        :param evict_after_oom_seconds: evictAfterOOMSeconds specifies the time in seconds to wait after an OOM event before considering the pod for eviction. Pods that have OOMed in less than this time since start will be evicted.
         :param eviction_requirements: EvictionRequirements is a list of EvictionRequirements that need to evaluate to true in order for a Pod to be evicted. If more than one EvictionRequirement is specified, all of them need to be fulfilled to allow eviction.
         :param min_replicas: Minimal number of replicas which need to be alive for Updater to attempt pod eviction (pending other checks like PDB). Only positive values are allowed. Overrides global '--min-replicas' flag.
         :param update_mode: Controls when autoscaler applies changes to the pod resources. The default is 'Recreate'.
@@ -1255,16 +1746,31 @@ class VerticalPodAutoscalerSpecUpdatePolicy:
         '''
         if __debug__:
             type_hints = typing.get_type_hints(_typecheckingstub__2090e51372d1722715886f39b00478aa4a1a6c5c8b06379c6ccf82ad97b6e06b)
+            check_type(argname="argument evict_after_oom_seconds", value=evict_after_oom_seconds, expected_type=type_hints["evict_after_oom_seconds"])
             check_type(argname="argument eviction_requirements", value=eviction_requirements, expected_type=type_hints["eviction_requirements"])
             check_type(argname="argument min_replicas", value=min_replicas, expected_type=type_hints["min_replicas"])
             check_type(argname="argument update_mode", value=update_mode, expected_type=type_hints["update_mode"])
         self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if evict_after_oom_seconds is not None:
+            self._values["evict_after_oom_seconds"] = evict_after_oom_seconds
         if eviction_requirements is not None:
             self._values["eviction_requirements"] = eviction_requirements
         if min_replicas is not None:
             self._values["min_replicas"] = min_replicas
         if update_mode is not None:
             self._values["update_mode"] = update_mode
+
+    @builtins.property
+    def evict_after_oom_seconds(self) -> typing.Optional[jsii.Number]:
+        '''evictAfterOOMSeconds specifies the time in seconds to wait after an OOM event before considering the pod for eviction.
+
+        Pods that have OOMed in less than this time
+        since start will be evicted.
+
+        :schema: VerticalPodAutoscalerSpecUpdatePolicy#evictAfterOOMSeconds
+        '''
+        result = self._values.get("evict_after_oom_seconds")
+        return typing.cast(typing.Optional[jsii.Number], result)
 
     @builtins.property
     def eviction_requirements(
@@ -2074,6 +2580,14 @@ __all__ = [
     "VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesMode",
     "VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesOomBumpUpRatio",
     "VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesOomMinBumpUp",
+    "VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoost",
+    "VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoostCpu",
+    "VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoostCpuQuantity",
+    "VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoostCpuType",
+    "VerticalPodAutoscalerSpecStartupBoost",
+    "VerticalPodAutoscalerSpecStartupBoostCpu",
+    "VerticalPodAutoscalerSpecStartupBoostCpuQuantity",
+    "VerticalPodAutoscalerSpecStartupBoostCpuType",
     "VerticalPodAutoscalerSpecTargetRef",
     "VerticalPodAutoscalerSpecUpdatePolicy",
     "VerticalPodAutoscalerSpecUpdatePolicyEvictionRequirements",
@@ -2169,6 +2683,7 @@ def _typecheckingstub__aad6783c71127d8ab5dcca718acfc5e5ac0c4b9eac186e46f316e34aa
     target_ref: typing.Union[VerticalPodAutoscalerSpecTargetRef, typing.Dict[builtins.str, typing.Any]],
     recommenders: typing.Optional[typing.Sequence[typing.Union[VerticalPodAutoscalerSpecRecommenders, typing.Dict[builtins.str, typing.Any]]]] = None,
     resource_policy: typing.Optional[typing.Union[VerticalPodAutoscalerSpecResourcePolicy, typing.Dict[builtins.str, typing.Any]]] = None,
+    startup_boost: typing.Optional[typing.Union[VerticalPodAutoscalerSpecStartupBoost, typing.Dict[builtins.str, typing.Any]]] = None,
     update_policy: typing.Optional[typing.Union[VerticalPodAutoscalerSpecUpdatePolicy, typing.Dict[builtins.str, typing.Any]]] = None,
 ) -> None:
     """Type checking stubs"""
@@ -2198,6 +2713,7 @@ def _typecheckingstub__20e39dd603c99d3d3deb05326547159fd6fe9e3b7008f5a98634351e6
     mode: typing.Optional[VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesMode] = None,
     oom_bump_up_ratio: typing.Optional[VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesOomBumpUpRatio] = None,
     oom_min_bump_up: typing.Optional[VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesOomMinBumpUp] = None,
+    startup_boost: typing.Optional[typing.Union[VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoost, typing.Dict[builtins.str, typing.Any]]] = None,
 ) -> None:
     """Type checking stubs"""
     pass
@@ -2250,6 +2766,64 @@ def _typecheckingstub__d653b2712752a2fa0a083e6f29cddf8eed6d3e7d040a856b68597fc04
     """Type checking stubs"""
     pass
 
+def _typecheckingstub__53f99f37924dc3ba777e957b8ffdcc8f7437c213b4fd0f7901a816e3b6a93394(
+    *,
+    cpu: typing.Optional[typing.Union[VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoostCpu, typing.Dict[builtins.str, typing.Any]]] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__ae81f4b3d36649484ebf51ebad8fd231af2c28b5717b3718db9583cece24ce0a(
+    *,
+    type: VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoostCpuType,
+    duration_seconds: typing.Optional[jsii.Number] = None,
+    factor: typing.Optional[jsii.Number] = None,
+    quantity: typing.Optional[VerticalPodAutoscalerSpecResourcePolicyContainerPoliciesStartupBoostCpuQuantity] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__13af68625e2d6185aacb4b10a18fcc118c4dd971de14210c7608a316df1cbc76(
+    value: jsii.Number,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__6a3b31f4ed6940842ed03fbfbe6fbd1a1c9fb4f83d2034a9ff6d11693a936889(
+    value: builtins.str,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__1b1e041b86540efe4cd67c092554b5ff23d87028803213c530c078cea1c4380e(
+    *,
+    cpu: typing.Optional[typing.Union[VerticalPodAutoscalerSpecStartupBoostCpu, typing.Dict[builtins.str, typing.Any]]] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__14a74c3e686b79d0345281e20a2f0b5be491a5f2c66cfcf9861f26f784a23964(
+    *,
+    type: VerticalPodAutoscalerSpecStartupBoostCpuType,
+    duration_seconds: typing.Optional[jsii.Number] = None,
+    factor: typing.Optional[jsii.Number] = None,
+    quantity: typing.Optional[VerticalPodAutoscalerSpecStartupBoostCpuQuantity] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__b8354f36311df3be37c7681f547e78540525f410a3a81a44b62e1fc181d29ab1(
+    value: jsii.Number,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__5d099a32aa7a375854d28ddbac10023165bce6c378e1619473da25032bf6780b(
+    value: builtins.str,
+) -> None:
+    """Type checking stubs"""
+    pass
+
 def _typecheckingstub__9f7e1cdc947c495ae1aa36536adc3a83321ba4c464768bf26354e40e3055ae51(
     *,
     kind: builtins.str,
@@ -2261,6 +2835,7 @@ def _typecheckingstub__9f7e1cdc947c495ae1aa36536adc3a83321ba4c464768bf26354e40e3
 
 def _typecheckingstub__2090e51372d1722715886f39b00478aa4a1a6c5c8b06379c6ccf82ad97b6e06b(
     *,
+    evict_after_oom_seconds: typing.Optional[jsii.Number] = None,
     eviction_requirements: typing.Optional[typing.Sequence[typing.Union[VerticalPodAutoscalerSpecUpdatePolicyEvictionRequirements, typing.Dict[builtins.str, typing.Any]]]] = None,
     min_replicas: typing.Optional[jsii.Number] = None,
     update_mode: typing.Optional[VerticalPodAutoscalerSpecUpdatePolicyUpdateMode] = None,
