@@ -9322,6 +9322,7 @@ class ClusterSecretStoreSpecConditionsNamespaceSelectorMatchExpressions:
         "infisical": "infisical",
         "keepersecurity": "keepersecurity",
         "kubernetes": "kubernetes",
+        "nebiusmysterybox": "nebiusmysterybox",
         "ngrok": "ngrok",
         "onboardbase": "onboardbase",
         "onepassword": "onepassword",
@@ -9366,6 +9367,7 @@ class ClusterSecretStoreSpecProvider:
         infisical: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderInfisical", typing.Dict[builtins.str, typing.Any]]] = None,
         keepersecurity: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderKeepersecurity", typing.Dict[builtins.str, typing.Any]]] = None,
         kubernetes: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderKubernetes", typing.Dict[builtins.str, typing.Any]]] = None,
+        nebiusmysterybox: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderNebiusmysterybox", typing.Dict[builtins.str, typing.Any]]] = None,
         ngrok: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderNgrok", typing.Dict[builtins.str, typing.Any]]] = None,
         onboardbase: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderOnboardbase", typing.Dict[builtins.str, typing.Any]]] = None,
         onepassword: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderOnepassword", typing.Dict[builtins.str, typing.Any]]] = None,
@@ -9409,6 +9411,7 @@ class ClusterSecretStoreSpecProvider:
         :param infisical: Infisical configures this store to sync secrets using the Infisical provider.
         :param keepersecurity: KeeperSecurity configures this store to sync secrets using the KeeperSecurity provider.
         :param kubernetes: Kubernetes configures this store to sync secrets using a Kubernetes cluster provider.
+        :param nebiusmysterybox: NebiusMysterybox configures this store to sync secrets using NebiusMysterybox provider.
         :param ngrok: Ngrok configures this store to sync secrets using the ngrok provider.
         :param onboardbase: Onboardbase configures this store to sync secrets using the Onboardbase provider.
         :param onepassword: OnePassword configures this store to sync secrets using the 1Password Cloud provider.
@@ -9471,6 +9474,8 @@ class ClusterSecretStoreSpecProvider:
             keepersecurity = ClusterSecretStoreSpecProviderKeepersecurity(**keepersecurity)
         if isinstance(kubernetes, dict):
             kubernetes = ClusterSecretStoreSpecProviderKubernetes(**kubernetes)
+        if isinstance(nebiusmysterybox, dict):
+            nebiusmysterybox = ClusterSecretStoreSpecProviderNebiusmysterybox(**nebiusmysterybox)
         if isinstance(ngrok, dict):
             ngrok = ClusterSecretStoreSpecProviderNgrok(**ngrok)
         if isinstance(onboardbase, dict):
@@ -9528,6 +9533,7 @@ class ClusterSecretStoreSpecProvider:
             check_type(argname="argument infisical", value=infisical, expected_type=type_hints["infisical"])
             check_type(argname="argument keepersecurity", value=keepersecurity, expected_type=type_hints["keepersecurity"])
             check_type(argname="argument kubernetes", value=kubernetes, expected_type=type_hints["kubernetes"])
+            check_type(argname="argument nebiusmysterybox", value=nebiusmysterybox, expected_type=type_hints["nebiusmysterybox"])
             check_type(argname="argument ngrok", value=ngrok, expected_type=type_hints["ngrok"])
             check_type(argname="argument onboardbase", value=onboardbase, expected_type=type_hints["onboardbase"])
             check_type(argname="argument onepassword", value=onepassword, expected_type=type_hints["onepassword"])
@@ -9588,6 +9594,8 @@ class ClusterSecretStoreSpecProvider:
             self._values["keepersecurity"] = keepersecurity
         if kubernetes is not None:
             self._values["kubernetes"] = kubernetes
+        if nebiusmysterybox is not None:
+            self._values["nebiusmysterybox"] = nebiusmysterybox
         if ngrok is not None:
             self._values["ngrok"] = ngrok
         if onboardbase is not None:
@@ -9819,6 +9827,17 @@ class ClusterSecretStoreSpecProvider:
         '''
         result = self._values.get("kubernetes")
         return typing.cast(typing.Optional["ClusterSecretStoreSpecProviderKubernetes"], result)
+
+    @builtins.property
+    def nebiusmysterybox(
+        self,
+    ) -> typing.Optional["ClusterSecretStoreSpecProviderNebiusmysterybox"]:
+        '''NebiusMysterybox configures this store to sync secrets using NebiusMysterybox provider.
+
+        :schema: ClusterSecretStoreSpecProvider#nebiusmysterybox
+        '''
+        result = self._values.get("nebiusmysterybox")
+        return typing.cast(typing.Optional["ClusterSecretStoreSpecProviderNebiusmysterybox"], result)
 
     @builtins.property
     def ngrok(self) -> typing.Optional["ClusterSecretStoreSpecProviderNgrok"]:
@@ -23693,6 +23712,466 @@ class ClusterSecretStoreSpecProviderKubernetesServerCaProviderType(enum.Enum):
     '''Secret.'''
     CONFIG_MAP = "CONFIG_MAP"
     '''ConfigMap.'''
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderNebiusmysterybox",
+    jsii_struct_bases=[],
+    name_mapping={
+        "api_domain": "apiDomain",
+        "auth": "auth",
+        "ca_provider": "caProvider",
+    },
+)
+class ClusterSecretStoreSpecProviderNebiusmysterybox:
+    def __init__(
+        self,
+        *,
+        api_domain: builtins.str,
+        auth: typing.Union["ClusterSecretStoreSpecProviderNebiusmysteryboxAuth", typing.Dict[builtins.str, typing.Any]],
+        ca_provider: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderNebiusmysteryboxCaProvider", typing.Dict[builtins.str, typing.Any]]] = None,
+    ) -> None:
+        '''NebiusMysterybox configures this store to sync secrets using NebiusMysterybox provider.
+
+        :param api_domain: NebiusMysterybox API endpoint.
+        :param auth: Auth defines parameters to authenticate in MysteryBox.
+        :param ca_provider: The provider for the CA bundle to use to validate NebiusMysterybox server certificate.
+
+        :schema: ClusterSecretStoreSpecProviderNebiusmysterybox
+        '''
+        if isinstance(auth, dict):
+            auth = ClusterSecretStoreSpecProviderNebiusmysteryboxAuth(**auth)
+        if isinstance(ca_provider, dict):
+            ca_provider = ClusterSecretStoreSpecProviderNebiusmysteryboxCaProvider(**ca_provider)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__7f55cfd343be0f63e62c1b6ad9a4d49d08ced2c4597cdcc8f53c99cc7cf76a4e)
+            check_type(argname="argument api_domain", value=api_domain, expected_type=type_hints["api_domain"])
+            check_type(argname="argument auth", value=auth, expected_type=type_hints["auth"])
+            check_type(argname="argument ca_provider", value=ca_provider, expected_type=type_hints["ca_provider"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "api_domain": api_domain,
+            "auth": auth,
+        }
+        if ca_provider is not None:
+            self._values["ca_provider"] = ca_provider
+
+    @builtins.property
+    def api_domain(self) -> builtins.str:
+        '''NebiusMysterybox API endpoint.
+
+        :schema: ClusterSecretStoreSpecProviderNebiusmysterybox#apiDomain
+        '''
+        result = self._values.get("api_domain")
+        assert result is not None, "Required property 'api_domain' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def auth(self) -> "ClusterSecretStoreSpecProviderNebiusmysteryboxAuth":
+        '''Auth defines parameters to authenticate in MysteryBox.
+
+        :schema: ClusterSecretStoreSpecProviderNebiusmysterybox#auth
+        '''
+        result = self._values.get("auth")
+        assert result is not None, "Required property 'auth' is missing"
+        return typing.cast("ClusterSecretStoreSpecProviderNebiusmysteryboxAuth", result)
+
+    @builtins.property
+    def ca_provider(
+        self,
+    ) -> typing.Optional["ClusterSecretStoreSpecProviderNebiusmysteryboxCaProvider"]:
+        '''The provider for the CA bundle to use to validate NebiusMysterybox server certificate.
+
+        :schema: ClusterSecretStoreSpecProviderNebiusmysterybox#caProvider
+        '''
+        result = self._values.get("ca_provider")
+        return typing.cast(typing.Optional["ClusterSecretStoreSpecProviderNebiusmysteryboxCaProvider"], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterSecretStoreSpecProviderNebiusmysterybox(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderNebiusmysteryboxAuth",
+    jsii_struct_bases=[],
+    name_mapping={
+        "service_account_creds_secret_ref": "serviceAccountCredsSecretRef",
+        "token_secret_ref": "tokenSecretRef",
+    },
+)
+class ClusterSecretStoreSpecProviderNebiusmysteryboxAuth:
+    def __init__(
+        self,
+        *,
+        service_account_creds_secret_ref: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderNebiusmysteryboxAuthServiceAccountCredsSecretRef", typing.Dict[builtins.str, typing.Any]]] = None,
+        token_secret_ref: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderNebiusmysteryboxAuthTokenSecretRef", typing.Dict[builtins.str, typing.Any]]] = None,
+    ) -> None:
+        '''Auth defines parameters to authenticate in MysteryBox.
+
+        :param service_account_creds_secret_ref: ServiceAccountCreds references a Kubernetes Secret key that contains a JSON document with service account credentials used to get an IAM token. Expected JSON structure: { "subject-credentials": { "alg": "RS256", "private-key": "-----BEGIN PRIVATE KEY-----\\n\\n-----END PRIVATE KEY-----\\n", "kid": "", "iss": "", "sub": "" } }
+        :param token_secret_ref: Token authenticates with Nebius Mysterybox by presenting a token.
+
+        :schema: ClusterSecretStoreSpecProviderNebiusmysteryboxAuth
+        '''
+        if isinstance(service_account_creds_secret_ref, dict):
+            service_account_creds_secret_ref = ClusterSecretStoreSpecProviderNebiusmysteryboxAuthServiceAccountCredsSecretRef(**service_account_creds_secret_ref)
+        if isinstance(token_secret_ref, dict):
+            token_secret_ref = ClusterSecretStoreSpecProviderNebiusmysteryboxAuthTokenSecretRef(**token_secret_ref)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__9d143af4d29d0feaf41863c22977cf6008fd5460dcfb290d916507450d17e23b)
+            check_type(argname="argument service_account_creds_secret_ref", value=service_account_creds_secret_ref, expected_type=type_hints["service_account_creds_secret_ref"])
+            check_type(argname="argument token_secret_ref", value=token_secret_ref, expected_type=type_hints["token_secret_ref"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if service_account_creds_secret_ref is not None:
+            self._values["service_account_creds_secret_ref"] = service_account_creds_secret_ref
+        if token_secret_ref is not None:
+            self._values["token_secret_ref"] = token_secret_ref
+
+    @builtins.property
+    def service_account_creds_secret_ref(
+        self,
+    ) -> typing.Optional["ClusterSecretStoreSpecProviderNebiusmysteryboxAuthServiceAccountCredsSecretRef"]:
+        '''ServiceAccountCreds references a Kubernetes Secret key that contains a JSON document with service account credentials used to get an IAM token.
+
+        Expected JSON structure:
+        {
+        "subject-credentials": {
+        "alg": "RS256",
+        "private-key": "-----BEGIN PRIVATE KEY-----\\n\\n-----END PRIVATE KEY-----\\n",
+        "kid": "",
+        "iss": "",
+        "sub": ""
+        }
+        }
+
+        :schema: ClusterSecretStoreSpecProviderNebiusmysteryboxAuth#serviceAccountCredsSecretRef
+        '''
+        result = self._values.get("service_account_creds_secret_ref")
+        return typing.cast(typing.Optional["ClusterSecretStoreSpecProviderNebiusmysteryboxAuthServiceAccountCredsSecretRef"], result)
+
+    @builtins.property
+    def token_secret_ref(
+        self,
+    ) -> typing.Optional["ClusterSecretStoreSpecProviderNebiusmysteryboxAuthTokenSecretRef"]:
+        '''Token authenticates with Nebius Mysterybox by presenting a token.
+
+        :schema: ClusterSecretStoreSpecProviderNebiusmysteryboxAuth#tokenSecretRef
+        '''
+        result = self._values.get("token_secret_ref")
+        return typing.cast(typing.Optional["ClusterSecretStoreSpecProviderNebiusmysteryboxAuthTokenSecretRef"], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterSecretStoreSpecProviderNebiusmysteryboxAuth(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderNebiusmysteryboxAuthServiceAccountCredsSecretRef",
+    jsii_struct_bases=[],
+    name_mapping={"key": "key", "name": "name", "namespace": "namespace"},
+)
+class ClusterSecretStoreSpecProviderNebiusmysteryboxAuthServiceAccountCredsSecretRef:
+    def __init__(
+        self,
+        *,
+        key: typing.Optional[builtins.str] = None,
+        name: typing.Optional[builtins.str] = None,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''ServiceAccountCreds references a Kubernetes Secret key that contains a JSON document with service account credentials used to get an IAM token.
+
+        Expected JSON structure:
+        {
+        "subject-credentials": {
+        "alg": "RS256",
+        "private-key": "-----BEGIN PRIVATE KEY-----\\n\\n-----END PRIVATE KEY-----\\n",
+        "kid": "",
+        "iss": "",
+        "sub": ""
+        }
+        }
+
+        :param key: A key in the referenced Secret. Some instances of this field may be defaulted, in others it may be required.
+        :param name: The name of the Secret resource being referred to.
+        :param namespace: The namespace of the Secret resource being referred to. Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: ClusterSecretStoreSpecProviderNebiusmysteryboxAuthServiceAccountCredsSecretRef
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__0328ce8033e34d2b8c397b83dc9ee86cbbe5f1fcfdbac100fd40fa18ed89eb21)
+            check_type(argname="argument key", value=key, expected_type=type_hints["key"])
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if key is not None:
+            self._values["key"] = key
+        if name is not None:
+            self._values["name"] = name
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def key(self) -> typing.Optional[builtins.str]:
+        '''A key in the referenced Secret.
+
+        Some instances of this field may be defaulted, in others it may be required.
+
+        :schema: ClusterSecretStoreSpecProviderNebiusmysteryboxAuthServiceAccountCredsSecretRef#key
+        '''
+        result = self._values.get("key")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def name(self) -> typing.Optional[builtins.str]:
+        '''The name of the Secret resource being referred to.
+
+        :schema: ClusterSecretStoreSpecProviderNebiusmysteryboxAuthServiceAccountCredsSecretRef#name
+        '''
+        result = self._values.get("name")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''The namespace of the Secret resource being referred to.
+
+        Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: ClusterSecretStoreSpecProviderNebiusmysteryboxAuthServiceAccountCredsSecretRef#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterSecretStoreSpecProviderNebiusmysteryboxAuthServiceAccountCredsSecretRef(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderNebiusmysteryboxAuthTokenSecretRef",
+    jsii_struct_bases=[],
+    name_mapping={"key": "key", "name": "name", "namespace": "namespace"},
+)
+class ClusterSecretStoreSpecProviderNebiusmysteryboxAuthTokenSecretRef:
+    def __init__(
+        self,
+        *,
+        key: typing.Optional[builtins.str] = None,
+        name: typing.Optional[builtins.str] = None,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''Token authenticates with Nebius Mysterybox by presenting a token.
+
+        :param key: A key in the referenced Secret. Some instances of this field may be defaulted, in others it may be required.
+        :param name: The name of the Secret resource being referred to.
+        :param namespace: The namespace of the Secret resource being referred to. Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: ClusterSecretStoreSpecProviderNebiusmysteryboxAuthTokenSecretRef
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__c21538edc5a412d770b4c391fba5f447f312ce655252ef1d7d7af1781885faa5)
+            check_type(argname="argument key", value=key, expected_type=type_hints["key"])
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if key is not None:
+            self._values["key"] = key
+        if name is not None:
+            self._values["name"] = name
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def key(self) -> typing.Optional[builtins.str]:
+        '''A key in the referenced Secret.
+
+        Some instances of this field may be defaulted, in others it may be required.
+
+        :schema: ClusterSecretStoreSpecProviderNebiusmysteryboxAuthTokenSecretRef#key
+        '''
+        result = self._values.get("key")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def name(self) -> typing.Optional[builtins.str]:
+        '''The name of the Secret resource being referred to.
+
+        :schema: ClusterSecretStoreSpecProviderNebiusmysteryboxAuthTokenSecretRef#name
+        '''
+        result = self._values.get("name")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''The namespace of the Secret resource being referred to.
+
+        Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: ClusterSecretStoreSpecProviderNebiusmysteryboxAuthTokenSecretRef#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterSecretStoreSpecProviderNebiusmysteryboxAuthTokenSecretRef(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderNebiusmysteryboxCaProvider",
+    jsii_struct_bases=[],
+    name_mapping={"cert_secret_ref": "certSecretRef"},
+)
+class ClusterSecretStoreSpecProviderNebiusmysteryboxCaProvider:
+    def __init__(
+        self,
+        *,
+        cert_secret_ref: typing.Optional[typing.Union["ClusterSecretStoreSpecProviderNebiusmysteryboxCaProviderCertSecretRef", typing.Dict[builtins.str, typing.Any]]] = None,
+    ) -> None:
+        '''The provider for the CA bundle to use to validate NebiusMysterybox server certificate.
+
+        :param cert_secret_ref: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+
+        :schema: ClusterSecretStoreSpecProviderNebiusmysteryboxCaProvider
+        '''
+        if isinstance(cert_secret_ref, dict):
+            cert_secret_ref = ClusterSecretStoreSpecProviderNebiusmysteryboxCaProviderCertSecretRef(**cert_secret_ref)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__1b74b6888afcec27da9e216a2e6df31e745cc5413a47e6491e79d2e1386c2b48)
+            check_type(argname="argument cert_secret_ref", value=cert_secret_ref, expected_type=type_hints["cert_secret_ref"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if cert_secret_ref is not None:
+            self._values["cert_secret_ref"] = cert_secret_ref
+
+    @builtins.property
+    def cert_secret_ref(
+        self,
+    ) -> typing.Optional["ClusterSecretStoreSpecProviderNebiusmysteryboxCaProviderCertSecretRef"]:
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
+
+        In some instances, ``key`` is a required field.
+
+        :schema: ClusterSecretStoreSpecProviderNebiusmysteryboxCaProvider#certSecretRef
+        '''
+        result = self._values.get("cert_secret_ref")
+        return typing.cast(typing.Optional["ClusterSecretStoreSpecProviderNebiusmysteryboxCaProviderCertSecretRef"], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterSecretStoreSpecProviderNebiusmysteryboxCaProvider(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.ClusterSecretStoreSpecProviderNebiusmysteryboxCaProviderCertSecretRef",
+    jsii_struct_bases=[],
+    name_mapping={"key": "key", "name": "name", "namespace": "namespace"},
+)
+class ClusterSecretStoreSpecProviderNebiusmysteryboxCaProviderCertSecretRef:
+    def __init__(
+        self,
+        *,
+        key: typing.Optional[builtins.str] = None,
+        name: typing.Optional[builtins.str] = None,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
+
+        In some instances, ``key`` is a required field.
+
+        :param key: A key in the referenced Secret. Some instances of this field may be defaulted, in others it may be required.
+        :param name: The name of the Secret resource being referred to.
+        :param namespace: The namespace of the Secret resource being referred to. Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: ClusterSecretStoreSpecProviderNebiusmysteryboxCaProviderCertSecretRef
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__aac19d69874758feb3d827b23383bb14b9bd6169f242fd4d12a56834cf0f567d)
+            check_type(argname="argument key", value=key, expected_type=type_hints["key"])
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if key is not None:
+            self._values["key"] = key
+        if name is not None:
+            self._values["name"] = name
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def key(self) -> typing.Optional[builtins.str]:
+        '''A key in the referenced Secret.
+
+        Some instances of this field may be defaulted, in others it may be required.
+
+        :schema: ClusterSecretStoreSpecProviderNebiusmysteryboxCaProviderCertSecretRef#key
+        '''
+        result = self._values.get("key")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def name(self) -> typing.Optional[builtins.str]:
+        '''The name of the Secret resource being referred to.
+
+        :schema: ClusterSecretStoreSpecProviderNebiusmysteryboxCaProviderCertSecretRef#name
+        '''
+        result = self._values.get("name")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''The namespace of the Secret resource being referred to.
+
+        Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: ClusterSecretStoreSpecProviderNebiusmysteryboxCaProviderCertSecretRef#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "ClusterSecretStoreSpecProviderNebiusmysteryboxCaProviderCertSecretRef(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
 
 
 @jsii.data_type(
@@ -59890,6 +60369,7 @@ class SecretStoreSpecConditionsNamespaceSelectorMatchExpressions:
         "infisical": "infisical",
         "keepersecurity": "keepersecurity",
         "kubernetes": "kubernetes",
+        "nebiusmysterybox": "nebiusmysterybox",
         "ngrok": "ngrok",
         "onboardbase": "onboardbase",
         "onepassword": "onepassword",
@@ -59934,6 +60414,7 @@ class SecretStoreSpecProvider:
         infisical: typing.Optional[typing.Union["SecretStoreSpecProviderInfisical", typing.Dict[builtins.str, typing.Any]]] = None,
         keepersecurity: typing.Optional[typing.Union["SecretStoreSpecProviderKeepersecurity", typing.Dict[builtins.str, typing.Any]]] = None,
         kubernetes: typing.Optional[typing.Union["SecretStoreSpecProviderKubernetes", typing.Dict[builtins.str, typing.Any]]] = None,
+        nebiusmysterybox: typing.Optional[typing.Union["SecretStoreSpecProviderNebiusmysterybox", typing.Dict[builtins.str, typing.Any]]] = None,
         ngrok: typing.Optional[typing.Union["SecretStoreSpecProviderNgrok", typing.Dict[builtins.str, typing.Any]]] = None,
         onboardbase: typing.Optional[typing.Union["SecretStoreSpecProviderOnboardbase", typing.Dict[builtins.str, typing.Any]]] = None,
         onepassword: typing.Optional[typing.Union["SecretStoreSpecProviderOnepassword", typing.Dict[builtins.str, typing.Any]]] = None,
@@ -59977,6 +60458,7 @@ class SecretStoreSpecProvider:
         :param infisical: Infisical configures this store to sync secrets using the Infisical provider.
         :param keepersecurity: KeeperSecurity configures this store to sync secrets using the KeeperSecurity provider.
         :param kubernetes: Kubernetes configures this store to sync secrets using a Kubernetes cluster provider.
+        :param nebiusmysterybox: NebiusMysterybox configures this store to sync secrets using NebiusMysterybox provider.
         :param ngrok: Ngrok configures this store to sync secrets using the ngrok provider.
         :param onboardbase: Onboardbase configures this store to sync secrets using the Onboardbase provider.
         :param onepassword: OnePassword configures this store to sync secrets using the 1Password Cloud provider.
@@ -60039,6 +60521,8 @@ class SecretStoreSpecProvider:
             keepersecurity = SecretStoreSpecProviderKeepersecurity(**keepersecurity)
         if isinstance(kubernetes, dict):
             kubernetes = SecretStoreSpecProviderKubernetes(**kubernetes)
+        if isinstance(nebiusmysterybox, dict):
+            nebiusmysterybox = SecretStoreSpecProviderNebiusmysterybox(**nebiusmysterybox)
         if isinstance(ngrok, dict):
             ngrok = SecretStoreSpecProviderNgrok(**ngrok)
         if isinstance(onboardbase, dict):
@@ -60096,6 +60580,7 @@ class SecretStoreSpecProvider:
             check_type(argname="argument infisical", value=infisical, expected_type=type_hints["infisical"])
             check_type(argname="argument keepersecurity", value=keepersecurity, expected_type=type_hints["keepersecurity"])
             check_type(argname="argument kubernetes", value=kubernetes, expected_type=type_hints["kubernetes"])
+            check_type(argname="argument nebiusmysterybox", value=nebiusmysterybox, expected_type=type_hints["nebiusmysterybox"])
             check_type(argname="argument ngrok", value=ngrok, expected_type=type_hints["ngrok"])
             check_type(argname="argument onboardbase", value=onboardbase, expected_type=type_hints["onboardbase"])
             check_type(argname="argument onepassword", value=onepassword, expected_type=type_hints["onepassword"])
@@ -60156,6 +60641,8 @@ class SecretStoreSpecProvider:
             self._values["keepersecurity"] = keepersecurity
         if kubernetes is not None:
             self._values["kubernetes"] = kubernetes
+        if nebiusmysterybox is not None:
+            self._values["nebiusmysterybox"] = nebiusmysterybox
         if ngrok is not None:
             self._values["ngrok"] = ngrok
         if onboardbase is not None:
@@ -60385,6 +60872,17 @@ class SecretStoreSpecProvider:
         '''
         result = self._values.get("kubernetes")
         return typing.cast(typing.Optional["SecretStoreSpecProviderKubernetes"], result)
+
+    @builtins.property
+    def nebiusmysterybox(
+        self,
+    ) -> typing.Optional["SecretStoreSpecProviderNebiusmysterybox"]:
+        '''NebiusMysterybox configures this store to sync secrets using NebiusMysterybox provider.
+
+        :schema: SecretStoreSpecProvider#nebiusmysterybox
+        '''
+        result = self._values.get("nebiusmysterybox")
+        return typing.cast(typing.Optional["SecretStoreSpecProviderNebiusmysterybox"], result)
 
     @builtins.property
     def ngrok(self) -> typing.Optional["SecretStoreSpecProviderNgrok"]:
@@ -74211,6 +74709,466 @@ class SecretStoreSpecProviderKubernetesServerCaProviderType(enum.Enum):
     '''Secret.'''
     CONFIG_MAP = "CONFIG_MAP"
     '''ConfigMap.'''
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.SecretStoreSpecProviderNebiusmysterybox",
+    jsii_struct_bases=[],
+    name_mapping={
+        "api_domain": "apiDomain",
+        "auth": "auth",
+        "ca_provider": "caProvider",
+    },
+)
+class SecretStoreSpecProviderNebiusmysterybox:
+    def __init__(
+        self,
+        *,
+        api_domain: builtins.str,
+        auth: typing.Union["SecretStoreSpecProviderNebiusmysteryboxAuth", typing.Dict[builtins.str, typing.Any]],
+        ca_provider: typing.Optional[typing.Union["SecretStoreSpecProviderNebiusmysteryboxCaProvider", typing.Dict[builtins.str, typing.Any]]] = None,
+    ) -> None:
+        '''NebiusMysterybox configures this store to sync secrets using NebiusMysterybox provider.
+
+        :param api_domain: NebiusMysterybox API endpoint.
+        :param auth: Auth defines parameters to authenticate in MysteryBox.
+        :param ca_provider: The provider for the CA bundle to use to validate NebiusMysterybox server certificate.
+
+        :schema: SecretStoreSpecProviderNebiusmysterybox
+        '''
+        if isinstance(auth, dict):
+            auth = SecretStoreSpecProviderNebiusmysteryboxAuth(**auth)
+        if isinstance(ca_provider, dict):
+            ca_provider = SecretStoreSpecProviderNebiusmysteryboxCaProvider(**ca_provider)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__0179ab466ca645bd1072fd52c84cdcfa9b3a687485e5bc5ddfa74cf83b310f3f)
+            check_type(argname="argument api_domain", value=api_domain, expected_type=type_hints["api_domain"])
+            check_type(argname="argument auth", value=auth, expected_type=type_hints["auth"])
+            check_type(argname="argument ca_provider", value=ca_provider, expected_type=type_hints["ca_provider"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {
+            "api_domain": api_domain,
+            "auth": auth,
+        }
+        if ca_provider is not None:
+            self._values["ca_provider"] = ca_provider
+
+    @builtins.property
+    def api_domain(self) -> builtins.str:
+        '''NebiusMysterybox API endpoint.
+
+        :schema: SecretStoreSpecProviderNebiusmysterybox#apiDomain
+        '''
+        result = self._values.get("api_domain")
+        assert result is not None, "Required property 'api_domain' is missing"
+        return typing.cast(builtins.str, result)
+
+    @builtins.property
+    def auth(self) -> "SecretStoreSpecProviderNebiusmysteryboxAuth":
+        '''Auth defines parameters to authenticate in MysteryBox.
+
+        :schema: SecretStoreSpecProviderNebiusmysterybox#auth
+        '''
+        result = self._values.get("auth")
+        assert result is not None, "Required property 'auth' is missing"
+        return typing.cast("SecretStoreSpecProviderNebiusmysteryboxAuth", result)
+
+    @builtins.property
+    def ca_provider(
+        self,
+    ) -> typing.Optional["SecretStoreSpecProviderNebiusmysteryboxCaProvider"]:
+        '''The provider for the CA bundle to use to validate NebiusMysterybox server certificate.
+
+        :schema: SecretStoreSpecProviderNebiusmysterybox#caProvider
+        '''
+        result = self._values.get("ca_provider")
+        return typing.cast(typing.Optional["SecretStoreSpecProviderNebiusmysteryboxCaProvider"], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "SecretStoreSpecProviderNebiusmysterybox(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.SecretStoreSpecProviderNebiusmysteryboxAuth",
+    jsii_struct_bases=[],
+    name_mapping={
+        "service_account_creds_secret_ref": "serviceAccountCredsSecretRef",
+        "token_secret_ref": "tokenSecretRef",
+    },
+)
+class SecretStoreSpecProviderNebiusmysteryboxAuth:
+    def __init__(
+        self,
+        *,
+        service_account_creds_secret_ref: typing.Optional[typing.Union["SecretStoreSpecProviderNebiusmysteryboxAuthServiceAccountCredsSecretRef", typing.Dict[builtins.str, typing.Any]]] = None,
+        token_secret_ref: typing.Optional[typing.Union["SecretStoreSpecProviderNebiusmysteryboxAuthTokenSecretRef", typing.Dict[builtins.str, typing.Any]]] = None,
+    ) -> None:
+        '''Auth defines parameters to authenticate in MysteryBox.
+
+        :param service_account_creds_secret_ref: ServiceAccountCreds references a Kubernetes Secret key that contains a JSON document with service account credentials used to get an IAM token. Expected JSON structure: { "subject-credentials": { "alg": "RS256", "private-key": "-----BEGIN PRIVATE KEY-----\\n\\n-----END PRIVATE KEY-----\\n", "kid": "", "iss": "", "sub": "" } }
+        :param token_secret_ref: Token authenticates with Nebius Mysterybox by presenting a token.
+
+        :schema: SecretStoreSpecProviderNebiusmysteryboxAuth
+        '''
+        if isinstance(service_account_creds_secret_ref, dict):
+            service_account_creds_secret_ref = SecretStoreSpecProviderNebiusmysteryboxAuthServiceAccountCredsSecretRef(**service_account_creds_secret_ref)
+        if isinstance(token_secret_ref, dict):
+            token_secret_ref = SecretStoreSpecProviderNebiusmysteryboxAuthTokenSecretRef(**token_secret_ref)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__ed3876dac4d90c35d669ad56ffdeb3705da098d2a3736b63036e8bf78afc06a4)
+            check_type(argname="argument service_account_creds_secret_ref", value=service_account_creds_secret_ref, expected_type=type_hints["service_account_creds_secret_ref"])
+            check_type(argname="argument token_secret_ref", value=token_secret_ref, expected_type=type_hints["token_secret_ref"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if service_account_creds_secret_ref is not None:
+            self._values["service_account_creds_secret_ref"] = service_account_creds_secret_ref
+        if token_secret_ref is not None:
+            self._values["token_secret_ref"] = token_secret_ref
+
+    @builtins.property
+    def service_account_creds_secret_ref(
+        self,
+    ) -> typing.Optional["SecretStoreSpecProviderNebiusmysteryboxAuthServiceAccountCredsSecretRef"]:
+        '''ServiceAccountCreds references a Kubernetes Secret key that contains a JSON document with service account credentials used to get an IAM token.
+
+        Expected JSON structure:
+        {
+        "subject-credentials": {
+        "alg": "RS256",
+        "private-key": "-----BEGIN PRIVATE KEY-----\\n\\n-----END PRIVATE KEY-----\\n",
+        "kid": "",
+        "iss": "",
+        "sub": ""
+        }
+        }
+
+        :schema: SecretStoreSpecProviderNebiusmysteryboxAuth#serviceAccountCredsSecretRef
+        '''
+        result = self._values.get("service_account_creds_secret_ref")
+        return typing.cast(typing.Optional["SecretStoreSpecProviderNebiusmysteryboxAuthServiceAccountCredsSecretRef"], result)
+
+    @builtins.property
+    def token_secret_ref(
+        self,
+    ) -> typing.Optional["SecretStoreSpecProviderNebiusmysteryboxAuthTokenSecretRef"]:
+        '''Token authenticates with Nebius Mysterybox by presenting a token.
+
+        :schema: SecretStoreSpecProviderNebiusmysteryboxAuth#tokenSecretRef
+        '''
+        result = self._values.get("token_secret_ref")
+        return typing.cast(typing.Optional["SecretStoreSpecProviderNebiusmysteryboxAuthTokenSecretRef"], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "SecretStoreSpecProviderNebiusmysteryboxAuth(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.SecretStoreSpecProviderNebiusmysteryboxAuthServiceAccountCredsSecretRef",
+    jsii_struct_bases=[],
+    name_mapping={"key": "key", "name": "name", "namespace": "namespace"},
+)
+class SecretStoreSpecProviderNebiusmysteryboxAuthServiceAccountCredsSecretRef:
+    def __init__(
+        self,
+        *,
+        key: typing.Optional[builtins.str] = None,
+        name: typing.Optional[builtins.str] = None,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''ServiceAccountCreds references a Kubernetes Secret key that contains a JSON document with service account credentials used to get an IAM token.
+
+        Expected JSON structure:
+        {
+        "subject-credentials": {
+        "alg": "RS256",
+        "private-key": "-----BEGIN PRIVATE KEY-----\\n\\n-----END PRIVATE KEY-----\\n",
+        "kid": "",
+        "iss": "",
+        "sub": ""
+        }
+        }
+
+        :param key: A key in the referenced Secret. Some instances of this field may be defaulted, in others it may be required.
+        :param name: The name of the Secret resource being referred to.
+        :param namespace: The namespace of the Secret resource being referred to. Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: SecretStoreSpecProviderNebiusmysteryboxAuthServiceAccountCredsSecretRef
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__474651b570d94c3f305a1970733dc96791bf86c99c1cd00eb9a51c733c5bd446)
+            check_type(argname="argument key", value=key, expected_type=type_hints["key"])
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if key is not None:
+            self._values["key"] = key
+        if name is not None:
+            self._values["name"] = name
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def key(self) -> typing.Optional[builtins.str]:
+        '''A key in the referenced Secret.
+
+        Some instances of this field may be defaulted, in others it may be required.
+
+        :schema: SecretStoreSpecProviderNebiusmysteryboxAuthServiceAccountCredsSecretRef#key
+        '''
+        result = self._values.get("key")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def name(self) -> typing.Optional[builtins.str]:
+        '''The name of the Secret resource being referred to.
+
+        :schema: SecretStoreSpecProviderNebiusmysteryboxAuthServiceAccountCredsSecretRef#name
+        '''
+        result = self._values.get("name")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''The namespace of the Secret resource being referred to.
+
+        Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: SecretStoreSpecProviderNebiusmysteryboxAuthServiceAccountCredsSecretRef#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "SecretStoreSpecProviderNebiusmysteryboxAuthServiceAccountCredsSecretRef(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.SecretStoreSpecProviderNebiusmysteryboxAuthTokenSecretRef",
+    jsii_struct_bases=[],
+    name_mapping={"key": "key", "name": "name", "namespace": "namespace"},
+)
+class SecretStoreSpecProviderNebiusmysteryboxAuthTokenSecretRef:
+    def __init__(
+        self,
+        *,
+        key: typing.Optional[builtins.str] = None,
+        name: typing.Optional[builtins.str] = None,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''Token authenticates with Nebius Mysterybox by presenting a token.
+
+        :param key: A key in the referenced Secret. Some instances of this field may be defaulted, in others it may be required.
+        :param name: The name of the Secret resource being referred to.
+        :param namespace: The namespace of the Secret resource being referred to. Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: SecretStoreSpecProviderNebiusmysteryboxAuthTokenSecretRef
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__930c04b2fffccc972e2b3d3a293bcedd31a024490fcd307cbe92062775964b98)
+            check_type(argname="argument key", value=key, expected_type=type_hints["key"])
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if key is not None:
+            self._values["key"] = key
+        if name is not None:
+            self._values["name"] = name
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def key(self) -> typing.Optional[builtins.str]:
+        '''A key in the referenced Secret.
+
+        Some instances of this field may be defaulted, in others it may be required.
+
+        :schema: SecretStoreSpecProviderNebiusmysteryboxAuthTokenSecretRef#key
+        '''
+        result = self._values.get("key")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def name(self) -> typing.Optional[builtins.str]:
+        '''The name of the Secret resource being referred to.
+
+        :schema: SecretStoreSpecProviderNebiusmysteryboxAuthTokenSecretRef#name
+        '''
+        result = self._values.get("name")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''The namespace of the Secret resource being referred to.
+
+        Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: SecretStoreSpecProviderNebiusmysteryboxAuthTokenSecretRef#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "SecretStoreSpecProviderNebiusmysteryboxAuthTokenSecretRef(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.SecretStoreSpecProviderNebiusmysteryboxCaProvider",
+    jsii_struct_bases=[],
+    name_mapping={"cert_secret_ref": "certSecretRef"},
+)
+class SecretStoreSpecProviderNebiusmysteryboxCaProvider:
+    def __init__(
+        self,
+        *,
+        cert_secret_ref: typing.Optional[typing.Union["SecretStoreSpecProviderNebiusmysteryboxCaProviderCertSecretRef", typing.Dict[builtins.str, typing.Any]]] = None,
+    ) -> None:
+        '''The provider for the CA bundle to use to validate NebiusMysterybox server certificate.
+
+        :param cert_secret_ref: SecretKeySelector is a reference to a specific 'key' within a Secret resource. In some instances, ``key`` is a required field.
+
+        :schema: SecretStoreSpecProviderNebiusmysteryboxCaProvider
+        '''
+        if isinstance(cert_secret_ref, dict):
+            cert_secret_ref = SecretStoreSpecProviderNebiusmysteryboxCaProviderCertSecretRef(**cert_secret_ref)
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__01164d0e52659247edf9b91cf12bb57abf9543229e36387715869939d874d2e1)
+            check_type(argname="argument cert_secret_ref", value=cert_secret_ref, expected_type=type_hints["cert_secret_ref"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if cert_secret_ref is not None:
+            self._values["cert_secret_ref"] = cert_secret_ref
+
+    @builtins.property
+    def cert_secret_ref(
+        self,
+    ) -> typing.Optional["SecretStoreSpecProviderNebiusmysteryboxCaProviderCertSecretRef"]:
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
+
+        In some instances, ``key`` is a required field.
+
+        :schema: SecretStoreSpecProviderNebiusmysteryboxCaProvider#certSecretRef
+        '''
+        result = self._values.get("cert_secret_ref")
+        return typing.cast(typing.Optional["SecretStoreSpecProviderNebiusmysteryboxCaProviderCertSecretRef"], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "SecretStoreSpecProviderNebiusmysteryboxCaProvider(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
+
+
+@jsii.data_type(
+    jsii_type="ioexternal-secrets.SecretStoreSpecProviderNebiusmysteryboxCaProviderCertSecretRef",
+    jsii_struct_bases=[],
+    name_mapping={"key": "key", "name": "name", "namespace": "namespace"},
+)
+class SecretStoreSpecProviderNebiusmysteryboxCaProviderCertSecretRef:
+    def __init__(
+        self,
+        *,
+        key: typing.Optional[builtins.str] = None,
+        name: typing.Optional[builtins.str] = None,
+        namespace: typing.Optional[builtins.str] = None,
+    ) -> None:
+        '''SecretKeySelector is a reference to a specific 'key' within a Secret resource.
+
+        In some instances, ``key`` is a required field.
+
+        :param key: A key in the referenced Secret. Some instances of this field may be defaulted, in others it may be required.
+        :param name: The name of the Secret resource being referred to.
+        :param namespace: The namespace of the Secret resource being referred to. Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: SecretStoreSpecProviderNebiusmysteryboxCaProviderCertSecretRef
+        '''
+        if __debug__:
+            type_hints = typing.get_type_hints(_typecheckingstub__b918a7e705d51c084fcf1d066c5cb3171df305eadc991aff02c733d24eb96a9a)
+            check_type(argname="argument key", value=key, expected_type=type_hints["key"])
+            check_type(argname="argument name", value=name, expected_type=type_hints["name"])
+            check_type(argname="argument namespace", value=namespace, expected_type=type_hints["namespace"])
+        self._values: typing.Dict[builtins.str, typing.Any] = {}
+        if key is not None:
+            self._values["key"] = key
+        if name is not None:
+            self._values["name"] = name
+        if namespace is not None:
+            self._values["namespace"] = namespace
+
+    @builtins.property
+    def key(self) -> typing.Optional[builtins.str]:
+        '''A key in the referenced Secret.
+
+        Some instances of this field may be defaulted, in others it may be required.
+
+        :schema: SecretStoreSpecProviderNebiusmysteryboxCaProviderCertSecretRef#key
+        '''
+        result = self._values.get("key")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def name(self) -> typing.Optional[builtins.str]:
+        '''The name of the Secret resource being referred to.
+
+        :schema: SecretStoreSpecProviderNebiusmysteryboxCaProviderCertSecretRef#name
+        '''
+        result = self._values.get("name")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    @builtins.property
+    def namespace(self) -> typing.Optional[builtins.str]:
+        '''The namespace of the Secret resource being referred to.
+
+        Ignored if referent is not cluster-scoped, otherwise defaults to the namespace of the referent.
+
+        :schema: SecretStoreSpecProviderNebiusmysteryboxCaProviderCertSecretRef#namespace
+        '''
+        result = self._values.get("namespace")
+        return typing.cast(typing.Optional[builtins.str], result)
+
+    def __eq__(self, rhs: typing.Any) -> builtins.bool:
+        return isinstance(rhs, self.__class__) and rhs._values == self._values
+
+    def __ne__(self, rhs: typing.Any) -> builtins.bool:
+        return not (rhs == self)
+
+    def __repr__(self) -> str:
+        return "SecretStoreSpecProviderNebiusmysteryboxCaProviderCertSecretRef(%s)" % ", ".join(
+            k + "=" + repr(v) for k, v in self._values.items()
+        )
 
 
 @jsii.data_type(
@@ -102912,6 +103870,12 @@ __all__ = [
     "ClusterSecretStoreSpecProviderKubernetesServer",
     "ClusterSecretStoreSpecProviderKubernetesServerCaProvider",
     "ClusterSecretStoreSpecProviderKubernetesServerCaProviderType",
+    "ClusterSecretStoreSpecProviderNebiusmysterybox",
+    "ClusterSecretStoreSpecProviderNebiusmysteryboxAuth",
+    "ClusterSecretStoreSpecProviderNebiusmysteryboxAuthServiceAccountCredsSecretRef",
+    "ClusterSecretStoreSpecProviderNebiusmysteryboxAuthTokenSecretRef",
+    "ClusterSecretStoreSpecProviderNebiusmysteryboxCaProvider",
+    "ClusterSecretStoreSpecProviderNebiusmysteryboxCaProviderCertSecretRef",
     "ClusterSecretStoreSpecProviderNgrok",
     "ClusterSecretStoreSpecProviderNgrokAuth",
     "ClusterSecretStoreSpecProviderNgrokAuthApiKey",
@@ -103590,6 +104554,12 @@ __all__ = [
     "SecretStoreSpecProviderKubernetesServer",
     "SecretStoreSpecProviderKubernetesServerCaProvider",
     "SecretStoreSpecProviderKubernetesServerCaProviderType",
+    "SecretStoreSpecProviderNebiusmysterybox",
+    "SecretStoreSpecProviderNebiusmysteryboxAuth",
+    "SecretStoreSpecProviderNebiusmysteryboxAuthServiceAccountCredsSecretRef",
+    "SecretStoreSpecProviderNebiusmysteryboxAuthTokenSecretRef",
+    "SecretStoreSpecProviderNebiusmysteryboxCaProvider",
+    "SecretStoreSpecProviderNebiusmysteryboxCaProviderCertSecretRef",
     "SecretStoreSpecProviderNgrok",
     "SecretStoreSpecProviderNgrokAuth",
     "SecretStoreSpecProviderNgrokAuthApiKey",
@@ -104882,6 +105852,7 @@ def _typecheckingstub__b577f0ccbbef07f08ad1ab52f92fc2ed139f3591354a8294c647ea76a
     infisical: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderInfisical, typing.Dict[builtins.str, typing.Any]]] = None,
     keepersecurity: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderKeepersecurity, typing.Dict[builtins.str, typing.Any]]] = None,
     kubernetes: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderKubernetes, typing.Dict[builtins.str, typing.Any]]] = None,
+    nebiusmysterybox: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderNebiusmysterybox, typing.Dict[builtins.str, typing.Any]]] = None,
     ngrok: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderNgrok, typing.Dict[builtins.str, typing.Any]]] = None,
     onboardbase: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderOnboardbase, typing.Dict[builtins.str, typing.Any]]] = None,
     onepassword: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderOnepassword, typing.Dict[builtins.str, typing.Any]]] = None,
@@ -106387,6 +107358,57 @@ def _typecheckingstub__df516d591cd72e3ccea6b112524dbfa0323479fb2ee403ab24a5bbadd
     name: builtins.str,
     type: ClusterSecretStoreSpecProviderKubernetesServerCaProviderType,
     key: typing.Optional[builtins.str] = None,
+    namespace: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__7f55cfd343be0f63e62c1b6ad9a4d49d08ced2c4597cdcc8f53c99cc7cf76a4e(
+    *,
+    api_domain: builtins.str,
+    auth: typing.Union[ClusterSecretStoreSpecProviderNebiusmysteryboxAuth, typing.Dict[builtins.str, typing.Any]],
+    ca_provider: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderNebiusmysteryboxCaProvider, typing.Dict[builtins.str, typing.Any]]] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__9d143af4d29d0feaf41863c22977cf6008fd5460dcfb290d916507450d17e23b(
+    *,
+    service_account_creds_secret_ref: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderNebiusmysteryboxAuthServiceAccountCredsSecretRef, typing.Dict[builtins.str, typing.Any]]] = None,
+    token_secret_ref: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderNebiusmysteryboxAuthTokenSecretRef, typing.Dict[builtins.str, typing.Any]]] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__0328ce8033e34d2b8c397b83dc9ee86cbbe5f1fcfdbac100fd40fa18ed89eb21(
+    *,
+    key: typing.Optional[builtins.str] = None,
+    name: typing.Optional[builtins.str] = None,
+    namespace: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__c21538edc5a412d770b4c391fba5f447f312ce655252ef1d7d7af1781885faa5(
+    *,
+    key: typing.Optional[builtins.str] = None,
+    name: typing.Optional[builtins.str] = None,
+    namespace: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__1b74b6888afcec27da9e216a2e6df31e745cc5413a47e6491e79d2e1386c2b48(
+    *,
+    cert_secret_ref: typing.Optional[typing.Union[ClusterSecretStoreSpecProviderNebiusmysteryboxCaProviderCertSecretRef, typing.Dict[builtins.str, typing.Any]]] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__aac19d69874758feb3d827b23383bb14b9bd6169f242fd4d12a56834cf0f567d(
+    *,
+    key: typing.Optional[builtins.str] = None,
+    name: typing.Optional[builtins.str] = None,
     namespace: typing.Optional[builtins.str] = None,
 ) -> None:
     """Type checking stubs"""
@@ -110292,6 +111314,7 @@ def _typecheckingstub__c530965dc9a8ce9c6b19c8fa2f1a1209e5d3f087076176d43c9a82a73
     infisical: typing.Optional[typing.Union[SecretStoreSpecProviderInfisical, typing.Dict[builtins.str, typing.Any]]] = None,
     keepersecurity: typing.Optional[typing.Union[SecretStoreSpecProviderKeepersecurity, typing.Dict[builtins.str, typing.Any]]] = None,
     kubernetes: typing.Optional[typing.Union[SecretStoreSpecProviderKubernetes, typing.Dict[builtins.str, typing.Any]]] = None,
+    nebiusmysterybox: typing.Optional[typing.Union[SecretStoreSpecProviderNebiusmysterybox, typing.Dict[builtins.str, typing.Any]]] = None,
     ngrok: typing.Optional[typing.Union[SecretStoreSpecProviderNgrok, typing.Dict[builtins.str, typing.Any]]] = None,
     onboardbase: typing.Optional[typing.Union[SecretStoreSpecProviderOnboardbase, typing.Dict[builtins.str, typing.Any]]] = None,
     onepassword: typing.Optional[typing.Union[SecretStoreSpecProviderOnepassword, typing.Dict[builtins.str, typing.Any]]] = None,
@@ -111797,6 +112820,57 @@ def _typecheckingstub__363e9db3b763eedad22dc94f5b2adaec3fea7bb6f5e0ffec6fb69f380
     name: builtins.str,
     type: SecretStoreSpecProviderKubernetesServerCaProviderType,
     key: typing.Optional[builtins.str] = None,
+    namespace: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__0179ab466ca645bd1072fd52c84cdcfa9b3a687485e5bc5ddfa74cf83b310f3f(
+    *,
+    api_domain: builtins.str,
+    auth: typing.Union[SecretStoreSpecProviderNebiusmysteryboxAuth, typing.Dict[builtins.str, typing.Any]],
+    ca_provider: typing.Optional[typing.Union[SecretStoreSpecProviderNebiusmysteryboxCaProvider, typing.Dict[builtins.str, typing.Any]]] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__ed3876dac4d90c35d669ad56ffdeb3705da098d2a3736b63036e8bf78afc06a4(
+    *,
+    service_account_creds_secret_ref: typing.Optional[typing.Union[SecretStoreSpecProviderNebiusmysteryboxAuthServiceAccountCredsSecretRef, typing.Dict[builtins.str, typing.Any]]] = None,
+    token_secret_ref: typing.Optional[typing.Union[SecretStoreSpecProviderNebiusmysteryboxAuthTokenSecretRef, typing.Dict[builtins.str, typing.Any]]] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__474651b570d94c3f305a1970733dc96791bf86c99c1cd00eb9a51c733c5bd446(
+    *,
+    key: typing.Optional[builtins.str] = None,
+    name: typing.Optional[builtins.str] = None,
+    namespace: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__930c04b2fffccc972e2b3d3a293bcedd31a024490fcd307cbe92062775964b98(
+    *,
+    key: typing.Optional[builtins.str] = None,
+    name: typing.Optional[builtins.str] = None,
+    namespace: typing.Optional[builtins.str] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__01164d0e52659247edf9b91cf12bb57abf9543229e36387715869939d874d2e1(
+    *,
+    cert_secret_ref: typing.Optional[typing.Union[SecretStoreSpecProviderNebiusmysteryboxCaProviderCertSecretRef, typing.Dict[builtins.str, typing.Any]]] = None,
+) -> None:
+    """Type checking stubs"""
+    pass
+
+def _typecheckingstub__b918a7e705d51c084fcf1d066c5cb3171df305eadc991aff02c733d24eb96a9a(
+    *,
+    key: typing.Optional[builtins.str] = None,
+    name: typing.Optional[builtins.str] = None,
     namespace: typing.Optional[builtins.str] = None,
 ) -> None:
     """Type checking stubs"""
