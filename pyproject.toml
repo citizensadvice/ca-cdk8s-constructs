@@ -15,7 +15,7 @@ dependencies = [
 
 [project.urls]
 Homepage = "https://github.com/citizensadvice/ca-cdk8s-constructs"
-Repository = "https://github.com/matthewcane/ca-cdk8s-constructs"
+Repository = "https://github.com/citizensadvice/ca-cdk8s-constructs"
 Issues = "https://github.com/citizensadvice/ca-cdk8s-constructs/issues"
 Changelog = "https://github.com/citizensadvice/ca-cdk8s-constructs/releases"
 
