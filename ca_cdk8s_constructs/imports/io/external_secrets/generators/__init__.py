@@ -7035,6 +7035,7 @@ class ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderAuthAppRoleSecr
         "client_cert": "clientCert",
         "path": "path",
         "secret_ref": "secretRef",
+        "vault_role": "vaultRole",
     },
 )
 class ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderAuthCert:
@@ -7044,12 +7045,14 @@ class ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderAuthCert:
         client_cert: typing.Optional[typing.Union["ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderAuthCertClientCert", typing.Dict[builtins.str, typing.Any]]] = None,
         path: typing.Optional[builtins.str] = None,
         secret_ref: typing.Optional[typing.Union["ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderAuthCertSecretRef", typing.Dict[builtins.str, typing.Any]]] = None,
+        vault_role: typing.Optional[builtins.str] = None,
     ) -> None:
         '''Cert authenticates with TLS Certificates by passing client certificate, private key and ca certificate Cert authentication method.
 
         :param client_cert: ClientCert is a certificate to authenticate using the Cert Vault authentication method.
         :param path: Path where the Certificate authentication backend is mounted in Vault, e.g: "cert".
         :param secret_ref: SecretRef to a key in a Secret resource containing client private key to authenticate with Vault using the Cert authentication method.
+        :param vault_role: VaultRole specifies the Vault role to use for TLS certificate authentication.
 
         :schema: ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderAuthCert
         '''
@@ -7062,6 +7065,7 @@ class ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderAuthCert:
             check_type(argname="argument client_cert", value=client_cert, expected_type=type_hints["client_cert"])
             check_type(argname="argument path", value=path, expected_type=type_hints["path"])
             check_type(argname="argument secret_ref", value=secret_ref, expected_type=type_hints["secret_ref"])
+            check_type(argname="argument vault_role", value=vault_role, expected_type=type_hints["vault_role"])
         self._values: typing.Dict[builtins.str, typing.Any] = {}
         if client_cert is not None:
             self._values["client_cert"] = client_cert
@@ -7069,6 +7073,8 @@ class ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderAuthCert:
             self._values["path"] = path
         if secret_ref is not None:
             self._values["secret_ref"] = secret_ref
+        if vault_role is not None:
+            self._values["vault_role"] = vault_role
 
     @builtins.property
     def client_cert(
@@ -7100,6 +7106,15 @@ class ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderAuthCert:
         '''
         result = self._values.get("secret_ref")
         return typing.cast(typing.Optional["ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderAuthCertSecretRef"], result)
+
+    @builtins.property
+    def vault_role(self) -> typing.Optional[builtins.str]:
+        '''VaultRole specifies the Vault role to use for TLS certificate authentication.
+
+        :schema: ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderAuthCert#vaultRole
+        '''
+        result = self._values.get("vault_role")
+        return typing.cast(typing.Optional[builtins.str], result)
 
     def __eq__(self, rhs: typing.Any) -> builtins.bool:
         return isinstance(rhs, self.__class__) and rhs._values == self._values
@@ -8562,6 +8577,7 @@ class ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderAuthJwtKubernet
         '''Optional audiences field that will be used to request a temporary Kubernetes service account token for the service account referenced by ``serviceAccountRef``.
 
         Defaults to a single audience ``vault`` it not specified.
+
         Deprecated: use serviceAccountRef.Audiences instead
 
         :default: a single audience ``vault`` it not specified.
@@ -16923,6 +16939,7 @@ class VaultDynamicSecretSpecProviderAuthAppRoleSecretRef:
         "client_cert": "clientCert",
         "path": "path",
         "secret_ref": "secretRef",
+        "vault_role": "vaultRole",
     },
 )
 class VaultDynamicSecretSpecProviderAuthCert:
@@ -16932,12 +16949,14 @@ class VaultDynamicSecretSpecProviderAuthCert:
         client_cert: typing.Optional[typing.Union["VaultDynamicSecretSpecProviderAuthCertClientCert", typing.Dict[builtins.str, typing.Any]]] = None,
         path: typing.Optional[builtins.str] = None,
         secret_ref: typing.Optional[typing.Union["VaultDynamicSecretSpecProviderAuthCertSecretRef", typing.Dict[builtins.str, typing.Any]]] = None,
+        vault_role: typing.Optional[builtins.str] = None,
     ) -> None:
         '''Cert authenticates with TLS Certificates by passing client certificate, private key and ca certificate Cert authentication method.
 
         :param client_cert: ClientCert is a certificate to authenticate using the Cert Vault authentication method.
         :param path: Path where the Certificate authentication backend is mounted in Vault, e.g: "cert".
         :param secret_ref: SecretRef to a key in a Secret resource containing client private key to authenticate with Vault using the Cert authentication method.
+        :param vault_role: VaultRole specifies the Vault role to use for TLS certificate authentication.
 
         :schema: VaultDynamicSecretSpecProviderAuthCert
         '''
@@ -16950,6 +16969,7 @@ class VaultDynamicSecretSpecProviderAuthCert:
             check_type(argname="argument client_cert", value=client_cert, expected_type=type_hints["client_cert"])
             check_type(argname="argument path", value=path, expected_type=type_hints["path"])
             check_type(argname="argument secret_ref", value=secret_ref, expected_type=type_hints["secret_ref"])
+            check_type(argname="argument vault_role", value=vault_role, expected_type=type_hints["vault_role"])
         self._values: typing.Dict[builtins.str, typing.Any] = {}
         if client_cert is not None:
             self._values["client_cert"] = client_cert
@@ -16957,6 +16977,8 @@ class VaultDynamicSecretSpecProviderAuthCert:
             self._values["path"] = path
         if secret_ref is not None:
             self._values["secret_ref"] = secret_ref
+        if vault_role is not None:
+            self._values["vault_role"] = vault_role
 
     @builtins.property
     def client_cert(
@@ -16988,6 +17010,15 @@ class VaultDynamicSecretSpecProviderAuthCert:
         '''
         result = self._values.get("secret_ref")
         return typing.cast(typing.Optional["VaultDynamicSecretSpecProviderAuthCertSecretRef"], result)
+
+    @builtins.property
+    def vault_role(self) -> typing.Optional[builtins.str]:
+        '''VaultRole specifies the Vault role to use for TLS certificate authentication.
+
+        :schema: VaultDynamicSecretSpecProviderAuthCert#vaultRole
+        '''
+        result = self._values.get("vault_role")
+        return typing.cast(typing.Optional[builtins.str], result)
 
     def __eq__(self, rhs: typing.Any) -> builtins.bool:
         return isinstance(rhs, self.__class__) and rhs._values == self._values
@@ -18448,6 +18479,7 @@ class VaultDynamicSecretSpecProviderAuthJwtKubernetesServiceAccountToken:
         '''Optional audiences field that will be used to request a temporary Kubernetes service account token for the service account referenced by ``serviceAccountRef``.
 
         Defaults to a single audience ``vault`` it not specified.
+
         Deprecated: use serviceAccountRef.Audiences instead
 
         :default: a single audience ``vault`` it not specified.
@@ -21683,6 +21715,7 @@ def _typecheckingstub__6a48a6f2044f51d1f9bce54540f955f0f3c0e34ca0c5a81e258fb2525
     client_cert: typing.Optional[typing.Union[ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderAuthCertClientCert, typing.Dict[builtins.str, typing.Any]]] = None,
     path: typing.Optional[builtins.str] = None,
     secret_ref: typing.Optional[typing.Union[ClusterGeneratorSpecGeneratorVaultDynamicSecretSpecProviderAuthCertSecretRef, typing.Dict[builtins.str, typing.Any]]] = None,
+    vault_role: typing.Optional[builtins.str] = None,
 ) -> None:
     """Type checking stubs"""
     pass
@@ -22794,6 +22827,7 @@ def _typecheckingstub__397dacbf5d6cbf9d8bfbc50e753f1950aee0b37fec712f2c76630a066
     client_cert: typing.Optional[typing.Union[VaultDynamicSecretSpecProviderAuthCertClientCert, typing.Dict[builtins.str, typing.Any]]] = None,
     path: typing.Optional[builtins.str] = None,
     secret_ref: typing.Optional[typing.Union[VaultDynamicSecretSpecProviderAuthCertSecretRef, typing.Dict[builtins.str, typing.Any]]] = None,
+    vault_role: typing.Optional[builtins.str] = None,
 ) -> None:
     """Type checking stubs"""
     pass
