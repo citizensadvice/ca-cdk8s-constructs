@@ -49,12 +49,11 @@ def ca_blackbox_probe(
         being the generated name of the ingress. As the name is generated
         by cdk8s with a hashed suffix we can be sure that it is unique.
         """
-        target.metadata.add_label(LABEL_KEY, f"{target.name}")
+        label_value = target.name
+        target.metadata.add_label(LABEL_KEY, label_value)
         probe_target = Targets(
             ingress=IngressTarget(
-                selector=IngressSelector(
-                    match_labels={LABEL_KEY: target.metadata.get_label(LABEL_KEY)}
-                )
+                selector=IngressSelector(match_labels={LABEL_KEY: label_value})
             )
         )
     elif isinstance(target, str):

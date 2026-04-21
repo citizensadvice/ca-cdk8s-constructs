@@ -1,10 +1,10 @@
 """A collection of helper functions for cdk8s applications."""
 
 import cdk8s
-from constructs import Construct
+from constructs import IConstruct
 
 
-def add_labels(construct: Construct, labels: dict[str, str]) -> None:
+def add_labels(construct: IConstruct, labels: dict[str, str]) -> None:
     """
     Recursively add the supplied labels to all resources in
     the construct and all its children that have a metadata
@@ -24,7 +24,7 @@ def add_labels(construct: Construct, labels: dict[str, str]) -> None:
         add_labels(resource, labels)
 
 
-def add_annotations(construct: Construct, annotations: dict[str, str]) -> None:
+def add_annotations(construct: IConstruct, annotations: dict[str, str]) -> None:
     """
     Recursively add the supplied labels to all resources in
     the construct and all its children that have a metadata
