@@ -20,7 +20,7 @@ jobs:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
       
       - name: Setup Python
-        uses: citizensadvice/python-uv-setup-action@7da89585988537f240cbc9833829f3fdfeb7aa2a
+        uses: citizensadvice/python-uv-setup-action@9f7aa974dbcfccd1dd8eda23c3d0013f5f429508
         with:
           python_version: ${{ matrix.python_version }}
 
