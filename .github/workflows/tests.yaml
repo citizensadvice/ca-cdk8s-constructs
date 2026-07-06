@@ -16,7 +16,7 @@ jobs:
       matrix:
         python_version: ['3.10', '3.11', '3.12', '3.13', '3.14']
     steps:
-      - uses: runs-on/action@d141ef83eb66d096ce8afc767e09115a65c63b60
+      - uses: runs-on/action@4e5f72399b6b17f2e79c511c1b38a315a64d22dc
       - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
       
       - name: Setup Python
