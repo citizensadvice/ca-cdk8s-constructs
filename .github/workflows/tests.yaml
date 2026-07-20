@@ -17,7 +17,7 @@ jobs:
         python_version: ['3.10', '3.11', '3.12', '3.13', '3.14']
     steps:
       - uses: runs-on/action@4e5f72399b6b17f2e79c511c1b38a315a64d22dc
-      - uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
       
       - name: Setup Python
         uses: citizensadvice/python-uv-setup-action@70884aff70491439526c3e437c25803b9e67aaed
