@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from pkgutil import extend_path
 __path__ = extend_path(__path__, __name__)
 
@@ -11,27 +13,29 @@ import jsii
 import publication
 import typing_extensions
 
-import typeguard
-from importlib.metadata import version as _metadata_package_version
-TYPEGUARD_MAJOR_VERSION = int(_metadata_package_version('typeguard').split('.')[0])
+from jsii._type_checking import cached_type_hints, check_type
 
-def check_type(argname: str, value: object, expected_type: typing.Any) -> typing.Any:
-    if TYPEGUARD_MAJOR_VERSION <= 2:
-        return typeguard.check_type(argname=argname, value=value, expected_type=expected_type) # type:ignore
-    else:
-        if isinstance(value, jsii._reference_map.InterfaceDynamicProxy): # pyright: ignore [reportAttributeAccessIssue]
-           pass
-        else:
-            if TYPEGUARD_MAJOR_VERSION == 3:
-                typeguard.config.collection_check_strategy = typeguard.CollectionCheckStrategy.ALL_ITEMS # type:ignore
-                typeguard.check_type(value=value, expected_type=expected_type) # type:ignore
-            else:
-                typeguard.check_type(value=value, expected_type=expected_type, collection_check_strategy=typeguard.CollectionCheckStrategy.ALL_ITEMS) # type:ignore
 
 from ._jsii import *
 
-import cdk8s as _cdk8s_d3d9af27
-import constructs as _constructs_77d1e7e8
+class _LazyImport:
+    def __init__(self, module_name: str) -> None:
+        self._module_name = module_name
+        self._module: typing.Any = None
+    def __getattr__(self, name: str) -> typing.Any:
+        if self._module is None:
+            import importlib
+            self._module = importlib.import_module(self._module_name)
+        return getattr(self._module, name)
+
+if typing.TYPE_CHECKING:
+
+    import cdk8s as _cdk8s_d3d9af27
+    import constructs as _constructs_77d1e7e8
+else:
+
+    _cdk8s_d3d9af27 = _LazyImport("cdk8s")
+    _constructs_77d1e7e8 = _LazyImport("constructs")
 
 
 class Probe(
@@ -66,7 +70,7 @@ class Probe(
         :param metadata: 
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__d431973747a4e312d98bbfc6c85e22bfcc072205d8b977840cdd34994c446c3b)
+            type_hints = cached_type_hints(_typecheckingstub__d431973747a4e312d98bbfc6c85e22bfcc072205d8b977840cdd34994c446c3b)
             check_type(argname="argument scope", value=scope, expected_type=type_hints["scope"])
             check_type(argname="argument id", value=id, expected_type=type_hints["id"])
         props = ProbeProps(spec=spec, metadata=metadata)
@@ -135,7 +139,7 @@ class ProbeProps:
         if isinstance(metadata, dict):
             metadata = _cdk8s_d3d9af27.ApiObjectMetadata(**metadata)
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__0dfdb1f8ee121f58da1f22691f2f6aa14bc10cbb8707eef9c91e85264c784a46)
+            type_hints = cached_type_hints(_typecheckingstub__0dfdb1f8ee121f58da1f22691f2f6aa14bc10cbb8707eef9c91e85264c784a46)
             check_type(argname="argument spec", value=spec, expected_type=type_hints["spec"])
             check_type(argname="argument metadata", value=metadata, expected_type=type_hints["metadata"])
         self._values: typing.Dict[builtins.str, typing.Any] = {
@@ -292,7 +296,7 @@ class ProbeSpec:
         if isinstance(tls_config, dict):
             tls_config = ProbeSpecTlsConfig(**tls_config)
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__4da9453333edbc627c631d6c0043f58d9dc9b96a470aabc5bda67f045c750a88)
+            type_hints = cached_type_hints(_typecheckingstub__4da9453333edbc627c631d6c0043f58d9dc9b96a470aabc5bda67f045c750a88)
             check_type(argname="argument authorization", value=authorization, expected_type=type_hints["authorization"])
             check_type(argname="argument basic_auth", value=basic_auth, expected_type=type_hints["basic_auth"])
             check_type(argname="argument bearer_token_secret", value=bearer_token_secret, expected_type=type_hints["bearer_token_secret"])
@@ -747,7 +751,7 @@ class ProbeSpecAuthorization:
         if isinstance(credentials, dict):
             credentials = ProbeSpecAuthorizationCredentials(**credentials)
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__53119ace9a7835b3dc700fa87720e6dd11a003f2a7fc4457715e90440952103f)
+            type_hints = cached_type_hints(_typecheckingstub__53119ace9a7835b3dc700fa87720e6dd11a003f2a7fc4457715e90440952103f)
             check_type(argname="argument credentials", value=credentials, expected_type=type_hints["credentials"])
             check_type(argname="argument type", value=type, expected_type=type_hints["type"])
         self._values: typing.Dict[builtins.str, typing.Any] = {}
@@ -812,7 +816,7 @@ class ProbeSpecAuthorizationCredentials:
         :schema: ProbeSpecAuthorizationCredentials
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__517b59dcdc17adab6d92c779136e1af970c3610952d33993c1951b07b2b438c3)
+            type_hints = cached_type_hints(_typecheckingstub__517b59dcdc17adab6d92c779136e1af970c3610952d33993c1951b07b2b438c3)
             check_type(argname="argument key", value=key, expected_type=type_hints["key"])
             check_type(argname="argument name", value=name, expected_type=type_hints["name"])
             check_type(argname="argument optional", value=optional, expected_type=type_hints["optional"])
@@ -897,7 +901,7 @@ class ProbeSpecBasicAuth:
         if isinstance(username, dict):
             username = ProbeSpecBasicAuthUsername(**username)
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__4768e0bb103c7f5c864a395f4c7c73437a4bb218bd61f88ce14258902c233463)
+            type_hints = cached_type_hints(_typecheckingstub__4768e0bb103c7f5c864a395f4c7c73437a4bb218bd61f88ce14258902c233463)
             check_type(argname="argument password", value=password, expected_type=type_hints["password"])
             check_type(argname="argument username", value=username, expected_type=type_hints["username"])
         self._values: typing.Dict[builtins.str, typing.Any] = {}
@@ -958,7 +962,7 @@ class ProbeSpecBasicAuthPassword:
         :schema: ProbeSpecBasicAuthPassword
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__780ef3df5e7ff3c36cd640940223f69d3ed0f61e6cccb5a5fef1039879162e68)
+            type_hints = cached_type_hints(_typecheckingstub__780ef3df5e7ff3c36cd640940223f69d3ed0f61e6cccb5a5fef1039879162e68)
             check_type(argname="argument key", value=key, expected_type=type_hints["key"])
             check_type(argname="argument name", value=name, expected_type=type_hints["name"])
             check_type(argname="argument optional", value=optional, expected_type=type_hints["optional"])
@@ -1039,7 +1043,7 @@ class ProbeSpecBasicAuthUsername:
         :schema: ProbeSpecBasicAuthUsername
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__2e43c9454cc4ce860c775eb76aaf3e59407bfad140ff617ddc8b81d03f12957f)
+            type_hints = cached_type_hints(_typecheckingstub__2e43c9454cc4ce860c775eb76aaf3e59407bfad140ff617ddc8b81d03f12957f)
             check_type(argname="argument key", value=key, expected_type=type_hints["key"])
             check_type(argname="argument name", value=name, expected_type=type_hints["name"])
             check_type(argname="argument optional", value=optional, expected_type=type_hints["optional"])
@@ -1128,7 +1132,7 @@ class ProbeSpecBearerTokenSecret:
         :schema: ProbeSpecBearerTokenSecret
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__a16eb69c2dbd20d71a7eeb9b0e7066b3f1c11e88f44ff60ef5064326b2fc6e89)
+            type_hints = cached_type_hints(_typecheckingstub__a16eb69c2dbd20d71a7eeb9b0e7066b3f1c11e88f44ff60ef5064326b2fc6e89)
             check_type(argname="argument key", value=key, expected_type=type_hints["key"])
             check_type(argname="argument name", value=name, expected_type=type_hints["name"])
             check_type(argname="argument optional", value=optional, expected_type=type_hints["optional"])
@@ -1248,7 +1252,7 @@ class ProbeSpecMetricRelabelings:
         :schema: ProbeSpecMetricRelabelings
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__62b7df01a5f3a31e8d2329909c14c55b34f6b76669ef783ab0f574f2a4fd436c)
+            type_hints = cached_type_hints(_typecheckingstub__62b7df01a5f3a31e8d2329909c14c55b34f6b76669ef783ab0f574f2a4fd436c)
             check_type(argname="argument action", value=action, expected_type=type_hints["action"])
             check_type(argname="argument modulus", value=modulus, expected_type=type_hints["modulus"])
             check_type(argname="argument regex", value=regex, expected_type=type_hints["regex"])
@@ -1422,7 +1426,7 @@ class ProbeSpecNativeHistogramMinBucketFactor(
         :param value: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__a4b130555197feba1c2d7008bc599d472d9b7386f7b29b719e7f32340b972186)
+            type_hints = cached_type_hints(_typecheckingstub__a4b130555197feba1c2d7008bc599d472d9b7386f7b29b719e7f32340b972186)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         return typing.cast("ProbeSpecNativeHistogramMinBucketFactor", jsii.sinvoke(cls, "fromNumber", [value]))
 
@@ -1436,7 +1440,7 @@ class ProbeSpecNativeHistogramMinBucketFactor(
         :param value: -
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__9d8c278e2bddb7a566817def41022cebbb7f0c4e1a3bbb9a2be8e89d44126c54)
+            type_hints = cached_type_hints(_typecheckingstub__9d8c278e2bddb7a566817def41022cebbb7f0c4e1a3bbb9a2be8e89d44126c54)
             check_type(argname="argument value", value=value, expected_type=type_hints["value"])
         return typing.cast("ProbeSpecNativeHistogramMinBucketFactor", jsii.sinvoke(cls, "fromString", [value]))
 
@@ -1503,7 +1507,7 @@ class ProbeSpecOauth2:
         if isinstance(tls_config, dict):
             tls_config = ProbeSpecOauth2TlsConfig(**tls_config)
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__35546638facd27ef81d9c1565abe451319a91571a20f556580e86ba1d20429a2)
+            type_hints = cached_type_hints(_typecheckingstub__35546638facd27ef81d9c1565abe451319a91571a20f556580e86ba1d20429a2)
             check_type(argname="argument client_id", value=client_id, expected_type=type_hints["client_id"])
             check_type(argname="argument client_secret", value=client_secret, expected_type=type_hints["client_secret"])
             check_type(argname="argument token_url", value=token_url, expected_type=type_hints["token_url"])
@@ -1678,7 +1682,7 @@ class ProbeSpecOauth2ClientId:
         if isinstance(secret, dict):
             secret = ProbeSpecOauth2ClientIdSecret(**secret)
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__be1be640787caefbccf5bf6ea2c41346de4deaa3542fa016ffcd1ad2f7b03947)
+            type_hints = cached_type_hints(_typecheckingstub__be1be640787caefbccf5bf6ea2c41346de4deaa3542fa016ffcd1ad2f7b03947)
             check_type(argname="argument config_map", value=config_map, expected_type=type_hints["config_map"])
             check_type(argname="argument secret", value=secret, expected_type=type_hints["secret"])
         self._values: typing.Dict[builtins.str, typing.Any] = {}
@@ -1739,7 +1743,7 @@ class ProbeSpecOauth2ClientIdConfigMap:
         :schema: ProbeSpecOauth2ClientIdConfigMap
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__3b58566d2cc8954a47735bf7be6b762a394014c89472a4e9a617944a055f9eba)
+            type_hints = cached_type_hints(_typecheckingstub__3b58566d2cc8954a47735bf7be6b762a394014c89472a4e9a617944a055f9eba)
             check_type(argname="argument key", value=key, expected_type=type_hints["key"])
             check_type(argname="argument name", value=name, expected_type=type_hints["name"])
             check_type(argname="argument optional", value=optional, expected_type=type_hints["optional"])
@@ -1818,7 +1822,7 @@ class ProbeSpecOauth2ClientIdSecret:
         :schema: ProbeSpecOauth2ClientIdSecret
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__c3883f2226aad7334fc8c12f1bd7a408a3265db413dbe8a1e3d4a338d6977eb5)
+            type_hints = cached_type_hints(_typecheckingstub__c3883f2226aad7334fc8c12f1bd7a408a3265db413dbe8a1e3d4a338d6977eb5)
             check_type(argname="argument key", value=key, expected_type=type_hints["key"])
             check_type(argname="argument name", value=name, expected_type=type_hints["name"])
             check_type(argname="argument optional", value=optional, expected_type=type_hints["optional"])
@@ -1899,7 +1903,7 @@ class ProbeSpecOauth2ClientSecret:
         :schema: ProbeSpecOauth2ClientSecret
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__fc4814e43f5970f5d96976d6e9d6055b8a3423197f1bd40f0b4cc46f6dec7d51)
+            type_hints = cached_type_hints(_typecheckingstub__fc4814e43f5970f5d96976d6e9d6055b8a3423197f1bd40f0b4cc46f6dec7d51)
             check_type(argname="argument key", value=key, expected_type=type_hints["key"])
             check_type(argname="argument name", value=name, expected_type=type_hints["name"])
             check_type(argname="argument optional", value=optional, expected_type=type_hints["optional"])
@@ -1980,7 +1984,7 @@ class ProbeSpecOauth2ProxyConnectHeader:
         :schema: ProbeSpecOauth2ProxyConnectHeader
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__15168185ff890e76ebda9406137eb68adc01cdc9c5aab9c30a2c5826a7006e00)
+            type_hints = cached_type_hints(_typecheckingstub__15168185ff890e76ebda9406137eb68adc01cdc9c5aab9c30a2c5826a7006e00)
             check_type(argname="argument key", value=key, expected_type=type_hints["key"])
             check_type(argname="argument name", value=name, expected_type=type_hints["name"])
             check_type(argname="argument optional", value=optional, expected_type=type_hints["optional"])
@@ -2085,7 +2089,7 @@ class ProbeSpecOauth2TlsConfig:
         if isinstance(key_secret, dict):
             key_secret = ProbeSpecOauth2TlsConfigKeySecret(**key_secret)
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__acab03ee682702fd6d01e755686c70644b8c90eb20338257444d40971a8fa5e5)
+            type_hints = cached_type_hints(_typecheckingstub__acab03ee682702fd6d01e755686c70644b8c90eb20338257444d40971a8fa5e5)
             check_type(argname="argument ca", value=ca, expected_type=type_hints["ca"])
             check_type(argname="argument cert", value=cert, expected_type=type_hints["cert"])
             check_type(argname="argument insecure_skip_verify", value=insecure_skip_verify, expected_type=type_hints["insecure_skip_verify"])
@@ -2212,7 +2216,7 @@ class ProbeSpecOauth2TlsConfigCa:
         if isinstance(secret, dict):
             secret = ProbeSpecOauth2TlsConfigCaSecret(**secret)
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__4b9fbb23975748c32531df12669a8d0336e3f150fe8dfc6d0523b7872181e9db)
+            type_hints = cached_type_hints(_typecheckingstub__4b9fbb23975748c32531df12669a8d0336e3f150fe8dfc6d0523b7872181e9db)
             check_type(argname="argument config_map", value=config_map, expected_type=type_hints["config_map"])
             check_type(argname="argument secret", value=secret, expected_type=type_hints["secret"])
         self._values: typing.Dict[builtins.str, typing.Any] = {}
@@ -2273,7 +2277,7 @@ class ProbeSpecOauth2TlsConfigCaConfigMap:
         :schema: ProbeSpecOauth2TlsConfigCaConfigMap
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__bb44bff72110d97ac3438464c8c567658490b004d26407730c443ccc51b13493)
+            type_hints = cached_type_hints(_typecheckingstub__bb44bff72110d97ac3438464c8c567658490b004d26407730c443ccc51b13493)
             check_type(argname="argument key", value=key, expected_type=type_hints["key"])
             check_type(argname="argument name", value=name, expected_type=type_hints["name"])
             check_type(argname="argument optional", value=optional, expected_type=type_hints["optional"])
@@ -2352,7 +2356,7 @@ class ProbeSpecOauth2TlsConfigCaSecret:
         :schema: ProbeSpecOauth2TlsConfigCaSecret
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__4ebb235751ba9f0be493e52ef41f277eeec2f4f835eee9624496ef01c19958b5)
+            type_hints = cached_type_hints(_typecheckingstub__4ebb235751ba9f0be493e52ef41f277eeec2f4f835eee9624496ef01c19958b5)
             check_type(argname="argument key", value=key, expected_type=type_hints["key"])
             check_type(argname="argument name", value=name, expected_type=type_hints["name"])
             check_type(argname="argument optional", value=optional, expected_type=type_hints["optional"])
@@ -2435,7 +2439,7 @@ class ProbeSpecOauth2TlsConfigCert:
         if isinstance(secret, dict):
             secret = ProbeSpecOauth2TlsConfigCertSecret(**secret)
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__aa77d74aa81f6f522990bdc835c51cbbacfbaaf72af7fa1e3fc03fca7a149e0d)
+            type_hints = cached_type_hints(_typecheckingstub__aa77d74aa81f6f522990bdc835c51cbbacfbaaf72af7fa1e3fc03fca7a149e0d)
             check_type(argname="argument config_map", value=config_map, expected_type=type_hints["config_map"])
             check_type(argname="argument secret", value=secret, expected_type=type_hints["secret"])
         self._values: typing.Dict[builtins.str, typing.Any] = {}
@@ -2496,7 +2500,7 @@ class ProbeSpecOauth2TlsConfigCertConfigMap:
         :schema: ProbeSpecOauth2TlsConfigCertConfigMap
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__0bf145604647ba536a0b9fb2de88a38dc6edc7f9a5b0f218814bad74a25fedf7)
+            type_hints = cached_type_hints(_typecheckingstub__0bf145604647ba536a0b9fb2de88a38dc6edc7f9a5b0f218814bad74a25fedf7)
             check_type(argname="argument key", value=key, expected_type=type_hints["key"])
             check_type(argname="argument name", value=name, expected_type=type_hints["name"])
             check_type(argname="argument optional", value=optional, expected_type=type_hints["optional"])
@@ -2575,7 +2579,7 @@ class ProbeSpecOauth2TlsConfigCertSecret:
         :schema: ProbeSpecOauth2TlsConfigCertSecret
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__1b1ee302452088816f5aa0ff7b10ed5e5fb4982d155b44ac8bbf2bf6b86f4790)
+            type_hints = cached_type_hints(_typecheckingstub__1b1ee302452088816f5aa0ff7b10ed5e5fb4982d155b44ac8bbf2bf6b86f4790)
             check_type(argname="argument key", value=key, expected_type=type_hints["key"])
             check_type(argname="argument name", value=name, expected_type=type_hints["name"])
             check_type(argname="argument optional", value=optional, expected_type=type_hints["optional"])
@@ -2656,7 +2660,7 @@ class ProbeSpecOauth2TlsConfigKeySecret:
         :schema: ProbeSpecOauth2TlsConfigKeySecret
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__33dc52b7c1489b1ef2cb0651104939ff50b5f5fc1d5e6875fce37f06ffe66295)
+            type_hints = cached_type_hints(_typecheckingstub__33dc52b7c1489b1ef2cb0651104939ff50b5f5fc1d5e6875fce37f06ffe66295)
             check_type(argname="argument key", value=key, expected_type=type_hints["key"])
             check_type(argname="argument name", value=name, expected_type=type_hints["name"])
             check_type(argname="argument optional", value=optional, expected_type=type_hints["optional"])
@@ -2773,7 +2777,7 @@ class ProbeSpecParams:
         :schema: ProbeSpecParams
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__f83e6f1b9e7885581ddfaea5d163a9a2c94860c9d3f775f17b2f2191928513d2)
+            type_hints = cached_type_hints(_typecheckingstub__f83e6f1b9e7885581ddfaea5d163a9a2c94860c9d3f775f17b2f2191928513d2)
             check_type(argname="argument name", value=name, expected_type=type_hints["name"])
             check_type(argname="argument values", value=values, expected_type=type_hints["values"])
         self._values: typing.Dict[builtins.str, typing.Any] = {
@@ -2853,7 +2857,7 @@ class ProbeSpecProber:
         :schema: ProbeSpecProber
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__6684cb5ff968185a87d2fade885ee91d9329d7babe8bc8fbb69c24e63cd7cdb7)
+            type_hints = cached_type_hints(_typecheckingstub__6684cb5ff968185a87d2fade885ee91d9329d7babe8bc8fbb69c24e63cd7cdb7)
             check_type(argname="argument url", value=url, expected_type=type_hints["url"])
             check_type(argname="argument no_proxy", value=no_proxy, expected_type=type_hints["no_proxy"])
             check_type(argname="argument path", value=path, expected_type=type_hints["path"])
@@ -2994,7 +2998,7 @@ class ProbeSpecProberProxyConnectHeader:
         :schema: ProbeSpecProberProxyConnectHeader
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__735075c33de8beaf61a817a03a8a9ef456504a89e716a6b517da4fee912fe297)
+            type_hints = cached_type_hints(_typecheckingstub__735075c33de8beaf61a817a03a8a9ef456504a89e716a6b517da4fee912fe297)
             check_type(argname="argument key", value=key, expected_type=type_hints["key"])
             check_type(argname="argument name", value=name, expected_type=type_hints["name"])
             check_type(argname="argument optional", value=optional, expected_type=type_hints["optional"])
@@ -3117,7 +3121,7 @@ class ProbeSpecTargets:
         if isinstance(static_config, dict):
             static_config = ProbeSpecTargetsStaticConfig(**static_config)
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__cb3c2540b1ee2c4ddde6e123dcd197b358060a8869e20cd6c41672ed67f10a20)
+            type_hints = cached_type_hints(_typecheckingstub__cb3c2540b1ee2c4ddde6e123dcd197b358060a8869e20cd6c41672ed67f10a20)
             check_type(argname="argument ingress", value=ingress, expected_type=type_hints["ingress"])
             check_type(argname="argument static_config", value=static_config, expected_type=type_hints["static_config"])
         self._values: typing.Dict[builtins.str, typing.Any] = {}
@@ -3193,7 +3197,7 @@ class ProbeSpecTargetsIngress:
         if isinstance(selector, dict):
             selector = ProbeSpecTargetsIngressSelector(**selector)
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__557d9655fcc58a0dbbcd62cd19e97562f13c2ffcfe419b3f3753a95f63268155)
+            type_hints = cached_type_hints(_typecheckingstub__557d9655fcc58a0dbbcd62cd19e97562f13c2ffcfe419b3f3753a95f63268155)
             check_type(argname="argument namespace_selector", value=namespace_selector, expected_type=type_hints["namespace_selector"])
             check_type(argname="argument relabeling_configs", value=relabeling_configs, expected_type=type_hints["relabeling_configs"])
             check_type(argname="argument selector", value=selector, expected_type=type_hints["selector"])
@@ -3274,7 +3278,7 @@ class ProbeSpecTargetsIngressNamespaceSelector:
         :schema: ProbeSpecTargetsIngressNamespaceSelector
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__3ddf059c2fe1e2ea0fa1c287113225d84e1ecfb842e8fc2e3de29f020d957f78)
+            type_hints = cached_type_hints(_typecheckingstub__3ddf059c2fe1e2ea0fa1c287113225d84e1ecfb842e8fc2e3de29f020d957f78)
             check_type(argname="argument any", value=any, expected_type=type_hints["any"])
             check_type(argname="argument match_names", value=match_names, expected_type=type_hints["match_names"])
         self._values: typing.Dict[builtins.str, typing.Any] = {}
@@ -3353,7 +3357,7 @@ class ProbeSpecTargetsIngressRelabelingConfigs:
         :schema: ProbeSpecTargetsIngressRelabelingConfigs
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__21f0d194a6ff04c922b2184244c79375666e994ec4de830d31f9ee5e68d5db00)
+            type_hints = cached_type_hints(_typecheckingstub__21f0d194a6ff04c922b2184244c79375666e994ec4de830d31f9ee5e68d5db00)
             check_type(argname="argument action", value=action, expected_type=type_hints["action"])
             check_type(argname="argument modulus", value=modulus, expected_type=type_hints["modulus"])
             check_type(argname="argument regex", value=regex, expected_type=type_hints["regex"])
@@ -3533,7 +3537,7 @@ class ProbeSpecTargetsIngressSelector:
         :schema: ProbeSpecTargetsIngressSelector
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__824c697fb793291a8ee1f5e6cb70004a96f5cab540dcbeb2abe1a04aab187c6f)
+            type_hints = cached_type_hints(_typecheckingstub__824c697fb793291a8ee1f5e6cb70004a96f5cab540dcbeb2abe1a04aab187c6f)
             check_type(argname="argument match_expressions", value=match_expressions, expected_type=type_hints["match_expressions"])
             check_type(argname="argument match_labels", value=match_labels, expected_type=type_hints["match_labels"])
         self._values: typing.Dict[builtins.str, typing.Any] = {}
@@ -3604,7 +3608,7 @@ class ProbeSpecTargetsIngressSelectorMatchExpressions:
         :schema: ProbeSpecTargetsIngressSelectorMatchExpressions
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__6bb211c32fed803933077d30221ae3997f5165b0b35c45fe0722cab2c615f9d4)
+            type_hints = cached_type_hints(_typecheckingstub__6bb211c32fed803933077d30221ae3997f5165b0b35c45fe0722cab2c615f9d4)
             check_type(argname="argument key", value=key, expected_type=type_hints["key"])
             check_type(argname="argument operator", value=operator, expected_type=type_hints["operator"])
             check_type(argname="argument values", value=values, expected_type=type_hints["values"])
@@ -3692,7 +3696,7 @@ class ProbeSpecTargetsStaticConfig:
         :schema: ProbeSpecTargetsStaticConfig
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__7ed31334ed0d748aaae06f9b321f95e66bd6df365ed39735750b1c6292b6f1fe)
+            type_hints = cached_type_hints(_typecheckingstub__7ed31334ed0d748aaae06f9b321f95e66bd6df365ed39735750b1c6292b6f1fe)
             check_type(argname="argument labels", value=labels, expected_type=type_hints["labels"])
             check_type(argname="argument relabeling_configs", value=relabeling_configs, expected_type=type_hints["relabeling_configs"])
             check_type(argname="argument static", value=static, expected_type=type_hints["static"])
@@ -3787,7 +3791,7 @@ class ProbeSpecTargetsStaticConfigRelabelingConfigs:
         :schema: ProbeSpecTargetsStaticConfigRelabelingConfigs
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__b71e6ad529e679c40f358958cee351501b9475c2ba5b44d648f909f2740e2516)
+            type_hints = cached_type_hints(_typecheckingstub__b71e6ad529e679c40f358958cee351501b9475c2ba5b44d648f909f2740e2516)
             check_type(argname="argument action", value=action, expected_type=type_hints["action"])
             check_type(argname="argument modulus", value=modulus, expected_type=type_hints["modulus"])
             check_type(argname="argument regex", value=regex, expected_type=type_hints["regex"])
@@ -3988,7 +3992,7 @@ class ProbeSpecTlsConfig:
         if isinstance(key_secret, dict):
             key_secret = ProbeSpecTlsConfigKeySecret(**key_secret)
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__b3f2f76cc98058d94d33ea95f52e743a0d00dbc0d25d136aed644660451a3646)
+            type_hints = cached_type_hints(_typecheckingstub__b3f2f76cc98058d94d33ea95f52e743a0d00dbc0d25d136aed644660451a3646)
             check_type(argname="argument ca", value=ca, expected_type=type_hints["ca"])
             check_type(argname="argument cert", value=cert, expected_type=type_hints["cert"])
             check_type(argname="argument insecure_skip_verify", value=insecure_skip_verify, expected_type=type_hints["insecure_skip_verify"])
@@ -4115,7 +4119,7 @@ class ProbeSpecTlsConfigCa:
         if isinstance(secret, dict):
             secret = ProbeSpecTlsConfigCaSecret(**secret)
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__234e2a343852f0f4e904cccc3cb1dec930b5f8176909a6ddb7481010aa74bd0b)
+            type_hints = cached_type_hints(_typecheckingstub__234e2a343852f0f4e904cccc3cb1dec930b5f8176909a6ddb7481010aa74bd0b)
             check_type(argname="argument config_map", value=config_map, expected_type=type_hints["config_map"])
             check_type(argname="argument secret", value=secret, expected_type=type_hints["secret"])
         self._values: typing.Dict[builtins.str, typing.Any] = {}
@@ -4176,7 +4180,7 @@ class ProbeSpecTlsConfigCaConfigMap:
         :schema: ProbeSpecTlsConfigCaConfigMap
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__9341b8ca5893bbbc375ee845df167a5ef00337ea7ca1e6753f58bd413aa47e9c)
+            type_hints = cached_type_hints(_typecheckingstub__9341b8ca5893bbbc375ee845df167a5ef00337ea7ca1e6753f58bd413aa47e9c)
             check_type(argname="argument key", value=key, expected_type=type_hints["key"])
             check_type(argname="argument name", value=name, expected_type=type_hints["name"])
             check_type(argname="argument optional", value=optional, expected_type=type_hints["optional"])
@@ -4255,7 +4259,7 @@ class ProbeSpecTlsConfigCaSecret:
         :schema: ProbeSpecTlsConfigCaSecret
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__4b6e45532aef7bc005ec1829b394ed44b8f84c37256f4c22db7b4261e0003e39)
+            type_hints = cached_type_hints(_typecheckingstub__4b6e45532aef7bc005ec1829b394ed44b8f84c37256f4c22db7b4261e0003e39)
             check_type(argname="argument key", value=key, expected_type=type_hints["key"])
             check_type(argname="argument name", value=name, expected_type=type_hints["name"])
             check_type(argname="argument optional", value=optional, expected_type=type_hints["optional"])
@@ -4338,7 +4342,7 @@ class ProbeSpecTlsConfigCert:
         if isinstance(secret, dict):
             secret = ProbeSpecTlsConfigCertSecret(**secret)
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__4371ded8c915fa2c994afa358f8ac0bb1c0d7559e99e691e745d1460e43409f4)
+            type_hints = cached_type_hints(_typecheckingstub__4371ded8c915fa2c994afa358f8ac0bb1c0d7559e99e691e745d1460e43409f4)
             check_type(argname="argument config_map", value=config_map, expected_type=type_hints["config_map"])
             check_type(argname="argument secret", value=secret, expected_type=type_hints["secret"])
         self._values: typing.Dict[builtins.str, typing.Any] = {}
@@ -4399,7 +4403,7 @@ class ProbeSpecTlsConfigCertConfigMap:
         :schema: ProbeSpecTlsConfigCertConfigMap
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__8016cc953cc53b554483c2dddaacd44c835ba2b59aec482d7fed3d0a037180f7)
+            type_hints = cached_type_hints(_typecheckingstub__8016cc953cc53b554483c2dddaacd44c835ba2b59aec482d7fed3d0a037180f7)
             check_type(argname="argument key", value=key, expected_type=type_hints["key"])
             check_type(argname="argument name", value=name, expected_type=type_hints["name"])
             check_type(argname="argument optional", value=optional, expected_type=type_hints["optional"])
@@ -4478,7 +4482,7 @@ class ProbeSpecTlsConfigCertSecret:
         :schema: ProbeSpecTlsConfigCertSecret
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__ef95113d17449f9e1eb740a0ed90d035b659431c2389555e793e28c32dbf63f4)
+            type_hints = cached_type_hints(_typecheckingstub__ef95113d17449f9e1eb740a0ed90d035b659431c2389555e793e28c32dbf63f4)
             check_type(argname="argument key", value=key, expected_type=type_hints["key"])
             check_type(argname="argument name", value=name, expected_type=type_hints["name"])
             check_type(argname="argument optional", value=optional, expected_type=type_hints["optional"])
@@ -4559,7 +4563,7 @@ class ProbeSpecTlsConfigKeySecret:
         :schema: ProbeSpecTlsConfigKeySecret
         '''
         if __debug__:
-            type_hints = typing.get_type_hints(_typecheckingstub__adf8a4805fbee4c0395addcd1987dd45738bf0ed398a02a622b6de3ddb8bcaec)
+            type_hints = cached_type_hints(_typecheckingstub__adf8a4805fbee4c0395addcd1987dd45738bf0ed398a02a622b6de3ddb8bcaec)
             check_type(argname="argument key", value=key, expected_type=type_hints["key"])
             check_type(argname="argument name", value=name, expected_type=type_hints["name"])
             check_type(argname="argument optional", value=optional, expected_type=type_hints["optional"])
