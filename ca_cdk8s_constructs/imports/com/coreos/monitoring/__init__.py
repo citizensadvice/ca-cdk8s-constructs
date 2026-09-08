@@ -1736,7 +1736,7 @@ class ProbeSpecOauth2ClientIdConfigMap:
     ) -> None:
         '''configMap defines the ConfigMap containing data to use for the targets.
 
-        :param key: The key to select.
+        :param key: The key to select from the ConfigMap's Data field. Keys in the BinaryData field are not currently propagated to container env vars.
         :param name: Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
         :param optional: Specify whether the ConfigMap or its key must be defined.
 
@@ -1757,7 +1757,9 @@ class ProbeSpecOauth2ClientIdConfigMap:
 
     @builtins.property
     def key(self) -> builtins.str:
-        '''The key to select.
+        '''The key to select from the ConfigMap's Data field.
+
+        Keys in the BinaryData field are not currently propagated to container env vars.
 
         :schema: ProbeSpecOauth2ClientIdConfigMap#key
         '''
@@ -2270,7 +2272,7 @@ class ProbeSpecOauth2TlsConfigCaConfigMap:
     ) -> None:
         '''configMap defines the ConfigMap containing data to use for the targets.
 
-        :param key: The key to select.
+        :param key: The key to select from the ConfigMap's Data field. Keys in the BinaryData field are not currently propagated to container env vars.
         :param name: Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
         :param optional: Specify whether the ConfigMap or its key must be defined.
 
@@ -2291,7 +2293,9 @@ class ProbeSpecOauth2TlsConfigCaConfigMap:
 
     @builtins.property
     def key(self) -> builtins.str:
-        '''The key to select.
+        '''The key to select from the ConfigMap's Data field.
+
+        Keys in the BinaryData field are not currently propagated to container env vars.
 
         :schema: ProbeSpecOauth2TlsConfigCaConfigMap#key
         '''
@@ -2493,7 +2497,7 @@ class ProbeSpecOauth2TlsConfigCertConfigMap:
     ) -> None:
         '''configMap defines the ConfigMap containing data to use for the targets.
 
-        :param key: The key to select.
+        :param key: The key to select from the ConfigMap's Data field. Keys in the BinaryData field are not currently propagated to container env vars.
         :param name: Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
         :param optional: Specify whether the ConfigMap or its key must be defined.
 
@@ -2514,7 +2518,9 @@ class ProbeSpecOauth2TlsConfigCertConfigMap:
 
     @builtins.property
     def key(self) -> builtins.str:
-        '''The key to select.
+        '''The key to select from the ConfigMap's Data field.
+
+        Keys in the BinaryData field are not currently propagated to container env vars.
 
         :schema: ProbeSpecOauth2TlsConfigCertConfigMap#key
         '''
@@ -4173,7 +4179,7 @@ class ProbeSpecTlsConfigCaConfigMap:
     ) -> None:
         '''configMap defines the ConfigMap containing data to use for the targets.
 
-        :param key: The key to select.
+        :param key: The key to select from the ConfigMap's Data field. Keys in the BinaryData field are not currently propagated to container env vars.
         :param name: Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
         :param optional: Specify whether the ConfigMap or its key must be defined.
 
@@ -4194,7 +4200,9 @@ class ProbeSpecTlsConfigCaConfigMap:
 
     @builtins.property
     def key(self) -> builtins.str:
-        '''The key to select.
+        '''The key to select from the ConfigMap's Data field.
+
+        Keys in the BinaryData field are not currently propagated to container env vars.
 
         :schema: ProbeSpecTlsConfigCaConfigMap#key
         '''
@@ -4396,7 +4404,7 @@ class ProbeSpecTlsConfigCertConfigMap:
     ) -> None:
         '''configMap defines the ConfigMap containing data to use for the targets.
 
-        :param key: The key to select.
+        :param key: The key to select from the ConfigMap's Data field. Keys in the BinaryData field are not currently propagated to container env vars.
         :param name: Name of the referent. This field is effectively required, but due to backwards compatibility is allowed to be empty. Instances of this type with an empty value here are almost certainly wrong. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names
         :param optional: Specify whether the ConfigMap or its key must be defined.
 
@@ -4417,7 +4425,9 @@ class ProbeSpecTlsConfigCertConfigMap:
 
     @builtins.property
     def key(self) -> builtins.str:
-        '''The key to select.
+        '''The key to select from the ConfigMap's Data field.
+
+        Keys in the BinaryData field are not currently propagated to container env vars.
 
         :schema: ProbeSpecTlsConfigCertConfigMap#key
         '''
