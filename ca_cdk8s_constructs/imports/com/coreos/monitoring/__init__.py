@@ -103,6 +103,7 @@ class Probe(
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="GVK")
+    @builtins.classmethod
     def GVK(cls) -> "_cdk8s_d3d9af27.GroupVersionKind":
         '''Returns the apiVersion and kind for "Probe".'''
         return typing.cast("_cdk8s_d3d9af27.GroupVersionKind", jsii.sget(cls, "GVK"))
@@ -187,6 +188,7 @@ class ProbeProps:
         "bearer_token_secret": "bearerTokenSecret",
         "convert_classic_histograms_to_nhcb": "convertClassicHistogramsToNhcb",
         "enable_http2": "enableHttp2",
+        "extra_scrape_metrics": "extraScrapeMetrics",
         "fallback_scrape_protocol": "fallbackScrapeProtocol",
         "follow_redirects": "followRedirects",
         "interval": "interval",
@@ -222,6 +224,7 @@ class ProbeSpec:
         bearer_token_secret: typing.Optional[typing.Union["ProbeSpecBearerTokenSecret", typing.Dict[builtins.str, typing.Any]]] = None,
         convert_classic_histograms_to_nhcb: typing.Optional[builtins.bool] = None,
         enable_http2: typing.Optional[builtins.bool] = None,
+        extra_scrape_metrics: typing.Optional[builtins.bool] = None,
         fallback_scrape_protocol: typing.Optional["ProbeSpecFallbackScrapeProtocol"] = None,
         follow_redirects: typing.Optional[builtins.bool] = None,
         interval: typing.Optional[builtins.str] = None,
@@ -254,6 +257,7 @@ class ProbeSpec:
         :param bearer_token_secret: bearerTokenSecret defines a key of a Secret containing the bearer token used by the client for authentication. The secret needs to be in the same namespace as the custom resource and readable by the Prometheus Operator. Cannot be set at the same time as ``authorization``, ``basicAuth`` or ``oauth2``. Deprecated: use ``authorization`` instead.
         :param convert_classic_histograms_to_nhcb: convertClassicHistogramsToNHCB defines whether to convert all scraped classic histograms into a native histogram with custom buckets. It requires Prometheus >= v3.0.0.
         :param enable_http2: enableHttp2 can be used to disable HTTP2.
+        :param extra_scrape_metrics: extraScrapeMetrics defines whether to store additional time series for each scrape: ``scrape_timeout_seconds``, ``scrape_sample_limit`` and ``scrape_body_size_bytes``. These metrics help monitor how close targets are to their configured limits. It requires Prometheus >= v3.10.0.
         :param fallback_scrape_protocol: fallbackScrapeProtocol defines the protocol to use if a scrape returns blank, unparseable, or otherwise invalid Content-Type. It requires Prometheus >= v3.0.0.
         :param follow_redirects: followRedirects defines whether the client should follow HTTP 3xx redirects.
         :param interval: interval at which targets are probed using the configured prober. If not specified Prometheus' global scrape interval is used.
@@ -302,6 +306,7 @@ class ProbeSpec:
             check_type(argname="argument bearer_token_secret", value=bearer_token_secret, expected_type=type_hints["bearer_token_secret"])
             check_type(argname="argument convert_classic_histograms_to_nhcb", value=convert_classic_histograms_to_nhcb, expected_type=type_hints["convert_classic_histograms_to_nhcb"])
             check_type(argname="argument enable_http2", value=enable_http2, expected_type=type_hints["enable_http2"])
+            check_type(argname="argument extra_scrape_metrics", value=extra_scrape_metrics, expected_type=type_hints["extra_scrape_metrics"])
             check_type(argname="argument fallback_scrape_protocol", value=fallback_scrape_protocol, expected_type=type_hints["fallback_scrape_protocol"])
             check_type(argname="argument follow_redirects", value=follow_redirects, expected_type=type_hints["follow_redirects"])
             check_type(argname="argument interval", value=interval, expected_type=type_hints["interval"])
@@ -337,6 +342,8 @@ class ProbeSpec:
             self._values["convert_classic_histograms_to_nhcb"] = convert_classic_histograms_to_nhcb
         if enable_http2 is not None:
             self._values["enable_http2"] = enable_http2
+        if extra_scrape_metrics is not None:
+            self._values["extra_scrape_metrics"] = extra_scrape_metrics
         if fallback_scrape_protocol is not None:
             self._values["fallback_scrape_protocol"] = fallback_scrape_protocol
         if follow_redirects is not None:
@@ -443,6 +450,19 @@ class ProbeSpec:
         :schema: ProbeSpec#enableHttp2
         '''
         result = self._values.get("enable_http2")
+        return typing.cast(typing.Optional[builtins.bool], result)
+
+    @builtins.property
+    def extra_scrape_metrics(self) -> typing.Optional[builtins.bool]:
+        '''extraScrapeMetrics defines whether to store additional time series for each scrape: ``scrape_timeout_seconds``, ``scrape_sample_limit`` and ``scrape_body_size_bytes``.
+
+        These metrics help monitor how close targets are to their configured limits.
+
+        It requires Prometheus >= v3.10.0.
+
+        :schema: ProbeSpec#extraScrapeMetrics
+        '''
+        result = self._values.get("extra_scrape_metrics")
         return typing.cast(typing.Optional[builtins.bool], result)
 
     @builtins.property
@@ -4754,6 +4774,7 @@ def _typecheckingstub__4da9453333edbc627c631d6c0043f58d9dc9b96a470aabc5bda67f045
     bearer_token_secret: typing.Optional[typing.Union[ProbeSpecBearerTokenSecret, typing.Dict[builtins.str, typing.Any]]] = None,
     convert_classic_histograms_to_nhcb: typing.Optional[builtins.bool] = None,
     enable_http2: typing.Optional[builtins.bool] = None,
+    extra_scrape_metrics: typing.Optional[builtins.bool] = None,
     fallback_scrape_protocol: typing.Optional[ProbeSpecFallbackScrapeProtocol] = None,
     follow_redirects: typing.Optional[builtins.bool] = None,
     interval: typing.Optional[builtins.str] = None,
