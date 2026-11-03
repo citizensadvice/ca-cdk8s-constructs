@@ -69,7 +69,7 @@ wheels = [
 
 [[package]]
 name = "ca-cdk8s-constructs"
-version = "5.1.2"
+version = "5.2.1"
 source = { editable = "." }
 dependencies = [
     { name = "aws-cdk-lib" },
