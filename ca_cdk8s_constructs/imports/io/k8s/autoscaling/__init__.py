@@ -97,6 +97,7 @@ class VerticalPodAutoscaler(
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="GVK")
+    @builtins.classmethod
     def GVK(cls) -> "_cdk8s_d3d9af27.GroupVersionKind":
         '''Returns the apiVersion and kind for "VerticalPodAutoscaler".'''
         return typing.cast("_cdk8s_d3d9af27.GroupVersionKind", jsii.sget(cls, "GVK"))
@@ -161,6 +162,7 @@ class VerticalPodAutoscalerCheckpoint(
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="GVK")
+    @builtins.classmethod
     def GVK(cls) -> "_cdk8s_d3d9af27.GroupVersionKind":
         '''Returns the apiVersion and kind for "VerticalPodAutoscalerCheckpoint".'''
         return typing.cast("_cdk8s_d3d9af27.GroupVersionKind", jsii.sget(cls, "GVK"))
@@ -357,6 +359,7 @@ class VerticalPodAutoscalerCheckpointV1Beta2(
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="GVK")
+    @builtins.classmethod
     def GVK(cls) -> "_cdk8s_d3d9af27.GroupVersionKind":
         '''Returns the apiVersion and kind for "VerticalPodAutoscalerCheckpointV1Beta2".'''
         return typing.cast("_cdk8s_d3d9af27.GroupVersionKind", jsii.sget(cls, "GVK"))
@@ -2030,6 +2033,7 @@ class VerticalPodAutoscalerV1Beta2(
 
     @jsii.python.classproperty
     @jsii.member(jsii_name="GVK")
+    @builtins.classmethod
     def GVK(cls) -> "_cdk8s_d3d9af27.GroupVersionKind":
         '''Returns the apiVersion and kind for "VerticalPodAutoscalerV1Beta2".'''
         return typing.cast("_cdk8s_d3d9af27.GroupVersionKind", jsii.sget(cls, "GVK"))
